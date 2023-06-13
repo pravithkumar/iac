@@ -1,6 +1,6 @@
-variable "resourcegroupname"{
+variable "name"{
     type = string
 }
-variable "resourcegroupname"{
+variable "location"{
     type = string
 }
