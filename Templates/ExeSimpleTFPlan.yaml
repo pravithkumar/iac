@@ -1,0 +1,44 @@
+parameters:
+  - name: serviceConnection
+    type: string
+  - name: backendServiceConnection
+    type: string
+
+steps:
+
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+  displayName: 'Use Terraform latest' 
+
+
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform init'
+  inputs:
+    command: init
+    workingDirectory: '$(workDir)'
+    backendType: azurerm
+    backendServiceArm: ${{ parameters.backendServiceConnection }}
+    backendAzureRmResourceGroupName: $(RGName)
+    backendAzureRmStorageAccountName: $(storageName)
+    backendAzureRmContainerName: $(containerName)
+    backendAzureRmKey: $(stateFileName)
+
+
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform plan'
+  inputs:
+    command: plan
+    workingDirectory: '$(workDir)'
+    environmentServiceName: ${{ parameters.serviceConnection }}
+    commandOptions: '-var-file="$(parPath)" -out="$(System.DefaultWorkingDirectory)/plan.tfplan" -detailed-exitcode'
+    publishPlanResults: 'plan.tfplan'
+    backendType: azurerm
+    backendServiceArm: ${{ parameters.backendServiceConnection }}
+    backendAzureRmResourceGroupName: $(RGName)
+    backendAzureRmStorageAccountName: $(storageName)
+    backendAzureRmContainerName: $(containerName)
+    backendAzureRmKey: $(stateFileName)
+
+
+- publish: $(System.DefaultWorkingDirectory)\plan.tfplan
+  displayName: Publish Terraform Plan
+  artifact: '$(Build.BuildId)-tfplan'
