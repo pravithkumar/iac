@@ -3,11 +3,9 @@ provider "azurerm" {
   features {}
 }
 
-module "dns_Arecord" {
-  source                 = "../Modules/Compute/Arecord"
+module "azurerm_resource_group" {
+  source                 = "../Modules/resourcegroup"
    name                = var.name
-  zone_name           = var.zone_name
-  resource_group_name = var.resource_group_name 
-  record_ip            = var.record_ip
+  location             = var.location
   
 }
