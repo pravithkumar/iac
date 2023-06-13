@@ -7,13 +7,13 @@ pool:
 
 stages:
 - stage: dev
-  displayName: Arecord
+  displayName: Resourcegroup
   dependsOn: []
   variables:
   - group: vg_backend_storage
-  - group: vg_Arecord
+  - group: vg_Resourcegroup
   - name: stateFileName
-    value: Arecord.tfstate 
+    value: Resourcegroup.tfstate 
 
   jobs:
   - job: Terraform_Plan
