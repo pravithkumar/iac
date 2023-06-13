@@ -21,8 +21,8 @@ stages:
     steps:
     - template: ..\..\Templates\ExeSimpleTFPlan.yaml
       parameters:
-        serviceConnection: 'test-sla'
-        backendServiceConnection: 'test-sla'
+        serviceConnection: 'SC_CCS_400847_Priya_MSDN'
+        backendServiceConnection: 'SC_CCS_400847_Priya_MSDN'
 
   - job: WaitForValidation
     dependsOn: Terraform_Plan
@@ -44,7 +44,7 @@ stages:
     steps:
     - template: ..\..\Templates\ExeSimpleTFApply.yaml
       parameters:
-        serviceConnection: 'test-sla'
-        backendServiceConnection: 'test-sla'
+        serviceConnection: 'SC_CCS_400847_Priya_MSDN'
+        backendServiceConnection: 'SC_CCS_400847_Priya_MSDN'
 
 
