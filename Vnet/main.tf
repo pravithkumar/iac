@@ -5,9 +5,9 @@ provider "azurerm" {
 
 module "Vnet" {
   source                 = "../Modules/Compute/Vnet"
-   name                = var.name
-  zone_name           = var.zone_name
-  resource_group_name = var.resource_group_name 
-  record_ip            = var.record_ip
-  
+  name                = var.name
+  address_space       = ["10.0.0.0/16"]
+  location            = var.location
+  resource_group_name = var.resource_group_name
 }
+  
