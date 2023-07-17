@@ -11,8 +11,7 @@ data "azurerm_storage_account" "sa" {
 resource "azurerm_storage_account_network_rules" "rules" {
   storage_account_id = data.azurerm_storage_account.sa.id
 
-  default_action             = var.defalutaction
-  ip_rules                   = ["127.0.0.1"]
+  default_action             = var.defalutaction  
   virtual_network_subnet_ids = var.subnetid
-  bypass                     = ["Metrics"]
+ 
 }
