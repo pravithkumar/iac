@@ -10,6 +10,10 @@ variable "defalutaction" {
   type = string
 }
 
-variable "subnetid" {
-  type = list(string)
+//variable "subnetid" {
+  //type = list(string)
+//}
+
+variable "rglist" {
+  type = list(any)
 }
