@@ -13,7 +13,7 @@ stages:
   - group: vg_backend_storage
   - group: vg_storageNetworkPolicy
   - name: stateFileName
-    value: storageNetworkPolicy.tfstate 
+    value: storageNetworkPolicy1.tfstate 
 
   jobs:
   - job: Terraform_Plan
