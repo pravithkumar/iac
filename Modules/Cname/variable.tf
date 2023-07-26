@@ -1,12 +1,15 @@
 variable "name"{
     type = string
 }
-variable "address_space"{
+variable "record"{
     type = string
 
-variable "location"{
+variable "zone_name"{
     type = string
 
 variable "resource_group_name"{
+    type = string
+}
+variable "ttl"{
     type = string
 }
