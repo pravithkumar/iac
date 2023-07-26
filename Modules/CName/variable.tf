@@ -3,7 +3,7 @@ variable "name"{
 }
 variable "record"{
     type = string
-
+}
 variable "zone_name"{
     type = string
 }
