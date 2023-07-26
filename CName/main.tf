@@ -1,12 +1,13 @@
 # Configure the Microsoft Azure Provider
-provider "cname_records" {
+provider "azurerm" {
   features {}
 }
 
-module "Vnet" {
+module "cname_records" {
   source                 = "../Modules/CName"
   name                = var.name
-  address_space       = ["192.168.2.16/28"]
-  location            = var.location
+  record              = var.record
   resource_group_name = var.resource_group_name
+  zone_name           = var.zone_name  
+  ttl                 = var.ttl
 }
