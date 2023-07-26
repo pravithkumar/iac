@@ -5,3 +5,4 @@ resource "azurerm_private_dns_cname_record" "cname_records" {
   zone_name           = azurerm_private_dns_zone.example.name
   tags                = var.tags
   ttl                 = var.ttl
+  }
