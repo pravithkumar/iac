@@ -5,7 +5,7 @@ data "azurerm_resource_group" "VntRG" {
   name = var.Vnet_resource_group_name
 }
 data "azurerm_user_assigned_identity" "aksumi" {
-  name                = "sla-inv-dev-04-aks-01"
+  name                = "umi-pega-uat-001"
   resource_group_name = data.azurerm_resource_group.AksRG.name 
 }
 
