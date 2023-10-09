@@ -18,7 +18,7 @@ resource "azurerm_kubernetes_cluster" "default" {
   private_cluster_enabled = true
   private_dns_zone_id = var.private_dns_zone_id    
   public_network_access_enabled = false
-  kubernetes_version = "1.23.5"
+  kubernetes_version = "1.27"
 
   default_node_pool {
     name            = var.nodepoolname
