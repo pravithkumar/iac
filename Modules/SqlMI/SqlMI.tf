@@ -20,7 +20,7 @@ resource "azurerm_sql_managed_instance" "example" {
   administrator_login          = "mradministrator"
   administrator_login_password = "thisIsDog11"
   license_type                 = "BasePrice"
-  subnet_id                    = azurerm_subnet.example.id
+  subnet_id                    = data.azurerm_subnet.example.id
   sku_name                     = "GP_Gen5"
   vcores                       = 4
   storage_size_in_gb           = 32
