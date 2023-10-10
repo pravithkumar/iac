@@ -30,7 +30,5 @@ resource "azurerm_mssql_managed_database" "example" {
   sql_managed_instance_id = azurerm_mssql_managed_instance.example.id
   name                    = "exampledatabase"
   location                = data.azurerm_resource_group.example.location
-  depends_on = [
-    azurerm_mssql_managed_instance.example.name
- ]
+
 }
