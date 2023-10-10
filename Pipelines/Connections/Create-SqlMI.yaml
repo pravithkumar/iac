@@ -1,0 +1,50 @@
+trigger:
+- none
+ 
+pool:
+  name: Azure Pipelines
+  vmImage: 'windows-latest'
+
+stages:
+- stage: dev
+  displayName: SqlMI
+  dependsOn: []
+  variables:
+  - group: vg_backend_storage
+  - group: vg_SqlMI
+  - name: stateFileName
+    value: SqlMI.tfstate 
+
+  jobs:
+  - job: Terraform_Plan
+    displayName: Build the Plan
+    steps:
+    - template: ..\..\Templates\ExeSimpleTFPlan.yaml
+      parameters:
+        serviceConnection: 'SC_CCS_400847_Priya_MSDN'
+        backendServiceConnection: 'SC_CCS_400847_Priya_MSDN'
+
+  - job: WaitForValidation
+    dependsOn: Terraform_Plan
+    displayName: Wait for Plan Validation
+    pool: server
+    timeoutInMinutes: 4320 
+    steps:
+    - task: ManualValidation@0
+      timeoutInMinutes: 1440 
+      inputs:
+        notifyUsers: |
+          pravith.yedla@cognizant.com
+        instructions: 'Please validate the plan and Resume to continue'
+        onTimeout: 'reject'
+
+  - job: Terraform_Apply
+    dependsOn: WaitForValidation
+    displayName: Build Resources As per Plan
+    steps:
+    - template: ..\..\Templates\ExeSimpleTFApply.yaml
+      parameters:
+        serviceConnection: 'SC_CCS_400847_Priya_MSDN'
+        backendServiceConnection: 'SC_CCS_400847_Priya_MSDN'
+
+
