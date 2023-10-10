@@ -18,7 +18,7 @@ resource "azurerm_mssql_managed_instance" "example" {
   resource_group_name          = data.azurerm_resource_group.example.name
   location                     = data.azurerm_resource_group.example.location
   administrator_login          = "mradministrator"
-  administrator_login_password = "thisIsDog11"
+  administrator_login_password = "Password@123456"
   license_type                 = "BasePrice"
   subnet_id                    = data.azurerm_subnet.example.id
   sku_name                     = "GP_Gen5"
