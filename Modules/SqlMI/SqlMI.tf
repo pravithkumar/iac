@@ -9,14 +9,14 @@ data "azurerm_virtual_network" "example" {
 
 data "azurerm_subnet" "example" {
   name                 = "subnet-pega-mi-001"
-  resource_group_name  = azurerm_virtual_network.example.resource_group_name
-  virtual_network_name = azurerm_virtual_network.example.name  
+  resource_group_name  = data.azurerm_virtual_network.example.resource_group_name
+  virtual_network_name = data.azurerm_virtual_network.example.name  
 }
 
 resource "azurerm_sql_managed_instance" "example" {
   name                         = "example"
-  resource_group_name          = azurerm_resource_group.example.name
-  location                     = azurerm_resource_group.example.location
+  resource_group_name          = data.azurerm_resource_group.example.name
+  location                     = data.azurerm_resource_group.example.location
   administrator_login          = "mradministrator"
   administrator_login_password = "thisIsDog11"
   license_type                 = "BasePrice"
