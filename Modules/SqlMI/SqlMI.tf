@@ -14,7 +14,7 @@ data "azurerm_subnet" "example" {
 }
 
 resource "azurerm_mssql_managed_instance" "example" {
-  name                         = "example"
+  name                         = "sqlmi-pega-uat-eu-001"
   resource_group_name          = data.azurerm_resource_group.example.name
   location                     = data.azurerm_resource_group.example.location
   administrator_login          = "mradministrator"
@@ -28,6 +28,6 @@ resource "azurerm_mssql_managed_instance" "example" {
 
 resource "azurerm_mssql_managed_database" "example" {
   managed_instance_id = azurerm_mssql_managed_instance.example.id
-  name                    = "exampledatabase"
+  name                    = "sqldb-pega-uat-eu-001"
   
 }
