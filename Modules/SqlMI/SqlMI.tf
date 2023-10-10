@@ -13,7 +13,7 @@ data "azurerm_subnet" "example" {
   virtual_network_name = data.azurerm_virtual_network.example.name  
 }
 
-resource "azurerm_sql_managed_instance" "example" {
+resource "azurerm_mssql_managed_instance" "example" {
   name                         = "example"
   resource_group_name          = data.azurerm_resource_group.example.name
   location                     = data.azurerm_resource_group.example.location
