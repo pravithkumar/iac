@@ -23,7 +23,7 @@ resource "random_password" "password" {
 }
 
 resource "azurerm_mssql_managed_instance" "example" {
-  name                         = "sqlmi-pega-uat-eu-001"
+  name                         = "sqlmi-pega-uat-eu-002"
   resource_group_name          = data.azurerm_resource_group.example.name
   location                     = data.azurerm_resource_group.example.location
   administrator_login          = "mradministrator"
