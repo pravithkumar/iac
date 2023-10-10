@@ -29,5 +29,5 @@ resource "azurerm_sql_managed_instance" "example" {
 resource "azurerm_sql_managed_database" "example" {
   sql_managed_instance_id = azurerm_sql_managed_instance.example.id
   name                    = "exampledatabase"
-  location                = azurerm_resource_group.example.location
+  location                = data.azurerm_resource_group.example.location
 }
