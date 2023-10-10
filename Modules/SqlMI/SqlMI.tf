@@ -3,12 +3,12 @@ data "azurerm_resource_group" "example" {
 }
 
 data "azurerm_virtual_network" "example" {
-  name                = "test-network" 
+  name                = "vnet-pega-uat-eu-001" 
   resource_group_name = var.vnet_resource_group_name
 }
 
 data "azurerm_subnet" "example" {
-  name                 = "acctsub"
+  name                 = "subnet-pega-mi-001"
   resource_group_name  = azurerm_virtual_network.example.resource_group_name
   virtual_network_name = azurerm_virtual_network.example.name  
 }
