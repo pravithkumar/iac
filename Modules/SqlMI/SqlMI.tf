@@ -177,7 +177,7 @@ resource "azurerm_mssql_managed_instance" "example" {
   vcores             = 4
 
   administrator_login          = "mradministrator"
-  administrator_login_password = "thisIsDog11"
+  administrator_login_password = random_password.password.result
 
   depends_on = [
     azurerm_subnet_network_security_group_association.example,
