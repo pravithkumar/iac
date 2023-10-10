@@ -7,13 +7,13 @@ pool:
 
 stages:
 - stage: dev
-  displayName: SqlMI
+  displayName: SqlMI1
   dependsOn: []
   variables:
   - group: vg_backend_storage
-  - group: vg_SqlMI
+  - group: vg_SqlMI1
   - name: stateFileName
-    value: SqlMI.tfstate 
+    value: SqlMI1.tfstate 
 
   jobs:
   - job: Terraform_Plan
