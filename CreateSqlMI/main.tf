@@ -16,5 +16,6 @@ module "SqlMI" {
   sku_name                      =var.sku_name
   vcores                        =var.vcores
   storage_size_in_gb            =var.storage_size_in_gb
+  dbname                        =var.dbname
 
 }
