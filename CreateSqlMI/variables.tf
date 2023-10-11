@@ -37,7 +37,7 @@ variable "sku_name" {
 variable "vcores" {
   type = string
 }
-variable "storage_size_in_gb " {
+variable "storage_size_in_gb" {
   type = string
 }
 
