@@ -7,13 +7,13 @@ pool:
 
 stages:
 - stage: dev
-  displayName: aks
+  displayName: aks1
   dependsOn: []
   variables:
   - group: vg_backend_storage
-  - group: vg_aks
+  - group: vg_aks1
   - name: stateFileName
-    value: aks.tfstate 
+    value: aks1.tfstate 
 
   jobs:
   - job: Terraform_Plan
