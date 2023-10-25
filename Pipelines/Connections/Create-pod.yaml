@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx
-  namespace: ${{NameSpace}}
+  namespace: akv2k8s-test
 spec:
   replicas: 3
   selector:
