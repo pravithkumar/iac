@@ -11,6 +11,6 @@ steps:
     kubernetesServiceConnection: 'AKS'
     namespace: 'aks-pod'
     manifests: |
-      $(System.DefaultWorkingDirectory)/DemoApp/deployment.yaml
+      $(System.DefaultWorkingDirectory)/DemoApp/*.yaml
       namespaceOverride: 'aks-pod'
       
