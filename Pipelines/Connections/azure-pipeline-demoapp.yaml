@@ -8,7 +8,7 @@ steps:
 - task: KubernetesManifest@0
   inputs:
     action: 'deploy'
-    kubernetesServiceConnection: '<your-kubernetes-service-connection>'
+    kubernetesServiceConnection: 'SC_Business Innovation Platform - 1000106902'
     namespace: '<your-kubernetes-namespace>'
     manifests: |
       $(System.DefaultWorkingDirectory)/application/deployment.yaml
