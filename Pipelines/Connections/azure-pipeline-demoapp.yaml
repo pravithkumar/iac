@@ -9,6 +9,7 @@ steps:
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: 'SC_Business Innovation Platform - 1000106902'
-    namespace: '<your-kubernetes-namespace>'
+    namespace: 'demo-ns'
     manifests: |
-      $(System.DefaultWorkingDirectory)/application/deployment.yaml
+      $(System.DefaultWorkingDirectory)/DemoApp/deployment.yaml
+      
