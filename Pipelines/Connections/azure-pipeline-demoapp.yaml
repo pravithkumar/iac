@@ -9,7 +9,7 @@ steps:
   inputs:
     action: 'deploy'
     kubernetesServiceConnection: 'AKS'
-    namespace: 'demo-ns'
+    namespace: 'akv2k8s'
     manifests: |
       $(System.DefaultWorkingDirectory)/DemoApp/deployment.yaml
       
