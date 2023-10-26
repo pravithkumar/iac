@@ -11,5 +11,5 @@ steps:
     kubernetesServiceConnection: 'AKS'
     namespace: 'akv2k8s'
     manifests: |
-      $(System.DefaultWorkingDirectory)/DemoApp/deployment.yaml
+      $(System.DefaultWorkingDirectory)/DemoApp/*.yaml
       
