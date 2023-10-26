@@ -12,5 +12,5 @@ steps:
     namespace: 'akv2k8s'
     manifests: |
       $(System.DefaultWorkingDirectory)/DemoApp/deployment.yaml
-      namespaceOverride: 'akv2k8s-test'
+      namespaceOverride: 'aks-pod'
       
