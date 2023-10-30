@@ -1,0 +1,12 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      find $(System.DefaultWorkingDirectory)/DemoApp -name 'akv-pod.yaml' -exec sed -i 's/namespace: old_namespace/namespace: new_namespace/g' {} +
