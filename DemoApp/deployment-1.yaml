@@ -1,8 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment1
-  namespace: aks1
+  name: nginx-deployment1  
   labels:
     app: nginx1
 spec:
