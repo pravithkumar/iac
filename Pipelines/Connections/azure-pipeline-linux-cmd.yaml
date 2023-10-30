@@ -10,3 +10,4 @@ steps:
     targetType: 'inline'
     script: |
       find $(System.DefaultWorkingDirectory)/DemoApp -name 'deployment.yaml' -exec sed -i 's/namespace: old_namespace/namespace: new_namespace/g' {} +
+      echo "Files updated successfully"
