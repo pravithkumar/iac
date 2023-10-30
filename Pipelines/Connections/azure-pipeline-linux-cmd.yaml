@@ -9,4 +9,4 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      find $(System.DefaultWorkingDirectory)/DemoApp -name 'akv-pod.yaml' -exec sed -i 's/namespace: old_namespace/namespace: new_namespace/g' {} +
+      find $(System.DefaultWorkingDirectory)/DemoApp -name 'deployment.yaml' -exec sed -i 's/namespace: old_namespace/namespace: new_namespace/g' {} +
