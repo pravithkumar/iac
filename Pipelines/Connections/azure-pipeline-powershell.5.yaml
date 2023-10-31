@@ -1,0 +1,17 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'SC_CCS_400847_Priya_MSDN'
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      import-csv "c:/file.csv" | foreach {
+      $secret = convertto-securestring -string $_.Secret -asplaintext -force
+      set-azkeyvaultsecret -vaultname $keyvault -name $_.Name -secretvalue $secret
+}
