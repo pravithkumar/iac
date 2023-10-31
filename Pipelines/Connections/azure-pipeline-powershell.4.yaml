@@ -1,7 +1,7 @@
 jobs:
 - job: UploadFiles
   pool:
-    vmImage: 'ubuntu-latest'
+    vmImage: 'windows-latest'
   steps:
   - task: AzureFileCopy@4
     inputs:
