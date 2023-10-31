@@ -14,4 +14,3 @@ steps:
       import-csv "c:/file.csv" | foreach {
       $secret = convertto-securestring -string $_.Secret -asplaintext -force
       set-azkeyvaultsecret -vaultname $keyvault -name $_.Name -secretvalue $secret
-}
