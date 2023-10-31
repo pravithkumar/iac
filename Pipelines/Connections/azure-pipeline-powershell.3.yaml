@@ -29,7 +29,7 @@ steps:
         })
 
       git init
-      git remote add origin "$url/$repo/_git/$repo"
+      git remote add origin "$url/_git/$repo"
       git config --global user.email "you@example.com"
       git config --global user.name "Your Name"
       git add .
