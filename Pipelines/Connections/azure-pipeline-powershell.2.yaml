@@ -11,12 +11,15 @@ steps:
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      $folderPath = $(System.DefaultWorkingDirectory)/DemoApp/*.yaml
-     $replaceWord = "2022"
-      $newWord = "newWord"
-           # Replace word in all files of folder
-      Get-ChildItem -Path $folderPath -Recurse -File | ForEach-Object {
-        (Get-Content $_.FullName).Replace($replaceWord, $newWord) | Set-Content $_.FullName
-      }
+     
+    $filePath = $(System.DefaultWorkingDirectory)/DemoApp/*.yaml
+# Get the files from the folder and iterate using Foreach
+
+Get-ChildItem $filePath -Recurse | ForEach-Object {
+
+# Read the file and use replace()
+(Get-Content $_).Replace('azure-vote-back','2022') | Set-Content $_
+
+}
 
      
