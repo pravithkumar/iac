@@ -24,7 +24,7 @@ steps:
 az devops login --organization https://dev.azure.com/PravithYedla --PAT yhfp7e52xg2cmronewqrgra5pha4gp64fs2ptygboisb3qikwh7q  # Replace with your organization URL and PAT
  
     # Navigate to your local directory containing the files
-    cd $(System.DefaultWorkingDirectory)/YourLocalDirectory  # Replace with the path to your local directory
+    cd $(System.DefaultWorkingDirectory)c:/temp  # Replace with the path to your local directory
     
     # Initialize a Git repository (if not already initialized)
     git init
