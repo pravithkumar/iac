@@ -7,7 +7,7 @@ pool:
 steps:
 - task: AzureCLI@2
   inputs:
-    azureSubscription: 'CCS_400847_Priya_MSDN'
+    azureSubscription: 'SC_CCS_400847_Priya_MSDN'
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: |
