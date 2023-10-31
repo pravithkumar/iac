@@ -1,0 +1,22 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'SC_CCS_400847_Priya_MSDN'
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      $folderPath = $(System.DefaultWorkingDirectory)/DemoApp/*.yaml
+     $replaceWord = "2022"
+      $newWord = "newWord"
+           # Replace word in all files of folder
+      Get-ChildItem -Path $folderPath -Recurse -File | ForEach-Object {
+        (Get-Content $_.FullName).Replace($replaceWord, $newWord) | Set-Content $_.FullName
+      }
+
+     
