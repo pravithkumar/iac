@@ -10,7 +10,7 @@ steps:
     targetType: 'inline'
     script: |
       $pat = "yhfp7e52xg2cmronewqrgra5pha4gp64fs2ptygboisb3qikwh7q"
-      $url = "https://dev.azure.com/PravithYedla/_git/PravithYedla?"
+      $url = "https://dev.azure.com/PravithYedla/_git/PravithYedla"
       $repo = "DemoApp"
       $folderPath = "C:\temp"
       $replaceWord = "azure-vote-back"
@@ -29,11 +29,10 @@ steps:
         })
 
       git init
-      git remote add origin "$url/_git/$repo"
+      git remote add origin "$url/$repo"
       git config --global user.email "you@example.com"
-      git config --global user.name "Your Name"
+      git config --global user.name "Pravith Yedla"
       git add .
       git commit -m "Initial commit"
       git push -u origin main     
       
-
