@@ -11,7 +11,7 @@ steps:
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      $folderPath = "C:\temp\*.yaml"
+      $folderPath = "C:\temp\"
       $repoUrl = "https://dev.azure.com/PravithYedla/_git/PravithYedla/DemoApp"
       $branchName = "main"
       $replaceWord = "2022"
