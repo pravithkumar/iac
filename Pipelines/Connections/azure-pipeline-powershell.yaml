@@ -1,0 +1,26 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'CCS_400847_Priya_MSDN'
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      $folderPath = "C:\temp\*.yaml"
+      $repoUrl = "https://dev.azure.com/PravithYedla/_git/PravithYedla/DemoApp"
+      $branchName = "main"
+      $replaceWord = "2022"
+      $newWord = "newWord"
+
+      # Replace word in all files of folder
+      Get-ChildItem -Path $folderPath -Recurse -File | ForEach-Object {
+        (Get-Content $_.FullName).Replace($replaceWord, $newWord) | Set-Content $_.FullName
+      }
+
+      # Upload folder to repository
+      az repos import create --git-source-url $repoUrl --repository-name MyRepo --branch $branchName --path / --version-type branch --version branch --detect false --overwrite true --debug
