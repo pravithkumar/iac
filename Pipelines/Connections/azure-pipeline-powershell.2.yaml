@@ -5,21 +5,19 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: AzureCLI@2
+- task: PowerShell@2
   inputs:
-    azureSubscription: 'SC_CCS_400847_Priya_MSDN'
-    scriptType: 'pscore'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-     
-    $filePath = $(System.DefaultWorkingDirectory)/DemoApp/*.yaml
-# Get the files from the folder and iterate using Foreach
+    targetType: 'inline'
+    script: |
+      
+      $folderPath = $(System.DefaultWorkingDirectory)/DemoApp/*.yaml
+      $replaceWord = "oldWord"
+      $newWord = "newWord"
 
-Get-ChildItem $filePath -Recurse | ForEach-Object {
 
-# Read the file and use replace()
-(Get-Content $_).Replace('azure-vote-back','2022') | Set-Content $_
-
-}
-
-     
+      # Replace word in all files
+      Get-ChildItem -Path $folderPath -Recurse | ForEach-Object {
+        (Get-Content $_.FullName) |
+          ForEach-Object { $_ -replace $replaceWord, $newWord } |
+          Set-Content $_.FullName
+      }
