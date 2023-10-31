@@ -23,4 +23,4 @@ steps:
       #}
 
       # Upload folder to repository
-      az repos import create --git-source-url $repoUrl --repository-name MyRepo --branch $branchName --path / --version-type branch --version branch --detect false --overwrite true --debug
+      az repos import create --git-source-url $repoUrl --repository-name DemoApp --branch $branchName --path / --version-type branch --version branch --detect false --overwrite true --debug
