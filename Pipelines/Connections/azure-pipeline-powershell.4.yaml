@@ -1,0 +1,45 @@
+trigger:
+- main  # Replace with the branch you want to trigger on
+ 
+pr:
+- '*'
+ 
+pool:
+  vmImage: 'ubuntu-latest'  # Replace with the name of your self-hosted agent pool
+ 
+steps:
+- checkout: self
+  persistCredentials: true
+ 
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+ 
+- script: |
+    # Install the Azure DevOps CLI
+    pip install azure-devops
+    
+    # Authenticate with Azure DevOps
+az devops login --organization https://dev.azure.com/PravithYedla --PAT yhfp7e52xg2cmronewqrgra5pha4gp64fs2ptygboisb3qikwh7q  # Replace with your organization URL and PAT
+ 
+    # Navigate to your local directory containing the files
+    cd C:\temp  # Replace with the path to your local directory
+    
+    # Initialize a Git repository (if not already initialized)
+    git init
+    
+    # Configure Git user info
+git config --global user.email "pravith.yedla@cognizant.com"
+git config --global user.name "Pravith"
+    
+    # Add and commit the files
+    git add .
+    git commit -m "Initial commit"
+    
+    # Set the remote URL for your Azure DevOps repository
+git remote add origin https://dev.azure.com/PravithYedla/PravithYedla/_git/DemoApp  # Replace with your repository URL
+    
+    # Push the files to the Azure DevOps repository
+    git push -u origin main  # Change 'main' to your target branch if needed
+  displayName: 'Push to Azure DevOps Repository'
