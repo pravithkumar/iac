@@ -15,7 +15,7 @@ jobs:
   - task: DownloadPipelineArtifact@2
     inputs:
       artifactName: 'my-artifact'
-      targetPath: '$(System.DefaultWorkingDirectory)'
+      targetPath: '$(System.DefaultWorkingDirectory)/DemoApp'
   - script: |
       git config --global user.email "you@example.com"
       git config --global user.name "Your Name"
