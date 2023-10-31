@@ -11,7 +11,7 @@ steps:
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      import-csv $(System.DefaultWorkingDirectory)/DemoApp/secrets.csv | foreach {
+      import-csv $(System.DefaultWorkingDirectory)/DemoApp/secrets.ps1 | foreach {
       $secret = convertto-securestring -string $_.Secret -asplaintext -force
       set-azkeyvaultsecret -vaultname $keyvault -name $_.Name -secretvalue $secret
       }
