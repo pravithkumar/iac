@@ -1,0 +1,24 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- checkout: self
+  persistCredentials: true
+
+- script: |
+    echo "Replace word in all manifest files"
+    for file in $((System.DefaultWorkingDirectory)/DemoApp/*.yaml); do
+      sed -i 's/nginx/new-word/g' $file
+    done
+  displayName: 'Replace word'
+  
+- script: |
+    echo "Commit and push changes"
+    git config --global user.email "you@example.com"
+    git config --global user.name "Your Name"
+    git commit -am "Replace word in manifest files"
+    git push origin HEAD:main
+  displayName: 'Commit and push'
