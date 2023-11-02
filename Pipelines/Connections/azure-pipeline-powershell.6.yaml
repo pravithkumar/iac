@@ -1,4 +1,4 @@
-  trigger:
+trigger:
 - main
 
 pool:
@@ -20,4 +20,3 @@ steps:
     git commit -am "Replace old_word with new_word"
     git push origin HEAD:main
   displayName: 'Commit changes'
-
