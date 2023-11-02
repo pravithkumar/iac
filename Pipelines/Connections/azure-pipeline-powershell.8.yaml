@@ -1,20 +1,19 @@
 trigger:
-- master
+- main
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 steps:
-- checkout: none
-
-- task: CopyFiles@2
+- task: PowerShell@2
   inputs:
-    SourceFolder: 'C:\temp'
-    Contents: '**'
-    TargetFolder: './DemoApp'
+    azureSubscription: 'SC_CCS_400847_Priya_MSDN'
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: |      
+      $keyvault = "akv-pega-poc1"
+      import-csv "./DemoApp/secrets.csv" | foreach {
+      $secret = convertto-securestring -string $_.Secret -asplaintext -force
+      set-azkeyvaultsecret -vaultname $keyvault -name $_.Name -secretvalue $secret
+      }
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: './DemoApp'
-    ArtifactName: 'MyArtifact'
-    publishLocation: 'Container'
