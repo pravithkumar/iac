@@ -17,6 +17,6 @@ steps:
     echo 'Commit and push changes'
     git config --global user.email "you@example.com"
     git config --global user.name "Your Name"
-    git commit -am "Replace old_word with new_word"
+    git commit -am "Replace nginx with new_word"
     git push origin HEAD:main
   displayName: 'Commit changes'
