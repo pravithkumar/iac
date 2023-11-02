@@ -18,7 +18,7 @@ steps:
       cd DemoApp
 
       # Copy files from the local folder to the repository folder
-      cp -r /path/to/local/folder/* .
+      cp -r \\vmpravith\temp* .
 
       # Add all new files to git
       git add .
