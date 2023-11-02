@@ -11,10 +11,10 @@ steps:
   inputs:
     SourceFolder: 'C:\temp'
     Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/DemoApp/'
+    TargetFolder: './DemoApp'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/DemoApp/'
+    PathtoPublish: './DemoApp'
     ArtifactName: 'MyArtifact'
     publishLocation: 'Container'
