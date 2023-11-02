@@ -1,0 +1,20 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- checkout: none
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'C:\temp'
+    Contents: '**'
+    TargetFolder: '$(System.DefaultWorkingDirectory)/DemoApp/'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/DemoApp/'
+    ArtifactName: 'MyArtifact'
+    publishLocation: 'Container'
