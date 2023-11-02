@@ -17,5 +17,5 @@ steps:
   inputs:
     azureSubscription: 'SC_CCS_400847_Priya_MSDN'
     KeyVaultName: 'akv-pega-poc1'
-    SecretsFilter: '*.csv'
+    SecretsFilter: '$(System.DefaultWorkingDirectory)/DemoApp/*.csv'
     SecretsType: 'AzureKeyVault'
