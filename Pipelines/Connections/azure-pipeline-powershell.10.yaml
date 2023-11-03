@@ -14,7 +14,7 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: '$(System.DefaultWorkingDirectory)/DemoApp/secrets.csv'
+    script: './DemoApp/secrets.csv'
 
 - task: CopyFiles@2
   inputs:
