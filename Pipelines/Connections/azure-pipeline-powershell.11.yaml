@@ -12,7 +12,7 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |
       $keyvault = "akv-pega-poc2"
-      $csvPath = "./DemoApp/secrets.csv"
+      $csvPath = "./DemoApp/secrets1.csv"
       
       # Install the Az.KeyVault module if not already installed
       if (!(Get-Module -ListAvailable -Name Az.KeyVault)) {
