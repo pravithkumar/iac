@@ -20,6 +20,7 @@ steps:
       if (!(Get-Module -ListAvailable -Name Az.KeyVault)) {
         Install-Module -Name Az.KeyVault -Scope CurrentUser -Force
       }
+      Get-AzkeyVault -VaultName $keyvault
       
       # Import the CSV file and upload each secret to the Key Vault
       Import-Csv $csvPath | ForEach-Object {
