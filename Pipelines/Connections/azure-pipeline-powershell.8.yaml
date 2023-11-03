@@ -5,18 +5,12 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: KubernetesManifest@0
-  inputs:    
-    kubernetesServiceConnection: 'AKS'
-    namespace: 'default'
-    manifests: |
-      $(System.DefaultWorkingDirectory)/DemoApp/*.csv
-     # namespaceOverride: 'aks-pod'
 - task: PowerShell@2
   inputs:
     azureSubscription: 'SC_CCS_400847_Priya_MSDN'
-    scriptType: 'pscore'
-    scriptLocation: 'inlineScript'
+    scriptType: 'pscore'    
+    manifests: |
+      $(System.DefaultWorkingDirectory)/DemoApp/*.csv
     inlineScript: |      
       $keyvault = "akv-pega-poc2"
       import-csv "$(System.DefaultWorkingDirectory)/DempApp/secrets.csv" | foreach {
