@@ -1,0 +1,26 @@
+trigger:
+- none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'SC_CCS_400847_Priya_MSDN'
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      $keyvault = "akv-pega-poc2"
+      $csvPath = "$(System.DefaultWorkingDirectory)/PravithYedla/DemoApp/secrets.csv"
+      
+      # Install the Az.KeyVault module if not already installed
+      if (!(Get-Module -ListAvailable -Name Az.KeyVault)) {
+        Install-Module -Name Az.KeyVault -Scope CurrentUser -Force
+      }
+      
+      # Import the CSV file and upload each secret to the Key Vault
+      Import-Csv $csvPath | ForEach-Object {
+        $secret = ConvertTo-SecureString -String $_.Secret -AsPlainText -Force
+        Set-AzKeyVaultSecret -VaultName $keyvault -Name $_.Name -SecretValue $secret
+      }
