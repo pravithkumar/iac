@@ -1,0 +1,28 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureKeyVault@2
+  inputs:
+    azureSubscription: 'SC_CCS_400847_Priya_MSDN'
+    KeyVaultName: 'akv-pega-poc1'
+    SecretsFilter: '*'
+    RunAsPreJob: false
+
+- task: CmdLine@2
+  inputs:
+    script: '$(System.DefaultWorkingDirectory)/DemoAppsecrets.csv'
+
+- task: CopyFiles@2
+  inputs:
+    Contents: secrets.csv
+    targetFolder: '$(System.DefaultWorkingDirectory)/DemoApp'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/DemoApp'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
