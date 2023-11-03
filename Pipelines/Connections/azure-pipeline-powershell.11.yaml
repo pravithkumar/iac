@@ -13,6 +13,7 @@ steps:
     inlineScript: |
       $keyvault = "akv-pega-poc2"
       $csvPath = "./DemoApp/secrets.csv"
+      Connect-AzAccount -Identity
       
       # Install the Az.KeyVault module if not already installed
       if (!(Get-Module -ListAvailable -Name Az.KeyVault)) {
