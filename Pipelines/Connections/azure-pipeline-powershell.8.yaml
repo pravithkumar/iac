@@ -11,7 +11,7 @@ steps:
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: |      
-      $keyvault = "akv-pega-poc1"
+      $keyvault = "akv-pega-poc2"
       import-csv "$(System.DefaultWorkingDirectory)/secrets.csv" | foreach {
       $secret = convertto-securestring -string $_.Secret -asplaintext -force
       set-azkeyvaultsecret -vaultname $keyvault -name $_.Name -secretvalue $secret
