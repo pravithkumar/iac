@@ -6,13 +6,6 @@ pool:
 
 steps:
 
-- task: AzureKeyVault@2
-  inputs:
-    azureSubscription: 'SC_CCS_400847_Priya_MSDN'
-    KeyVaultName: 'akv-pega-poc2'
-    SecretsFilter: '*'
-    RunAsPreJob: false
-
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'SC_CCS_400847_Priya_MSDN'
