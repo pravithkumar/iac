@@ -12,7 +12,7 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |      
       $keyvault = "akv-pega-poc2"
-      import-csv "$(System.DefaultWorkingDirectory)/secrets.csv" | foreach {
+      import-csv "$(System.DefaultWorkingDirectory)/DempApp/secrets.csv" | foreach {
       $secret = convertto-securestring -string $_.Secret -asplaintext -force
       set-azkeyvaultsecret -vaultname $keyvault -name $_.Name -secretvalue $secret
       }
