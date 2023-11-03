@@ -8,9 +8,7 @@ steps:
 - task: PowerShell@2
   inputs:
     azureSubscription: 'SC_CCS_400847_Priya_MSDN'
-    scriptType: 'pscore'    
-    manifests: |
-      $(System.DefaultWorkingDirectory)/DemoApp/*.csv
+    scriptType: 'pscore'  
     inlineScript: |      
       $keyvault = "akv-pega-poc2"
       import-csv "$(System.DefaultWorkingDirectory)/DempApp/secrets.csv" | foreach {
