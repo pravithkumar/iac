@@ -1,5 +1,5 @@
 app:
-  name: my-app
+  name: my-app1
   replicaCount: 1
   image:
     repository: nginx
