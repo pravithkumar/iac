@@ -20,5 +20,5 @@ steps:
     command: 'login'
 
 - script: |
-    helm upgrade --install my-app ./chart --namespace default
+    helm upgrade --install my-app ./my-app --namespace default
   displayName: 'helm deploy'
