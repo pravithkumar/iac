@@ -20,5 +20,5 @@ steps:
     command: 'login'
 
 - script: |
-    helm  --install my-app $(Build.Repository.LocalPath)DemoApp/deployment.yaml --namespace default
+    helm  upgrade --install my-app $(Build.Repository.LocalPath)DemoApp/deployment.yaml --namespace default
   displayName: 'helm deploy'
