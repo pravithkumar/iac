@@ -1,15 +1,5 @@
-app:
-  name: my-app
-  replicaCount: 1
-  image:
-    repository: nginx
-    tag: stable
-  service:
-    port: 80
-  resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
+replicaCount: 1
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  tag: ""
