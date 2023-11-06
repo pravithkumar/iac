@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mychat
+  name: mychart
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: mychat
+      app.kubernetes.io/name: mychart
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: mychat
+        app.kubernetes.io/name: mychart
     spec:
       containers:
-        - name: mychat
+        - name: mychart
           image: "phx.ocir.io/ansh81vru1zp/project01/ngnix-lb:latest"
           imagePullPolicy: Always
