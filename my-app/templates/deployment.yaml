@@ -1,4 +1,6 @@
-app:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: my-app
   replicaCount: 1
   image:
@@ -13,3 +15,4 @@ app:
     requests:
       cpu: 100m
       memory: 128Mi
+
