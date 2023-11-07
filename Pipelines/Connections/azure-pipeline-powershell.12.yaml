@@ -20,5 +20,5 @@ steps:
     command: 'login'
 
 - script: |
-    helm upgrade install my-app3 ./my-app-2 --namespace default
+    helm upgrade  my-app3 ./my-app-2 --namespace default
   displayName: 'helm deploy'
