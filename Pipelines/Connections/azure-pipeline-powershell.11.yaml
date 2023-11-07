@@ -4,6 +4,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+   variables:
+  - group: akv-secrets
+
 steps:
 
 - task: AzureCLI@2
