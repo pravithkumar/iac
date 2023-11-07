@@ -4,8 +4,8 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-   variables:
-  - group: akv-secrets
+variables:
+- group: akv-secrets
 
 steps:
 
