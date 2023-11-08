@@ -4,6 +4,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'SC_Business Innovation Platform - 1000106902'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az login'
+
 - task: AzureKeyVault@2
   inputs:
     azureSubscription: 'SC_Business Innovation Platform - 1000106902'
