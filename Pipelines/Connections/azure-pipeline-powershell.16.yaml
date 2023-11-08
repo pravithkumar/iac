@@ -10,8 +10,8 @@ steps:
 
 - script: |
     echo 'Replace old_word with new_word in all files in the specific_folder'
-    find ./DemoApp -type f -name '*' -exec sed -i 's/new_word/nginx/g' {} \;
-    find ./DemoApp -type f -name '*' -exec sed -i 's/new_word/nginx/g' {} \;
+    find ./DemoApp/deployment-1.yaml -type f -name '*' -exec sed -i 's/nginx/delete/g' {} \;
+    find ./DemoApp/deployment-1.yaml -type f -name '*' -exec sed -i 's/data/data1/g' {} \;
   displayName: 'Replace word'
   
 - script: |
