@@ -20,5 +20,6 @@ steps:
     command: 'login'
 
 - script: |
-    helm upgrade --generate-name ./my-app-3 --namespace default 
+    helm get all
+    helm upgrade  ./my-app-3 --namespace default 
   displayName: 'helm deploy'
