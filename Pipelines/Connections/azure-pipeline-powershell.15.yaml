@@ -20,5 +20,5 @@ steps:
     command: 'login'
 
 - script: |
-    helm install ./my-app-3 --namespace default -f ./my-app-3/deployment.yaml
+    helm install --generate-name ./my-app-3 --namespace default -f ./my-app-3/deployment.yaml
   displayName: 'helm deploy'
