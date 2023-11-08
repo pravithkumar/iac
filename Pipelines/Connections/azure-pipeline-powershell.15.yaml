@@ -1,0 +1,24 @@
+trigger:
+- none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: HelmInstaller@1
+  inputs:
+    helmVersionToInstall: 'latest'
+
+- checkout: self
+  persistCredentials: true
+
+- task: Kubernetes@1
+  displayName: 'kubectl login'
+  inputs:
+    connectionType: 'SC_CCS_400847_Priya_MSDN'
+    kubernetesServiceEndpoint: 'AKS'
+    command: 'login'
+
+- script: |
+    helm install  my-app4 ./my-app-3 --namespace default
+  displayName: 'helm deploy'
