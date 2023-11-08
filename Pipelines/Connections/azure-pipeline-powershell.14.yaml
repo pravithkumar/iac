@@ -33,6 +33,7 @@ steps:
       while read -r name value
       do
         echo "Setting secret $name in Azure Key Vault"
+        az login --service-principal -u cf877cb2-d407-49fc-a0c9-c98777cef68b -p Ven8Q~1iY4au6X21sSPlGynbxtfUGanZsftyXcYu --tenant 188285f7-8f1e-4c0d-a0bc-797e3e38c5b3
         az keyvault secret set --vault-name "akv-pega-poc1" --name "$name" --value "$value"
       done < $(System.DefaultWorkingDirectory)/DemoApp/secrets.csv
 
