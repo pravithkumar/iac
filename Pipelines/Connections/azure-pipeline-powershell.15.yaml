@@ -9,6 +9,8 @@ steps:
   inputs:
     helmVersionToInstall: 'latest'
 
+- job: WaitForValidation    
+
 - checkout: self
   persistCredentials: true
 
@@ -21,5 +23,6 @@ steps:
 
 - script: |
     helm get all
-    helm upgrade my-app-3  ./my-app-3 --namespace default 
+    helm install my-app-3  ./my-app-3 --namespace default 
   displayName: 'helm deploy'
+
