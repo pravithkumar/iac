@@ -9,8 +9,6 @@ steps:
   inputs:
     helmVersionToInstall: 'latest'
 
-- job: WaitForValidation    
-
 - checkout: self
   persistCredentials: true
 
