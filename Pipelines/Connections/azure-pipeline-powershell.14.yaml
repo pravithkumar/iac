@@ -1,7 +1,7 @@
 trigger: none
 
 pool:
-  vmImage: ubuntu-latest 
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: AzureKeyVault@2
@@ -10,6 +10,11 @@ steps:
     KeyVaultName: 'akv-pega-poc1'
     SecretsFilter: '*'
     RunAsPreJob: false
+
+- task: CopyFiles@2
+  inputs:
+    Contents: '**/secrets.csv'
+    targetFolder: '$(System.DefaultWorkingDirectory)/DemoApp'
 
 - task: CmdLine@2
   inputs:
@@ -20,12 +25,7 @@ steps:
       do
         echo "Setting secret $name in Azure Key Vault"
         az keyvault secret set --vault-name "akv-pega-poc1" --name "$name" --value "$value"
-      done < ./DemoApp/secrets.csv
-
-- task: CopyFiles@2
-  inputs:
-    Contents: '**/secrets.csv'
-    targetFolder: '$(System.DefaultWorkingDirectory)/DemoApp'
+      done < $(System.DefaultWorkingDirectory)/DemoApp/secrets.csv
 
 - task: PublishBuildArtifacts@1
   inputs:
