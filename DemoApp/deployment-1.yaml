@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata1:
-  name: delete-deployment1  
+metadata:
+  name: nginx-deployment1  
   labels:
-    app: delete1
+    app: nginx1
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: delete1
+      app: nginx1
   template:
-    metadata1:
+    metadata:
       labels:
-        app: delete1
+        app: nginx1
     spec:
       containers:
-      - name: delete1
-        image: delete:1.14.2
+      - name: nginx1
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
