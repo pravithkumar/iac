@@ -21,6 +21,6 @@ steps:
 
 - script: |
     helm get all
-    helm install my-app-4  ./my-app-3 --namespace default 
+    helm install my-app-5  ./my-app-3 --namespace default 
   displayName: 'helm deploy'
 
