@@ -15,7 +15,7 @@ steps:
 
 - script: |
     echo 'Replace old_word with new_word in all files in the specific_folder'
-    find ./DemoApp/deployment-1.yaml -type f -name '*' -exec sed -i 's/delete/nginx-um$(parameters.env_name)pega/g' {} \;
+    find ./DemoApp/deployment-1.yaml -type f -name '*' -exec sed -i 's/delete/nginx-um$(${{ parameters.env_name }})pega/g' {} \;
     find ./DemoApp/deployment-1.yaml -type f -name '*' -exec sed -i 's/data1/data/g' {} \;
   displayName: 'Replace word'
   
