@@ -16,3 +16,11 @@ spec:
         - name: mychart
           image: nginx:1.14.2
           imagePullPolicy: Always
+      type: ClusterIP
+      ports:
+        - port: 80
+         targetPort: http
+         protocol: TCP
+         name: http
+      selector:
+          app.kubernetes.io/name: mychart    
