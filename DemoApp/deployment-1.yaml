@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-um$(UAT)pega-deployment
+  name: nginx-deployment
   namespace: old_namespace
   labels:
-    app: nginx-um$(UAT)pega
+    app: nginx
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx-um$(UAT)pega
+      app: nginx
   template:
     metadata:
       labels:
-        app: nginx-um$(UAT)pega
+        app: nginx
     spec:
       containers:
-      - name: nginx-um$(UAT)pega
-        image: nginx-um$(UAT)pega:1.14.2
+      - name: nginx
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
