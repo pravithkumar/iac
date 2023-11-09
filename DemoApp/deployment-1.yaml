@@ -8,7 +8,7 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: delete-um$(env_name)pega1
+      app: nginx-um$(UAT)pega-um$(env_name)pega1
   template:
     metadata:
       labels:
