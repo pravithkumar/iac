@@ -16,7 +16,7 @@ steps:
 - powershell: |
     echo 'Replace old_word with new_word in all files in the specific_folder'
     (Get-Content ./DemoApp/deployment-1.yaml) -replace 'nginx', 'nginx-um${{parameters.env_name}}pega' | Set-Content ./DemoApp/deployment-1.yaml
-    (Get-Content ./DemoApp/deployment-1.yaml) -replace 'data1', 'data' | Set-Content ./DemoApp/deployment-1.yaml
+    (Get-Content ./DemoApp/deployment-1.yaml) -replace 'data', 'data1' | Set-Content ./DemoApp/deployment-1.yaml
   displayName: 'Replace word'
   
 - powershell: |
