@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata1:
-  name: nginx-umuatpega-deployment
+  name: nginx-umuatpega-umuatpega-deployment
   namespace: old_namespace
   labels:
-    app: nginx-umuatpega
+    app: nginx-umuatpega-umuatpega
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx-umuatpega
+      app: nginx-umuatpega-umuatpega
   template:
     metadata1:
       labels:
-        app: nginx-umuatpega
+        app: nginx-umuatpega-umuatpega
     spec:
       containers:
-      - name: nginx-umuatpega
-        image: nginx-umuatpega:1.14.2
+      - name: nginx-umuatpega-umuatpega
+        image: nginx-umuatpega-umuatpega:1.14.2
         ports:
         - containerPort: 80
