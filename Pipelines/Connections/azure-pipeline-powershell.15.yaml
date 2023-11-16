@@ -19,8 +19,7 @@ steps:
     kubernetesServiceEndpoint: 'AKS'
     command: 'login'
 
-- script: |
-    helm get all
+- script: |    
     helm install my-app-5  ./my-app-3 --namespace default 
   displayName: 'helm deploy'
 
