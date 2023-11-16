@@ -16,7 +16,7 @@ steps:
   displayName: 'kubectl login'
   inputs:
     connectionType: 'SC_CCS_400847_Priya_MSDN'
-    kubernetesServiceEndpoint: 'AKS'
+    kubernetesServiceEndpoint: 'akspegapoc2'
     command: 'login'
 
 - script: |    
