@@ -19,7 +19,6 @@ steps:
     kubernetesServiceEndpoint: 'akspegapoc2'
     command: 'login'
 
-- script: |    
-    helm install my-app-3 ./my-app-4/Chart.yaml --namespace default 
-    kubectl apply -f ./my-app-4/deployment.yaml
+- script: |       
+    helm install my-app-4 -f ./my-app-4/deployment.yaml  ./my-app-5
   displayName: 'helm deploy'
