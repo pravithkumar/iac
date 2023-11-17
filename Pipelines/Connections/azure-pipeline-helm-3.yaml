@@ -22,5 +22,5 @@ steps:
     command: 'login'
 
 - script: |       
-    helm install my-appp-8 -f ./my-app-4/deployment.yaml  ./my-app-5
+    helm install my-app-18 -f ./my-app-4/deployment.yaml  ./my-app-5
   displayName: 'helm deploy'
