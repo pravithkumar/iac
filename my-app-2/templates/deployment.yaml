@@ -13,6 +13,6 @@ spec:
         app.kubernetes.io/name: mychart1
     spec:
       containers:
-        - name: mychart
+        - name: mychart1
           image: nginx:1.14.2
           imagePullPolicy: Always
