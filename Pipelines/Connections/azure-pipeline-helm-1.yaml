@@ -20,6 +20,5 @@ steps:
     command: 'login'
 
 - script: |    
-    helm install my-app-13 ./my-app-4/Chart.yaml --namespace default 
-    kubectl apply -f ./my-app-4/deployment.yaml
+    helm install my-app-13 ./my-app-3 --namespace default     
   displayName: 'helm deploy'
