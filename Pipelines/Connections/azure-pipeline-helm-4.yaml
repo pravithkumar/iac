@@ -22,5 +22,7 @@ steps:
     command: 'login'
 
 - script: |    
-    kubectl get pods -n default    
+    kubectl get pods -n default
+    helm list --namespace -all
+    helm list --namespace default    
   displayName: 'helm deploy'
