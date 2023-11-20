@@ -22,6 +22,5 @@ steps:
     command: 'login'
 
 - script: |    
-    az aks get-credentials --resource-group pravith-poc-aks --name akspegapoc2   
-    kubectl get pods -n default
+    kubectl get pods -n default    
   displayName: 'helm deploy'
