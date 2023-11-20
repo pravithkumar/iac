@@ -21,6 +21,7 @@ steps:
     kubernetesCluster: 'akspegapoc2'
     command: 'login'
 
-- script: |       
+- script: |    
+    az aks get-credentials --resource-group pravith-poc-aks --name akspegapoc2   
     kubectl get pods --all-namespaces
   displayName: 'helm deploy'
