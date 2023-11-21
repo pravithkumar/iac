@@ -1,0 +1,29 @@
+trigger:
+- none
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: HelmInstaller@1
+  inputs:
+    helmVersionToInstall: 'latest'
+
+- checkout: self
+  persistCredentials: true
+
+
+- task: AzureCLI@2
+  displayName: 'Get AKS credentials'
+  inputs:
+    azureSubscription: 'SC_Business Innovation Platform - 1000106902'
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      $resourceGroup = "pravith-poc-aks"
+      $clusterName = "akspegapoc2"
+      az aks get-credentials --resource-group $resourceGroup --name $clusterName
+
+- script: |    
+    helm install my-app-24 ./my-app-2 --namespace default    
+  displayName: 'helm deploy'
