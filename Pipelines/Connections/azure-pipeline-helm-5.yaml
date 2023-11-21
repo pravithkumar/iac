@@ -23,6 +23,7 @@ steps:
       $resourceGroup = "pravith-poc-aks"
       $clusterName = "akspegapoc2"
       az aks get-credentials --resource-group $resourceGroup --name $clusterName
+      KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view --flatten > ~/.kube/merged_kubeconfig && mv ~/.kube/merged_kubeconfig ~/.kube/config
 
 - script: |    
     helm upgrade my-app-25 ./my-app-2 --namespace default
