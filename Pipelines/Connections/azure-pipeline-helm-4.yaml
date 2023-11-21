@@ -22,7 +22,5 @@ steps:
     command: 'login'
 
 - script: |    
-    kubectl get pods -n default
-    helm list --namespace -all
-    helm list --namespace default    
+    helm install my-app-24 ./my-app-2 --namespace default    
   displayName: 'helm deploy'
