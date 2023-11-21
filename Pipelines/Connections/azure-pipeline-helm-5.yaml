@@ -25,5 +25,6 @@ steps:
       az aks get-credentials --resource-group $resourceGroup --name $clusterName
 
 - script: |    
-    helm install my-app-25 ./my-app-2 --namespace default    
+    helm upgrade my-app-25 ./my-app-2 --namespace default
+    helm list    
   displayName: 'helm deploy'
