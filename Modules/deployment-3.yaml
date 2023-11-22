@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata1:
+  name: nginx-umprodpega-umuatpega-umuatpega-umuatpega-umuatpega-umuatpega
+  namespace: old_namespace
+  labels:
+    app: nginx-umprodpega-umuatpega-umuatpega-umuatpega-umuatpega-umuatpega
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-umprodpega-umuatpega-umuatpega-umuatpega-umuatpega-umuatpega
+  template:
+    metadata1:
+      labels:
+        app: nginx-umprodpega-umuatpega-umuatpega-umuatpega-umuatpega-umuatpega
+    spec:
+      containers:
+      - name: nginx-umprodpega-umuatpega-umuatpega-umuatpega-umuatpega-umuatpega
+        image: nginx-umprodpega-umuatpega-umuatpega-umuatpega-umuatpega-umuatpega:1.14.2
+        ports:
+        - containerPort: 80
