@@ -4,7 +4,7 @@ parameters:
   type: string
   default: './DemoApp/deployment-1.yaml'
   values:
-  - './Modules/deployment-2.yaml'
+  - './DemoApp/deployment-1.yaml'
   - './Modules/deployment-3.yaml'
 
 - name: env_name
