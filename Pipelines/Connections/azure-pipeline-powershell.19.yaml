@@ -1,5 +1,12 @@
 parameters:
 
+- name: source_path
+  type: string
+  default: './DemoApp/deployment-1.yaml'
+  values:
+  - './Modules/deployment-2.yaml'
+  - './Modules/deployment-3.yaml'
+
 - name: env_name
   type: string
   default: 'uat'
@@ -26,7 +33,7 @@ steps:
 
 - powershell: |
     echo 'Copy file to a different folder'
-    Copy-Item -Path ./DemoApp/deployment-1.yaml -Destination ${{parameters.dest_path}}
+    Copy-Item -Path ${{parameters.source_path}} -Destination ${{parameters.dest_path}}
   displayName: 'Copy file'
 
 - powershell: |
