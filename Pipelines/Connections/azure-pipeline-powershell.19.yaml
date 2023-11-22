@@ -1,0 +1,36 @@
+parameters:
+- name: env_name
+  type: string
+  default: 'uat'
+- name: dest_path
+  type: string
+  default: './Modules/deployment-2.yaml'
+
+trigger:
+- none
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- checkout: self
+  persistCredentials: true
+
+- powershell: |
+    echo 'Copy file to a different folder'
+    Copy-Item -Path ./DemoApp/deployment-1.yaml -Destination ${{parameters.dest_path}}
+  displayName: 'Copy file'
+
+- powershell: |
+    echo 'Replace old_word with new_word in all files in the specific_folder'
+    (Get-Content ${{parameters.dest_path}}) -replace 'nginx','nginx-um${{parameters.env_name}}pega' | Set-Content ${{parameters.dest_path}}  
+  displayName: 'Replace word'
+  
+- powershell: |
+    echo 'Commit and push changes'
+    git config --global user.email "you@example.com"
+    git config --global user.name "Your Name"
+    git add ${{parameters.dest_path}}
+    git commit -m "Replace old with new_word"
+    git push origin HEAD:main
+  displayName: 'Commit changes'
