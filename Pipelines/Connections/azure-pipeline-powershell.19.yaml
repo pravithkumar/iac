@@ -1,10 +1,16 @@
 parameters:
-- name: env_names
+- name: env_name
   type: string
-  default: 'uat,prod'
-- name: dest_paths
+  default: 'uat'
+  values:
+  - uat
+  - prod
+- name: dest_path
   type: string
-  default: './Modules/deployment-2.yaml,./Modules/deployment-3.yaml'
+  default: './Modules/deployment-2.yaml'
+  values:
+  - './Modules/deployment-2.yaml'
+  - './Modules/deployment-3.yaml'
 
 trigger:
 - none
