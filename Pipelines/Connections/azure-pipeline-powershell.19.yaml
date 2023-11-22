@@ -1,10 +1,12 @@
 parameters:
+
 - name: env_name
   type: string
   default: 'uat'
   values:
   - uat
   - prod
+  
 - name: dest_path
   type: string
   default: './Modules/deployment-2.yaml'
