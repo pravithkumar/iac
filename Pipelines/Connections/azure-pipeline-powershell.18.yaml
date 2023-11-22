@@ -27,7 +27,7 @@ steps:
     echo 'Commit and push changes'
     git config --global user.email "you@example.com"
     git config --global user.name "Your Name"
-    git add ./NewFolder/deployment-1.yaml
+    git add ./my-app/deployment-1.yaml
     git commit -m "Replace old with new_word"
     git push origin HEAD:main
   displayName: 'Commit changes'
