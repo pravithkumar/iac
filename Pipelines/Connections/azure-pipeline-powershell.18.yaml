@@ -15,7 +15,7 @@ steps:
 
 - powershell: |
     echo 'Copy file to a different folder'
-    Copy-Item -Path ./DemoApp/deployment-1.yaml -Destination ./my-app/
+    Copy-Item -Path ./DemoApp/deployment-1.yaml -Destination ./Modules
   displayName: 'Copy file'
 
 - powershell: |
