@@ -20,14 +20,14 @@ steps:
 
 - powershell: |
     echo 'Replace old_word with new_word in all files in the specific_folder'
-    (Get-Content ./my-app/deployment-1.yaml) -replace 'nginx','nginx-um${{parameters.env_name}}pega' | Set-Content ./my-app/deployment-1.yaml  
+    (Get-Content ./Modules/deployment-1.yaml) -replace 'nginx','nginx-um${{parameters.env_name}}pega' | Set-Content ./Modules/deployment-1.yaml  
   displayName: 'Replace word'
   
 - powershell: |
     echo 'Commit and push changes'
     git config --global user.email "you@example.com"
     git config --global user.name "Your Name"
-    git add ./my-app/deployment-1.yaml
+    git add ./Modules/deployment-1.yaml
     git commit -m "Replace old with new_word"
     git push origin HEAD:main
   displayName: 'Commit changes'
