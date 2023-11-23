@@ -61,6 +61,6 @@ steps:
     timeoutInMinutes: 1440 # task times out in 1 day
     inputs:
       notifyUsers: 'pravith.yedla@cognizant.com'
-      instructions: 'Please validate the build configuration and resume.' 
+      instructions: 'Please validate the build configuration and resume.'  
 
 
