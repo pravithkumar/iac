@@ -49,3 +49,9 @@ steps:
     git commit -m "Replace old with new_word"
     git push origin HEAD:main
   displayName: 'Commit changes'
+
+- task: ManualIntervention@8
+  inputs:
+    emailRecipients: 'pravith.yedla@cognizant.com'
+    instructions: 'Please review and approve the changes.'
+    onTimeout: 'reject'  
