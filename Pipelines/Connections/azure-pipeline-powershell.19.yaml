@@ -50,9 +50,10 @@ steps:
     git push origin HEAD:main
   displayName: 'Commit changes'
 
-jobs:
+
 - job: waitForValidation
   displayName: Wait for external validation
+  dependsOn: Build
   pool: server
   timeoutInMinutes: 4320 # job times out in 3 days
   steps:
@@ -60,6 +61,6 @@ jobs:
     timeoutInMinutes: 1440 # task times out in 1 day
     inputs:
       notifyUsers: 'pravith.yedla@cognizant.com'
-      instructions: 'Please validate the build configuration and resume.'  
+      instructions: 'Please validate the build configuration and resume.' 
 
 
