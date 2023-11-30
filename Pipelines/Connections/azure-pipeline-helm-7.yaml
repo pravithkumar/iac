@@ -1,0 +1,41 @@
+trigger:
+- none
+
+pool:
+  vmImage: 'windows-latest'
+
+parameters:
+- name: deploymentPath
+  displayName: Deployment Path
+  type: string
+  default: './my-app-4/deployment.yaml'
+  values:
+  - './my-app-4/deployment.yaml'
+  - './my-app-4/deployment1.yaml'
+
+- name: namespace
+  displayName: namespace
+  type: string
+  default: 'test'
+  values:
+  - 'test'
+  - 'test1'  
+
+steps:
+- task: HelmInstaller@1
+  inputs:
+    helmVersionToInstall: 'latest'
+
+- checkout: self
+  persistCredentials: true
+
+- task: Kubernetes@1
+  displayName: 'kubectl login'
+  inputs:
+    connectionType: 'SC_CCS_400847_Priya_MSDN'
+    kubernetesServiceEndpoint: 'akspegapoc2'
+    command: 'login'
+
+- script: |       
+    kubectl apply -f ${{ parameters.deploymentPath }} -n ${{ parameters.namespace }}
+  displayName: 'helm deploy'
