@@ -23,5 +23,5 @@ steps:
     command: 'login'
 
 - script: |       
-    helm install my-app-111 -f $(deploymentPath) ./my-app-5
+    kubctl apply -f $(deploymentPath) 
   displayName: 'helm deploy'
