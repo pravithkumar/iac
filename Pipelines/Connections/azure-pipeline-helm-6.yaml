@@ -4,8 +4,11 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-variables:
-  deploymentPath: './my-app-4/deployment.yaml'
+parameters:
+- name: deploymentPath
+  displayName: Deployment Path
+  type: string
+  default: './my-app-4/deployment.yaml'
 
 steps:
 - task: HelmInstaller@1
@@ -23,5 +26,5 @@ steps:
     command: 'login'
 
 - script: |       
-    kubectl apply -f $(deploymentPath) 
+    kubectl apply -f ${{ parameters.deploymentPath }}
   displayName: 'helm deploy'
