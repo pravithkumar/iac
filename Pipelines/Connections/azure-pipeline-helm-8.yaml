@@ -1,0 +1,35 @@
+trigger:
+- none
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: HelmInstaller@1
+  inputs:
+    helmVersionToInstall: 'latest'
+
+- checkout: self
+  persistCredentials: true
+
+- task: Kubernetes@1
+  displayName: 'kubectl login'
+  inputs:
+    connectionType: 'SC_CCS_400847_Priya_MSDN'
+    kubernetesServiceEndpoint: 'akspegapoc2'
+    command: 'login'
+
+- pwsh: |
+    # Read the CSV file
+    $csv = Import-Csv -Path ./path/to/your.csv
+
+    # Loop through each row in the CSV
+    foreach ($row in $csv) {
+      # Set pipeline variables for deploymentPath and namespace
+      Write-Host "##vso[task.setvariable variable=deploymentPath]$($row.deploymentPath)"
+      Write-Host "##vso[task.setvariable variable=namespace]$($row.namespace)"
+
+      # Run the deployment
+      kubectl apply -f ./my-app-4/$(deploymentPath).yaml -n $(namespace)
+    }
+  displayName: 'Read CSV and deploy'
