@@ -11,7 +11,7 @@ parameters:
   default: './my-app-4/deployment.yaml'
   values:
   - './my-app-4/deployment.yaml'
-  - './my-app-4/deployment.yaml'
+  - './my-app-4/deployment-1.yaml'
 
 steps:
 - task: HelmInstaller@1
