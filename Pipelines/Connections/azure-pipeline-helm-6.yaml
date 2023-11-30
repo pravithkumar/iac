@@ -23,5 +23,5 @@ steps:
     command: 'login'
 
 - script: |       
-    helm install my-app-110 -f $(deploymentPath) ./my-app-5
+    helm install my-app-111 -f $(deploymentPath) ./my-app-5
   displayName: 'helm deploy'
