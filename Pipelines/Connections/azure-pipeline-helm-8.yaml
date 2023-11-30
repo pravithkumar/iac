@@ -21,7 +21,7 @@ steps:
 
 - pwsh: |
     # Read the CSV file
-    $csv = Import-Csv -Path ./path/to/your.csv
+    $csv = Import-Csv -Path ./DemoApp/sample.csv
 
     # Loop through each row in the CSV
     foreach ($row in $csv) {
