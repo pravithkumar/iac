@@ -8,10 +8,10 @@ parameters:
 - name: deploymentPath
   displayName: Deployment Path
   type: string
-  default: './my-app-4/deployment.yaml'
+  default: 'deployment'
   values:
-  - './my-app-4/deployment.yaml'
-  - './my-app-4/deployment1.yaml'
+  - 'deployment'
+  - 'deployment1'
 
 - name: namespace
   displayName: namespace
@@ -37,5 +37,5 @@ steps:
     command: 'login'
 
 - script: |       
-    kubectl apply -f ${{ parameters.deploymentPath }} -n ${{ parameters.namespace }}
+    kubectl apply -f ./my-app-4/${{ parameters.deploymentPath }}.yaml -n ${{ parameters.namespace }}
   displayName: 'helm deploy'
