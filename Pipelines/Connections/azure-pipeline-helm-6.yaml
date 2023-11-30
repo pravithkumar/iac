@@ -1,0 +1,27 @@
+trigger:
+- none
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  deploymentPath: './my-app-4/deployment.yaml'
+
+steps:
+- task: HelmInstaller@1
+  inputs:
+    helmVersionToInstall: 'latest'
+
+- checkout: self
+  persistCredentials: true
+
+- task: Kubernetes@1
+  displayName: 'kubectl login'
+  inputs:
+    connectionType: 'SC_CCS_400847_Priya_MSDN'
+    kubernetesServiceEndpoint: 'akspegapoc2'
+    command: 'login'
+
+- script: |       
+    helm install my-app-10 -f $(deploymentPath) ./my-app-5
+  displayName: 'helm deploy'
