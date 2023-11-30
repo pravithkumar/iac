@@ -5,18 +5,14 @@ pool:
   vmImage: 'windows-latest'
 
 parameters:
-- name: deploymentPath
-  displayName: Deployment Path
-  type: string
-  default: 'deployment'
+- name: deploymentPath  
+  type: string  
   values:
   - 'deployment'
   - 'deployment1'
 
-- name: namespace
-  displayName: namespace
-  type: string
-  default: 'test'
+- name: namespace  
+  type: string  
   values:
   - 'test'
   - 'test1'  
