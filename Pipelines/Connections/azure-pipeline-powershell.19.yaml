@@ -1,18 +1,18 @@
 parameters:
-
-- name: source_path
-  type: string
-  default: './DemoApp/deployment-1.yaml'
-  values:
-  - './DemoApp/deployment-1.yaml'
-  - './DemoApp/deployment-2.yaml'
-
 - name: env_name
   type: string
   default: 'uat'
   values:
   - uat
   - prod
+
+
+- name: source_path
+  type: string
+  default: './DemoApp/deployment-1.yaml'
+  values:
+  - './DemoApp/deployment-1.yaml'
+  - './DemoApp/deployment-2.yaml'  
   
 - name: dest_path
   type: string
