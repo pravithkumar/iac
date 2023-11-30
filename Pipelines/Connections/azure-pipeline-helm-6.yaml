@@ -23,5 +23,5 @@ steps:
     command: 'login'
 
 - script: |       
-    kubctl apply -f $(deploymentPath) 
+    kubectl apply -f $(deploymentPath) 
   displayName: 'helm deploy'
