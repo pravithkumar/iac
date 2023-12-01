@@ -30,6 +30,6 @@ steps:
       Write-Host "##vso[task.setvariable variable=namespace]$($row.namespace)"
 
       # Run the deployment
-      kubectl apply -f ./my-app-4/$env:deploymentPath.yaml -n $env:namespace
+      kubectl apply -f ./my-app-4/${{env:deploymentPath.yaml}} -n ${{env:namespace}}
     }
   displayName: 'Read CSV and deploy'
