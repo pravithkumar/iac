@@ -25,7 +25,7 @@ steps:
     foreach ($file in $files) {
         $name = $file.BaseName
         $namespace = $name -replace '.cer$', ''  # replace '.cer' at the end of the string
-        $deploymentPath = $name -replace '.xrt$', '' -replace '$', '-crt'
+        $deploymentPath = $name -replace '.xrt$', '' -replace '$', ''
         kubectl apply -f ./DemoApp1/$deploymentPath.yaml -n $namespace
     }
   displayName: 'helm deploy'
