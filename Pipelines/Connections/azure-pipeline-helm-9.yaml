@@ -24,7 +24,19 @@ steps:
     $files = Get-ChildItem -Path $folderPath -File
     foreach ($file in $files) {
         $name = $file.BaseName
+        $name = $name -replace '.cer$', ''  # replace '.cer' at the end of the string
         $deploymentPath = $name -replace '\d{4}$', '' -replace '$', '-crt'
         kubectl apply -f ./DemoApp/$deploymentPath.yaml -n $namespace
     }
   displayName: 'helm deploy'
+
+
+# - powershell: |
+#     $folderPath = "./DemoApp"  # specify your folder path here
+#     $files = Get-ChildItem -Path $folderPath -File
+#     foreach ($file in $files) {
+#         $name = $file.BaseName
+#         $deploymentPath = $name -replace '\d{4}$', '' -replace '$', '-crt'
+#         kubectl apply -f ./DemoApp/$deploymentPath.yaml -n $namespace
+#     }
+#   displayName: 'helm deploy'
