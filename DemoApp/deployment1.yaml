@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata1:
-  name: nginx1  
+metadata:
+  name: nginx-deployment1  
   labels:
     app: nginx1
 spec:
@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app: nginx1
   template:
-    metadata1:
+    metadata:
       labels:
         app: nginx1
     spec:
