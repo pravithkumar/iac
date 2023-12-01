@@ -19,7 +19,7 @@ steps:
     kubernetesServiceEndpoint: 'akspegapoc2'
     command: 'login'
 
-- pwsh: |
+- script: |
     # Read the CSV file
     $csv = Import-Csv -Path ./DemoApp/sample.csv
 
