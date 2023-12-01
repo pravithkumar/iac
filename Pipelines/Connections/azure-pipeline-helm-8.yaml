@@ -26,10 +26,10 @@ steps:
     # Loop through each row in the CSV
     foreach ($row in $csv) {
       # Set pipeline variables for deploymentPath and namespace
-      Write-Host "[task.setvariable variable=deploymentPath]$($row.deploymentPath)"
-      Write-Host "[task.setvariable variable=namespace]$($row.namespace)"
+      Write-Host "##vso[task.setvariable variable=deploymentPath]$($row.deploymentPath)"
+      Write-Host "##vso[task.setvariable variable=namespace]$($row.namespace)"
 
       # Run the deployment
-      kubectl apply -f ./my-app-4/$(deploymentPath).yaml -n $(namespace)
+      kubectl apply -f ./my-app-4/$env:deploymentPath.yaml -n $env:namespace
     }
   displayName: 'Read CSV and deploy'
