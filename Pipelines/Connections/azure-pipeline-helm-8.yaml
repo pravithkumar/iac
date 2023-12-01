@@ -19,17 +19,12 @@ steps:
     kubernetesServiceEndpoint: 'akspegapoc2'
     command: 'login'
 
-- script: |
-    # Read the CSV file
+- powershell: |
     $csv = Import-Csv -Path ./DemoApp/sample.csv
-
-    # Loop through each row in the CSV
     foreach ($row in $csv) {
-      # Set pipeline variables for deploymentPath and namespace
-      Write-Host "##vso[task.setvariable variable=deploymentPath]$($row.deploymentPath)"
-      Write-Host "##vso[task.setvariable variable=namespace]$($row.namespace)"
-
-      # Run the deployment
-      kubectl apply -f ./my-app-4/${{env:deploymentPath.yaml}} -n ${{env:namespace}}
+        $deploymentPath = $row.name1
+        $namespace = $row.name2
+        kubectl apply -f ./my-app-4/$deploymentPath.yaml -n $namespace
     }
-  displayName: 'Read CSV and deploy'
+  displayName: 'helm deploy'
+
