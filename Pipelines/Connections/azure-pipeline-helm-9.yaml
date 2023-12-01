@@ -20,12 +20,12 @@ steps:
     command: 'login'
 
 - powershell: |
-    $folderPath = "./DemoApp1"  # specify your folder path here
+    $folderPath = "./DemoApp2"  # specify your folder path here
     $files = Get-ChildItem -Path $folderPath -File
     foreach ($file in $files) {
         $name = $file.BaseName
         $namespace = $name -replace '.cer$', ''  # replace '.cer' at the end of the string
-        $deploymentPath = $name -replace '\d{4}$', '' -replace '$', '-crt'
+        $deploymentPath = $name -replace '.crt$', '' -replace '$', '-crt'
         kubectl apply -f ./DemoApp1/$deploymentPath.yaml -n $namespace
     }
   displayName: 'helm deploy'
