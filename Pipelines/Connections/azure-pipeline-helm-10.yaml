@@ -1,0 +1,31 @@
+trigger:
+- none
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: HelmInstaller@1
+  inputs:
+    helmVersionToInstall: 'latest'
+
+- checkout: self
+  persistCredentials: true
+
+- task: Kubernetes@1
+  displayName: 'kubectl login'
+  inputs:
+    connectionType: 'SC_CCS_400847_Priya_MSDN'
+    kubernetesServiceEndpoint: 'akspegapoc2'
+    command: 'login'
+
+- powershell: |
+    $folderPath = "./DemoApp2"  # specify your folder path here
+    $files = Get-ChildItem -Path $folderPath -File
+    foreach ($file in $files) {
+        $name = $file.BaseName
+        $namespace = $name -replace '.cer$', ''  # replace '.cer' at the end of the string
+        $deploymentPath = "prefix_" + ($name -replace '.crt$', '' -replace '$', '')
+        kubectl apply -f ./DemoApp1/$deploymentPath.yaml -n $namespace
+    }
+  displayName: 'helm deploy'
