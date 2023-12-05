@@ -1,0 +1,49 @@
+parameters:
+- name: env_name
+  type: string
+  default: 'uat'
+  values:
+  - uat
+  - prod
+
+- name: source_path
+  type: string
+  default: './DemoApp/'
+  values:
+  - './DemoApp/'
+
+- name: dest_path
+  type: string
+  default: './Modules/'
+  values:
+  - './Modules/'
+
+trigger:
+- none
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- checkout: self
+  persistCredentials: true
+
+- powershell: |
+    echo 'Copy all .yaml files to a different folder'
+    Get-ChildItem -Path ${{parameters.source_path}} -Filter *.yaml | ForEach-Object { Copy-Item $_.FullName -Destination ${{parameters.dest_path}} }
+  displayName: 'Copy files'
+
+- powershell: |
+    echo 'Replace old_word with new_word in all .yaml files in the specific_folder'
+    Get-ChildItem -Path ${{parameters.dest_path}} -Filter *.yaml | ForEach-Object { (Get-Content $_.FullName) -replace 'nginx','nginx-um${{parameters.env_name}}pega' | Set-Content $_.FullName }
+  displayName: 'Replace word'
+  
+- powershell: |
+    echo 'Commit and push changes'
+    git config --global user.email "you@example.com"
+    git config --global user.name "Your Name"
+    Get-ChildItem -Path ${{parameters.dest_path}} -Filter *.yaml | ForEach-Object { git add $_.FullName }
+    git commit -m "Replace old with new_word"
+    git push origin HEAD:main
+  displayName: 'Commit changes'
+
