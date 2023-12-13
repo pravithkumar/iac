@@ -2,12 +2,12 @@ parameters:
 - name: env_name
   type: string
   default: 'uat'
-- name: runJob2
-  type: boolean
-  default: false
 
 trigger:
 - none
+
+variables:
+  runJob2: true
 
 pool:
   vmImage: 'windows-latest'
@@ -40,7 +40,7 @@ jobs:
 
 - job: Job2
   dependsOn: Job1
-  condition: and(failed(), eq(parameters.runJob2, true))
+  condition: and(failed(), eq(variables.runJob2, true))
   steps:
   - checkout: self
     persistCredentials: true
