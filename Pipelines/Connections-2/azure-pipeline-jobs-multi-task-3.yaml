@@ -16,7 +16,7 @@ pool:
 
 jobs:
 - job: Job1
-  condition: eq(variables.runJob1, true))
+  condition: eq(variables.runJob1, true)
   steps:
   - checkout: self
     persistCredentials: true
@@ -59,7 +59,7 @@ jobs:
 
 - job: Job3
   dependsOn: Job1
-  condition: succeededOrFailed(),eq(variables.runJob3, true))
+  condition: and(succeededOrFailed(), eq(variables.runJob3, true))
   steps:
   - checkout: self
     persistCredentials: true
