@@ -7,7 +7,7 @@ trigger:
 - none
 
 variables:
-  runJob1: false
+  runJob1: true
   runJob2: true
   runJob3: true
 
