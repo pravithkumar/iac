@@ -7,15 +7,14 @@ trigger:
 - none
 
 variables:
-  runJob1:
-    value: true
-    #displayName: csv
-  runJob2:
-    value: true
-    #displayName: keyvalut
-  runJob3:
-    value: true
-    #displayName: certs
+  runJob1: true   
+  #displayName: csv
+
+  runJob2: true    
+   #displayName: keyvalut
+   
+  runJob3: true    
+  #displayName: certs
 
 pool:
   vmImage: 'windows-latest'
