@@ -40,7 +40,7 @@ jobs:
 
 - job: Job2
   dependsOn: Job1
-  condition: and(failed(), eq(variables.runJob2, true))
+  condition: or(failed(), eq(variables.runJob2, true))
   steps:
   - checkout: self
     persistCredentials: true
