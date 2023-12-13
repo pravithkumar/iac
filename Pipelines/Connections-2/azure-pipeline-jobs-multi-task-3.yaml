@@ -16,7 +16,7 @@ pool:
 
 jobs:
 - job: Job1
-  dispalyName: csv
+  displayName: csv
   condition: eq(variables.runJob1, true)
   steps:
   - checkout: self
@@ -43,7 +43,7 @@ jobs:
 
 - job: Job2
   dependsOn: Job1
-  dispalyName: keyvalut
+  displayName: keyvalut
   condition: or(succeededOrFailed(), eq(variables.runJob2, true))
   steps:
   - checkout: self
@@ -61,7 +61,7 @@ jobs:
 
 - job: Job3
   dependsOn: Job2
-  dispalyName: certs
+  displayName: certs
   condition: and(succeeded('Job2'), eq(variables.runJob3, true))
   steps:
   - checkout: self
