@@ -46,5 +46,5 @@ jobs:
 
   - powershell: |
       echo 'Replace old_word with new_word in all files in the specific_folder'
-      (Get-Content ./Modules2/deployment-3.yaml) -replace 'nginx','nginx-um${{parameters.env_name}}pega' | Set-Content ./Modules2/deployment-3.yaml  
+      (Get-Content ./Modules/deployment-3.yaml) -replace 'nginx','nginx-um${{parameters.env_name}}pega' | Set-Content ./Modules/deployment-3.yaml  
     displayName: 'Replace word'
