@@ -1,0 +1,50 @@
+parameters:
+- name: env_name
+  type: string
+  default: 'uat'
+
+trigger:
+- none
+
+pool:
+  vmImage: 'windows-latest'
+
+jobs:
+- job: Job1
+  steps:
+  - checkout: self
+    persistCredentials: true
+
+  - powershell: |
+      echo 'Copy file to a different folder'
+      Copy-Item -Path ./DemoApp/deployment1.yaml -Destination ./Modules/deployment-2.yaml
+    displayName: 'Copy file'
+
+  - powershell: |
+      echo 'Replace old_word with new_word in all files in the specific_folder'
+      (Get-Content ./Modules/deployment-2.yaml) -replace 'nginx','nginx-um${{parameters.env_name}}pega' | Set-Content ./Modules/deployment-2.yaml  
+    displayName: 'Replace word'
+    
+  - powershell: |
+      echo 'Commit and push changes'
+      git config --global user.email "you@example.com"
+      git config --global user.name "Your Name"
+      git add ./Modules/deployment-2.yaml
+      git commit -m "Replace old with new_word"
+      git push origin HEAD:main
+    displayName: 'Commit changes'
+
+- job: Job2
+  steps:
+  - checkout: self
+    persistCredentials: true
+
+  - powershell: |
+      echo 'Copy file to a different folder'
+      Copy-Item -Path ./DemoApp/deployment1.yaml -Destination ./Modules2/deployment-3.yaml
+    displayName: 'Copy file'
+
+  - powershell: |
+      echo 'Replace old_word with new_word in all files in the specific_folder'
+      (Get-Content ./Modules2/deployment-3.yaml) -replace 'nginx','nginx-um${{parameters.env_name}}pega' | Set-Content ./Modules2/deployment-3.yaml  
+    displayName: 'Replace word'
