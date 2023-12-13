@@ -9,7 +9,7 @@ trigger:
 variables:
   runJob1: true
   runJob2: true
-  runJob3: false
+  runJob3: true
 
 pool:
   vmImage: 'windows-latest'
@@ -49,7 +49,7 @@ jobs:
 
   - powershell: |
       echo 'Copy file to a different folder'
-      Copy-Item -Path ./DemoApp/deployment1.yaml -Destination ./Modules/deployment-3.yaml
+      Copy-Item -Path ./DemoApp/deployment1.yaml -Destination ./Modules/deployment-4.yaml
     displayName: 'Copy file'
 
   - powershell: |
