@@ -58,7 +58,7 @@ jobs:
     displayName: 'Replace word'
 
 - job: Job3
-  dependsOn: Job1
+  dependsOn: Job2
   condition: and(succeededOrFailed(), eq(variables.runJob3, true))
   steps:
   - checkout: self
