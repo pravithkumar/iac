@@ -7,7 +7,7 @@ trigger:
 - none
 
 variables:
-  runJob1: true    #csv
+  runJob1: false    #csv
   runJob2: true    #akv
   runJob3: true    #certs
 
