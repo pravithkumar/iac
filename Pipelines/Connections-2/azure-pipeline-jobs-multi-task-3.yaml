@@ -7,7 +7,9 @@ trigger:
 - none
 
 variables:
+  runJob1: true
   runJob2: true
+  runJob3: false
 
 pool:
   vmImage: 'windows-latest'
@@ -57,7 +59,7 @@ jobs:
 
 - job: Job3
   dependsOn: Job1
-  condition: succeededOrFailed()
+  condition: succeededOrFailed(),eq(variables.runJob2, true))
   steps:
   - checkout: self
     persistCredentials: true
