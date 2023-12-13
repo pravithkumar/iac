@@ -16,7 +16,7 @@ pool:
 
 jobs:
 - job: Job1
-  condition: succeededOrFailed(),eq(variables.runJob1, true))
+  condition: eq(variables.runJob1, true))
   steps:
   - checkout: self
     persistCredentials: true
