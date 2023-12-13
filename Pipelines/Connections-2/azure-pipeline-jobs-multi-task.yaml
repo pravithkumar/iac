@@ -7,22 +7,27 @@ trigger:
 - none
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 steps:
 - checkout: self
   persistCredentials: true
 
-- script: |
+- powershell: |
+    echo 'Copy file to a different folder'
+    Copy-Item -Path ./DemoApp/deployment-1.yaml -Destination ./Modules/deployment-2.yaml
+  displayName: 'Copy file'
+
+- powershell: |
     echo 'Replace old_word with new_word in all files in the specific_folder'
-    find ./DemoApp/deployment-1.yaml -type f -name '*' -exec sed -i 's/nginx/nginx-um${{parameters.env_name}}pega/g' {} \;
-    find ./DemoApp/deployment-1.yaml -type f -name '*' -exec sed -i 's/data1/data/g' {} \;
+    (Get-Content ./Modules/deployment-2.yaml) -replace 'nginx','nginx-um${{parameters.env_name}}pega' | Set-Content ./Modules/deployment-2.yaml  
   displayName: 'Replace word'
   
-- script: |
+- powershell: |
     echo 'Commit and push changes'
     git config --global user.email "you@example.com"
     git config --global user.name "Your Name"
-    git commit -am "Replace nginx with new_word"
+    git add ./Modules/deployment-2.yaml
+    git commit -m "Replace old with new_word"
     git push origin HEAD:main
   displayName: 'Commit changes'
