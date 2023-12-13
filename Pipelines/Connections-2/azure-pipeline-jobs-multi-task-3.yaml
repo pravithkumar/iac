@@ -59,7 +59,7 @@ jobs:
 
 - job: Job3
   dependsOn: Job2
-  condition: and(succeeds(), eq(variables.runJob3, true))
+  condition: and(succeeded('Job2'), eq(variables.runJob3, true))
   steps:
   - checkout: self
     persistCredentials: true
