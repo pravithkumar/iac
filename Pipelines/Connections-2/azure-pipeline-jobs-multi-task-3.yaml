@@ -9,13 +9,13 @@ trigger:
 variables:
   runJob1:
     value: true
-    displayName: csv
+    #displayName: csv
   runJob2:
     value: true
-    displayName: keyvalut
+    #displayName: keyvalut
   runJob3:
     value: true
-    displayName: certs
+    #displayName: certs
 
 pool:
   vmImage: 'windows-latest'
