@@ -75,7 +75,7 @@ jobs:
 - job: Job3
   dependsOn: Job2
   displayName: certs
-  condition: and(succeededOrFailed('Job2'), eq(variables.runJob2, true))
+  condition: and(succeededOrFailed('Job2'), eq(variables.runJob3, true))
   steps:
   - checkout: self
     persistCredentials: true
