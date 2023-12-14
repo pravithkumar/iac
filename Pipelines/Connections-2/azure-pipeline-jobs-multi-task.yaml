@@ -1,33 +1,57 @@
 parameters:
-- name: env_name
-  type: string
-  default: 'uat'
+  - name: azureSubscription
+    type: string
+    default: 'SC_Business Innovation Platform - 1000106902'
+  - name: spn
+    type: string
+    default: 'cf877cb2-d407-49fc-a0c9-c98777cef68b'
+  - name: spnPassword
+    type: string
+    default: 'Ven8Q~1iY4au6X21sSPlGynbxtfUGanZsftyXcYu'
+  - name: tenant
+    type: string
+    default: '188285f7-8f1e-4c0d-a0bc-797e3e38c5b3'
+  - name: targetFolder
+    type: string
+    default: '$(System.DefaultWorkingDirectory)/DemoApp'
+  - name: contents
+    type: string
+    default: 'secrets.csv'
 
-trigger:
-- none
+trigger: none
 
 pool:
   vmImage: 'windows-latest'
 
 steps:
-- checkout: self
-  persistCredentials: true
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'SC_Business Innovation Platform - 1000106902'
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az login --service-principal -u "${{ parameters.spn }}" -p "${{ parameters.spnPassword }}" --tenant "${{ parameters.tenant }}"
+      Write-Host "Connected to Azure"
 
-- powershell: |
-    echo 'Copy file to a different folder'
-    Copy-Item -Path ./DemoApp/deployment1.yaml -Destination ./Modules/deployment-2.yaml
-  displayName: 'Copy file'
+- task: CopyFiles@2
+  inputs:
+    Contents: $(contents)
+    targetFolder: $(targetFolder)
 
-- powershell: |
-    echo 'Replace old_word with new_word in all files in the specific_folder'
-    (Get-Content ./Modules/deployment-2.yaml) -replace 'nginx','nginx-um${{parameters.env_name}}pega' | Set-Content ./Modules/deployment-2.yaml  
-  displayName: 'Replace word'
-  
-- powershell: |
-    echo 'Commit and push changes'
-    git config --global user.email "you@example.com"
-    git config --global user.name "Your Name"
-    git add ./Modules/deployment-2.yaml
-    git commit -m "Replace old with new_word"
-    git push origin HEAD:main
-  displayName: 'Commit changes'
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $secrets = Import-Csv -Path "${{ parameters.targetFolder }}/${{ parameters.contents }}"
+      foreach ($secret in $secrets) {
+        if (![string]::IsNullOrEmpty($secret.name) -and ![string]::IsNullOrEmpty($secret.value)) {
+          Write-Host "Setting secret $($secret.name) in Azure Key Vault"
+          try {
+            az login --service-principal -u "${{ parameters.spn }}" -p "${{ parameters.spnPassword }}" --tenant "${{ parameters.tenant }}"
+            az keyvault secret set --vault-name "akv-pega-poc1" --name "$($secret.name)" --value "$($secret.value)"
+          } catch {
+            Write-Host "Failed to set secret $($secret.name)"
+          }
+        }
+      }
+
