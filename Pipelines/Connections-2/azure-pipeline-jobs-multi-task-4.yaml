@@ -1,0 +1,64 @@
+parameters:
+- name: env_name
+  type: string
+  default: 'uat'
+
+trigger:
+- none
+
+variables:
+  runJob1: false    #csv
+  runJob2: false    #akv
+  runJob3: true    #certs
+
+pool:
+  vmImage: 'windows-latest' 
+
+stages:
+- stage: approval
+  displayName: 'Wait for approval'
+  jobs:
+  - job: approval
+    displayName: 'Wait for approval'
+    pool: server
+    timeoutInMinutes: 4320 # approval job can wait up to 3 days
+    steps:
+    - task: ManualValidation@0
+      timeoutInMinutes: 1440 # task can wait up to 1 day
+      inputs:
+        notifyUsers: 'pravith.yedla@cognizant.com' # replace with actual approver email
+        instructions: 'Please validate the deployment and approve.'
+        onTimeout: 'reject'
+
+- stage: Job1
+  displayName: csv
+  condition: eq(variables.runJob1, true)
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    environment: 'uat'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+            persistCredentials: true
+
+          - powershell: |
+              echo 'Copy file to a different folder'
+              Copy-Item -Path ./DemoApp/deployment1.yaml -Destination ./Modules/deployment-2.yaml
+            displayName: 'Copy file'
+
+          - powershell: |
+              echo 'Replace old_word with new_word in all files in the specific_folder'
+              (Get-Content ./Modules/deployment-2.yaml) -replace 'nginx','nginx-um${{parameters.env_name}}pega' | Set-Content ./Modules/deployment-2.yaml  
+            displayName: 'Replace word'
+            
+          - powershell: |
+              echo 'Commit and push changes'
+              git config --global user.email "you@example.com"
+              git config --global user.name "Your Name"
+              git add ./Modules/deployment-2.yaml
+              git commit -m "Replace old with new_word"
+              git push origin HEAD:main
+            displayName: 'Commit changes'
