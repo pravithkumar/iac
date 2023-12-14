@@ -12,9 +12,7 @@ variables:
   runJob3: true    #certs
 
 pool:
-  vmImage: 'windows-latest'
-
-  
+  vmImage: 'windows-latest' 
 
 jobs:
 - job: approval
