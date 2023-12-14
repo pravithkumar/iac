@@ -14,7 +14,22 @@ variables:
 pool:
   vmImage: 'windows-latest'
 
+  
+
 jobs:
+- job: approval
+  displayName: 'Wait for approval'
+  dependsOn: Job1
+  pool: server
+  timeoutInMinutes: 4320 # approval job can wait up to 3 days
+  steps:
+  - checkout: none
+  - task: ManualValidation@0
+    timeoutInMinutes: 1440 # task can wait up to 1 day
+    inputs:
+      notifyUsers: 'pravith.yedla@cogniznt.com' # replace with actual approver email
+      instructions: 'Please validate the deployment and approve.'
+      onTimeout: 'reject'
 - job: Job1
   displayName: csv
   condition: eq(variables.runJob1, true)
