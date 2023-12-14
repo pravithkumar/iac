@@ -1,0 +1,16 @@
+trigger: none
+
+pool:
+  vmImage: 'windows-latest'
+
+jobs:
+- job: EchoSPN
+  steps:
+  - task: AzureKeyVault@1
+    inputs:
+      azureSubscription: 'yourAzureSubscription'
+      KeyVaultName: 'yourKeyVault'
+      SecretsFilter: 'spn,spnPassword'
+  - script: |
+      echo "SPN: $(spn)"
+      echo "SPN Password: $(spnPassword)"
