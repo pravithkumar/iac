@@ -20,8 +20,8 @@ pool:
 steps:
 - task: AzureKeyVault@1
   inputs:
-    azureSubscription: 'SC_CCS_400847_Priya_MSDN'
-    KeyVaultName: 'akv-pega-poc2'
+    azureSubscription: 'SC_Business Innovation Platform - 1000106902'
+    KeyVaultName: 'sh130-udp-dev-kv-003'
     SecretsFilter: 'spn,spnPassword'
 
 - task: AzureCLI@2
