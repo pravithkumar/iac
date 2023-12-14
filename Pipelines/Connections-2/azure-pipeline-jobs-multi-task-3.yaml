@@ -16,8 +16,7 @@ pool:
 
 jobs:
 - job: approval
-  displayName: 'Wait for approval'
-  pool: server
+  displayName: 'Wait for approval'  
   timeoutInMinutes: 4320 # approval job can wait up to 3 days
   steps:
   - task: ManualValidation@0
