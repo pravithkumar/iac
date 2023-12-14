@@ -8,7 +8,7 @@ trigger:
 
 variables:
   runJob1: false    #csv
-  runJob2: true    #akv
+  runJob2: false    #akv
   runJob3: true    #certs
 
 pool:
@@ -57,7 +57,7 @@ jobs:
 - job: Job2
   dependsOn: Job1
   displayName: keyvalut
-  condition: or(succeededOrFailed(), eq(variables.runJob2, true))
+  condition: and(succeededOrFailed('Job1'), eq(variables.runJob2, true))
   steps:
   - checkout: self
     persistCredentials: true
