@@ -8,8 +8,8 @@ jobs:
   steps:
   - task: AzureKeyVault@1
     inputs:
-      azureSubscription: 'yourAzureSubscription'
-      KeyVaultName: 'yourKeyVault'
+      azureSubscription: 'SC_CCS_400847_Priya_MSDN'
+      KeyVaultName: 'akv-pega-poc2'
       SecretsFilter: 'spn,spnPassword'
   - script: |
       echo "SPN: $(spn)"
