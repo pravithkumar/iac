@@ -1,59 +1,33 @@
 ---
 
 global:
-
   # Enter your Kubernetes provider.
-
   provider: "aks"
-
- 
-
+  
   deployment:
-
     # The name specified will be used to prefix all of the Pega pods (replacing "pega" with something like "app1-dev").
-
     name: "umpega-dev1"
-
- 
-
   # Deploy Pega nodes
 
   actions:
-
     execute: "deploy"
 
- 
-
   # Add custom certificates to be mounted to container
-
   # to support custom certificates as plain text (less secure), pass them directly using the certificates parameter;
-
   # to support multiple custom certificates as external secrets, specify each of your external secrets
-
   # as an array of comma-separated strings using the certificatesSecrets parameter.
-
   certificatesSecrets: [qnxtdevwp0-crt,careadvance60dev1-crt,apidev-crt,apiqa-crt,qnxtqawp0-crt,mcaredev-crt,careadvancestg-crt,pngapidev.crt,api-us-crt,umsdev.crt,pdc1-crt,pdc2-crt,pdc3-crt,pdc4-crt,pdc5-crt,pdc6-crt]
-
   certificates:
-
   # If a storage class to be passed to the VolumeClaimTemplates in search and stream pods, it can be specified here:
-
   storageClassName: ""
-
   # Provide JDBC connection information to the Pega relational database
-
   #   If you are installing or upgrading on IBM DB2, update the udb.conf file in the /charts/pega/charts/installer/config/udb directory with any additional connection properties.
-
   jdbc:
-
     #   SQL Server          jdbc:sqlserver://localhost:1433;databaseName=dbName;selectMethod=cursor;sendStringParametersAsUnicode=false
-
     url: "jdbc:sqlserver://sc-sqlmi-pegaum-dev-04.8e580c9cb917.database.windows.net:1433;databaseName=DEV1_UM_Pega;encrypt=true;trustServerCertificate=false;loginTimeout=30;Authentication=ActiveDirectoryMSI;MSIClientId=76c06246-5679-4877-898a-afc0f2dcdd54;selectMethod=cursor;sendStringParametersAsUnicode=false"
 
     #   driverClass   -- jdbc class.  Valid values are:
-
     #   SQL Server          com.microsoft.sqlserver.jdbc.SQLServerDriver
-
     driverClass: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
 
     #   pega.database.type  Valid values are: mssql, oracledate, udb, db2zos, postgres
