@@ -18,7 +18,7 @@ global:
   # to support custom certificates as plain text (less secure), pass them directly using the certificates parameter;
   # to support multiple custom certificates as external secrets, specify each of your external secrets
   # as an array of comma-separated strings using the certificatesSecrets parameter.
-  certificatesSecrets: [stg-pdc2-cer,stg-pdc1-cer,stg-qnxtstgwp0.molina.mhc-crt,stg-pdc6-cer,stg-pdc5-cer,stg-pdc4-cer,stg-pdc3-cer,stg-apiuat.molina.mhc-crt,stg-apistage.molina.mhc-crt,stg-apistageaz.molina.mhc-crt,stg-apiqa.molina.mhc-crt,stg-admere.net-crt,stg-iowa.gov-crt,stg-health.ny.gov-crt,stg-hayes.tractsoft.io-crt,stg-epro.prd-eastus2.cs.o360.cloud-crt,stg-cs44.salesforce-crt,stg-changecompanies.net-crt,stg-careadvance.molinahealthcare-crt,stg-newcenturyhealth-crt,stg-ne.gov-crt,stg-molinassrs2016prod.molina.mhc-crt,stg-molinaprod.molina.mhc-cer,stg-mhint.molina.mhc-crt,stg-mcgum.molina.mhc-crt,stg-legis.iowa.gov-crt,stg-sharepoint-crt,stg-pwsprodsancert.molinahealthcare-crt,stg-pwsprodsancert.molinahealthcare2-crt,stg-powerbi-crt,stg-pngapiuat.molina.mhc-crt,stg-periscope365-crt,stg-www.cms.gov-crt,stg-www.carelon-crt,stg-ums.molina.mhc-crt,stg-umpega.molinahealthcare-crt,stg-stamp2.login.microsoftonline-crt,stg-specialtydrug.magellanprovider-crt,stg-sni.cloudflaressl-crt,stg-www.uptodate-crt,stg-www.tmhp-crt,stg-www.startup.ny.gov-crt,stg-www.locusreporter-crt,stg-www.emedny.org-crt]
+  certificatesSecrets: []
 
   certificates: 
   # If a storage class to be passed to the VolumeClaimTemplates in search and stream pods, it can be specified here:
@@ -27,7 +27,7 @@ global:
   #   If you are installing or upgrading on IBM DB2, update the udb.conf file in the /charts/pega/charts/installer/config/udb directory with any additional connection properties.
   jdbc:
     #   SQL Server          jdbc:sqlserver://localhost:1433;databaseName=dbName;selectMethod=cursor;sendStringParametersAsUnicode=false
-    url: "jdbc:sqlserver://sc-sqlmi-angpega-stg-02.3281ee7a4e53.database.windows.net:1433;databaseName=PEGA;selectMethod=cursor;sendStringParametersAsUnicode=false;Authentication=ActiveDirectoryMSI;MSIClientId=2a614bdd-4d5f-44cd-b5ab-e85d2466e6f9;selectMethod=cursor;sendStringParametersAsUnicode=false"
+    url: "jdbc:sqlserver://XXXXX.database.windows.net:1433;databaseName=XXXXX;selectMethod=cursor;sendStringParametersAsUnicode=false;Authentication=ActiveDirectoryMSI;MSIClientId=XXXXX;selectMethod=cursor;sendStringParametersAsUnicode=false"
 
     #   driverClass   -- jdbc class.  Valid values are:
     #   SQL Server          com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -36,8 +36,8 @@ global:
     dbType: "mssql"
     #   For databases that use multiple JDBC driver files (such as DB2), specify comma separated values for 'driverUri'
     #driverUri: "https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/8.2.2.jre8/mssql-jdbc-8.2.2.jre8.jar"
-    #driverUri: "https://scsapegaangstg.blob.core.windows.net/jdbc/mssql-jdbc-11.2.3.jre11.jar?sp=r&st=2023-12-19T18:27:48Z&se=2024-02-19T02:27:48Z&spr=https&sv=2022-11-02&sr=b&sig=e1rbfMC4LXKHXvQqRcGuPNbjqbDc1rYcrLIOd5s9GIg%3D"
-    driverUri: "https://scsapegaangstg.blob.core.windows.net/jdbc/mssql-jdbc-11.2.3.jre11.jar?sv=2023-01-03&st=2024-02-19T17%3A34%3A16Z&se=2024-05-19T16%3A34%3A16Z&sr=b&sp=r&sig=9yuqwA4Dg5IQtyOtqqHwvVIEr6T%2FM25uuc715Rk5jz8%3D"
+    #driverUri: "https://scs.blob.core.windows.net/jdbc/mssql-jdbc-11.2.3.jre11.jar?sp=r&st=2023-12-19T18:27:48Z&se=2024-02-19T02:27:48Z&spr=https&sv=2022-11-02&sr=b&sig=e1rbfMC4LXKHXvQqRcGuPNbjqbDc1rYcrLIOd5s9GIg%3D"
+    driverUri: "XXXXX"
              
 
     username:       # update to DB username
@@ -82,7 +82,7 @@ global:
   docker:
     # If using a custom Docker registry, supply the credentials here to pull Docker images.
     registry:
-      #url: "acrstg02.azurecr.io"
+      #url: "XXXXX.azurecr.io"
       #username: "acrstg02"
       #password: "zgnp/ESw5ZlpRZIovlLLE6i8u19cPvsr"
     # To avoid exposing Docker registry details, create secrets to manage your Docker registry credentials.
@@ -90,11 +90,11 @@ global:
     imagePullSecretNames: []
     # Docker image information for the Pega docker image, containing the application server.
     pega:
-      image: "acrstg02.azurecr.io/pega/pega/pega:8.23.0"
+      image: "XXXXX.azurecr.io/pega/pega/pega:8.23.0"
   utilityImages:
     busybox:
       # image: alpine:3.16.0
-      image: "acrstg02.azurecr.io/pega/pega/busybox:1.31.0"
+      image: "XXXXX.azurecr.io/pega/pega/busybox:1.31.0"
       imagePullPolicy: IfNotPresent
       #nodeSelector: 
         #"category": dvlnxs
@@ -146,7 +146,7 @@ global:
               auth="Container"
               type="javax.sql.DataSource"
               driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-              url="jdbc:sqlserver://sc-sqlmi-angpeg-stg-02.3281ee7a4e53.database.windows.net:1433;database=EDSBLOBANG;SelectMethod=cursor;SendStringParametersasUnicode=false;Authentication=ActiveDirectoryMSI;MSIClientId=2a614bdd-4d5f-44cd-b5ab-e85d2466e6f9;selectMethod=cursor;sendStringParametersAsUnicode=false"
+              url="jdbc:sqlserver://XXXXX.database.windows.net:1433;database=XXXXX;SelectMethod=cursor;SendStringParametersasUnicode=false;Authentication=ActiveDirectoryMSI;MSIClientId=XXXXX;selectMethod=cursor;sendStringParametersAsUnicode=false"
 
               maxTotal="100"
               maxIdle="30"
@@ -203,7 +203,7 @@ global:
 
         # Enter the domain name to access web nodes via a load balancer.
         #  e.g. web.mypega.example.com
-        domain: "umpegastg1aks.molinahealthcare.com"
+        domain: "XXXXX.com"
         # Configure custom path for given host along with pathType. Default pathType is ImplementationSpecific.
         # path:
         # pathType:
@@ -336,7 +336,7 @@ global:
               auth="Container"
               type="javax.sql.DataSource"
               driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-              url="jdbc:sqlserver://sc-sqlmi-angpega-stg-02.3281ee7a4e53.database.windows.net:1433;database=PegaAnGReporting;SelectMethod=cursor;SendStringParametersasUnicode=false;Authentication=ActiveDirectoryMSI;MSIClientId=2a614bdd-4d5f-44cd-b5ab-e85d2466e6f9;selectMethod=cursor;sendStringParametersAsUnicode=false"
+              url="jdbc:sqlserver://XXXXX.database.windows.net:1433;database=XXXXX;SelectMethod=cursor;SendStringParametersasUnicode=false;Authentication=ActiveDirectoryMSI;MSIClientId=2a614bdd-4d5f-44cd-b5ab-e85d2466e6f9;selectMethod=cursor;sendStringParametersAsUnicode=false"
 
               maxTotal="100"
               maxIdle="30"
@@ -347,7 +347,7 @@ global:
               auth="Container"
               type="javax.sql.DataSource"
               driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-              url="jdbc:sqlserver://sc-sqlmi-angpega-stg-02.3281ee7a4e53.database.windows.net:1433;database=Pega_Integration;SelectMethod=cursor;SendStringParametersasUnicode=false;Authentication=ActiveDirectoryMSI;MSIClientId=2a614bdd-4d5f-44cd-b5ab-e85d2466e6f9;selectMethod=cursor;sendStringParametersAsUnicode=false"
+              url="jdbc:sqlserver://XXXXX.database.windows.net:1433;database=XXXXX;SelectMethod=cursor;SendStringParametersasUnicode=false;Authentication=ActiveDirectoryMSI;MSIClientId=2a614bdd-4d5f-44cd-b5ab-e85d2466e6f9;selectMethod=cursor;sendStringParametersAsUnicode=false"
 
               maxTotal="100"
               maxIdle="30"
@@ -358,7 +358,7 @@ global:
               auth="Container"
               type="javax.sql.DataSource"
               driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-              url="jdbc:sqlserver://sc-sqlmi-angpeg-stg-02.3281ee7a4e53.database.windows.net:1433;database=EDSBLOBANG;SelectMethod=cursor;SendStringParametersasUnicode=false;Authentication=ActiveDirectoryMSI;MSIClientId=2a614bdd-4d5f-44cd-b5ab-e85d2466e6f9;selectMethod=cursor;sendStringParametersAsUnicode=false"
+              url="jdbc:sqlserver://XXXXX.database.windows.net:1433;database=XXXXX;SelectMethod=cursor;SendStringParametersasUnicode=false;Authentication=ActiveDirectoryMSI;MSIClientId=2a614bdd-4d5f-44cd-b5ab-e85d2466e6f9;selectMethod=cursor;sendStringParametersAsUnicode=false"
 
               maxTotal="100"
               maxIdle="30"
@@ -417,7 +417,7 @@ global:
 
         # Enter the domain name to access web nodes via a load balancer.
         #  e.g. web.mypega.example.com
-        domain: "umpegaapistg1aks.molinahealthcare.com"
+        domain: "XXXXX.com"
         # Configure custom path for given host along with pathType. Default pathType is ImplementationSpecific.
         # path:
         # pathType:
@@ -850,7 +850,7 @@ installer:
 # Hazelcast settings (applicable from Pega 8.6)
 hazelcast:
   # Hazelcast docker image for platform version 8.6 through 8.7.x
-  clusteringServiceImage: "acrstg02.azurecr.io/pega/pega/clustering-service:1.3.14"
+  clusteringServiceImage: "XXXXX.azurecr.io/pega/pega/clustering-service:1.3.14"
   nodeSelector:
       application: pega_stg
  
@@ -907,7 +907,7 @@ stream:
   # Disabled by default, when enabled, your deployment no longer uses the "Stream" node type.
   enabled: true
   # Provide externalized Kafka service broker urls.
-  bootstrapServer: "lkc-xqojpq-l7okw.southcentralus.azure.glb.confluent.cloud:9092"
+  bootstrapServer: "XXXXX.southcentralus.azure.glb.confluent.cloud:9092"
   # Provide Security Protocol used to communicate with kafka brokers. Supported values are: PLAINTEXT, SSL, SASL_PLAINTEXT, SASL_SSL.
   securityProtocol: SASL_SSL
   # If required, provide trustStore certificate file name
