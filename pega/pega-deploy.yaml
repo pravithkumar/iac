@@ -1,10 +1,7 @@
 ---
-
 global:
   # Enter your Kubernetes provider.
   provider: "aks"
-
- 
 
   deployment:
     # The name specified will be used to prefix all of the Pega pods (replacing "pega" with something like "app1-dev").
@@ -13,7 +10,6 @@ global:
   # Deploy Pega nodes
   actions:
     execute: "deploy" 
-
   # Add custom certificates to be mounted to container
   # to support custom certificates as plain text (less secure), pass them directly using the certificates parameter;
   # to support multiple custom certificates as external secrets, specify each of your external secrets
