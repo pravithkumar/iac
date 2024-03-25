@@ -45,9 +45,9 @@ deployment:
     #   pega.database.type        Valid values are: mssql, oracledate, udb, db2zos, postgres
     dbType: "mssql"
     #   For databases that use multiple JDBC driver files (such as DB2), specify comma separated values for 'driverUri'
-    driverUri: "YOUR_JDBC_DRIVER_URI"
-    username: "YOUR_JDBC_USERNAME"
-    password: "YOUR_JDBC_PASSWORD"
+    # driverUri: "YOUR_JDBC_DRIVER_URI"
+    # username: "YOUR_JDBC_USERNAME"
+    # password: "YOUR_JDBC_PASSWORD"
     # To avoid exposing username & password, leave the jdbc.password & jdbc.username parameters empty (no quotes),
     # configure  JDBC username & password parameters in the External Secrets Manager, and enter the external secret for the credentials
     # make sure the keys in the secret should be DB_USERNAME and DB_PASSWORD respectively
@@ -58,10 +58,13 @@ deployment:
     # For example, you can set a custom authentication using Azure Managed Identity and avoid using a password.
     # To pass an Authentication method and a managed identity, MSI Client ID,
     # set: connectionProperties: "Authentication=ActiveDirectoryMSI;msiClientId=<your Azure Managed Identity>;"
-    connectionProperties: ""
-    rulesSchema: "YOUR_RULES_SCHEMA"
-    dataSchema: "YOUR_DATA_SCHEMA"
+    connectionProperties: "maxActive='100';maxIdle='80';minIdle='25';validationQuery='select 1 from dual';testOnReturn='true';testOnBorrow='true';testWhileIdle='true';removeAbandoned='true';removeAbandonedTimeout='300';timeBetweenEvictionRunsMillis='30000'"
+    rulesSchema: "PEGARULES"
+    dataSchema: "PEGADATA"
     customerDataSchema: ""
+    MAX_ACTIVE: "100"
+    MAX_IDLE: "30"
+    MAX_WAIT: "10000" 
 customArtifactory:
     # If you use a secured custom artifactory to manager your JDBC driver,
     # provide the authentication details below by filling in the appropriate authentication section,
@@ -94,10 +97,10 @@ docker:
     imagePullSecretNames: []
     # Docker image information for the Pega docker image, containing the application server.
     pega:
-      image: "pegasystems/pega"
+      image: "acr87948.azurecr.io/pega/pega/pega:8.23.0"
 utilityImages:
     busybox:
-      image: busybox:1.31.0
+      image: "acr87948.azurecr.io/pega/pega/busybox:1.31.0"
       imagePullPolicy: IfNotPresent
     k8s_wait_for:
       image: pegasystems/k8s-wait-for
