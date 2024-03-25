@@ -248,6 +248,8 @@ hpa:
         enabled: false
         minAvailable: 1
         # maxUnavailable: "50%"
+
+        
 - name: "batch"
       # Create a background tier for batch processing.  This tier uses
       # a collection of background node types and will not be exposed to
