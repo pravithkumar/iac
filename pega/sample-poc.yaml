@@ -249,38 +249,8 @@ hpa:
         minAvailable: 1
         # maxUnavailable: "50%"
 
-        
-- name: "batch"
-      # Create a background tier for batch processing.  This tier uses
-      # a collection of background node types and will not be exposed to
-      # the load balancer.
-      nodeType: "BackgroundProcessing,Search,Batch,RealTime,Custom1,Custom2,Custom3,Custom4,Custom5,BIX"
-replicas: 1
-      javaOpts: ""
-pegaDiagnosticUser: ""
-      pegaDiagnosticPassword: ""
-deploymentStrategy:
-        rollingUpdate:
-          maxSurge: 1
-          maxUnavailable: 0
-        type: RollingUpdate
-livenessProbe:
-        port: 8081
-# To configure an alternative user for your custom image, set value for runAsUser
-      # To configure an alternative group for volume mounts, set value for fsGroup
-      # See, https://github.com/pegasystems/pega-helm-charts/blob/master/charts/pega/README.md#security-context
-      # securityContext:
-      #   runAsUser: 9001
-      #   fsGroup: 0
-hpa:
-        enabled: true
-# Set enabled to true to include a Pod Disruption Budget for this tier.
-      # To enable this budget, specifiy either a pdb.minAvailable or pdb.maxUnavailable
-      # value and comment out the other parameter.
-      pdb:
-        enabled: false
-        minAvailable: 1
-        # maxUnavailable: "50%"
+
+
 - name: "stream"
       # Create a stream tier for queue processing.  This tier deploys
       # as a stateful set to ensure durability of queued data. It may
@@ -432,9 +402,10 @@ dds:
 # These search nodes will be deployed regardless of the Elasticsearch configuration above.
 # Refer to README document to configure `Search and Reporting Service` as a search functionality provider under this section.
 pegasearch:
-  image: "pegasystems/search"
-  memLimit: "3Gi"
-  replicas: 1
+  externalSearchService: true
+  #externalURL: "http://pega-srs.ns-um-pega-stage.svc.cluster.local"
+  externalURL: "http://pega-srs.ns-um-pega-srs-stage.svc.cluster.local"
+  
 # Pega Installer settings.
 installer:
   image: "YOUR_INSTALLER_IMAGE:TAG"
