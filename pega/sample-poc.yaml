@@ -442,7 +442,7 @@ hazelcast:
     # Set to `true` to initiate the migration job.
     initiateMigration: false
     # Reference the `platform/clustering-service-kubectl` Docker image to create the migration job.
-    migrationJobImage: "YOUR_MIGRATION_JOB_IMAGE:TAG"
+    migrationJobImage: "acr87948.azurecr.io/clustering-service:latest"
     # Set to `true` when migrating from embedded Hazelcast.
     embeddedToCSMigration: false
 # No. of initial members to join
