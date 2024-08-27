@@ -1,3 +1,61 @@
+data "azurerm_resource_group" "rg" {
+  name = var.resource_group_name
+}
+
+data "azurerm_virtual_network" "vnet" {
+  name                = var.vnet_name
+  resource_group_name = var.vnet_rg_name
+}
+
+data "azurerm_subnet" "subnet_db" {
+  name                 = var.subnet_name_db
+  virtual_network_name = var.vnet_name
+  resource_group_name  = var.vnet_rg_name
+}
+
+data "azurerm_subnet" "subnet_mgmt" {
+  name                 = var.subnet_name_mgmt
+  virtual_network_name = var.vnet_name
+  resource_group_name  = var.vnet_rg_name
+}
+
+data "azurerm_subnet" "subnet_pure" {
+  name                 = var.subnet_name_pure
+  virtual_network_name = var.vnet_name
+  resource_group_name  = var.vnet_rg_name
+}
+
+data "azurerm_storage_account" "storage_account" {
+  name                = var.bootdiag_storage_account_name
+  resource_group_name = var.bootdiag_storage_account_rg_name
+}
+
+data "azurerm_key_vault" "Key_vault_password" {
+  name                = var.secret_key_vault_name
+  resource_group_name = var.secret_key_vault_rg_name
+}
+
+data "azurerm_key_vault_secret" "ansible_bearer_token" {
+  name         = "ansiblebearertoken"
+  key_vault_id = data.azurerm_key_vault.Key_vault_password.id
+}
+
+data "azurerm_key_vault_secret" "domain_join_password_secret" {
+  name         = "adjoinpassword"
+  key_vault_id = data.azurerm_key_vault.Key_vault_password.id
+}
+
+data "azurerm_key_vault_secret" "admin_password_secret" {
+  name         = "adminPassword"
+  key_vault_id = data.azurerm_key_vault.Key_vault_password.id
+}
+
+data "azurerm_key_vault_secret" "admin_username" {
+  name         = "adminusername"
+  key_vault_id = data.azurerm_key_vault.Key_vault_password.id
+}
+
+
 module "sqlaoa-2node-primary-vm-DC10ANS01TFCW" {
   for_each                                           = var.sqlaoa-2node-primary-vm-DC10ANS01TFCW
   source                                             = "app.terraform.io/Molina-Cloud/windows-virtualmachine-aoa-pure-disk/azurerm"
