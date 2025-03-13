@@ -1,5 +1,5 @@
 module "servicebus" {
-  source              = "./modules/servicebus"
+  source              = "../Modules/servicebus"
   resource_group_name = var.resource_group_name
   location            = var.location
   servicebus_name     = var.servicebus_name
