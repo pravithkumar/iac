@@ -1,0 +1,30 @@
+variable "resource_group_name" {
+  type        = string
+  description = "The name of the resource group in which to create the Service Bus."
+}
+
+variable "location" {
+  type        = string
+  description = "The Azure Region in which to create the Service Bus."
+}
+
+variable "servicebus_name" {
+  type        = string
+  description = "The name of the Service Bus Namespace."
+}
+
+variable "sku" {
+  type        = string
+  description = "The SKU of the Service Bus Namespace (Standard, Premium, or PremiumV2)."
+}
+
+variable "private_endpoints" {
+  type = list(object({
+    name                = string
+    subnet_id           = string
+    private_dns_zone_ids = list(string)
+    subresource_names = list(string)
+  }))
+  description = "List of private endpoints to create."
+  default     = []
+}
