@@ -1,3 +1,7 @@
+# Configure the Microsoft Azure Provider
+provider "azurerm" {
+  features {}
+}
 module "servicebus" {
   source              = "../Modules/servicebus"
   resource_group_name = var.resource_group_name
