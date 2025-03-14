@@ -3,6 +3,7 @@ resource "azurerm_servicebus_namespace" "servicebus" {
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = var.sku
+  capacity            = 1
 }
 
 resource "azurerm_private_endpoint" "servicebus_pe" {
