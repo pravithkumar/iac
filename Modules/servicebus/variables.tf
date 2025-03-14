@@ -20,10 +20,10 @@ variable "sku" {
 
 variable "private_endpoints" {
   type = list(object({
-    name                = string
-    subnet_id           = string
+    name                   = string
+    subnet_id              = string
     private_dns_zone_ids = list(string)
-    subresource_names = list(string)
+    subresource_names    = list(string)
   }))
   description = "List of private endpoints to create."
   default     = []
@@ -31,10 +31,40 @@ variable "private_endpoints" {
 
 variable "queue_names" {
   type    = list(string)
-  default = ["example-queue", "another-queue"]
+  default = ["queue1", "queue2"]
 }
 
 variable "topic_names" {
   type    = list(string)
-  default = ["example-topic", "another-topic"]
+  default = ["topic1", "topic2"]
+}
+
+variable "servicebus_capacity" {
+  type        = number
+  description = "Service Bus Namespace Capacity."
+  default     = 1
+}
+
+variable "premium_messaging_partitions" {
+  type        = number
+  description = "Service Bus Namespace Premium Messaging Partitions."
+  default     = 1
+}
+
+variable "queue_max_size" {
+  type        = number
+  description = "Maximum size in megabytes for queues."
+  default     = 1024
+}
+
+variable "topic_max_size" {
+  type        = number
+  description = "Maximum size in megabytes for topics."
+  default     = 1024
+}
+
+variable "subscription_max_delivery_count" {
+  type        = number
+  description = "Maximum delivery count for subscriptions."
+  default     = 10
 }
