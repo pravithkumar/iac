@@ -28,3 +28,13 @@ variable "private_endpoints" {
   description = "List of private endpoints to create."
   default     = []
 }
+
+variable "queue_names" {
+  type    = list(string)
+  default = ["example-queue", "another-queue"]
+}
+
+variable "topic_names" {
+  type    = list(string)
+  default = ["example-topic", "another-topic"]
+}
