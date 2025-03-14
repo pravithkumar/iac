@@ -43,10 +43,8 @@ resource "azurerm_servicebus_subscription" "subscriptions" {
   # Other subscription settings as needed
 }
 
-resource "azurerm_private_endpoint" "servicebus_pe" {
-  count = var.sku == "Premium" && length(var.private_endpoints) > 0 ? 1 : 0 # only create for premium and when there are private endpoints
-
-  for_each            = { for pe in var.private_endpoints : pe.name => pe }
+resource "azurerm_servicebus_private_endpoint" "servicebus_pe" {
+  for_each            = var.sku == "Premium" && length(var.private_endpoints) > 0 ? { for pe in var.private_endpoints : pe.name => pe } : {}
   name                = each.value.name
   location            = var.location
   resource_group_name = var.resource_group_name
