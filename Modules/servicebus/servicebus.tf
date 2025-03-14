@@ -10,7 +10,6 @@ resource "azurerm_servicebus_namespace" "servicebus" {
 resource "azurerm_servicebus_queue" "example_queue" {
   name                = "example-queue"
   namespace_id        = azurerm_servicebus_namespace.servicebus.id
-  enable_partitioning = true # Recommended for performance
   max_size_in_megabytes = 1024 # Adjust as needed
   # Other queue settings as needed
 }
@@ -18,7 +17,6 @@ resource "azurerm_servicebus_queue" "example_queue" {
 resource "azurerm_servicebus_topic" "example_topic" {
   name                = "example-topic"
   namespace_id        = azurerm_servicebus_namespace.servicebus.id
-  enable_partitioning = true # Recommended for performance
   max_size_in_megabytes = 1024 # Adjust as needed
   # Other topic settings as needed
 }
