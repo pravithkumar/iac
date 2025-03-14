@@ -1,10 +1,22 @@
 resource "azurerm_servicebus_namespace" "servicebus" {
-  name                         = var.servicebus_name
-  location                     = var.location
-  resource_group_name          = var.resource_group_name
-  sku                          = var.sku
-  capacity                     = var.servicebus_capacity
-  premium_messaging_partitions = var.premium_messaging_partitions
+  name                = var.servicebus_name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  sku                 = var.sku
+
+  dynamic "capacity" {
+    for_each = var.sku == "Premium" ? [1] : []
+    content {
+      capacity = var.servicebus_capacity
+    }
+  }
+
+  dynamic "premium_messaging_partitions" {
+    for_each = var.sku == "Premium" ? [1] : []
+    content {
+      premium_messaging_partitions = var.premium_messaging_partitions
+    }
+  }
 }
 
 resource "azurerm_servicebus_queue" "queues" {
@@ -32,6 +44,8 @@ resource "azurerm_servicebus_subscription" "subscriptions" {
 }
 
 resource "azurerm_private_endpoint" "servicebus_pe" {
+  count = var.sku == "Premium" && length(var.private_endpoints) > 0 ? 1 : 0 # only create for premium and when there are private endpoints
+
   for_each            = { for pe in var.private_endpoints : pe.name => pe }
   name                = each.value.name
   location            = var.location
