@@ -7,6 +7,29 @@ resource "azurerm_servicebus_namespace" "servicebus" {
   premium_messaging_partitions = 1
 }
 
+resource "azurerm_servicebus_queue" "example_queue" {
+  name                = "example-queue"
+  namespace_id        = azurerm_servicebus_namespace.servicebus.id
+  enable_partitioning = true # Recommended for performance
+  max_size_in_megabytes = 1024 # Adjust as needed
+  # Other queue settings as needed
+}
+
+resource "azurerm_servicebus_topic" "example_topic" {
+  name                = "example-topic"
+  namespace_id        = azurerm_servicebus_namespace.servicebus.id
+  enable_partitioning = true # Recommended for performance
+  max_size_in_megabytes = 1024 # Adjust as needed
+  # Other topic settings as needed
+}
+
+resource "azurerm_servicebus_subscription" "example_subscription" {
+  name                = "example-subscription"
+  topic_id            = azurerm_servicebus_topic.example_topic.id
+  max_delivery_count  = 10 # Adjust as needed
+  # Other subscription settings as needed
+}
+
 resource "azurerm_private_endpoint" "servicebus_pe" {
   for_each            = { for pe in var.private_endpoints : pe.name => pe }
   name                = each.value.name
