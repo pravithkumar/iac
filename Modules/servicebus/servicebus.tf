@@ -1,14 +1,4 @@
-resource "azurerm_servicebus_namespace" "servicebus" {
-  name                = var.servicebus_name
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  sku                 = var.sku
-
-  capacity                     = var.sku == "Premium" ? var.servicebus_capacity : null
-  premium_messaging_partitions = var.sku == "Premium" ? var.premium_messaging_partitions : null
-}
-
-resource "azurerm_servicebus_private_endpoint" "servicebus_pe" {
+resource "azurerm_private_endpoint" "servicebus_pe" {
   for_each            = var.sku == "Premium" && length(var.private_endpoints) > 0 ? { for pe in var.private_endpoints : pe.name => pe } : {}
   name                = each.value.name
   location            = var.location
@@ -28,6 +18,16 @@ resource "azurerm_servicebus_private_endpoint" "servicebus_pe" {
   }
 
   depends_on = [azurerm_servicebus_namespace.servicebus]
+}
+
+resource "azurerm_servicebus_namespace" "servicebus" {
+  name                = var.servicebus_name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  sku                 = var.sku
+
+  capacity                     = var.sku == "Premium" ? var.servicebus_capacity : null
+  premium_messaging_partitions = var.sku == "Premium" ? var.premium_messaging_partitions : null
 }
 
 resource "azurerm_servicebus_queue" "queues" {
