@@ -4,6 +4,7 @@ resource "azurerm_servicebus_namespace" "servicebus" {
   resource_group_name = var.resource_group_name
   sku                 = var.sku
   capacity            = 1
+  premium_messaging_partitions = 1
 }
 
 resource "azurerm_private_endpoint" "servicebus_pe" {
