@@ -1,7 +1,7 @@
 # main.tf
 
 module "function_app_and_pe" {
-  source                     = "./modules/function_app_and_pe"
+  source                     = "../Modules/AzureFunctionApp"
   function_app_name          = var.function_app_name
   location                   = var.location
   resource_group_name        = var.resource_group_name
