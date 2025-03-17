@@ -45,7 +45,7 @@ variable "runtime" {
   description = "The runtime stack of the function app (e.g., dotnet, node, python, java, powershell, custom)."
   default     = "dotnet"
   validation {
-    condition     = contains(["dotnet", "node", "python", "java", "powershell", "custom"], self)
+    condition     = contains(["dotnet", "node", "python", "java", "powershell", "custom"], var.runtime) # Corrected line
     error_message = "Valid values for runtime are: dotnet, node, python, java, powershell, custom."
   }
 }
