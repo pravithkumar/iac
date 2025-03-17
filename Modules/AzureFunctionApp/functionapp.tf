@@ -35,16 +35,17 @@ resource "azurerm_function_app" "function_app" {
     app_settings = {
       "FUNCTIONS_EXTENSION_VERSION"         = "~4"
       "FUNCTIONS_WORKER_RUNTIME"            = var.runtime
-      "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING" = "DefaultEndpointsProtocol=https;AccountName=<span class="math-inline">\{data\.azurerm\_storage\_account\.storage\.name\};AccountKey\=</span>{data.azurerm_storage_account.storage.primary_access_key}"
-      "WEBSITE_CONTENTSHARE"                = lower("<span class="math-inline">\{var\.function\_app\_name\}content"\)
-"WEBSITE\_RUN\_FROM\_PACKAGE"            \= "1"
-\}
-\}
-version \= "\~4"
-tags \= var\.tags
-\}
-resource "azurerm\_private\_endpoint" "function\_app\_pe" \{
-name                \= "</span>{var.function_app_name}-pe"
+      "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING" = "DefaultEndpointsProtocol=https;AccountName=${data.azurerm_storage_account.storage.name};AccountKey=${data.azurerm_storage_account.storage.primary_access_key}"
+      "WEBSITE_CONTENTSHARE"                = lower("${var.function_app_name}content")
+      "WEBSITE_RUN_FROM_PACKAGE"            = "1"
+    }
+  }
+  version = "~4"
+  tags = var.tags
+}
+
+resource "azurerm_private_endpoint" "function_app_pe" {
+  name                = "${var.function_app_name}-pe"
   location            = var.location
   resource_group_name = var.resource_group_name
   subnet_id           = var.private_endpoint_subnet_id
@@ -62,3 +63,4 @@ name                \= "</span>{var.function_app_name}-pe"
   }
 
   tags = var.tags
+}
