@@ -1,131 +1,85 @@
 # variables.tf
 
-variable "subscription_id" {
-  type = string
-  description = "The Azure subscription ID."
-}
-
-variable "tenant_id" {
-  type = string
-  description = "The Azure tenant ID."
-}
-
-variable "resource_group_name" {
-  type = string
-  description = "The name of the resource group."
-  default = "function-app-rg"
+variable "function_app_name" {
+  type        = string
+  description = "The name of the function app."
 }
 
 variable "location" {
-  type = string
-  description = "The Azure region to use."
-  default = "East US"
+  type        = string
+  description = "The Azure region where the function app should be created."
 }
 
-variable "app_service_plan_name" {
-  type = string
-  description = "The name of the App Service Plan."
-  default = "function-app-plan"
+variable "resource_group_name" {
+  type        = string
+  description = "The name of the resource group in which to create the function app."
 }
 
-variable "app_service_plan_kind" {
-  type = string
-  description = "The kind of the App Service Plan."
-  default = "FunctionApp"
-}
-
-variable "app_service_plan_reserved" {
-  type = bool
-  description = "Is reserved for Linux."
-  default = true
-}
-
-variable "app_service_plan_tier" {
-  type = string
-  description = "The tier of the App Service Plan."
-  default = "PremiumV3"
-}
-
-variable "app_service_plan_size" {
-  type = string
-  description = "The size of the App Service Plan."
-  default = "P1v3"
+variable "app_service_plan_id" {
+  type        = string
+  description = "The ID of the App Service Plan."
 }
 
 variable "storage_account_name" {
-  type = string
-  description = "The name of the Storage Account."
-  default = "functionappstorage"
+  type        = string
+  description = "The name of the storage account."
 }
 
-variable "storage_account_tier" {
-  type = string
-  description = "The tier of the Storage Account."
-  default = "Standard"
+variable "storage_account_resource_group_name" {
+  type        = string
+  description = "The name of the resource group where storage account is located."
 }
 
-variable "storage_account_replication_type" {
-  type = string
-  description = "The replication type of the Storage Account."
-  default = "LRS"
-}
-
-variable "application_insights_name" {
-  type = string
+variable "app_insights_name" {
+  type        = string
   description = "The name of the Application Insights instance."
-  default = "function-app-insights"
 }
 
-variable "application_insights_type" {
-  type = string
-  description = "The application type of the Application Insights instance."
-  default = "function"
+variable "app_insights_resource_group_name" {
+  type        = string
+  description = "The name of the resource group where application insights is located."
 }
 
-variable "function_app_name" {
-  type = string
-  description = "The name of the Function App."
-  default = "function-app"
+variable "runtime" {
+  type        = string
+  description = "The runtime stack of the function app (e.g., dotnet, node, python, java, powershell, custom)."
+  default     = "dotnet"
+  validation {
+    condition     = contains(["dotnet", "node", "python", "java", "powershell", "custom"], self)
+    error_message = "Valid values for runtime are: dotnet, node, python, java, powershell, custom."
+  }
 }
 
-variable "function_app_version" {
-  type = string
-  description = "The runtime version of the Function App."
-  default = "~4"
+variable "runtime_version" {
+  type        = string
+  description = "The version of the runtime stack (e.g., ~4, 16, 3.9)."
+  default     = "~4"
 }
 
-variable "function_app_https_only" {
-  type = bool
-  description = "Enforce HTTPS."
-  default = true
+variable "https_only" {
+  type        = bool
+  description = "Whether to enable HTTPS only."
+  default     = true
 }
 
-variable "function_app_always_on" {
-  type = bool
-  description = "Enable Always On."
-  default = true
+variable "always_on" {
+  type        = bool
+  description = "Whether to enable Always On."
+  default     = false
 }
 
-variable "python_version" {
-  type = string
-  description = "The Python version."
-  default = "3.9"
+variable "tags" {
+  type        = map(string)
+  description = "A map of tags to assign to the resource."
+  default     = {}
 }
 
-variable "allowed_origins" {
-  type = list(string)
-  description = "Allowed CORS origins."
-  default = ["*"]
+variable "private_endpoint_subnet_id" {
+  type        = string
+  description = "The ID of the subnet to deploy the private endpoint into."
 }
 
-variable "function_worker_runtime" {
-  type = string
-  description = "The Function App worker runtime."
-  default = "python"
-}
-
-variable "function_app_identity_type" {
-  type = string
-  description = "The type of identity for the function app"
-  default = "SystemAssigned"
+variable "private_dns_zone_id" {
+  type        = string
+  description = "The ID of the existing private DNS zone."
 }
