@@ -1,69 +1,64 @@
-# source.tf (Example using a local zip file for the function app code)
+# modules/function_app_and_pe/main.tf
 
-data "archive_file" "function_code" {
-  type        = "zip"
-  source_dir  = "./function_code" # Path to your function code directory
-  output_path = "./function_code.zip"
+data "azurerm_storage_account" "storage" {
+  name                = var.storage_account_name
+  resource_group_name = var.storage_account_resource_group_name
 }
 
-resource "azurerm_storage_blob" "function_zip" {
-  name                   = "function_code.zip"
-  storage_account_name   = azurerm_storage_account.storageaccount.name
-  storage_container_name = "function-code"
-  type                   = "Block"
-  source                 = data.archive_file.function_code.output_path
+data "azurerm_application_insights" "app_insights" {
+  name                = var.app_insights_name
+  resource_group_name = var.app_insights_resource_group_name
 }
 
-resource "azurerm_function_app_slot" "functionappslot" {
-  name                       = "function-app-slot"
-  location                   = azurerm_resource_group.function_rg.location
-  resource_group_name        = azurerm_resource_group.function_rg.name
-  app_service_plan_id        = azurerm_app_service_plan.appserviceplan.id
-  storage_account_name       = azurerm_storage_account.storageaccount.name
-  storage_account_access_key = azurerm_storage_account.storageaccount.primary_access_key
-  version                    = var.function_app_version
-  https_only                 = var.function_app_https_only
+resource "azurerm_function_app" "function_app" {
+  name                       = var.function_app_name
+  location                   = var.location
+  resource_group_name        = var.resource_group_name
+  app_service_plan_id        = var.app_service_plan_id
+  storage_account_name       = var.storage_account_name
+  storage_account_access_key = data.azurerm_storage_account.storage.primary_access_key
+  app_insights_key           = data.azurerm_application_insights.app_insights.instrumentation_key
+  https_only                 = var.https_only
   site_config {
-    always_on = var.function_app_always_on
+    always_on = var.always_on
+    ftps_state = "FtpsOnly"
+    min_tls_version = "1.2"
     application_stack {
-      python_version = var.python_version
+      dotnet_version    = var.runtime == "dotnet" ? var.runtime_version : null
+      node_version      = var.runtime == "node" ? var.runtime_version : null
+      python_version    = var.runtime == "python" ? var.runtime_version : null
+      java_version      = var.runtime == "java" ? var.runtime_version : null
+      powershell_version = var.runtime == "powershell" ? var.runtime_version : null
+      custom_runtime_config = var.runtime == "custom" ? var.runtime_version : null
     }
-    cors {
-      allowed_origins = var.allowed_origins
-    }
+
+    app_settings = {
+      "FUNCTIONS_EXTENSION_VERSION"         = "~4"
+      "FUNCTIONS_WORKER_RUNTIME"            = var.runtime
+      "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING" = "DefaultEndpointsProtocol=https;AccountName=<span class="math-inline">\{data\.azurerm\_storage\_account\.storage\.name\};AccountKey\=</span>{data.azurerm_storage_account.storage.primary_access_key}"
+      "WEBSITE_CONTENTSHARE"                = lower("<span class="math-inline">\{var\.function\_app\_name\}content"\)
+"WEBSITE\_RUN\_FROM\_PACKAGE"            \= "1"
+\}
+\}
+version \= "\~4"
+tags \= var\.tags
+\}
+resource "azurerm\_private\_endpoint" "function\_app\_pe" \{
+name                \= "</span>{var.function_app_name}-pe"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  subnet_id           = var.private_endpoint_subnet_id
+
+  private_service_connection {
+    name                           = "${var.function_app_name}-psc"
+    private_connection_resource_id = azurerm_function_app.function_app.id
+    subresource_names              = ["sites"]
+    is_manual_connection           = false
   }
 
-  app_settings = {
-    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.appinsights.instrumentation_key
-    FUNCTIONS_WORKER_RUNTIME        = var.function_worker_runtime
-    AzureWebJobsStorage             = "DefaultEndpointsProtocol=https;AccountName=${azurerm_storage_account.storageaccount.name};AccountKey=${azurerm_storage_account.storageaccount.primary_access_key};EndpointSuffix=core.windows.net"
-    WEBSITE_RUN_FROM_PACKAGE = "https://${azurerm_storage_account.storageaccount.name}.blob.core.windows.net/function-code/function_code.zip?${azurerm_storage_blob.function_zip.url_sas_token}"
+  private_dns_zone_group {
+    name                 = "private-dns-zone-group"
+    private_dns_zone_ids = [var.private_dns_zone_id]
   }
 
-  identity {
-      type = var.function_app_identity_type
-  }
-}
-
-resource "azurerm_storage_container" "function_container" {
-  name                  = "function-code"
-  storage_account_name  = azurerm_storage_account.storageaccount.name
-  container_access_type = "private"
-}
-
-resource "azurerm_storage_blob_sas" "function_zip_sas" {
-  storage_account_name   = azurerm_storage_account.storageaccount.name
-  storage_container_name = azurerm_storage_container.function_container.name
-  storage_blob_name       = azurerm_storage_blob.function_zip.name
-  https_only             = true
-  start                  = "2023-01-01T00:00:00Z"
-  expiry                 = "2030-01-01T00:00:00Z" # Adjust expiration as needed
-  permissions {
-    read = true
-    list = true
-  }
-}
-
-output "function_code_zip_url" {
-  value = "https://${azurerm_storage_account.storageaccount.name}.blob.core.windows.net/function-code/function_code.zip?${azurerm_storage_blob_sas.function_zip_sas.url}"
-}
+  tags = var.tags
