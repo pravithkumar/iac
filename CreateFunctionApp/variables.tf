@@ -37,4 +37,17 @@ variable "runtime" {
 }
 
 variable "runtime_version" {
-  type =
+  type = string # Corrected this line
+}
+
+variable "https_only" {
+  type = bool
+}
+
+variable "always_on" {
+  type = bool
+}
+
+variable "tags" {
+  type = map(string)
+}
