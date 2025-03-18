@@ -22,7 +22,7 @@ stages:
     - task: TerraformInstaller@1
       displayName: 'Install Terraform'
       inputs:
-        terraformVersion: 'latest' # Or a specific version (e.g., '1.3.7')
+        terraformVersion: 'latest'
 
   - job: Terraform_Init_Upgrade
     displayName: Terraform Init Upgrade
@@ -32,11 +32,11 @@ stages:
       displayName: 'Terraform Init - Upgrade'
       inputs:
         azureSubscription: 'SC_CCS_400847_Priya_MSDN'
-        scriptType: 'bash'
+        scriptType: 'pwsh'
         scriptLocation: 'inlineScript'
         inlineScript: |
           terraform init -upgrade
-        workingDirectory: '$(System.DefaultWorkingDirectory)' # Ensure correct working directory
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
 
   - job: Terraform_Plan
     displayName: Build the Plan
