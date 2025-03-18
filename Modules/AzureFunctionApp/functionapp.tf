@@ -40,6 +40,6 @@ resource "azurerm_function_app" "function_app" {
       "APPINSIGHTS_INSTRUMENTATIONKEY"      = data.azurerm_application_insights.app_insights.instrumentation_key
     }
   }
-  version = "~4"
+  version = "3.0"
   tags = var.tags
 }
