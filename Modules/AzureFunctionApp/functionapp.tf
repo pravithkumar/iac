@@ -11,7 +11,8 @@ data "azurerm_storage_account" "sa" {
 }
 
 data "azurerm_app_service_plan" "asp" {
-  id = var.app_service_plan_id
+  name                = var.app_service_plan_name # Use name
+  resource_group_name = var.resource_group_name # Use resource group
 }
 
 data "azurerm_application_insights" "ai" {
