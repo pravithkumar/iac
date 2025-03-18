@@ -1,0 +1,18 @@
+trigger:
+- none
+
+pool:
+  name: Azure Pipelines
+  vmImage: 'windows-latest'
+
+jobs:
+- job: Terraform_Provider_Upgrade
+  displayName: Upgrade Terraform Providers
+  steps:
+  - task: TerraformTaskV4@4
+    displayName: 'Terraform Init - Upgrade'
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      commandOptions: '-upgrade'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
