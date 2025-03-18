@@ -1,6 +1,6 @@
 trigger:
 - none
- 
+
 pool:
   name: Azure Pipelines
   vmImage: 'windows-latest'
@@ -13,11 +13,24 @@ stages:
   - group: vg_backend_storage
   - group: vg_functionapp
   - name: stateFileName
-    value: functionapp.tfstate 
+    value: functionapp.tfstate
 
   jobs:
+  - job: Terraform_Init_Upgrade
+    displayName: Terraform Init Upgrade
+    steps:
+    - task: AzureCLI@2
+      displayName: 'Terraform Init - Upgrade'
+      inputs:
+        azureSubscription: 'SC_CCS_400847_Priya_MSDN'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          terraform init -upgrade
+
   - job: Terraform_Plan
     displayName: Build the Plan
+    dependsOn: Terraform_Init_Upgrade
     steps:
     - template: ..\..\Templates\ExeSimpleTFPlan.yaml
       parameters:
@@ -28,10 +41,10 @@ stages:
     dependsOn: Terraform_Plan
     displayName: Wait for Plan Validation
     pool: server
-    timeoutInMinutes: 4320 
+    timeoutInMinutes: 4320
     steps:
     - task: ManualValidation@0
-      timeoutInMinutes: 1440 
+      timeoutInMinutes: 1440
       inputs:
         notifyUsers: |
           pravith.yedla@cognizant.com
@@ -46,5 +59,3 @@ stages:
       parameters:
         serviceConnection: 'SC_CCS_400847_Priya_MSDN'
         backendServiceConnection: 'SC_CCS_400847_Priya_MSDN'
-
-
