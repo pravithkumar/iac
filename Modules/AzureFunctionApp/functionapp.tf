@@ -10,7 +10,7 @@ data "azurerm_storage_account" "sa" {
   resource_group_name = var.storage_account_resource_group_name
 }
 
-data "azurerm_app_service_plan" "asp" {
+data "azurerm_service_plan" "asp" {
   name                = var.app_service_plan_name # Use name
   resource_group_name = var.resource_group_name # Use resource group
 }
