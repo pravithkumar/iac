@@ -27,8 +27,7 @@ resource "azurerm_function_app" "fa" {
   app_service_plan_id        = data.azurerm_app_service_plan.asp.id
   storage_account_name       = data.azurerm_storage_account.sa.name
   storage_account_access_key = data.azurerm_storage_account.sa.primary_access_key
-  https_only = var.https_only
-  always_on = var.always_on
+  https_only = var.https_only  
   tags = var.tags
 }
 
