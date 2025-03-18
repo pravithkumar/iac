@@ -1,4 +1,4 @@
-# modules/function_app_and_pe/functionapp.tf
+# ../Modules/AzureFunctionApp/functionapp.tf
 
 data "azurerm_storage_account" "storage" {
   name                = var.storage_account_name
@@ -22,24 +22,41 @@ resource "azurerm_function_app" "function_app" {
     always_on = var.always_on
     ftps_state = "FtpsOnly"
     min_tls_version = "1.2"
-    application_stack {
-      dotnet_version    = var.runtime == "dotnet" ? var.runtime_version : null
-      node_version      = var.runtime == "node" ? var.runtime_version : null
-      python_version    = var.runtime == "python" ? var.runtime_version : null
-      java_version      = var.runtime == "java" ? var.runtime_version : null
-      powershell_version = var.runtime == "powershell" ? var.runtime_version : null
-      custom_runtime_config = var.runtime == "custom" ? var.runtime_version : null
-    }
-
-    app_settings = {
-      "FUNCTIONS_EXTENSION_VERSION"         = "~4"
-      "FUNCTIONS_WORKER_RUNTIME"            = var.runtime
-      "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING" = "DefaultEndpointsProtocol=https;AccountName=${data.azurerm_storage_account.storage.name};AccountKey=${data.azurerm_storage_account.storage.primary_access_key}"
-      "WEBSITE_CONTENTSHARE"                = lower("${var.function_app_name}content")
-      "WEBSITE_RUN_FROM_PACKAGE"            = "1"
-      "APPINSIGHTS_INSTRUMENTATIONKEY"      = data.azurerm_application_insights.app_insights.instrumentation_key
-    }
+    # Older provider versions use linux_fx_version or windows_fx_version
+    linux_fx_version = var.runtime == "python" ? "PYTHON|${var.runtime_version}" : null
+    dotnet_framework_version = var.runtime == "dotnet" ? var.runtime_version : null
+    # Add other runtimes as needed
   }
-  version = "3.0"
+  version = "~4"
   tags = var.tags
+
+  app_setting {
+    name  = "FUNCTIONS_EXTENSION_VERSION"
+    value = "~4"
+  }
+
+  app_setting {
+    name  = "FUNCTIONS_WORKER_RUNTIME"
+    value = var.runtime
+  }
+
+  app_setting {
+    name  = "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING"
+    value = "DefaultEndpointsProtocol=https;AccountName=${data.azurerm_storage_account.storage.name};AccountKey=${data.azurerm_storage_account.storage.primary_access_key}"
+  }
+
+  app_setting {
+    name  = "WEBSITE_CONTENTSHARE"
+    value = lower("${var.function_app_name}content")
+  }
+
+  app_setting {
+    name  = "WEBSITE_RUN_FROM_PACKAGE"
+    value = "1"
+  }
+
+  app_setting {
+    name = "APPINSIGHTS_INSTRUMENTATIONKEY"
+    value = data.azurerm_application_insights.app_insights.instrumentation_key
+  }
 }
