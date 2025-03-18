@@ -1,4 +1,4 @@
-# Modules/AzureFunctionApp/variables.tf
+# variables.tf
 
 variable "function_app_name" {
   type = string
@@ -37,7 +37,7 @@ variable "runtime" {
 }
 
 variable "runtime_version" {
-  type = string # Corrected this line
+  type = string
 }
 
 variable "https_only" {
@@ -50,4 +50,12 @@ variable "always_on" {
 
 variable "tags" {
   type = map(string)
+}
+
+variable "private_endpoint_subnet_id" {
+  type = string
+}
+
+variable "private_dns_zone_id" {
+  type = string
 }
