@@ -16,27 +16,16 @@ stages:
     value: functionapp.tfstate
 
   jobs:
-  - job: Terraform_Install
-    displayName: Install Terraform
-    steps:
-    - task: TerraformInstaller@1
-      displayName: 'Install Terraform'
-      inputs:
-        terraformVersion: 'latest'
-
   - job: Terraform_Init_Upgrade
     displayName: Terraform Init Upgrade
-    dependsOn: Terraform_Install
     steps:
-    - task: AzureCLI@2
+    - task: TerraformTaskV4@4
       displayName: 'Terraform Init - Upgrade'
       inputs:
-        azureSubscription: 'SC_CCS_400847_Priya_MSDN'
-        scriptType: 'pwsh'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          terraform init -upgrade
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
+        provider: 'azurerm'
+        command: 'init'
+        commandOptions: '-upgrade'
+        workingDirectory: '$(System.DefaultWorkingDirectory)' # Ensure correct working directory
 
   - job: Terraform_Plan
     displayName: Build the Plan
