@@ -1,5 +1,6 @@
 # Modules/AzureFunctionApp/functionapp.tf
 
+# Data sources for existing resources
 data "azurerm_resource_group" "rg" {
   name = var.resource_group_name
 }
@@ -10,28 +11,30 @@ data "azurerm_storage_account" "sa" {
 }
 
 data "azurerm_app_service_plan" "asp" {
-  id = var.app_service_plan_id
+  id = var.app_service_plan_id # Corrected line
 }
 
 data "azurerm_application_insights" "ai" {
   name                = var.app_insights_name
   resource_group_name = var.app_insights_resource_group_name
 }
+
 resource "azurerm_function_app" "fa" {
   name                       = var.function_app_name
-  location                   = var.location
-  resource_group_name        = var.resource_group_name
-  app_service_plan_id        = var.app_service_plan_id
-  storage_account_name       = var.storage_account_name
-  storage_account_access_key = azurerm_storage_account.sa.primary_access_key
+  location                   = data.azurerm_resource_group.rg.location
+  resource_group_name        = data.azurerm_resource_group.rg.name
+  app_service_plan_id        = data.azurerm_app_service_plan.asp.id
+  storage_account_name       = data.azurerm_storage_account.sa.name
+  storage_account_access_key = data.azurerm_storage_account.sa.primary_access_key # Corrected line
   https_only = var.https_only
+  always_on = var.always_on
   tags = var.tags
 }
 
 resource "azurerm_private_endpoint" "pe" {
   name                = "${var.function_app_name}-pe"
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
   subnet_id           = var.private_endpoint_subnet_id
 
   private_service_connection {
