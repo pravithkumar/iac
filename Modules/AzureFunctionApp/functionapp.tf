@@ -39,7 +39,6 @@ resource "azurerm_function_app" "fa" {
   storage_account_name       = var.storage_account_name
   storage_account_access_key = azurerm_storage_account.sa.primary_access_key
   https_only = var.https_only
-  always_on = var.always_on
   tags = var.tags
 }
 
