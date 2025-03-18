@@ -1,12 +1,4 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "3.70.0" # Explicit version
+terraform{
+    backend "azurerm" {
     }
-  }
 }
-
-// provider "azurerm" {
-//   features {}
-// }
