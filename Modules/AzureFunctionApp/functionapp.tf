@@ -11,7 +11,7 @@ data "azurerm_storage_account" "sa" {
 }
 
 data "azurerm_app_service_plan" "asp" {
-  id = var.app_service_plan_id # Corrected line
+  id = var.app_service_plan_id
 }
 
 data "azurerm_application_insights" "ai" {
@@ -25,7 +25,7 @@ resource "azurerm_function_app" "fa" {
   resource_group_name        = data.azurerm_resource_group.rg.name
   app_service_plan_id        = data.azurerm_app_service_plan.asp.id
   storage_account_name       = data.azurerm_storage_account.sa.name
-  storage_account_access_key = data.azurerm_storage_account.sa.primary_access_key # Corrected line
+  storage_account_access_key = data.azurerm_storage_account.sa.primary_access_key
   https_only = var.https_only
   always_on = var.always_on
   tags = var.tags
