@@ -1,4 +1,4 @@
-# modules/function_app_and_pe/main.tf
+# modules/function_app_and_pe/functionapp.tf
 
 data "azurerm_storage_account" "storage" {
   name                = var.storage_account_name
@@ -41,26 +41,5 @@ resource "azurerm_function_app" "function_app" {
     }
   }
   version = "~4"
-  tags = var.tags
-}
-
-resource "azurerm_private_endpoint" "function_app_pe" {
-  name                = "${var.function_app_name}-pe"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  subnet_id           = var.private_endpoint_subnet_id
-
-  private_service_connection {
-    name                           = "${var.function_app_name}-psc"
-    private_connection_resource_id = azurerm_function_app.function_app.id
-    subresource_names              = ["sites"]
-    is_manual_connection           = false
-  }
-
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group"
-    private_dns_zone_ids = [var.private_dns_zone_id]
-  }
-
   tags = var.tags
 }
