@@ -16,3 +16,4 @@ jobs:
       command: 'init'
       commandOptions: '-upgrade'
       workingDirectory: '$(System.DefaultWorkingDirectory)'
+      terraformVersion: 'latest' # Or a specific version (e.g., '1.3.7')
