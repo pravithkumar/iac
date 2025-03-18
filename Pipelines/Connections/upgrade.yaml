@@ -12,7 +12,7 @@ jobs:
   - task: AzureCLI@2
     displayName: 'Download Terraform and Test'
     inputs:
-      azureSubscription: 'your-service-connection' # Replace with your service connection name
+      azureSubscription: 'my-real-azure-service-connection' # Replace with your actual service connection name
       scriptType: 'pscore'
       scriptLocation: 'inlineScript'
       inlineScript: |
