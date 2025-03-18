@@ -10,6 +10,7 @@ module "function_app_and_pe" {
   storage_account_resource_group_name   = var.storage_account_resource_group_name
   app_insights_name                     = var.app_insights_name
   app_insights_resource_group_name      = var.app_insights_resource_group_name
+  app_service_plan_name                 = var.app_service_plan_name
   runtime                               = var.runtime
   runtime_version                       = var.runtime_version
   https_only                            = var.https_only
