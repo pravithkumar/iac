@@ -6,14 +6,27 @@ pool:
   vmImage: 'windows-latest'
 
 jobs:
-- job: Terraform_Provider_Upgrade
-  displayName: Upgrade Terraform Providers
+- job: Terraform_Download_Test
+  displayName: Terraform Download and Test
   steps:
-  - task: TerraformTaskV4@4
-    displayName: 'Terraform Init - Upgrade'
+  - task: AzureCLI@2
+    displayName: 'Download Terraform and Test'
     inputs:
-      provider: 'azurerm'
-      command: 'init'
-      commandOptions: '-upgrade'
-      workingDirectory: '$(System.DefaultWorkingDirectory)'
-      terraformVersion: '1.4.6' # Or another specific version
+      azureSubscription: 'your-service-connection' # Replace with your service connection name
+      scriptType: 'pscore'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        $terraformVersion = "1.4.6"
+        $terraformZip = "terraform_${terraformVersion}_windows_amd64.zip"
+        $terraformUrl = "https://releases.hashicorp.com/terraform/${terraformVersion}/${terraformZip}"
+        Write-Host "Downloading Terraform from: $terraformUrl"
+        try {
+          Invoke-WebRequest -Uri $terraformUrl -OutFile $terraformZip -ErrorAction Stop
+          Write-Host "Download successful."
+          Expand-Archive -Path $terraformZip -DestinationPath . -Force
+          Rename-Item -Path "terraform_${terraformVersion}_windows_amd64" -NewName terraform -Force
+          .\terraform\terraform.exe --version
+        } catch {
+          Write-Error "Failed to download or extract Terraform: $_"
+          exit 1 # Exit with an error code
+        }
