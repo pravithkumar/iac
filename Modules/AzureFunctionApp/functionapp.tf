@@ -17,7 +17,6 @@ resource "azurerm_function_app" "function_app" {
   app_service_plan_id        = var.app_service_plan_id
   storage_account_name       = var.storage_account_name
   storage_account_access_key = data.azurerm_storage_account.storage.primary_access_key
-  app_insights_key           = data.azurerm_application_insights.app_insights.instrumentation_key
   https_only                 = var.https_only
   site_config {
     always_on = var.always_on
@@ -38,6 +37,7 @@ resource "azurerm_function_app" "function_app" {
       "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING" = "DefaultEndpointsProtocol=https;AccountName=${data.azurerm_storage_account.storage.name};AccountKey=${data.azurerm_storage_account.storage.primary_access_key}"
       "WEBSITE_CONTENTSHARE"                = lower("${var.function_app_name}content")
       "WEBSITE_RUN_FROM_PACKAGE"            = "1"
+      "APPINSIGHTS_INSTRUMENTATIONKEY"      = data.azurerm_application_insights.app_insights.instrumentation_key
     }
   }
   version = "~4"
