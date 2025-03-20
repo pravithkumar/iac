@@ -32,21 +32,21 @@ resource "azurerm_function_app" "fa" {
   tags = var.tags
 }
 
-resource "azurerm_private_endpoint" "pe" {
-  name                = "${var.function_app_name}-pe"
-  location            = data.azurerm_resource_group.rg.location
-  resource_group_name = data.azurerm_resource_group.rg.name
-  subnet_id           = var.private_endpoint_subnet_id
+// resource "azurerm_private_endpoint" "pe" {
+//   name                = "${var.function_app_name}-pe"
+//   location            = data.azurerm_resource_group.rg.location
+//   resource_group_name = data.azurerm_resource_group.rg.name
+//   subnet_id           = var.private_endpoint_subnet_id
 
-  private_service_connection {
-    name                           = "${var.function_app_name}-psc"
-    private_connection_resource_id = azurerm_function_app.fa.id
-    subresource_names              = ["sites"]
-    is_manual_connection           = false
-  }
+//   private_service_connection {
+//     name                           = "${var.function_app_name}-psc"
+//     private_connection_resource_id = azurerm_function_app.fa.id
+//     subresource_names              = ["sites"]
+//     is_manual_connection           = false
+//   }
 
-  private_dns_zone_group {
-    name                 = "private-dns-zone-group"
-    private_dns_zone_ids = [var.private_dns_zone_id]
-  }
-}
+//   private_dns_zone_group {
+//     name                 = "private-dns-zone-group"
+//     private_dns_zone_ids = [var.private_dns_zone_id]
+//   }
+// }
