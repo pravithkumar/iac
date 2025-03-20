@@ -59,3 +59,16 @@ variable "private_endpoint_subnet_id" {
 variable "private_dns_zone_id" {
   type = string
 }
+
+
+variable "os_type" {
+  type = string
+}
+
+variable "aspsku_name" {
+  type = string
+}
+
+variable "worker_count" {
+  type = number
+}
