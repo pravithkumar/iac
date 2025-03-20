@@ -18,3 +18,14 @@ module "function_app_and_pe" {
   private_endpoint_subnet_id            = var.private_endpoint_subnet_id
   private_dns_zone_id                   = var.private_dns_zone_id
 }
+
+module "function_app_pe" {
+  source                  = "../Modules/private-endpoint"
+  function_app_name       = module.function_app.function_app_name
+  location                = module.function_app.location
+  resource_group_name     = module.function_app.resource_group_name
+  private_endpoint_subnet_id = var.private_endpoint_subnet_id
+  private_dns_zone_name   = var.function_app_private_dns_zone_name
+  function_app_id         = module.function_app.id
+  virtual_network_id      = data.azurerm_virtual_network.existing_vnet.id
+}
