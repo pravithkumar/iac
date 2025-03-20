@@ -61,14 +61,3 @@ variable "private_dns_zone_id" {
 }
 
 
-variable "os_type" {
-  type = string
-}
-
-variable "aspsku_name" {
-  type = string
-}
-
-variable "worker_count" {
-  type = number
-}
