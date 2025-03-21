@@ -1,6 +1,6 @@
 # main.tf
 
-module "function_app_and_pe" {
+module "azurerm_linux_function_app" {
   source                                = "../Modules/AzureFunctionApp"
   function_app_name                     = var.function_app_name
   // location                              = var.location
