@@ -17,6 +17,7 @@ module "function_app_and_pe" {
   tags                                  = var.tags
   private_endpoint_subnet_id            = var.private_endpoint_subnet_id
   private_dns_zone_id                   = var.private_dns_zone_id
+  depends_on = [azurerm_service_plan.asp]
 }
 
 resource "azurerm_service_plan" "asp" {
