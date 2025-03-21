@@ -19,17 +19,30 @@ module "azurerm_linux_function_app" {
   https_only                            = var.https_only
   always_on                             = var.always_on
   tags                                  = var.tags
-  private_endpoint_subnet_id            = var.private_endpoint_subnet_id
-  private_dns_zone_id                   = var.private_dns_zone_id
   depends_on = [azurerm_service_plan.asp]
 }
 
 resource "azurerm_service_plan" "asp" {
-  name                = var.asp_service_plan_name  # Use 'name' attribute
-  resource_group_name = var.asp_resource_group_name # Use 'resource_group_name' attribute
+  name                = var.asp_service_plan_name
+  resource_group_name = var.asp_resource_group_name
   location            = var.location
   os_type             = var.os_type
   sku_name            = var.aspsku_name
   worker_count        = var.worker_count
   tags                = var.tags
 }
+
+module "private_endpoint" {
+  source                          = "../Modules/PrivateEndpoint"
+  private_endpoint_name           = "${var.function_app_name}-pe"
+  location                        = var.location
+  resource_group_name             = var.resource_group_name
+  subnet_id                       = var.private_endpoint_subnet_id
+  private_service_connection_name = "${var.function_app_name}-psc"
+  private_connection_resource_id  = module.azurerm_linux_function_app.fa.id
+  subresource_names               = ["sites"]
+  is_manual_connection            = false
+  private_dns_zone_group_name     = "private-dns-zone-group"
+  private_dns_zone_ids            = [var.private_dns_zone_id]
+}
+
