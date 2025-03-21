@@ -60,7 +60,7 @@ variable "private_dns_zone_id" {
 
 # variables.tf
 
-variable "service_plan_name" {
+variable "asp_service_plan_name" {
   type        = string
   description = "The name of the Azure App Service Plan."
 }
