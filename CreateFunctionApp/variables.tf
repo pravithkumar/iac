@@ -72,10 +72,8 @@ variable "resource_group_name" {
   description = "The name of the resource group where the App Service Plan will be created."
 }
 
-variable "location" {
-  type        = string
-  description = "The Azure region where the App Service Plan will be created."
-}
+
+
 
 variable "os_type" {
   type        = string
@@ -93,8 +91,3 @@ variable "worker_count" {
   default     = 1
 }
 
-variable "tags" {
-  type        = map(string)
-  description = "A map of tags to apply to the App Service Plan."
-  default     = {}
-}
