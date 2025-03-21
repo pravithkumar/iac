@@ -29,6 +29,9 @@ resource "azurerm_linux_function_app" "fa" {
   storage_account_access_key = data.azurerm_storage_account.sa.primary_access_key
   https_only = var.https_only  
   tags = var.tags
+   site_config {  
+    always_on = var.always_on
+  }
 }
 
 resource "azurerm_private_endpoint" "pe" {
@@ -39,7 +42,7 @@ resource "azurerm_private_endpoint" "pe" {
 
   private_service_connection {
     name                           = "${var.function_app_name}-psc"
-    private_connection_resource_id = azurerm_function_app.fa.id
+    private_connection_resource_id = azurerm_linux_function_app.fa.id
     subresource_names              = ["sites"]
     is_manual_connection           = false
   }
