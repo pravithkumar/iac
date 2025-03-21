@@ -4,7 +4,7 @@ data "azurerm_resource_group" "rg" {
 
 resource "azurerm_service_plan" "asp" {
   provider = azurerm.aiml-nprod-001
-  name                = var.app_service_plan_name
+  name                = var.service_plan_name
   resource_group_name = var.resource_group_name
   location            = data.azurerm_resource_group.rg.location
   os_type             = var.os_type
