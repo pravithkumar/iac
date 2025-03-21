@@ -1,5 +1,3 @@
-# variables.tf
-
 variable "function_app_name" {
   type = string
 }
@@ -11,8 +9,6 @@ variable "location" {
 variable "resource_group_name" {
   type = string
 }
-
-
 
 variable "storage_account_name" {
   type = string
@@ -58,25 +54,15 @@ variable "private_dns_zone_id" {
   type = string
 }
 
-# variables.tf
-
 variable "asp_service_plan_name" {
   type        = string
   description = "The name of the Azure App Service Plan."
 }
 
-
-
 variable "asp_resource_group_name" {
   type        = string
   description = "The name of the resource group where the App Service Plan will be created."
 }
-
-
-
-// variable "app_service_plan_name" { 
-//   type = string
-// }
 
 variable "os_type" {
   type        = string
@@ -94,3 +80,12 @@ variable "worker_count" {
   default     = 1
 }
 
+variable "account_tier" {
+  type        = string
+  description = "The tier of the storage account (e.g., Standard, Premium)."
+}
+
+variable "account_replication_type" {
+  type        = string
+  description = "The replication type of the storage account (e.g., LRS, GRS)."
+}
