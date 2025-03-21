@@ -1,5 +1,9 @@
 # main.tf
 
+provider "azurerm" {
+  features {}
+}
+
 module "azurerm_linux_function_app" {
   source                                = "../Modules/AzureFunctionApp"
   function_app_name                     = var.function_app_name
