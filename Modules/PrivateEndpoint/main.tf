@@ -4,7 +4,12 @@ resource "azurerm_network_interface" "nic" {
   name                = "${var.private_endpoint_name}-nic"
   location            = var.location
   resource_group_name = var.resource_group_name
-  subnet_id           = var.subnet_id
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = var.subnet_id
+    private_ip_address_allocation = "Dynamic"
+  }
 }
 
 resource "azurerm_private_endpoint" "pe" {
@@ -24,6 +29,4 @@ resource "azurerm_private_endpoint" "pe" {
     name                 = var.private_dns_zone_group_name
     private_dns_zone_ids = var.private_dns_zone_ids
   }
-
-  network_interface_ids = [azurerm_network_interface.nic.id]
 }
