@@ -22,7 +22,7 @@ data "azurerm_application_insights" "ai" {
 
 resource "azurerm_linux_function_app" "fa" {
   name                       = var.function_app_name
-  location                   = data.azurerm_resource_group.rg.location
+  location                   = var.location
   resource_group_name        = data.azurerm_resource_group.rg.name  
   app_service_plan_id        = data.azurerm_service_plan.asp.id
   storage_account_name       = data.azurerm_storage_account.sa.name
@@ -33,7 +33,7 @@ resource "azurerm_linux_function_app" "fa" {
 
 resource "azurerm_private_endpoint" "pe" {
   name                = "${var.function_app_name}-pe"
-  location            = data.azurerm_resource_group.rg.location
+  location            = var.location
   resource_group_name = data.azurerm_resource_group.rg.name
   subnet_id           = var.private_endpoint_subnet_id
 
