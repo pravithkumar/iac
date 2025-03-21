@@ -1,5 +1,12 @@
 # Modules/PrivateEndpoint/private_endpoint.tf
 
+resource "azurerm_network_interface" "nic" {
+  name                = "${var.private_endpoint_name}-nic"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  subnet_id           = var.subnet_id
+}
+
 resource "azurerm_private_endpoint" "pe" {
   name                = var.private_endpoint_name
   location            = var.location
@@ -18,7 +25,5 @@ resource "azurerm_private_endpoint" "pe" {
     private_dns_zone_ids = var.private_dns_zone_ids
   }
 
-   network_interface {
-    name = "${var.private_endpoint_name}-nic"
-  }
+  network_interface_ids = [azurerm_network_interface.nic.id]
 }
