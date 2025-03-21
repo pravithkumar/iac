@@ -17,4 +17,8 @@ resource "azurerm_private_endpoint" "pe" {
     name                 = var.private_dns_zone_group_name
     private_dns_zone_ids = var.private_dns_zone_ids
   }
+
+   network_interface {
+    name = "${var.private_endpoint_name}-nic"
+  }
 }
