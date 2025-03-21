@@ -1,33 +1,51 @@
-variable "location" {
+# Modules/PrivateEndpoint/variables.tf
+
+variable "private_endpoint_name" {
+  description = "Name of the private endpoint"
   type        = string
-  description = "resource location"
-  default     = "eastus"
+}
+
+variable "location" {
+  description = "Location of the private endpoint"
+  type        = string
 }
 
 variable "resource_group_name" {
-  type = string
+  description = "Resource group name for the private endpoint"
+  type        = string
 }
-variable "existing_vnet_name" {
-  type = string
-}
-
 
 variable "subnet_id" {
-  type = string
+  description = "Subnet ID for the private endpoint"
+  type        = string
 }
 
-variable "acr_name" {
-  type = string
+variable "private_service_connection_name" {
+  description = "Name of the private service connection"
+  type        = string
 }
-variable "aks_acr_private_dns_name" {
-  type = string
-}
+
 variable "private_connection_resource_id" {
-  type = string
+  description = "Resource ID for the private connection"
+  type        = string
 }
 
-variable "rg_for_vnet" {
-  type = string
+variable "subresource_names" {
+  description = "Subresource names for the private connection"
+  type        = list(string)
 }
-#rg_for_vnet
 
+variable "is_manual_connection" {
+  description = "Indicates if the connection is manual"
+  type        = bool
+}
+
+variable "private_dns_zone_group_name" {
+  description = "Name of the private DNS zone group"
+  type        = string
+}
+
+variable "private_dns_zone_ids" {
+  description = "IDs of the private DNS zones"
+  type        = list(string)
+}
