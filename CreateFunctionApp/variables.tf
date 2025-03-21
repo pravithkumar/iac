@@ -74,9 +74,9 @@ variable "asp_resource_group_name" {
 
 
 
-variable "app_service_plan_name" { 
-  type = string
-}
+// variable "app_service_plan_name" { 
+//   type = string
+// }
 
 variable "os_type" {
   type        = string
