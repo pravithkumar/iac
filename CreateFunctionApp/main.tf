@@ -9,7 +9,7 @@ module "function_app_and_pe" {
   storage_account_resource_group_name   = var.storage_account_resource_group_name
   app_insights_name                     = var.app_insights_name
   app_insights_resource_group_name      = var.app_insights_resource_group_name
-  app_service_plan_name                 = var.app_service_plan_name
+  app_service_plan_name                 = var.asp_service_plan_name
   runtime                               = var.runtime
   runtime_version                       = var.runtime_version
   https_only                            = var.https_only
@@ -22,7 +22,7 @@ module "function_app_and_pe" {
 
 resource "azurerm_service_plan" "asp" {  
   source              = "../Modules/app-service-plan"
-  service_plan_name                = var.app_service_plan_name
+  service_plan_name                = var.asp_service_plan_name
   asp_resource_group_name = var.asp_resource_group_name
   // location            = var.location
   os_type             = var.os_type
