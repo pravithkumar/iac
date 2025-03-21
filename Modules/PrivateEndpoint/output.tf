@@ -1,7 +1,7 @@
 output "private_endpoint_name" {
-  value = azurerm_private_endpoint.acr_private_endpoint.name           
+  value = azurerm_private_endpoint.pe.name  # Corrected reference
 }
 
 output "private_dns_name" {
-  value = azurerm_private_dns_zone.acr_private_dns_zone.name              
+  value = azurerm_private_endpoint.pe.private_dns_zone_group[0].name  # Corrected reference
 }
