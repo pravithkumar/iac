@@ -20,10 +20,9 @@ module "azurerm_linux_function_app" {
   depends_on = [azurerm_service_plan.asp]
 }
 
-resource "azurerm_service_plan" "asp" {  
-  source              = "../Modules/app-service-plan"
-  service_plan_name                = var.asp_service_plan_name
-  resource_group_name = var.asp_resource_group_name
+resource "azurerm_service_plan" "asp" {
+  name                = var.asp_service_plan_name  # Use 'name' attribute
+  resource_group_name = var.asp_resource_group_name # Use 'resource_group_name' attribute
   location            = var.location
   os_type             = var.os_type
   sku_name            = var.aspsku_name
