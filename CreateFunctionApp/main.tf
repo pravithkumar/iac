@@ -22,7 +22,7 @@ module "function_app_and_pe" {
 
 resource "azurerm_service_plan" "asp" {  
   source              = "../Modules/app-service-plan"
-  name                = var.app_service_plan_name
+  service_plan_name                = var.app_service_plan_name
   asp_resource_group_name = var.asp_resource_group_name
   // location            = var.location
   os_type             = var.os_type
