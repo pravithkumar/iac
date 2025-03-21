@@ -20,8 +20,7 @@ module "function_app_and_pe" {
   depends_on = [azurerm_service_plan.asp]
 }
 
-resource "azurerm_service_plan" "asp" {
-  provider            = azurerm.aiml-nprod-001
+resource "azurerm_service_plan" "asp" {  
   name                = var.app_service_plan_name
   asp_resource_group_name = var.asp_resource_group_name
   // location            = var.location
