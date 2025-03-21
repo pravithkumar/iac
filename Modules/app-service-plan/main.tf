@@ -1,15 +1,9 @@
-data "azurerm_resource_group" "rg" {
-  name = var.resource_group_name
-}
-
 resource "azurerm_service_plan" "asp" {
-  
   name                = var.service_plan_name
-  resource_group_name = data.azurerm_resource_group.rg.name
+  resource_group_name = var.resource_group_name # Use the same variable
   location            = var.location
   os_type             = var.os_type
-  sku_name = var.aspsku_name
-  worker_count = var.worker_count
-  tags = var.tags
-    
+  sku_name            = var.aspsku_name
+  worker_count        = var.worker_count
+  tags                = var.tags
 }
