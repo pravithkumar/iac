@@ -3,7 +3,7 @@
 module "azurerm_linux_function_app" {
   source                                = "../Modules/AzureFunctionApp"
   function_app_name                     = var.function_app_name
-  // location                              = var.location
+  location                              = var.location
   resource_group_name                   = var.resource_group_name
   storage_account_name                  = var.storage_account_name
   storage_account_resource_group_name   = var.storage_account_resource_group_name
@@ -24,7 +24,7 @@ resource "azurerm_service_plan" "asp" {
   source              = "../Modules/app-service-plan"
   service_plan_name                = var.asp_service_plan_name
   asp_resource_group_name = var.asp_resource_group_name
-  // location            = var.location
+  location            = var.location
   os_type             = var.os_type
   sku_name            = var.aspsku_name
   worker_count        = var.worker_count
