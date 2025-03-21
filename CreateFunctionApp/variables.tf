@@ -74,6 +74,11 @@ variable "resource_group_name" {
 
 
 
+variable "asp_resource_group_name" {
+  type        = string
+  description = "The name of the resource group where the App Service Plan will be created."
+}
+
 
 variable "os_type" {
   type        = string
