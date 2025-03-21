@@ -12,9 +12,7 @@ variable "resource_group_name" {
   type = string
 }
 
-variable "app_service_plan_name" { 
-  type = string
-}
+
 
 variable "storage_account_name" {
   type = string
@@ -74,6 +72,11 @@ variable "asp_resource_group_name" {
   description = "The name of the resource group where the App Service Plan will be created."
 }
 
+
+
+variable "app_service_plan_name" { 
+  type = string
+}
 
 variable "os_type" {
   type        = string
