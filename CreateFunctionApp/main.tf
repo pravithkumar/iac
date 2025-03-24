@@ -45,6 +45,26 @@ module "private_endpoint_function_app" {
   depends_on                      = [module.azurerm_linux_function_app]
 }
 
+
+module "storage" {
+  source                          = "../Modules/Storageaccount"
+  resource_group_name             = var.resource_group_name
+  storage_account_name            = var.storage_account_name
+  location                        = var.location
+  account_tier                    = var.account_tier
+  account_replication_type        = var.account_replication_type
+  tags                            = var.tags
+}
+
+
+module "servicebus" {
+  source                = "../Modules/servicebus"
+  resource_group_name   = var.resource_group_name
+  location              = var.location
+  servicebus_name       = var.servicebus_name
+  sku                   = var.sku
+}
+
 module "private_endpoint_servicebus" {
   source                          = "../Modules/PrivateEndpoint"
   private_endpoint_name           = "${var.servicebus_name}-pe"
@@ -58,22 +78,4 @@ module "private_endpoint_servicebus" {
   private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = [var.private_dns_zone_id]
   depends_on                      = [module.servicebus]
-}
-
-module "storage" {
-  source                          = "../Modules/Storageaccount"
-  resource_group_name             = var.resource_group_name
-  storage_account_name            = var.storage_account_name
-  location                        = var.location
-  account_tier                    = var.account_tier
-  account_replication_type        = var.account_replication_type
-  tags                            = var.tags
-}
-
-module "servicebus" {
-  source                = "../Modules/servicebus"
-  resource_group_name   = var.resource_group_name
-  location              = var.location
-  servicebus_name       = var.servicebus_name
-  sku                   = var.sku
 }
