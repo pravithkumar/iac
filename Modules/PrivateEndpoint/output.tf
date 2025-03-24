@@ -1,7 +1,11 @@
-output "private_endpoint_name" {
-  value = azurerm_private_endpoint.pe.name 
+output "private_endpoint_id" {
+  value = azurerm_private_endpoint.pe.id
 }
 
-output "private_dns_name" {
-  value = azurerm_private_endpoint.pe.private_dns_zone_group[0].name  
+output "private_service_connection_id" {
+  value = azurerm_private_endpoint.pe.private_service_connection[0].id
+}
+
+output "private_dns_zone_group_id" {
+  value = azurerm_private_endpoint.pe.private_dns_zone_group[0].id
 }
