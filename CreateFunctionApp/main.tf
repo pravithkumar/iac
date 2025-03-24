@@ -1,5 +1,3 @@
-# main.tf
-
 provider "azurerm" {
   features {}
 }
@@ -32,7 +30,7 @@ resource "azurerm_service_plan" "asp" {
   tags                = var.tags
 }
 
-module "private_endpoint" {
+module "private_endpoint_function_app" {
   source                          = "../Modules/PrivateEndpoint"
   private_endpoint_name           = "${var.function_app_name}-pe"
   location                        = var.location
@@ -41,6 +39,20 @@ module "private_endpoint" {
   private_service_connection_name = "${var.function_app_name}-psc"
   private_connection_resource_id  = module.azurerm_linux_function_app.function_app_id  
   subresource_names               = ["sites"]
+  is_manual_connection            = false
+  private_dns_zone_group_name     = "private-dns-zone-group"
+  private_dns_zone_ids            = [var.private_dns_zone_id]
+}
+
+module "private_endpoint_servicebus" {
+  source                          = "../Modules/PrivateEndpoint"
+  private_endpoint_name           = "${var.servicebus_name}-pe"
+  location                        = var.location
+  resource_group_name             = var.resource_group_name
+  subnet_id                       = var.private_endpoint_subnet_id
+  private_service_connection_name = "${var.servicebus_name}-psc"
+  private_connection_resource_id  = module.servicebus.servicebus_id  
+  subresource_names               = ["namespace"]
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = [var.private_dns_zone_id]
@@ -62,5 +74,4 @@ module "servicebus" {
   location              = var.location
   servicebus_name       = var.servicebus_name
   sku                   = var.sku
-  private_endpoints     = var.private_endpoints
 }
