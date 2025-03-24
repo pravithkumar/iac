@@ -55,3 +55,12 @@ module "storage" {
   account_replication_type        = var.account_replication_type
   tags                            = var.tags
 }
+
+module "servicebus" {
+  source                = "../Modules/servicebus"
+  resource_group_name   = var.resource_group_name
+  location              = var.location
+  servicebus_name       = var.servicebus_name
+  sku                   = var.sku
+  private_endpoints     = var.private_endpoints
+}
