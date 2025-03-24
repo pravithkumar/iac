@@ -89,3 +89,26 @@ variable "account_replication_type" {
   type        = string
   description = "The replication type of the storage account (e.g., LRS, GRS)."
 }
+
+
+
+variable "servicebus_name" {
+  type        = string
+  description = "The name of the Service Bus Namespace."
+}
+
+variable "sku" {
+  type        = string
+  description = "The SKU of the Service Bus Namespace (Standard, Premium, or PremiumV2)."
+}
+
+variable "private_endpoints" {
+  type = list(object({
+    name                   = string
+    subnet_id              = string
+    private_dns_zone_ids   = list(string)
+    subresource_names      = list(string)
+  }))
+  description = "List of private endpoints to create."
+  default     = []
+}
