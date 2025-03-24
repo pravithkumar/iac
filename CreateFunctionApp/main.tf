@@ -30,29 +30,19 @@ resource "azurerm_service_plan" "asp" {
   tags                = var.tags
 }
 
-module "servicebus" {
-  source                = "../Modules/servicebus"
-  resource_group_name   = var.resource_group_name
-  location              = var.location
-  servicebus_name       = var.servicebus_name
-  sku                   = var.sku
-}
-
-module "private_endpoints" {
-  source = "../Modules/PrivateEndpoint"
-  for_each = { for pe in var.private_endpoints : pe.name => pe }
-
-  private_endpoint_name           = each.value.name
+module "private_endpoint_function_app" {
+  source                          = "../Modules/PrivateEndpoint"
+  private_endpoint_name           = "${var.function_app_name}-pe"
   location                        = var.location
   resource_group_name             = var.resource_group_name
-  subnet_id                       = each.value.subnet_id
-  private_service_connection_name = "${each.value.name}-psc"
-  private_connection_resource_id  = each.value.private_connection_resource_id
-  subresource_names               = each.value.subresource_names
+  subnet_id                       = var.private_endpoint_subnet_id
+  private_service_connection_name = "${var.function_app_name}-psc"
+  private_connection_resource_id  = module.azurerm_linux_function_app.function_app_id
+  subresource_names               = ["sites"]
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
-  private_dns_zone_ids            = each.value.private_dns_zone_ids
-  depends_on                      = [module.azurerm_linux_function_app, module.servicebus]
+  private_dns_zone_ids            = [var.private_dns_zone_id]
+  depends_on                      = [module.azurerm_linux_function_app]
 }
 
 module "storage" {
@@ -63,4 +53,27 @@ module "storage" {
   account_tier                    = var.account_tier
   account_replication_type        = var.account_replication_type
   tags                            = var.tags
+}
+
+module "servicebus" {
+  source                = "../Modules/servicebus"
+  resource_group_name   = var.resource_group_name
+  location              = var.location
+  servicebus_name       = var.servicebus_name
+  sku                   = var.sku
+}
+
+module "private_endpoint_servicebus" {
+  source                          = "../Modules/PrivateEndpoint"
+  private_endpoint_name           = "${var.servicebus_name}-pe"
+  location                        = var.location
+  resource_group_name             = var.resource_group_name
+  subnet_id                       = var.private_endpoint_subnet_id
+  private_service_connection_name = "${var.servicebus_name}-psc"
+  private_connection_resource_id  = module.servicebus.servicebus_id
+  subresource_names               = ["namespace"]
+  is_manual_connection            = false
+  private_dns_zone_group_name     = "private-dns-zone-group"
+  private_dns_zone_ids            = [var.private_dns_zone_id]
+  depends_on                      = [module.servicebus]
 }
