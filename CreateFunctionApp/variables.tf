@@ -92,10 +92,11 @@ variable "sku" {
 
 variable "private_endpoints" {
   type = list(object({
-    name                = string
-    subnet_id           = string
-    private_dns_zone_ids = list(string)
-    subresource_names   = list(string)
+    name                        = string
+    subnet_id                   = string
+    private_dns_zone_ids        = list(string)
+    subresource_names           = list(string)
+    private_connection_resource_id = string
   }))
 }
 
