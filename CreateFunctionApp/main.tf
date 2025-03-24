@@ -30,6 +30,14 @@ resource "azurerm_service_plan" "asp" {
   tags                = var.tags
 }
 
+module "servicebus" {
+  source                = "../Modules/servicebus"
+  resource_group_name   = var.resource_group_name
+  location              = var.location
+  servicebus_name       = var.servicebus_name
+  sku                   = var.sku
+}
+
 module "private_endpoints" {
   source = "../Modules/PrivateEndpoint"
   for_each = { for pe in var.private_endpoints : pe.name => pe }
@@ -55,12 +63,4 @@ module "storage" {
   account_tier                    = var.account_tier
   account_replication_type        = var.account_replication_type
   tags                            = var.tags
-}
-
-module "servicebus" {
-  source                = "../Modules/servicebus"
-  resource_group_name   = var.resource_group_name
-  location              = var.location
-  servicebus_name       = var.servicebus_name
-  sku                   = var.sku
 }
