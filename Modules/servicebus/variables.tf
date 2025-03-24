@@ -18,16 +18,6 @@ variable "sku" {
   description = "The SKU of the Service Bus Namespace (Standard, Premium, or PremiumV2)."
 }
 
-variable "private_endpoints" {
-  type = list(object({
-    name                   = string
-    subnet_id              = string
-    private_dns_zone_ids = list(string)
-    subresource_names    = list(string)
-  }))
-  description = "List of private endpoints to create."
-  default     = []
-}
 
 variable "queue_names" {
   type    = list(string)
