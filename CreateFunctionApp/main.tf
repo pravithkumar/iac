@@ -57,15 +57,12 @@ module "storage" {
 }
 
 
-resource "azurerm_servicebus_namespace" "servicebus" {  
-  name                = var.servicebus_name
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  sku                 = var.sku
-}
-
-output "servicebus_id" {
-  value = azurerm_servicebus_namespace.servicebus.id 
+module "servicebus" {
+  source                = "../Modules/servicebus"
+  resource_group_name   = var.resource_group_name
+  location              = var.location
+  servicebus_name       = var.servicebus_name
+  sku                   = var.sku
 }
 
 module "private_endpoint_servicebus" {
@@ -75,7 +72,7 @@ module "private_endpoint_servicebus" {
   resource_group_name             = var.resource_group_name
   subnet_id                       = var.private_endpoint_subnet_id
   private_service_connection_name = "${var.servicebus_name}-psc"
-  private_connection_resource_id  = module.servicebus.servicebus_id 
+  private_connection_resource_id  = module.servicebus.servicebus_id
   subresource_names               = ["namespace"]
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
