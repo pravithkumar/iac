@@ -46,6 +46,26 @@ variable "tags" {
   type = map(string)
 }
 
+variable "asp_resource_group_name" {
+  type = string
+}
+
+variable "asp_service_plan_name" {
+  type = string
+}
+
+variable "os_type" {
+  type = string
+}
+
+variable "aspsku_name" {
+  type = string
+}
+
+variable "worker_count" {
+  type = number
+}
+
 variable "private_endpoint_subnet_id" {
   type = string
 }
@@ -54,48 +74,55 @@ variable "private_dns_zone_id" {
   type = string
 }
 
-variable "asp_service_plan_name" {
-  type        = string
-  description = "The name of the Azure App Service Plan."
-}
-
-variable "asp_resource_group_name" {
-  type        = string
-  description = "The name of the resource group where the App Service Plan will be created."
-}
-
-variable "os_type" {
-  type        = string
-  description = "The operating system type for the App Service Plan (e.g., Linux, Windows)."
-}
-
-variable "aspsku_name" {
-  type        = string
-  description = "The SKU name for the App Service Plan (e.g., B1, S1, P1v2)."
-}
-
-variable "worker_count" {
-  type        = number
-  description = "The number of workers (instances) to allocate for the App Service Plan."
-  default     = 1
-}
-
 variable "account_tier" {
-  type        = string
-  description = "The tier of the storage account (e.g., Standard, Premium)."
+  type = string
 }
 
 variable "account_replication_type" {
-  type        = string
-  description = "The replication type of the storage account (e.g., LRS, GRS)."
+  type = string
 }
 
 variable "servicebus_name" {
-  type        = string
-  description = "The name of the Service Bus Namespace."
+  type = string
 }
 
 variable "sku" {
-  type        = string
-  description = "The SKU of the Service Bus Namespace (Standard, Premium, or PremiumV2)."
+  type = string
+}
+
+variable "private_endpoints" {
+  type = list(object({
+    name                = string
+    subnet_id           = string
+    private_dns_zone_ids = list(string)
+    subresource_names   = list(string)
+  }))
+}
+
+variable "queue_names" {
+  type = list(string)
+}
+
+variable "topic_names" {
+  type = list(string)
+}
+
+variable "servicebus_capacity" {
+  type = number
+}
+
+variable "premium_messaging_partitions" {
+  type = number
+}
+
+variable "queue_max_size" {
+  type = number
+}
+
+variable "topic_max_size" {
+  type = number
+}
+
+variable "subscription_max_delivery_count" {
+  type = number
 }
