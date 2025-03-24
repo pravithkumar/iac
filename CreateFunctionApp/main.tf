@@ -17,7 +17,7 @@ module "azurerm_linux_function_app" {
   https_only                            = var.https_only
   always_on                             = var.always_on
   tags                                  = var.tags
-  depends_on = [azurerm_service_plan.asp]
+  depends_on                            = [azurerm_service_plan.asp]
 }
 
 resource "azurerm_service_plan" "asp" {
@@ -42,6 +42,7 @@ module "private_endpoint_function_app" {
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = [var.private_dns_zone_id]
+  depends_on                      = [module.azurerm_linux_function_app]
 }
 
 module "private_endpoint_servicebus" {
@@ -56,6 +57,7 @@ module "private_endpoint_servicebus" {
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = [var.private_dns_zone_id]
+  depends_on                      = [module.servicebus]
 }
 
 module "storage" {
