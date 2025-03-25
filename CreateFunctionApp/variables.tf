@@ -126,3 +126,27 @@ variable "topic_max_size" {
 variable "subscription_max_delivery_count" {
   type = number
 }
+
+variable "logic_app_name" {
+  type = string
+}
+
+variable "workflow_definition" {
+  type = string
+}
+
+variable "api_management_name" {
+  type = string
+}
+
+variable "publisher_name" {
+  type = string
+}
+
+variable "publisher_email" {
+  type = string
+}
+
+variable "api_management_sku_name" {
+  type = string
+}
