@@ -32,16 +32,16 @@ resource "azurerm_service_plan" "asp" {
 
 module "private_endpoint_function_app" {
   source                          = "../Modules/PrivateEndpoint"
-  private_endpoint_name           = "${var.function_app_name}-pe"
+  private_endpoint_name           = var.private_endpoints[0].name
   location                        = var.location
   resource_group_name             = var.resource_group_name
-  subnet_id                       = var.private_endpoint_subnet_id
+  subnet_id                       = var.private_endpoints[0].subnet_id
   private_service_connection_name = "${var.function_app_name}-psc"
   private_connection_resource_id  = module.azurerm_linux_function_app.function_app_id
-  subresource_names               = ["sites"]
+  subresource_names               = var.private_endpoints[0].subresource_names
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
-  private_dns_zone_ids            = [var.private_dns_zone_id]
+  private_dns_zone_ids            = var.private_endpoints[0].private_dns_zone_ids
   depends_on                      = [module.azurerm_linux_function_app]
 }
 
@@ -61,45 +61,6 @@ module "servicebus" {
   location              = var.location
   servicebus_name       = var.servicebus_name
   sku                   = var.sku
-}
-
-module "private_endpoint_servicebus" {
-  source                          = "../Modules/PrivateEndpoint"
-  private_endpoint_name           = "${var.servicebus_name}-pe"
-  location                        = var.location
-  resource_group_name             = var.resource_group_name
-  subnet_id                       = var.private_endpoint_subnet_id
-  private_service_connection_name = "${var.servicebus_name}-psc"
-  private_connection_resource_id  = module.servicebus.servicebus_id
-  subresource_names               = ["namespace"]
-  is_manual_connection            = false
-  private_dns_zone_group_name     = "private-dns-zone-group"
-  private_dns_zone_ids            = [var.private_dns_zone_id]
-  depends_on                      = [module.servicebus]
-}
-
-variable "private_endpoints" {
-  type = list(object({
-    name                      = string
-    subnet_id                 = string
-    private_dns_zone_ids      = list(string)
-    subresource_names         = list(string)
-  }))
-}
-
-module "private_endpoint_function_app" {
-  source                          = "../Modules/PrivateEndpoint"
-  private_endpoint_name           = var.private_endpoints[0].name
-  location                        = var.location
-  resource_group_name             = var.resource_group_name
-  subnet_id                       = var.private_endpoints[0].subnet_id
-  private_service_connection_name = "${var.function_app_name}-psc"
-  private_connection_resource_id  = module.azurerm_linux_function_app.function_app_id
-  subresource_names               = var.private_endpoints[0].subresource_names
-  is_manual_connection            = false
-  private_dns_zone_group_name     = "private-dns-zone-group"
-  private_dns_zone_ids            = var.private_endpoints[0].private_dns_zone_ids
-  depends_on                      = [module.azurerm_linux_function_app]
 }
 
 module "private_endpoint_servicebus" {
