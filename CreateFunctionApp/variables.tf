@@ -127,22 +127,6 @@ variable "subscription_max_delivery_count" {
   type = number
 }
 
-variable "logic_app_name" {
-  type = string
-}
-
-variable "storage_account_access_key" {
-  type = string
-}
-
-variable "subscription_id" {
-  type = string
-}
-
-variable "workflow_definition" {
-  type = string
-}
-
 variable "api_management_name" {
   type = string
 }
