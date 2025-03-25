@@ -6,13 +6,11 @@ resource "azurerm_logic_app_standard" "logic_app" {
   storage_account_name = var.storage_account_name
   storage_account_access_key = var.storage_account_access_key
 
-  site_config {
-    app_settings = {
-      "WORKFLOWS_SUBSCRIPTION_ID" = var.subscription_id
-      "WORKFLOWS_RESOURCE_GROUP_NAME" = var.resource_group_name
-      "WORKFLOWS_STORAGE_ACCOUNT_NAME" = var.storage_account_name
-      "WORKFLOWS_DEFINITION" = var.workflow_definition
-    }
+  app_settings = {
+    "WORKFLOWS_SUBSCRIPTION_ID" = var.subscription_id
+    "WORKFLOWS_RESOURCE_GROUP_NAME" = var.resource_group_name
+    "WORKFLOWS_STORAGE_ACCOUNT_NAME" = var.storage_account_name
+    "WORKFLOWS_DEFINITION" = var.workflow_definition
   }
 
   tags = var.tags
