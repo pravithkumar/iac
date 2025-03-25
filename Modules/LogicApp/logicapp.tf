@@ -11,6 +11,7 @@ resource "azurerm_logic_app_standard" "logic_app" {
       "WORKFLOWS_SUBSCRIPTION_ID" = var.subscription_id
       "WORKFLOWS_RESOURCE_GROUP_NAME" = var.resource_group_name
       "WORKFLOWS_STORAGE_ACCOUNT_NAME" = var.storage_account_name
+      "WORKFLOWS_DEFINITION" = var.workflow_definition
     }
   }
 
