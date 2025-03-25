@@ -78,19 +78,6 @@ module "private_endpoint_servicebus" {
   depends_on                      = [module.servicebus]
 }
 
-module "logic_app" {
-  source                          = "../Modules/LogicApp"
-  logic_app_name                  = var.logic_app_name
-  location                        = var.location
-  resource_group_name             = var.resource_group_name
-  app_service_plan_id             = azurerm_service_plan.asp.id
-  storage_account_name            = var.storage_account_name
-  storage_account_access_key      = var.storage_account_access_key
-  subscription_id                 = var.subscription_id
-  workflow_definition             = var.workflow_definition
-  tags                            = var.tags
-}
-
 module "api_management" {
   source                          = "../Modules/ApiManagement"
   api_management_name             = var.api_management_name
@@ -100,4 +87,19 @@ module "api_management" {
   publisher_email                 = var.publisher_email
   sku_name                        = var.api_management_sku_name
   tags                            = var.tags
+}
+
+module "private_endpoint_api_management" {
+  source                          = "../Modules/PrivateEndpoint"
+  private_endpoint_name           = var.private_endpoints[2].name
+  location                        = var.location
+  resource_group_name             = var.resource_group_name
+  subnet_id                       = var.private_endpoints[2].subnet_id
+  private_service_connection_name = "${var.api_management_name}-psc"
+  private_connection_resource_id  = module.api_management.api_management_id
+  subresource_names               = var.private_endpoints[2].subresource_names
+  is_manual_connection            = false
+  private_dns_zone_group_name     = "private-dns-zone-group"
+  private_dns_zone_ids            = var.private_endpoints[2].private_dns_zone_ids
+  depends_on                      = [module.api_management]
 }
