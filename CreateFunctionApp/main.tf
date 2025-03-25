@@ -84,6 +84,9 @@ module "logic_app" {
   location                        = var.location
   resource_group_name             = var.resource_group_name
   app_service_plan_id             = azurerm_service_plan.asp.id
+  storage_account_name            = var.storage_account_name
+  storage_account_access_key      = var.storage_account_access_key
+  subscription_id                 = var.subscription_id
   workflow_definition             = var.workflow_definition
   tags                            = var.tags
 }
