@@ -22,7 +22,7 @@ module "private_endpoint_api_management" {
   resource_group_name             = var.resource_group_name
   subnet_id                       = var.private_endpoints[0].subnet_id
   private_service_connection_name = "${var.api_management_name}-psc"
-  private_connection_resource_id  = module.azurerm_api_management.api.id
+  private_connection_resource_id  = module.api_management.id
   subresource_names               = var.private_endpoints[0].subresource_names
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
