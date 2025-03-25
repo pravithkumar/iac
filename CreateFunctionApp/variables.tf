@@ -131,6 +131,14 @@ variable "logic_app_name" {
   type = string
 }
 
+variable "storage_account_access_key" {
+  type = string
+}
+
+variable "subscription_id" {
+  type = string
+}
+
 variable "workflow_definition" {
   type = string
 }
