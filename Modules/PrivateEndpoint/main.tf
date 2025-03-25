@@ -1,5 +1,3 @@
-# Modules/PrivateEndpoint/private_endpoint.tf
-
 resource "azurerm_private_endpoint" "pe" {
   name                = var.private_endpoint_name
   location            = var.location
