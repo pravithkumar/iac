@@ -36,3 +36,7 @@ variable "api_sku" {
 variable "sku_count" {
   type = string
 }
+
+variable "tags" {
+  type = map(string)
+}
