@@ -26,10 +26,10 @@ variable "subscription_id" {
   type = string
 }
 
-variable "tags" {
-  type = map(string)
-}
-
 variable "workflow_definition" {
   type = string
+}
+
+variable "tags" {
+  type = map(string)
 }
