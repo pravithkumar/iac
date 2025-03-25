@@ -86,7 +86,7 @@ module "api_management" {
   resource_group_name             = var.resource_group_name
   publisher_name                  = var.publisher_name
   publisher_email                 = var.publisher_email
-  sku                             = var.sku
+  sku                             = var.api_sku
   sku_count                       = var.sku_count
   tags                            = var.tags
 }
