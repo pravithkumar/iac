@@ -29,3 +29,7 @@ variable "subscription_id" {
 variable "tags" {
   type = map(string)
 }
+
+variable "workflow_definition" {
+  type = string
+}
