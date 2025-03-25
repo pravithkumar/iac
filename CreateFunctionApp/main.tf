@@ -77,3 +77,24 @@ module "private_endpoint_servicebus" {
   private_dns_zone_ids            = var.private_endpoints[1].private_dns_zone_ids
   depends_on                      = [module.servicebus]
 }
+
+module "logic_app" {
+  source                          = "../Modules/LogicApp"
+  logic_app_name                  = var.logic_app_name
+  location                        = var.location
+  resource_group_name             = var.resource_group_name
+  app_service_plan_id             = azurerm_service_plan.asp.id
+  workflow_definition             = var.workflow_definition
+  tags                            = var.tags
+}
+
+module "api_management" {
+  source                          = "../Modules/ApiManagement"
+  api_management_name             = var.api_management_name
+  location                        = var.location
+  resource_group_name             = var.resource_group_name
+  publisher_name                  = var.publisher_name
+  publisher_email                 = var.publisher_email
+  sku_name                        = var.api_management_sku_name
+  tags                            = var.tags
+}
