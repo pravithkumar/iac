@@ -18,7 +18,7 @@ variable "publisher_email" {
   type = string
 }
 
-variable "sku_name" {
+variable "api_management_sku_name" {
   type = string
 }
 
