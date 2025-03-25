@@ -139,7 +139,7 @@ variable "publisher_email" {
   type = string
 }
 
-variable "sku" {
+variable "api_sku" {
   type = string
 }
 
