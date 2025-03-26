@@ -2,7 +2,7 @@ resource "azurerm_app_service_plan" "app_service_plan" {
   name                = var.app_service_plan_name
   location            = data.azurerm_virtual_network.existing_vnet.location
   resource_group_name = var.existing_vnet_resource_group
-  kind                = "App"
+  kind                = "ASEV3"
   reserved            = true
   sku {
     tier = var.app_service_plan_sku_tier
