@@ -24,6 +24,9 @@
     }
   ],
   "tags": {
-    "env": "dev"   
-  }
+    "env": "production"
+  },
+  "dns_zone_id": "/subscriptions/<subscription-id>/resourceGroups/exampleRG/providers/Microsoft.Network/privateDnsZones/example.com",
+  "virtual_network_link_name": "example-vnet-link",
+  "virtual_network_id": "/subscriptions/<subscription-id>/resourceGroups/exampleRG/providers/Microsoft.Network/virtualNetworks/example-vnet"
 }
