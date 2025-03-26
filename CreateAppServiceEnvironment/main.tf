@@ -17,3 +17,11 @@ module "app_service_environment" {
   cluster_settings                = var.cluster_settings
   tags                            = var.tags
 }
+
+module "dns_private_zone_link" {
+  source                          = "../Modules/DnsPrivateZoneLink"
+  dns_zone_id                     = var.dns_zone_id
+  resource_group_name             = var.resource_group_name
+  virtual_network_link_name       = var.virtual_network_link_name
+  virtual_network_id              = var.virtual_network_id
+}
