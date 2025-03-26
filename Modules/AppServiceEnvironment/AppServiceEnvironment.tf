@@ -3,16 +3,21 @@ resource "azurerm_app_service_environment_v3" "example" {
   resource_group_name           = var.resource_group_name
   subnet_id                     = var.subnet_id
   internal_load_balancing_mode  = var.internal_load_balancing_mode
-  virtual_ip_type               = var.virtual_ip_type
-  physical_hardware_isolation   = var.physical_hardware_isolation
-  zone_redundancy               = var.zone_redundancy
+  dns_suffix                    = var.dns_suffix
 
-  dynamic "cluster_setting" {
-    for_each = var.cluster_settings
-    content {
-      name  = cluster_setting.value.name
-      value = cluster_setting.value.value
-    }
+  cluster_setting {
+    name  = "DisableTls1.0"
+    value = var.disable_tls1_0
+  }
+
+  cluster_setting {
+    name  = "InternalEncryption"
+    value = var.internal_encryption
+  }
+
+  cluster_setting {
+    name  = "FrontEndSSLCipherSuiteOrder"
+    value = var.frontend_ssl_cipher_suite_order
   }
 
   tags = var.tags
