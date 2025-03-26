@@ -24,7 +24,7 @@
     }
   ],
   "tags": {
-    "env": "production"
+    "env": "dev"
   },
   "dns_zone_id": "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/rg-fortrea-delete-01/providers/Microsoft.Network/privateDnsZones/ase-fortrea-dev-001.appserviceenvironment.net",
   "virtual_network_link_name": "example-vnet-link",
