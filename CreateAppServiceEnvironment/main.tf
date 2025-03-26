@@ -1,3 +1,7 @@
+provider "azurerm" {
+  features {}  
+}
+
 module "app_service_environment" {
   source                          = "../Modules/AppServiceEnvironment"
   ase_name                        = var.ase_name
