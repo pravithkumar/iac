@@ -3,7 +3,7 @@ resource "azurerm_app_service_environment_v3" "example" {
   resource_group_name           = var.resource_group_name
   subnet_id                     = var.subnet_id
   internal_load_balancing_mode  = var.internal_load_balancing_mode
-  dns_suffix                    = var.dns_suffix
+
 
   cluster_setting {
     name  = "DisableTls1.0"
