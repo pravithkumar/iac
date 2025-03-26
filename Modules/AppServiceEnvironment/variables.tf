@@ -18,10 +18,6 @@ variable "internal_load_balancing_mode" {
   type        = string
 }
 
-variable "dns_suffix" {
-  description = "The DNS suffix for the App Service Environment"
-  type        = string
-}
 
 variable "disable_tls1_0" {
   description = "Disable TLS 1.0 setting"
