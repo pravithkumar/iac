@@ -3,11 +3,6 @@ variable "ase_name" {
   type        = string
 }
 
-variable "location" {
-  description = "The location of the resources"
-  type        = string
-}
-
 variable "resource_group_name" {
   description = "The name of the resource group"
   type        = string
@@ -19,59 +14,38 @@ variable "subnet_id" {
 }
 
 variable "internal_load_balancing_mode" {
-  description = "The internal load balancing mode for the ASE"
+  description = "The internal load balancing mode"
   type        = string
 }
 
-variable "virtual_ip_type" {
-  description = "The type of Virtual IP (internal or external)"
+variable "dns_suffix" {
+  description = "The DNS suffix for the App Service Environment"
   type        = string
 }
 
-variable "physical_hardware_isolation" {
-  description = "Physical hardware isolation setting (Enabled or Disabled)"
+variable "disable_tls1_0" {
+  description = "Disable TLS 1.0 setting"
   type        = string
+  default     = "1"
 }
 
-variable "zone_redundancy" {
-  description = "Zone redundancy setting (Enabled or Disabled)"
+variable "internal_encryption" {
+  description = "Internal encryption setting"
   type        = string
+  default     = "true"
 }
 
-variable "dns_settings" {
-  description = "DNS settings (manual or automatic)"
+variable "frontend_ssl_cipher_suite_order" {
+  description = "Front-end SSL cipher suite order"
   type        = string
-}
-
-variable "inbound_ip_address" {
-  description = "Inbound IP address setting (automatic or manual)"
-  type        = string
-}
-
-variable "cluster_settings" {
-  description = "Cluster settings for the ASE"
-  type        = list(object({
-    name  = string
-    value = string
-  }))
+  default     = "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
 }
 
 variable "tags" {
-  description = "Tags to apply to the resources"
+  description = "A map of tags to assign to the resource"
   type        = map(string)
-}
-
-variable "dns_zone_id" {
-  description = "The ID of the existing DNS Private Zone"
-  type        = string
-}
-
-variable "virtual_network_link_name" {
-  description = "The name of the virtual network link"
-  type        = string
-}
-
-variable "virtual_network_id" {
-  description = "The ID of the virtual network"
-  type        = string
+  default = {
+    env         = "production"
+    terraformed = "true"
+  }
 }
