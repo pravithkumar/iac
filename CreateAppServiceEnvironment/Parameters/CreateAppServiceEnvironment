@@ -1,6 +1,6 @@
 {
-  "ase_name": "example-asev3",
-  "location": "West Europe",
+  "ase_name": "ase-eus-tipco-dev-01",
+  "location": "East US",
   "resource_group_name": "exampleRG",
   "subnet_id": "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/rg-vnet-fortrea-dev-001/providers/Microsoft.Network/virtualNetworks/vnet-fortrea-dev-002/subnets/snet-fortrea-dev-001",
   "internal_load_balancing_mode": "Web, Publishing",
