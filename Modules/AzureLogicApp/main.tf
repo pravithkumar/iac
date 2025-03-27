@@ -13,11 +13,6 @@ data "azurerm_storage_account" "storage" {
   resource_group_name = var.storage_resource_group_name 
 }
 
-data "azurerm_storage_account_keys" "storage_keys" {
-  name                = var.storage_account_name
-  resource_group_name = var.storage_resource_group_name
-}
-
 resource "azurerm_app_service_plan" "asp" {
   name                = var.app_service_plan_name
   location            = azurerm_resource_group.rg.location
@@ -39,5 +34,5 @@ resource "azurerm_logic_app_standard" "logic_app" {
   resource_group_name = azurerm_resource_group.rg.name
   app_service_plan_id = azurerm_app_service_plan.asp.id
   storage_account_name = data.azurerm_storage_account.storage.name
-  storage_account_access_key = data.azurerm_storage_account_keys.storage_keys.keys[0].value 
+  storage_account_access_key = data.storage_account_access_key 
 }
