@@ -8,6 +8,11 @@ variable "resource_group_name" {
   type        = string
 }
 
+variable "location" {
+  description = "The location of the resource group"
+  type        = string
+}
+
 variable "subnet_id" {
   description = "The ID of the subnet"
   type        = string
