@@ -1,5 +1,5 @@
 data "azurerm_resource_group" "rg" {
-  name     = var.resource_group_name
+  name = var.resource_group_name
 }
 
 data "azurerm_app_service_environment_v3" "ase" {
@@ -10,7 +10,6 @@ data "azurerm_app_service_environment_v3" "ase" {
 data "azurerm_storage_account" "storage" {
   name                = var.storage_account_name
   resource_group_name = var.storage_resource_group_name
-  
 }
 
 data "azurerm_user_assigned_identity" "mi" {
@@ -21,32 +20,27 @@ data "azurerm_user_assigned_identity" "mi" {
 resource "azurerm_service_plan" "asp" {
   name                = var.app_service_plan_name
   location            = data.azurerm_resource_group.rg.location
-  resource_group_name = data.azurerm_resource_group.rg.name  
+  resource_group_name = data.azurerm_resource_group.rg.name
   kind                = "Windows"
   reserved            = false
 
-  sku {
-    tier = "IsolatedV2"
-    size = "I1V2"
-    capacity = 1
-  }
+  sku_name            = "I1V2"  # Use the appropriate SKU name directly
 
   app_service_environment_id = data.azurerm_app_service_environment_v3.ase.id
- 
- site_config {
-    always_on = true
-    runtime_version = "~4"  
-  }
 
+  site_config {
+    always_on = true
+    runtime_version = "~4"
+  }
 }
 
 resource "azurerm_logic_app_standard" "logic_app" {
-  name                = var.logic_app_name
-  location            = data.azurerm_resource_group.rg.location
-  resource_group_name = data.azurerm_resource_group.rg.name
-  app_service_plan_id = azurerm_app_service_plan.asp.id
-  storage_account_name = data.azurerm_storage_account.storage.name
-  storage_account_access_key = data.azurerm_storage_account.storage.primary_access_key
+  name                        = var.logic_app_name
+  location                    = data.azurerm_resource_group.rg.location
+  resource_group_name         = data.azurerm_resource_group.rg.name
+  app_service_plan_id         = azurerm_service_plan.asp.id  # Correct reference
+  storage_account_name        = data.azurerm_storage_account.storage.name
+  storage_account_access_key  = data.azurerm_storage_account.storage.primary_access_key
 
   identity {
     type         = "UserAssigned"
@@ -58,4 +52,32 @@ resource "azurerm_role_assignment" "mi" {
   scope                = data.azurerm_storage_account.storage.id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = data.azurerm_user_assigned_identity.mi.principal_id
+}
+
+module "app_service_environment" {
+  source                          = "../Modules/AppServiceEnvironment"
+  ase_name                        = var.ase_name
+  resource_group_name             = var.resource_group_name
+  subnet_id                       = var.subnet_id
+  internal_load_balancing_mode    = var.internal_load_balancing_mode
+  disable_tls1_0                  = var.disable_tls1_0
+  internal_encryption             = var.internal_encryption
+  frontend_ssl_cipher_suite_order = var.frontend_ssl_cipher_suite_order
+  tags                            = var.tags
+}
+
+module "app_service_resources" {
+  source                          = "../Modules/AzureLogicApp"
+  resource_group_name             = var.resource_group_name
+  location                        = var.location
+  ase_name                        = var.ase_name
+  ase_resource_group_name         = var.ase_resource_group_name
+  storage_account_name            = var.storage_account_name
+  storage_resource_group_name     = var.storage_resource_group_name
+  storage_account_access_key      = var.storage_account_access_key
+  app_service_plan_name           = var.app_service_plan_name
+  logic_app_name                  = var.logic_app_name
+  user_assigned_identity_name     = var.user_assigned_identity_name
+
+  depends_on = [module.app_service_environment]
 }
