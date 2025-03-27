@@ -8,6 +8,8 @@ data "azurerm_app_service_environment_v3" "ase" {
   resource_group_name = var.ase_resource_group_name
 }
 
+
+
 data "azurerm_storage_account" "storage" {
   name                = var.storage_account_name
   resource_group_name = var.storage_resource_group_name
