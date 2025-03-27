@@ -18,7 +18,7 @@ data "azurerm_user_assigned_identity" "mi" {
   resource_group_name = var.resource_group_name
 }
 
-resource "azurerm_app_service_plan" "asp" {
+resource "azurerm_service_plan" "asp" {
   name                = var.app_service_plan_name
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name  
