@@ -23,7 +23,7 @@ resource "azurerm_service_plan" "asp" {
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name    
   os_type = "Windows"
-  sku_name = "I1V2"
+  sku_name = "I1v2"
 
  
   app_service_environment_id = data.azurerm_app_service_environment_v3.ase.id
