@@ -32,7 +32,6 @@ resource "azurerm_app_service_plan" "asp" {
   }
 
   app_service_environment_id = data.azurerm_app_service_environment_v3.ase.id
-  number_of_workers          = 1
 }
 
 resource "azurerm_logic_app_standard" "logic_app" {
