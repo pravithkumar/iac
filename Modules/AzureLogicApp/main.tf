@@ -33,5 +33,6 @@ resource "azurerm_logic_app_standard" "logic_app" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   app_service_plan_id = azurerm_app_service_plan.asp.id
-  storage_account_name = data.azurerm_storage_account.storage.name 
+  storage_account_name = data.azurerm_storage_account.storage.name
+  storage_account_access_key = data.azurerm_storage_account.storage_key.primary_access_key 
 }
