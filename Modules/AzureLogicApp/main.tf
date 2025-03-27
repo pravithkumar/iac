@@ -14,11 +14,7 @@ data "azurerm_storage_account" "storage" {
   
 }
 
-data "azurerm_storage_account_keys" "storage_keys" {
-  name                = var.storage_account_name
-  resource_group_name = var.storage_resource_group_name
-  primary_access_key  =var.storage_account_access_key
-}
+
 
 resource "azurerm_app_service_plan" "asp" {
   name                = var.app_service_plan_name
