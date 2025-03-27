@@ -1,13 +1,11 @@
 variable "resource_group_name" {
   description = "The name of the resource group"
   type        = string
-  default     = "example-resources"
 }
 
 variable "location" {
-  description = "The location of the resources"
+  description = "The location of the resource group"
   type        = string
-  default     = "East US"
 }
 
 variable "ase_name" {
@@ -21,19 +19,21 @@ variable "ase_resource_group_name" {
 }
 
 variable "storage_account_name" {
-  description = "The name of the storage account"
+  description = "The name of the existing storage account"
   type        = string
-  default     = "examplestorageacct"
+}
+
+variable "storage_resource_group_name" {
+  description = "The resource group name of the existing storage account"
+  type        = string
 }
 
 variable "app_service_plan_name" {
   description = "The name of the App Service Plan"
   type        = string
-  default     = "example-asp"
 }
 
 variable "logic_app_name" {
-  description = "The name of the Logic App Standard"
+  description = "The name of the Logic App"
   type        = string
-  default     = "example-logicapp"
 }
