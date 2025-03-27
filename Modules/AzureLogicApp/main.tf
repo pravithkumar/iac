@@ -37,14 +37,16 @@ resource "azurerm_logic_app_standard" "logic_app" {
   storage_account_name = data.azurerm_storage_account.storage.name
   storage_account_access_key = data.azurerm_storage_account.storage.primary_access_key
 
-  identity {
-    type         = "UserAssigned"
-    identity_ids = [data.azurerm_user_assigned_identity.mi.id]
+  site_config {
+    always_on = false
   }
+  identity {
+    type = "SystemAssigned"
+  } 
 }
 
 resource "azurerm_role_assignment" "mi" {
   scope                = data.azurerm_storage_account.storage.id
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = data.azurerm_user_assigned_identity.mi.principal_id
+  principal_id         = azurerm_logic_app_standard.logic_app.identity[0].principal_id  
 }
