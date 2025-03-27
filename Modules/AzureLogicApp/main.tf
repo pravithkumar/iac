@@ -21,30 +21,29 @@ resource "azurerm_service_plan" "asp" {
   name                = var.app_service_plan_name
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
-  kind                = "Windows"
+  os_type             = "Windows" 
   reserved            = false
 
-  sku_name            = "I1V2"  # Use the appropriate SKU name directly
+  sku_name            = "I1V2"  
 
   app_service_environment_id = data.azurerm_app_service_environment_v3.ase.id
-
-  site_config {
-    always_on = true
-    runtime_version = "~4"
-  }
 }
 
-resource "azurerm_logic_app_standard" "logic_app" {
+resource "azurerm_windows_web_app" "logic_app" {
   name                        = var.logic_app_name
   location                    = data.azurerm_resource_group.rg.location
   resource_group_name         = data.azurerm_resource_group.rg.name
-  app_service_plan_id         = azurerm_service_plan.asp.id  
+  service_plan_id             = azurerm_service_plan.asp.id  # Correct reference
   storage_account_name        = data.azurerm_storage_account.storage.name
   storage_account_access_key  = data.azurerm_storage_account.storage.primary_access_key
 
   identity {
     type         = "UserAssigned"
     identity_ids = [data.azurerm_user_assigned_identity.mi.id]
+  }
+
+  site_config {
+    always_on = true
   }
 }
 
@@ -53,4 +52,3 @@ resource "azurerm_role_assignment" "mi" {
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = data.azurerm_user_assigned_identity.mi.principal_id
 }
-
