@@ -28,6 +28,7 @@ resource "azurerm_app_service_plan" "asp" {
   sku {
     tier = "IsolatedV2"
     size = "I1V2"
+    capacity = 1
   }
 
   app_service_environment_id = data.azurerm_app_service_environment_v3.ase.id
