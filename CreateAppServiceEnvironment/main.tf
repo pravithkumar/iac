@@ -1,5 +1,10 @@
-provider "azurerm" {
-  features {}  
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 3.0.0" # Or a more recent version
+    }
+  }
 }
 
 module "app_service_environment" {
