@@ -11,7 +11,7 @@ data "azurerm_app_service_environment_v3" "ase" {
 data "azurerm_storage_account" "storage" {
   name                = var.storage_account_name
   resource_group_name = var.storage_resource_group_name
-  primary_access_key = var.storage_account_access_key 
+  
 }
 
 data "azurerm_storage_account_keys" "storage_keys" {
