@@ -2,13 +2,10 @@ data "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
 }
 
-
 data "azurerm_app_service_environment_v3" "ase" {
   name                = var.ase_name
   resource_group_name = var.ase_resource_group_name
 }
-
-
 
 data "azurerm_storage_account" "storage" {
   name                = var.storage_account_name
@@ -16,7 +13,10 @@ data "azurerm_storage_account" "storage" {
   
 }
 
-
+data "azurerm_user_assigned_identity" "mi" {
+  name                = var.user_assigned_identity_name
+  resource_group_name = var.resource_group_name
+}
 
 resource "azurerm_app_service_plan" "asp" {
   name                = var.app_service_plan_name
@@ -41,4 +41,9 @@ resource "azurerm_logic_app_standard" "logic_app" {
   app_service_plan_id = azurerm_app_service_plan.asp.id
   storage_account_name = data.azurerm_storage_account.storage.name
   storage_account_access_key = data.azurerm_storage_account.storage.primary_access_key
+
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [data.azurerm_user_assigned_identity.mi.id]
+  }
 }
