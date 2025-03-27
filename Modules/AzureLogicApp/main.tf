@@ -8,12 +8,9 @@ data "azurerm_app_service_environment_v3" "ase" {
   resource_group_name = var.ase_resource_group_name
 }
 
-resource "azurerm_storage_account" "storage" {
-  name                     = var.storage_account_name
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
+data "azurerm_storage_account" "storage" {
+  name                = var.storage_account_name
+  resource_group_name = var.storage_resource_group_name
 }
 
 resource "azurerm_app_service_plan" "asp" {
@@ -38,6 +35,6 @@ resource "azurerm_logic_app_standard" "logic_app" {
   app_service_plan_id = azurerm_app_service_plan.asp.id
 
   storage_account {
-    name = azurerm_storage_account.storage.name
+    name = data.azurerm_storage_account.storage.name
   }
 }
