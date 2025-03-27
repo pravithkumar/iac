@@ -26,7 +26,7 @@ module "app_service_resources" {
   app_service_plan_name           = var.app_service_plan_name
   logic_app_name                  = var.logic_app_name
   user_assigned_identity_name     = var.user_assigned_identity_name
-  resource_group_name             = var.resource_group_name
+  
 
    depends_on = [module.app_service_environment]
 }
