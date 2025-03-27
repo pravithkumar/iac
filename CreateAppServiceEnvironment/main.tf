@@ -15,7 +15,7 @@ module "app_service_environment" {
 }
 
 module "app_service_resources" {
-  source                          = "../Modules/AppServiceResources"
+  source                          = "../Modules/AzureLogicApp"
   resource_group_name             = var.resource_group_name
   location                        = var.location
   ase_name                        = var.ase_name
