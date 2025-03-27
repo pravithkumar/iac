@@ -32,6 +32,12 @@ resource "azurerm_service_plan" "asp" {
   }
 
   app_service_environment_id = data.azurerm_app_service_environment_v3.ase.id
+ 
+ site_config {
+    always_on = true
+    runtime_version = "~4"  
+  }
+
 }
 
 resource "azurerm_logic_app_standard" "logic_app" {
