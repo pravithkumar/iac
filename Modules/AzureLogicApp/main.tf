@@ -21,10 +21,9 @@ resource "azurerm_service_plan" "asp" {
   name                = var.app_service_plan_name
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
-  os_type             = "Windows" 
-  reserved            = false
+  os_type             = "Windows"  # Add the required os_type argument
 
-  sku_name            = "I1V2"  
+  sku_name            = "I1v2"  # Use a valid SKU name
 
   app_service_environment_id = data.azurerm_app_service_environment_v3.ase.id
 }
