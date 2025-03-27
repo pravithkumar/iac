@@ -42,3 +42,8 @@ variable "storage_account_access_key" {
   description = "The access key of the existing storage account"
   type        = string
 }
+
+variable "user_assigned_identity_name" {
+  description = "The name of the user-assigned managed identity."
+  type        = string
+}
