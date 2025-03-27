@@ -1,7 +1,7 @@
-resource "azurerm_resource_group" "rg" {
+data "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
-  location = var.location
 }
+
 
 data "azurerm_app_service_environment_v3" "ase" {
   name                = var.ase_name
@@ -35,8 +35,8 @@ resource "azurerm_app_service_plan" "asp" {
 
 resource "azurerm_logic_app_standard" "logic_app" {
   name                = var.logic_app_name
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
   app_service_plan_id = azurerm_app_service_plan.asp.id
   storage_account_name = data.azurerm_storage_account.storage.name
   storage_account_access_key = data.azurerm_storage_account.storage.primary_access_key
