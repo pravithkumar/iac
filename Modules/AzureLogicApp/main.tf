@@ -17,12 +17,12 @@ resource "azurerm_app_service_plan" "asp" {
   name                = var.app_service_plan_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  kind                = "ASEV3"
+  kind                = "Windows"
   reserved            = true
 
   sku {
-    tier = "PremiumV3"
-    size = "P1v3"
+    tier = "IsolatedV2"
+    size = "I1V2"
   }
 
   app_service_environment_id = data.azurerm_app_service_environment_v3.ase.id
