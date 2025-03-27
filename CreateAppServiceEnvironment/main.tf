@@ -13,3 +13,15 @@ module "app_service_environment" {
   frontend_ssl_cipher_suite_order = var.frontend_ssl_cipher_suite_order
   tags                            = var.tags
 }
+
+module "app_service_resources" {
+  source                          = "../Modules/AppServiceResources"
+  resource_group_name             = var.resource_group_name
+  location                        = var.location
+  ase_name                        = var.ase_name
+  ase_resource_group_name         = var.ase_resource_group_name
+  storage_account_name            = var.storage_account_name
+  storage_resource_group_name     = var.storage_resource_group_name
+  app_service_plan_name           = var.app_service_plan_name
+  logic_app_name                  = var.logic_app_name
+}
