@@ -37,3 +37,8 @@ variable "logic_app_name" {
   description = "The name of the Logic App"
   type        = string
 }
+
+variable "storage_account_access_key" {
+  description = "The access key of the existing storage account"
+  type        = string
+}
