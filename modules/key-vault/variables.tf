@@ -14,7 +14,7 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "kvsku_name" {
+variable "kvskuname" {
   description = "The SKU name of the Key Vault"
   type        = string
   default     = "standard"
