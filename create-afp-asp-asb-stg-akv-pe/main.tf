@@ -112,5 +112,5 @@ module "private_endpoint_key_vault" {
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = var.private_endpoints[2].private_dns_zone_ids
-  depends_on                      = [azurerm_key_vault.key_vault]
+  depends_on                      = [azurerm_key_vault.key_vault_name]
 }
