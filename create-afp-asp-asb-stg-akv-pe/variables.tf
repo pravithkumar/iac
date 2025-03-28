@@ -160,10 +160,6 @@ variable "kvrbac_authorization" {
   type        = bool
 }
 
-variable "public_network_access" {
-  description = "Enable public network access for the Key Vault."
-  type        = bool
-}
 
 variable "kvsoft_delete_retention_days" {
   description = "Number of days to retain soft deleted items."
