@@ -166,17 +166,17 @@ variable "kvsoft_delete_retention_days" {
   type        = number
 }
 
-variable "kv_enabled_for_deployment" {
+variable "enabled_for_deployment" {
   description = "Enable the Key Vault for deployment."
   type        = bool
 }
 
-variable "kv_enabled_for_disk_encryption" {
+variable "enabled_for_disk_encryption" {
   description = "Enable the Key Vault for disk encryption."
   type        = bool
 }
 
-variable "kv_enabled_for_template_deployment" {
+variable "enabled_for_template_deployment" {
   description = "Enable the Key Vault for template deployment."
   type        = bool
 }
