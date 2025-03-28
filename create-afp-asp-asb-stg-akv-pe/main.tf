@@ -83,8 +83,7 @@ module "azurerm_key_vault" {
   source                              = "../modules/key-vault"
   key_vault_name                      = var.key_vault_name
   location                            = var.location
-  resource_group_name                 = var.resource_group_name
-  tenant_id                           = data.azurerm_client_config.current.tenant_id
+  resource_group_name                 = var.resource_group_name 
   sku_name                            = var.kvsku_name
   purge_protection_enabled            = var.kvpurge_protection_enabled
   enable_rbac_authorization           = var.kvrbac_authorization
