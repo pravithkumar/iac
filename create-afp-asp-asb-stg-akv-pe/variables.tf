@@ -210,3 +210,17 @@ variable "kvtimeoutdelete" {
   description = "Timeout for deleting the Key Vault."
   type        = string
 }
+
+variable "storage_accounts" {
+  type = list(object({
+    name                  = string
+    resource_group_name   = string
+    location              = string
+    account_tier          = string
+    account_replication   = string
+    private_endpoint_name = string
+    subnet_id             = string
+    private_dns_zone_ids  = list(string)
+    subresource_names     = list(string)
+  }))
+}
