@@ -18,6 +18,7 @@ resource "azurerm_key_vault" "key_vault" {
   sku_name                        = var.kvsku_name
   purge_protection_enabled        = var.kvpurge_protection_enabled
   enable_rbac_authorization       = var.kvrbac_authorization
+  public_network_access_enabled   = true
   soft_delete_retention_days      = var.kvsoft_delete_retention_days
   enabled_for_deployment          = var.kv_enabled_for_deployment 
   enabled_for_disk_encryption     = var.kv_enabled_for_disk_encryption
