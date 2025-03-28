@@ -22,11 +22,9 @@ module "azurerm_linux_function_app" {
 
 module "azurerm_service_plan" {
   source                              = "../Modules/app-service-plan"
-  name                                = var.asp_service_plan_name
   resource_group_name                 = var.asp_resource_group_name
   location                            = var.location
   os_type                             = var.os_type
-  sku_name                            = var.aspsku_name
   worker_count                        = var.worker_count
   tags                                = var.tags
 }
