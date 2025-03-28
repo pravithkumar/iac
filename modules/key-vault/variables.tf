@@ -44,13 +44,13 @@ variable "enabledfordeployment" {
   default     = false
 }
 
-variable "enabled_for_disk_encryption" {
+variable "enabledfordiskencryption" {
   description = "Enable Key Vault for disk encryption"
   type        = bool
   default     = false
 }
 
-variable "enabled_for_template_deployment" {
+variable "enabledfortemplatedeployment" {
   description = "Enable Key Vault for template deployment"
   type        = bool
   default     = false
