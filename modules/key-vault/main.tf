@@ -19,7 +19,7 @@ resource "azurerm_key_vault" "key_vault" {
   purge_protection_enabled        = var.kvpurge_protection_enabled
   enable_rbac_authorization       = var.kvrbac_authorization
   soft_delete_retention_days      = var.kvsoft_delete_retention_days
-  enabled_for_deployment          = var.kv_enabled_for_deployment
+  enabled_for_deployment          = var.kv_enabled_for_deployment 
   enabled_for_disk_encryption     = var.kv_enabled_for_disk_encryption
   enabled_for_template_deployment = var.kv_enabled_for_template_deployment
 
