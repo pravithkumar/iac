@@ -99,3 +99,18 @@ module "azurerm_key_vault" {
   kvtimeoutdelete                     = var.kvtimeoutdelete
   tags                                = var.tags
 }
+
+module "private_endpoint_key_vault" {
+  source                          = "../modules/private-endpoint"
+  private_endpoint_name           = var.private_endpoints[2].name
+  location                        = var.location
+  resource_group_name             = var.resource_group_name
+  subnet_id                       = var.private_endpoints[2].subnet_id
+  private_service_connection_name = "${var.key_vault_name}-psc"
+  private_connection_resource_id  = azurerm_key_vault.key_vault.id
+  subresource_names               = var.private_endpoints[2].subresource_names
+  is_manual_connection            = false
+  private_dns_zone_group_name     = "private-dns-zone-group"
+  private_dns_zone_ids            = var.private_endpoints[2].private_dns_zone_ids
+  depends_on                      = [azurerm_key_vault.key_vault]
+}
