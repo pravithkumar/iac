@@ -4,11 +4,7 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
-data "azurerm_subnet" "subnetkv" {
-  name                 = "your-subnet-name"
-  virtual_network_name = "your-vnet-name"
-  resource_group_name  = var.resource_group_name
-}
+
 
 resource "azurerm_key_vault" "key_vault" {
   name                            = var.key_vault_name
