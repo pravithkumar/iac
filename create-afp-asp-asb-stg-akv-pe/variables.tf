@@ -120,22 +120,22 @@ variable "subscription_max_delivery_count" {
   type = number
 }
 
-variable "api_management_name" {
-  type = string
-}
+// variable "api_management_name" {
+//   type = string
+// }
 
-variable "publisher_name" {
-  type = string
-}
+// variable "publisher_name" {
+//   type = string
+// }
 
-variable "publisher_email" {
-  type = string
-}
+// variable "publisher_email" {
+//   type = string
+// }
 
-variable "api_sku" {
-  type = string
-}
+// variable "api_sku" {
+//   type = string
+// }
 
-variable "sku_count" {
-  type = string
-}
+// variable "sku_count" {
+//   type = string
+// }
