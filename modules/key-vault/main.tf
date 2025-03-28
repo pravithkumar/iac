@@ -21,8 +21,8 @@ resource "azurerm_key_vault" "key_vault" {
   public_network_access_enabled   = true
   soft_delete_retention_days      = var.kvsoft_delete_retention_days
   enabled_for_deployment          = var.enabledfordeployment 
-  enabled_for_disk_encryption     = var.enabledfordisk_encryption
-  enabled_for_template_deployment = var.enabledfortemplate_deployment
+  enabled_for_disk_encryption     = var.enabledfordiskencryption
+  enabled_for_template_deployment = var.enabledfortemplatedeployment
 
   network_acls {
     default_action = var.kvnetdefaultaction
