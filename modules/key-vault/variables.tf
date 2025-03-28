@@ -38,7 +38,7 @@ variable "kvsoft_delete_retention_days" {
   default     = 7
 }
 
-variable "enabled_for_deployment" {
+variable "enabledfordeployment" {
   description = "Enable Key Vault for deployment"
   type        = bool
   default     = false
