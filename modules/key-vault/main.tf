@@ -30,9 +30,7 @@ resource "azurerm_key_vault" "key_vault" {
 
     ip_rules = var.kvip_rules
 
-    virtual_network_subnet_ids = [
-      data.azurerm_subnet.subnetkv.id
-    ]
+   
   }
 
   timeouts {
