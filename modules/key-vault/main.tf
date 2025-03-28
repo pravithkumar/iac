@@ -1,5 +1,16 @@
+provider "azurerm" {
+  features {}
+}
+
+data "azurerm_client_config" "current" {}
+
+data "azurerm_subnet" "subnetkv" {
+  name                 = "your-subnet-name"
+  virtual_network_name = "your-vnet-name"
+  resource_group_name  = var.resource_group_name
+}
+
 resource "azurerm_key_vault" "key_vault" {
-  
   name                            = var.key_vault_name
   location                        = var.location
   resource_group_name             = var.resource_group_name
@@ -7,7 +18,6 @@ resource "azurerm_key_vault" "key_vault" {
   sku_name                        = var.kvsku_name
   purge_protection_enabled        = var.kvpurge_protection_enabled
   enable_rbac_authorization       = var.kvrbac_authorization
-  public_network_access_enabled   = var.public_network_access
   soft_delete_retention_days      = var.kvsoft_delete_retention_days
   enabled_for_deployment          = var.kv_enabled_for_deployment
   enabled_for_disk_encryption     = var.kv_enabled_for_disk_encryption
