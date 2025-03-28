@@ -46,15 +46,27 @@ module "private_endpoint_function_app" {
   depends_on                      = [module.azurerm_linux_function_app]
 }
 
-module "storage" {
-  source                          = "../modules/storage-account"
-  resource_group_name             = var.resource_group_name
-  storage_account_name            = var.storage_account_name
-  location                        = var.location
-  account_tier                    = var.account_tier
-  account_replication_type        = var.account_replication_type
-  tags                            = var.tags
+// module "storage" {
+//   source                          = "../modules/storage-account"
+//   resource_group_name             = var.resource_group_name
+//   storage_account_name            = var.storage_account_name
+//   location                        = var.location
+//   account_tier                    = var.account_tier
+//   account_replication_type        = var.account_replication_type
+//   tags                            = var.tags
+// }
+
+module "azurerm_storage_account" {
+  for_each                = { for sa in var.storage_accounts : sa.name => sa }
+  source                  = "../modules/storage-account"
+  name                    = each.value.name
+  resource_group_name     = each.value.resource_group_name
+  location                = each.value.location
+  account_tier            = each.value.account_tier
+  account_replication_type = each.value.account_replication
+  tags = var.tags
 }
+
 
 module "servicebus" {
   source                = "../modules/servicebus"
