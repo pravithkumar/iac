@@ -67,6 +67,21 @@ module "azurerm_storage_account" {
   tags = var.tags
 }
 
+module "private_endpoint_storage" {
+  for_each                        = { for sa in var.storage_accounts : sa.name => sa }
+  source                          = "../modules/private-endpoint"
+  private_endpoint_name           = each.value.private_endpoint_name
+  location                        = each.value.location
+  resource_group_name             = each.value.resource_group_name
+  subnet_id                       = each.value.subnet_id
+  private_service_connection_name = "${each.value.name}-psc"
+  private_connection_resource_id  = azurerm_storage_account.storage[each.key].id
+  subresource_names               = each.value.subresource_names
+  is_manual_connection            = false
+  private_dns_zone_group_name     = "private-dns-zone-group"
+  private_dns_zone_ids            = each.value.private_dns_zone_ids
+  depends_on                      = [module.azurerm_storage_account.storage]
+}
 
 module "servicebus" {
   source                = "../modules/servicebus"
