@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 module "azurerm_linux_function_app" {
-  source                              = "../Modules/function-app"
+  source                              = "../modules/function-app"
   function_app_name                   = var.function_app_name
   location                            = var.location
   resource_group_name                 = var.resource_group_name
@@ -21,7 +21,7 @@ module "azurerm_linux_function_app" {
 }
 
 module "azurerm_service_plan" {
-  source                              = "../Modules/app-service-plan"
+  source                              = "../modules/app-service-plan"
   resource_group_name                 = var.asp_resource_group_name
   location                            = var.location
   os_type                             = var.os_type
@@ -32,7 +32,7 @@ module "azurerm_service_plan" {
 }
 
 module "private_endpoint_function_app" {
-  source                          = "../Modules/private-endpoint"
+  source                          = "../modules/private-endpoint"
   private_endpoint_name           = var.private_endpoints[0].name
   location                        = var.location
   resource_group_name             = var.resource_group_name
@@ -47,7 +47,7 @@ module "private_endpoint_function_app" {
 }
 
 module "storage" {
-  source                          = "../Modules/storage-account"
+  source                          = "../modules/storage-account"
   resource_group_name             = var.resource_group_name
   storage_account_name            = var.storage_account_name
   location                        = var.location
@@ -57,7 +57,7 @@ module "storage" {
 }
 
 module "servicebus" {
-  source                = "../Modules/servicebus"
+  source                = "../modules/servicebus"
   resource_group_name   = var.resource_group_name
   location              = var.location
   servicebus_name       = var.servicebus_name
@@ -65,7 +65,7 @@ module "servicebus" {
 }
 
 module "private_endpoint_servicebus" {
-  source                          = "../Modules/private-endpoint"
+  source                          = "../modules/private-endpoint"
   private_endpoint_name           = var.private_endpoints[1].name
   location                        = var.location
   resource_group_name             = var.resource_group_name
@@ -80,7 +80,7 @@ module "private_endpoint_servicebus" {
 }
 
 module "api_management" {
-  source                          = "../Modules/api-management"
+  source                          = "../modules/api-management"
   api_management_name             = var.api_management_name
   location                        = var.location
   resource_group_name             = var.resource_group_name
@@ -92,7 +92,7 @@ module "api_management" {
 }
 
 module "private_endpoint_api_management" {
-  source                          = "../Modules/private-endpoint"
+  source                          = "../modules/private-endpoint"
   private_endpoint_name           = var.private_endpoints[2].name
   location                        = var.location
   resource_group_name             = var.resource_group_name
