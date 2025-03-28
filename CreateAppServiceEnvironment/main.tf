@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 module "app_service_environment" {
-  source                          = "../Modules/AppServiceEnvironment"
+  source                          = "../Modules/app-service-environment"
   ase_name                        = var.ase_name
   resource_group_name             = var.resource_group_name
   subnet_id                       = var.subnet_id
@@ -15,7 +15,7 @@ module "app_service_environment" {
 }
 
 module "app_service_resources" {
-  source                          = "../Modules/AzureLogicApp"
+  source                          = "../Modules/logic-app"
   resource_group_name             = var.resource_group_name
   location                        = var.location
   ase_name                        = var.ase_name
