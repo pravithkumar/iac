@@ -20,7 +20,7 @@ module "azurerm_linux_function_app" {
   depends_on                          = [azurerm_service_plan.asp]
 }
 
-module "azurerm_service_plan" "asp" {
+module "azurerm_service_plan" {
   source                              = "../Modules/app-service-plan"
   name                                = var.asp_service_plan_name
   resource_group_name                 = var.asp_resource_group_name
