@@ -88,7 +88,7 @@ module "azurerm_key_vault" {
   kvpurge_protection_enabled           = var.kvpurge_protection_enabled
   kvrbac_authorization                 = var.kvrbac_authorization
   kvsoft_delete_retention_days         = var.kvsoft_delete_retention_days
-  enabledfordeployment                 = var.enabledfordeployment
+  enabledfordeployment                 = var.enabled_for_deployment
   enabledfordiskencryption         = var.enabled_for_disk_encryption
   enabledfortemplatedeployment     = var.enabled_for_template_deployment
   kvnetdefaultaction                  = var.kvnetdefaultaction
