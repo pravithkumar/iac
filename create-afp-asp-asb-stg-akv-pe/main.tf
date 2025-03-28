@@ -107,7 +107,7 @@ module "private_endpoint_key_vault" {
   resource_group_name             = var.resource_group_name
   subnet_id                       = var.private_endpoints[2].subnet_id
   private_service_connection_name = "${var.key_vault_name}-psc"
-  private_connection_resource_id  = azurerm_key_vault.key_vault.id
+  private_connection_resource_id  = module.azurerm_key_vault.key_vault.id
   subresource_names               = var.private_endpoints[2].subresource_names
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
