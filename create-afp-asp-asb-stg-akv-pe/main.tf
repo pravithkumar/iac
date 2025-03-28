@@ -84,7 +84,7 @@ module "azurerm_key_vault" {
   key_vault_name                      = var.key_vault_name
   location                            = var.location
   resource_group_name                 = var.resource_group_name 
-  sku_name                            = var.kvsku_name
+  kvsku_name                           = var.kvsku_name
   purge_protection_enabled            = var.kvpurge_protection_enabled
   enable_rbac_authorization           = var.kvrbac_authorization
   soft_delete_retention_days          = var.kvsoft_delete_retention_days
