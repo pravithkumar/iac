@@ -25,6 +25,8 @@ module "azurerm_service_plan" {
   resource_group_name                 = var.asp_resource_group_name
   location                            = var.location
   os_type                             = var.os_type
+  aspsku_name                         = var.aspsku_name
+  service_plan_name                   = var.asp_service_plan_name
   worker_count                        = var.worker_count
   tags                                = var.tags
 }
