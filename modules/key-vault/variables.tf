@@ -1,89 +1,99 @@
 variable "key_vault_name" {
-  description = "The name of the Key Vault."
+  description = "The name of the Key Vault"
   type        = string
 }
 
 variable "location" {
-  description = "The location where the Key Vault will be created."
+  description = "The location of the resources"
   type        = string
+  default     = "West Europe"
 }
 
 variable "resource_group_name" {
-  description = "The name of the resource group."
+  description = "The name of the resource group"
   type        = string
 }
 
 variable "kvsku_name" {
-  description = "The SKU name of the Key Vault."
+  description = "The SKU name of the Key Vault"
   type        = string
+  default     = "standard"
 }
 
 variable "kvpurge_protection_enabled" {
-  description = "Enable purge protection for the Key Vault."
+  description = "Enable purge protection"
   type        = bool
+  default     = true
 }
 
 variable "kvrbac_authorization" {
-  description = "Enable RBAC authorization for the Key Vault."
+  description = "Enable RBAC authorization"
   type        = bool
-}
-
-variable "public_network_access" {
-  description = "Enable public network access for the Key Vault."
-  type        = bool
+  default     = false
 }
 
 variable "kvsoft_delete_retention_days" {
-  description = "Number of days to retain soft deleted items."
+  description = "Soft delete retention days"
   type        = number
+  default     = 7
 }
 
 variable "kv_enabled_for_deployment" {
-  description = "Enable the Key Vault for deployment."
+  description = "Enable Key Vault for deployment"
   type        = bool
+  default     = false
 }
 
 variable "kv_enabled_for_disk_encryption" {
-  description = "Enable the Key Vault for disk encryption."
+  description = "Enable Key Vault for disk encryption"
   type        = bool
+  default     = false
 }
 
 variable "kv_enabled_for_template_deployment" {
-  description = "Enable the Key Vault for template deployment."
+  description = "Enable Key Vault for template deployment"
   type        = bool
+  default     = false
 }
 
 variable "kvnetdefaultaction" {
-  description = "Default action for network ACLs."
+  description = "Default action for network ACLs"
   type        = string
+  default     = "Deny"
 }
 
 variable "kvnetaclbypass" {
-  description = "Bypass for network ACLs."
+  description = "Bypass for network ACLs"
   type        = string
+  default     = "AzureServices"
 }
 
 variable "kvip_rules" {
-  description = "IP rules for network ACLs."
+  description = "IP rules for network ACLs"
   type        = list(string)
+  default     = []
 }
 
 variable "kvtimeoutcreate" {
-  description = "Timeout for creating the Key Vault."
+  description = "Timeout for creating the Key Vault"
   type        = string
+  default     = "30m"
 }
 
 variable "kvtimeoutupdate" {
-  description = "Timeout for updating the Key Vault."
+  description = "Timeout for updating the Key Vault"
   type        = string
+  default     = "30m"
 }
 
 variable "kvtimeoutdelete" {
-  description = "Timeout for deleting the Key Vault."
+  description = "Timeout for deleting the Key Vault"
   type        = string
+  default     = "30m"
 }
 
 variable "tags" {
-  description = "Tags to apply to the Key Vault."
+  description = "Tags for the Key Vault"
   type        = map(string)
+  default     = {}
 }
