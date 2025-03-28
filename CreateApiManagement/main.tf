@@ -4,7 +4,7 @@ provider "azurerm" {
 
 
 module "api_management" {
-  source                          = "../Modules/ApiManagement"
+  source                          = "../Modules/api-management"
   api_management_name             = var.api_management_name
   location                        = var.location
   resource_group_name             = var.resource_group_name
@@ -16,7 +16,7 @@ module "api_management" {
 }
 
 module "private_endpoint_api_management" {
-  source                          = "../Modules/PrivateEndpoint"
+  source                          = "../Modules/private-endpoint"
   private_endpoint_name           = var.private_endpoints[0].name
   location                        = var.location
   resource_group_name             = var.resource_group_name
