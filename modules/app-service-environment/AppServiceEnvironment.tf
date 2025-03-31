@@ -4,6 +4,13 @@ resource "azurerm_app_service_environment_v3" "ase" {
   subnet_id                     = var.subnet_id
   internal_load_balancing_mode  = var.internal_load_balancing_mode
 
+  dynamic "identity" {
+    for_each = var.enable_managed_identity ? [1] : []
+    content {
+      type = "SystemAssigned"
+    }
+  } 
+
 
   cluster_setting {
     name  = "DisableTls1.0"
