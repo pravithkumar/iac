@@ -25,7 +25,8 @@ resource "azurerm_storage_account" "sa" {
 //       days = 1
 //     }
 //   }
-// }
+
+}
 
 resource "azurerm_advanced_threat_protection" "example" {
   target_resource_id = azurerm_storage_account.sa.id
@@ -40,4 +41,3 @@ output "storage_account_primary_access_key" {
   value = azurerm_storage_account.sa.primary_access_key
 }
 
-}
