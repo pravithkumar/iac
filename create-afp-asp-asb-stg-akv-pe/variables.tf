@@ -83,6 +83,24 @@ variable "sku" {
   type = string
 }
 
+variable "enable_managed_identity" {
+  description = "Enable system-assigned managed identity for the Service Bus namespace."
+  type        = bool
+  default     = true
+}
+
+variable "public_network_access_enabled" {
+  description = "Enable public network access for the Service Bus namespace."
+  type        = bool
+  default     = false
+}
+
+variable "trusted_services_allowed" {
+  description = "Allow trusted Microsoft services to bypass the firewall."
+  type        = bool
+  default     = true
+}
+
 variable "private_endpoints" {
   type = list(object({
     name                = string
