@@ -11,7 +11,7 @@ resource "azurerm_storage_account" "sa" {
   public_network_access_enabled = false
   tags                     = var.tags
 
-  enable_https_traffic_only = true
+  https_traffic_only_enabled = true
 
   identity {
     type = "SystemAssigned"
