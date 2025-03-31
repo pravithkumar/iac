@@ -40,8 +40,11 @@ resource "azurerm_logic_app_standard" "logic_app" {
   site_config {
     always_on = false
   }
-  identity {
-    type = "SystemAssigned"
+  dynamic "identity" {
+    for_each = var.enable_managed_identity ? [1] : []
+    content {
+      type = "SystemAssigned"
+    }
   } 
 }
 
