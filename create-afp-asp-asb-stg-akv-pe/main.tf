@@ -75,7 +75,7 @@ module "private_endpoint_storage" {
   resource_group_name             = each.value.resource_group_name
   subnet_id                       = each.value.subnet_id
   private_service_connection_name = "${each.value.name}-psc"
-  private_connection_resource_id  = azurerm_storage_account[each.key].id
+  private_connection_resource_id  = module.azurerm_storage_account[each.key].id
   subresource_names               = each.value.subresource_names
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
