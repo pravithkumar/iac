@@ -48,5 +48,5 @@ resource "azurerm_servicebus_subscription" "subscriptions" {
 resource "azurerm_role_assignment" "example" {
   scope                = azurerm_servicebus_namespace.servicebus.id
   role_definition_name = "Azure Service Bus Data Owner"
-  principal_id         = azurerm_servicebus_namespace.servicebus.identity.principal_id
+  principal_id         = azurerm_servicebus_namespace.servicebus.identity[0].principal_id
 }
