@@ -44,3 +44,9 @@ resource "azurerm_servicebus_subscription" "subscriptions" {
   max_delivery_count  = var.subscription_max_delivery_count
   # Other subscription settings as needed
 }
+
+resource "azurerm_role_assignment" "example" {
+  scope                = azurerm_servicebus_namespace.servicebus.id
+  role_definition_name = "Azure Service Bus Data Owner"
+  principal_id         = azurerm_servicebus_namespace.servicebus.identity.principal_id
+}
