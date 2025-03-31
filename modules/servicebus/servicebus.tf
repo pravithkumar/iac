@@ -15,8 +15,8 @@ resource "azurerm_servicebus_namespace" "servicebus" {
   }
 
   network_rule_set {
-    public_network_access_enabled = false
-    trusted_services_allowed      = true
+    public_network_access_enabled = var.public_network_access_enabled
+    trusted_services_allowed      = var.trusted_services_allowed
 }
 
 }
