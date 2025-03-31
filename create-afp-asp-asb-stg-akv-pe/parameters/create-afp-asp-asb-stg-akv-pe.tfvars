@@ -25,6 +25,10 @@ account_replication_type = "LRS"
 
 servicebus_name = "my-fortrea-servicebus-namespace"
 sku = "Premium"
+enable_managed_identity = true
+public_network_access_enabled = false
+trusted_services_allowed      = true
+
 private_endpoints = [
   {
     name = "pe-function-app"
