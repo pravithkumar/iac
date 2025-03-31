@@ -45,3 +45,9 @@ variable "tags" {
     terraformed = "true"
   }
 }
+
+variable "enable_managed_identity" {
+  description = "Enable system-assigned managed identity for the Service Bus namespace."
+  type        = bool
+  default     = true
+}
