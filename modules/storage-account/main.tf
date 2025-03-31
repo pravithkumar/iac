@@ -12,6 +12,34 @@ resource "azurerm_storage_account" "sa" {
   account_replication_type = var.account_replication_type
   public_network_access_enabled = false
   tags                     = var.tags
+
+
+  enable_https_traffic_only = true
+
+  
+  advanced_threat_protection {
+    enabled = true
+  }
+
+ 
+  
+  
+  identity {
+    type = "SystemAssigned"
+  }
+
+
+  blob_properties {
+    delete_retention_policy {
+      days = 0
+    }
+  }
+
+
+  container_delete_retention_policy {
+    days = 0
+  }
+
 }
 
 output "storage_account_name" {
