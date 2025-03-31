@@ -17,15 +17,15 @@ resource "azurerm_storage_account" "sa" {
     type = "SystemAssigned"
   }
 
-  blob_properties {
-    delete_retention_policy {
-      days = 1
-    }
-    container_delete_retention_policy {
-      days = 1
-    }
-  }
-}
+//   blob_properties {
+//     delete_retention_policy {
+//       days = 1
+//     }
+//     container_delete_retention_policy {
+//       days = 1
+//     }
+//   }
+// }
 
 resource "azurerm_advanced_threat_protection" "example" {
   target_resource_id = azurerm_storage_account.sa.id
