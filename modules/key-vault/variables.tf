@@ -56,6 +56,12 @@ variable "enabledfortemplatedeployment" {
   default     = false
 }
 
+variable "public_network_access_enabled" {
+  description = "Enable public_network_access_enabled"
+  type        = bool
+  default     = false
+}
+
 variable "kvnetdefaultaction" {
   description = "Default action for network ACLs"
   type        = string
