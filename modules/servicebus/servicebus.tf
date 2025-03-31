@@ -6,6 +6,11 @@ resource "azurerm_servicebus_namespace" "servicebus" {
   public_network_access_enabled = false
   capacity                     = var.sku == "Premium" ? var.servicebus_capacity : null
   premium_messaging_partitions = var.sku == "Premium" ? var.premium_messaging_partitions : null
+
+   network_rules {
+    default_action = "Deny"
+    trusted_service_access_enabled = true
+  }
 }
 
 resource "azurerm_servicebus_queue" "queues" {
