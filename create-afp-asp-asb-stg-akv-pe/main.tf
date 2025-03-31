@@ -68,7 +68,7 @@ module "azurerm_storage_account" {
   https_traffic_only_enabled = each.value.https_traffic_only_enabled
   identity_type           = each.value.identity_type
   advanced_threat_protection_enabled = each.value.advanced_threat_protection_enabled
-  tags                    = each.value.tags
+  tags                    = var.tags
 }
 
 module "private_endpoint_storage" {
