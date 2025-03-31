@@ -113,6 +113,7 @@ module "azurerm_key_vault" {
   enabled_for_deployment                 = var.enabled_for_deployment
   enabledfordiskencryption         = var.enabled_for_disk_encryption
   enabledfortemplatedeployment     = var.enabled_for_template_deployment
+  public_network_access_enabled    = var.public_network_access_enabled
   kvnetdefaultaction                  = var.kvnetdefaultaction
   kvnetaclbypass                      = var.kvnetaclbypass
   kvip_rules                          = var.kvip_rules
