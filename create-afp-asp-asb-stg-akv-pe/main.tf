@@ -17,7 +17,7 @@ module "azurerm_linux_function_app" {
   https_only                          = var.https_only
   always_on                           = var.always_on
   tags                                = var.tags
-  depends_on                          = [module.azurerm_service_plan,module.azurerm_storage_account]
+  depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account]
 }
 
 module "azurerm_service_plan" {
@@ -33,7 +33,7 @@ module "azurerm_service_plan" {
 
 module "private_endpoint_function_app" {
   source                          = "../modules/private-endpoint"
-  private_endpoint_name           = var.private_endpoints[0].name
+  private_endpoint_name           = "pe-${var.function_app_name}"
   location                        = var.location
   resource_group_name             = var.resource_group_name
   subnet_id                       = var.private_endpoints[0].subnet_id
@@ -45,7 +45,6 @@ module "private_endpoint_function_app" {
   private_dns_zone_ids            = var.private_endpoints[0].private_dns_zone_ids
   depends_on                      = [module.azurerm_linux_function_app]
 }
-
 
 module "azurerm_storage_account" {
   for_each                = { for sa in var.storage_accounts : sa.name => sa }
@@ -65,7 +64,7 @@ module "azurerm_storage_account" {
 module "private_endpoint_storage" {
   for_each                        = { for sa in var.storage_accounts : sa.name => sa }
   source                          = "../modules/private-endpoint"
-  private_endpoint_name           = each.value.private_endpoint_name
+  private_endpoint_name           = "pe-${each.value.name}"
   location                        = each.value.location
   resource_group_name             = each.value.resource_group_name
   subnet_id                       = each.value.subnet_id
@@ -88,7 +87,7 @@ module "servicebus" {
 
 module "private_endpoint_servicebus" {
   source                          = "../modules/private-endpoint"
-  private_endpoint_name           = var.private_endpoints[1].name
+  private_endpoint_name           = "pe-${var.servicebus_name}"
   location                        = var.location
   resource_group_name             = var.resource_group_name
   subnet_id                       = var.private_endpoints[1].subnet_id
@@ -106,14 +105,14 @@ module "azurerm_key_vault" {
   key_vault_name                      = var.key_vault_name
   location                            = var.location
   resource_group_name                 = var.resource_group_name 
-  kvskuname                            = var.kvsku_name
-  kvpurge_protection_enabled           = var.kvpurge_protection_enabled
-  kvrbac_authorization                 = var.kvrbac_authorization
-  kvsoft_delete_retention_days         = var.kvsoft_delete_retention_days
-  enabled_for_deployment                 = var.enabled_for_deployment
-  enabledfordiskencryption         = var.enabled_for_disk_encryption
-  enabledfortemplatedeployment     = var.enabled_for_template_deployment
-  public_network_access_enabled    = var.public_network_access_enabled
+  kvsku_name                          = var.kvsku_name
+  kvpurge_protection_enabled          = var.kvpurge_protection_enabled
+  kvrbac_authorization                = var.kvrbac_authorization
+  kvsoft_delete_retention_days        = var.kvsoft_delete_retention_days
+  enabled_for_deployment              = var.enabled_for_deployment
+  enabled_for_disk_encryption         = var.enabled_for_disk_encryption
+  enabled_for_template_deployment     = var.enabled_for_template_deployment
+  public_network_access_enabled       = var.public_network_access_enabled
   kvnetdefaultaction                  = var.kvnetdefaultaction
   kvnetaclbypass                      = var.kvnetaclbypass
   kvip_rules                          = var.kvip_rules
@@ -125,7 +124,7 @@ module "azurerm_key_vault" {
 
 module "private_endpoint_key_vault" {
   source                          = "../modules/private-endpoint"
-  private_endpoint_name           = var.private_endpoints[2].name
+  private_endpoint_name           = "pe-${var.key_vault_name}"
   location                        = var.location
   resource_group_name             = var.resource_group_name
   subnet_id                       = var.private_endpoints[2].subnet_id
