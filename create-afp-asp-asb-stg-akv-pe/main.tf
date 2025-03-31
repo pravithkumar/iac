@@ -59,7 +59,7 @@ module "private_endpoint_function_app" {
 module "azurerm_storage_account" {
   for_each                = { for sa in var.storage_accounts : sa.name => sa }
   source                  = "../modules/storage-account"
-  name                    = each.value.name
+  storage_account_name                    = each.value.name
   resource_group_name     = each.value.resource_group_name
   location                = each.value.location
   account_tier            = each.value.account_tier
