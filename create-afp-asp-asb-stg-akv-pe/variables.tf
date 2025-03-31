@@ -213,14 +213,18 @@ variable "kvtimeoutdelete" {
 
 variable "storage_accounts" {
   type = list(object({
-    name                  = string
-    resource_group_name   = string
-    location              = string
-    account_tier          = string
-    account_replication   = string
-    private_endpoint_name = string
-    subnet_id             = string
-    private_dns_zone_ids  = list(string)
-    subresource_names     = list(string)
+     name                             = string
+    resource_group_name              = string
+    location                         = string
+    account_tier                     = string
+    account_replication              = string
+    private_endpoint_name            = string
+    subnet_id                        = string
+    private_dns_zone_ids             = list(string)
+    subresource_names                = list(string)
+    public_network_access_enabled    = bool
+    https_traffic_only_enabled       = bool
+    identity_type                    = string
+    advanced_threat_protection_enabled = bool
   }))
 }
