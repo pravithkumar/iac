@@ -82,6 +82,9 @@ module "servicebus" {
   resource_group_name   = var.resource_group_name
   location              = var.location
   servicebus_name       = var.servicebus_name
+  enable_managed_identity =var.enable_managed_identity
+  public_network_access_enabled = var.public_network_access_enabled
+   trusted_services_allowed      = var.trusted_services_allowed
   sku                   = var.sku
 }
 
