@@ -12,6 +12,8 @@ resource "azurerm_servicebus_namespace" "servicebus" {
     trusted_services_allowed      = true
 }
 
+}
+
 resource "azurerm_servicebus_queue" "queues" {
   for_each              = toset(var.queue_names)
   name                  = each.value
