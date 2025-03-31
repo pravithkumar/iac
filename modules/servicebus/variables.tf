@@ -64,3 +64,15 @@ variable "enable_managed_identity" {
   type        = bool
   default     = true
 }
+
+variable "public_network_access_enabled" {
+  description = "Enable public network access for the Service Bus namespace."
+  type        = bool
+  default     = false
+}
+
+variable "trusted_services_allowed" {
+  description = "Allow trusted Microsoft services to bypass the firewall."
+  type        = bool
+  default     = true
+}
