@@ -58,3 +58,9 @@ variable "subscription_max_delivery_count" {
   description = "Maximum delivery count for subscriptions."
   default     = 10
 }
+
+variable "enable_managed_identity" {
+  description = "Enable system-assigned managed identity for the Service Bus namespace."
+  type        = bool
+  default     = true
+}
