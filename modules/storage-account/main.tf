@@ -1,5 +1,3 @@
-// modules/storage/main.tf
-
 data "azurerm_resource_group" "rg" {
   name = var.resource_group_name
 }
@@ -13,33 +11,25 @@ resource "azurerm_storage_account" "sa" {
   public_network_access_enabled = false
   tags                     = var.tags
 
-
   enable_https_traffic_only = true
 
-  
-  advanced_threat_protection {
-    enabled = true
-  }
-
- 
-  
-  
   identity {
     type = "SystemAssigned"
   }
 
-
   blob_properties {
     delete_retention_policy {
-      days = 0
+      days = 0  // Set to 0 to disable soft delete
+    }
+    container_delete_retention_policy {
+      days = 0  // Set to 0 to disable soft delete
     }
   }
+}
 
-
-  container_delete_retention_policy {
-    days = 0
-  }
-
+resource "azurerm_advanced_threat_protection" "example" {
+  target_resource_id = azurerm_storage_account.sa.id
+  enabled            = true
 }
 
 output "storage_account_name" {
