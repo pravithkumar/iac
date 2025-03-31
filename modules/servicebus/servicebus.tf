@@ -7,6 +7,13 @@ resource "azurerm_servicebus_namespace" "servicebus" {
   capacity                     = var.sku == "Premium" ? var.servicebus_capacity : null
   premium_messaging_partitions = var.sku == "Premium" ? var.premium_messaging_partitions : null
 
+   dynamic "identity" {
+    for_each = var.enable_managed_identity ? [1] : []
+    content {
+      type = "SystemAssigned"
+    }
+  }
+
   network_rule_set {
     public_network_access_enabled = false
     trusted_services_allowed      = true
