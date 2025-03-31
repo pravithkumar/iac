@@ -82,7 +82,7 @@ module "private_endpoint_storage" {
   private_connection_resource_id  = module.azurerm_storage_account[each.key].id
   subresource_names               = each.value.subresource_names
   is_manual_connection            = false
-  private_dns_zone_group_name     = "private-dns-zone-group"
+  // private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = each.value.private_dns_zone_ids
   depends_on                      = [module.azurerm_storage_account]
 }
