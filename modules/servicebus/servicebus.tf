@@ -8,7 +8,7 @@ resource "azurerm_servicebus_namespace" "servicebus" {
   premium_messaging_partitions = var.sku == "Premium" ? var.premium_messaging_partitions : null
 
   network_rule_set {
-   
+    public_network_access_enabled = false
     trusted_services_allowed      = true
 }
 
