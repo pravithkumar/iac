@@ -7,7 +7,7 @@ resource "azurerm_servicebus_namespace" "servicebus" {
   capacity                     = var.sku == "Premium" ? var.servicebus_capacity : null
   premium_messaging_partitions = var.sku == "Premium" ? var.premium_messaging_partitions : null
 
-  trusted_service_access_enabled = true
+  trusted_services_allowed = true
 }
 
 resource "azurerm_servicebus_queue" "queues" {
