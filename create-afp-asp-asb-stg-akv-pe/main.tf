@@ -41,7 +41,7 @@ module "private_endpoint_function_app" {
   private_connection_resource_id  = module.azurerm_linux_function_app.function_app_id
   subresource_names               = var.private_endpoints[0].subresource_names
   is_manual_connection            = false
-  private_dns_zone_group_name     = "private-dns-zone-group"
+  // private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = var.private_endpoints[0].private_dns_zone_ids
   depends_on                      = [module.azurerm_linux_function_app]
 }
@@ -105,7 +105,7 @@ module "private_endpoint_servicebus" {
   private_connection_resource_id  = module.servicebus.servicebus_id
   subresource_names               = var.private_endpoints[1].subresource_names
   is_manual_connection            = false
-  private_dns_zone_group_name     = "private-dns-zone-group"
+  // private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = var.private_endpoints[1].private_dns_zone_ids
   depends_on                      = [module.servicebus]
 }
@@ -141,7 +141,7 @@ module "private_endpoint_key_vault" {
   private_connection_resource_id  = module.azurerm_key_vault.key_vault_id
   subresource_names               = var.private_endpoints[2].subresource_names
   is_manual_connection            = false
-  private_dns_zone_group_name     = "private-dns-zone-group"
+  // private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = var.private_endpoints[2].private_dns_zone_ids
   depends_on                      = [module.azurerm_key_vault]
 }
