@@ -59,12 +59,16 @@ module "private_endpoint_function_app" {
 module "azurerm_storage_account" {
   for_each                = { for sa in var.storage_accounts : sa.name => sa }
   source                  = "../modules/storage-account"
-  storage_account_name                    = each.value.name
+  storage_account_name    = each.value.name
   resource_group_name     = each.value.resource_group_name
   location                = each.value.location
   account_tier            = each.value.account_tier
   account_replication_type = each.value.account_replication
-  tags                    = var.tags
+  public_network_access_enabled = each.value.public_network_access_enabled
+  https_traffic_only_enabled = each.value.https_traffic_only_enabled
+  identity_type           = each.value.identity_type
+  advanced_threat_protection_enabled = each.value.advanced_threat_protection_enabled
+  tags                    = each.value.tags
 }
 
 module "private_endpoint_storage" {
