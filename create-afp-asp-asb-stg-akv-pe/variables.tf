@@ -199,11 +199,11 @@ variable "enabled_for_template_deployment" {
   type        = bool
 }
 
-variable "public_network_access_enabled" {
-  description = "Enable public_network_access_enabled"
-  type        = bool
-  default     = false
-}
+// variable "public_network_access_enabled" {
+//   description = "Enable public_network_access_enabled"
+//   type        = bool
+//   default     = false
+// }
 
 variable "kvnetdefaultaction" {
   description = "Default action for network ACLs."
