@@ -19,10 +19,10 @@ resource "azurerm_storage_account" "sa" {
 
   blob_properties {
     delete_retention_policy {
-      days = 0  // Set to 0 to disable soft delete
+      days = 1
     }
     container_delete_retention_policy {
-      days = 0  // Set to 0 to disable soft delete
+      days = 1
     }
   }
 }
