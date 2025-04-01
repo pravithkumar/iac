@@ -2,7 +2,7 @@ module "azurerm_linux_function_app" {
   providers                           = { azurerm = azurerm.integ-nprod-001 }
   source                              = "../modules/function-app"
   function_app_name                   = local.function_app_name
-  location                            = local.location
+  location                            = local.location-test
   resource_group_name                 = local.resource_group_name
   storage_account_name                = var.storage_account_name
   storage_account_resource_group_name = var.storage_account_resource_group_name
@@ -21,7 +21,7 @@ module "azurerm_service_plan" {
   providers                           = { azurerm = azurerm.integ-nprod-001 }
   source                              = "../modules/app-service-plan"
   resource_group_name                 = local.resource_group_name
-  location                            = local.location
+  location                            = local.location-test
   os_type                             = var.os_type
   aspsku_name                         = var.aspsku_name
   service_plan_name                   = local.service_plan_name
@@ -33,7 +33,7 @@ module "private_endpoint_function_app" {
   providers                       = { azurerm = azurerm.integ-nprod-001 }
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = local.private_endpoint_name
-  location                        = local.location
+  location                        = local.location-test
   resource_group_name             = local.resource_group_name
   subnet_id                       = var.private_endpoints[0].subnet_id
   private_service_connection_name = "${local.function_app_name}-psc"
@@ -51,7 +51,7 @@ module "azurerm_storage_account" {
   source                  = "../modules/storage-account"
   storage_account_name    = local.storage_account_name
   resource_group_name     = local.resource_group_name
-  location                = local.location
+  location                = local.location-test
   account_tier            = var.account_tier
   account_replication_type = var.account_replication
   public_network_access_enabled = var.public_network_access_enabled
@@ -66,7 +66,7 @@ module "private_endpoint_storage" {
   for_each                        = { for sa in var.storage_accounts : sa.name => sa }
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = local.private_endpoint_name
-  location                        = local.location
+  location                        = local.location-test
   resource_group_name             = local.resource_group_name
   subnet_id                       = var.subnet_id
   private_service_connection_name = "${local.storage_account_name}-psc"
@@ -82,7 +82,7 @@ module "servicebus" {
   providers           = { azurerm = azurerm.integ-nprod-001 }
   source                = "../modules/servicebus"
   resource_group_name   = local.resource_group_name
-  location              = local.location
+  location              = local.location-test
   servicebus_name       = local.servicebus_name
   enable_managed_identity = var.enable_managed_identity
   public_network_access_enabled = var.public_network_access_enabled
@@ -94,7 +94,7 @@ module "private_endpoint_servicebus" {
   providers                       = { azurerm = azurerm.integ-nprod-001 }
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = local.private_endpoint_name
-  location                        = local.location
+  location                        = local.location-test
   resource_group_name             = local.resource_group_name
   subnet_id                       = var.subnet_id
   private_service_connection_name = "${local.servicebus_name}-psc"
@@ -110,7 +110,7 @@ module "azurerm_key_vault" {
   providers                           = { azurerm = azurerm.integ-nprod-001 }
   source                              = "../modules/key-vault"
   key_vault_name                      = local.key_vault_name
-  location                            = local.location
+  location                            = local.location-test
   resource_group_name                 = local.resource_group_name
   kvskuname                           = var.kvsku_name
   kvpurge_protection_enabled          = var.kvpurge_protection_enabled
@@ -133,7 +133,7 @@ module "private_endpoint_key_vault" {
   providers                       = { azurerm = azurerm.integ-nprod-001 }
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = local.private_endpoint_name
-  location                        = local.location
+  location                        = local.location-test
   resource_group_name             = local.resource_group_name
   subnet_id                       = var.subnet_id
   private_service_connection_name = "${local.key_vault_name}-psc"
