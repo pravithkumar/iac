@@ -10,22 +10,17 @@ resource "azurerm_app_service_environment_v3" "ase" {
       type = "SystemAssigned"
     }
   } 
-
-
   cluster_setting {
     name  = "DisableTls1.0"
     value = var.disable_tls1_0
   }
-
   cluster_setting {
     name  = "InternalEncryption"
     value = var.internal_encryption
   }
-
   cluster_setting {
     name  = "FrontEndSSLCipherSuiteOrder"
     value = var.frontend_ssl_cipher_suite_order
   }
-
   tags = var.tags
 }
