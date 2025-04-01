@@ -17,7 +17,6 @@ module "azurerm_linux_function_app" {
   tags                                = var.tags
   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account]
 }
-
 module "azurerm_service_plan" {  
   providers                           = { azurerm = azurerm.integ-nprod-001 }
   source                              = "../modules/app-service-plan"
@@ -29,7 +28,6 @@ module "azurerm_service_plan" {
   worker_count                        = var.worker_count
   tags                                = var.tags
 }
-
 module "private_endpoint_function_app" {  
   providers                       = { azurerm = azurerm.integ-nprod-001 }
   source                          = "../modules/private-endpoint"
@@ -61,7 +59,6 @@ module "azurerm_storage_account" {
   advanced_threat_protection_enabled = each.value.advanced_threat_protection_enabled
   tags                    = var.tags
 }
-
 module "private_endpoint_storage" {  
   providers                       = { azurerm = azurerm.integ-nprod-001 }
   for_each                        = { for sa in var.storage_accounts : sa.name => sa }
@@ -76,9 +73,8 @@ module "private_endpoint_storage" {
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = each.value.private_dns_zone_ids
-  depends_on                      = [module.azurerm_storage_account]
+  depends_on                     = [module.azurerm_storage_account]
 }
-
 module "servicebus" {  
   providers           = { azurerm = azurerm.integ-nprod-001 }
   source                = "../modules/servicebus"
@@ -106,7 +102,6 @@ module "private_endpoint_servicebus" {
   private_dns_zone_ids            = var.private_endpoints[1].private_dns_zone_ids
   depends_on                      = [module.servicebus]
 }
-
 module "azurerm_key_vault" {  
   providers                           = { azurerm = azurerm.integ-nprod-001 }
   source                              = "../modules/key-vault"
@@ -129,7 +124,6 @@ module "azurerm_key_vault" {
   kvtimeoutdelete                     = var.kvtimeoutdelete
   tags                                = var.tags
 }
-
 module "private_endpoint_key_vault" {  
   providers                       = { azurerm = azurerm.integ-nprod-001 }
   source                          = "../modules/private-endpoint"
