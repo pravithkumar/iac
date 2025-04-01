@@ -4,12 +4,10 @@
 //   features {}
 // }
 
-module "azurerm_linux_function_app" {
-  
+module "azurerm_linux_function_app" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
   }
-
   source                              = "../modules/function-app"
   function_app_name                   = var.function_app_name
   location                            = var.location
@@ -27,14 +25,10 @@ module "azurerm_linux_function_app" {
   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account]
 }
 
-module "azurerm_service_plan" {
-
-  
+module "azurerm_service_plan" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
   }
-
-
   source                              = "../modules/app-service-plan"
   resource_group_name                 = var.asp_resource_group_name
   location                            = var.location
@@ -45,12 +39,10 @@ module "azurerm_service_plan" {
   tags                                = var.tags
 }
 
-module "private_endpoint_function_app" {
-  
+module "private_endpoint_function_app" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
   }
-
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = "pe-${var.function_app_name}"
   location                        = var.location
@@ -65,12 +57,10 @@ module "private_endpoint_function_app" {
   depends_on                      = [module.azurerm_linux_function_app]
 }
 
-module "azurerm_storage_account" {
-  
+module "azurerm_storage_account" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
   }
-
   for_each                = { for sa in var.storage_accounts : sa.name => sa }
   source                  = "../modules/storage-account"
   storage_account_name    = each.value.name
@@ -85,12 +75,10 @@ module "azurerm_storage_account" {
   tags                    = var.tags
 }
 
-module "private_endpoint_storage" {
-  
+module "private_endpoint_storage" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
   }
-
   for_each                        = { for sa in var.storage_accounts : sa.name => sa }
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = "pe-${each.value.name}"
@@ -106,12 +94,10 @@ module "private_endpoint_storage" {
   depends_on                      = [module.azurerm_storage_account]
 }
 
-module "servicebus" {
-  
+module "servicebus" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
   }
-
   source                = "../modules/servicebus"
   resource_group_name   = var.resource_group_name
   location              = var.location
@@ -122,12 +108,10 @@ module "servicebus" {
   sku                   = var.sku
 }
 
-module "private_endpoint_servicebus" {
-  
+module "private_endpoint_servicebus" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
   }
-
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = "pe-${var.servicebus_name}"
   location                        = var.location
@@ -142,12 +126,10 @@ module "private_endpoint_servicebus" {
   depends_on                      = [module.servicebus]
 }
 
-module "azurerm_key_vault" {
-  
+module "azurerm_key_vault" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
   }
-
   source                              = "../modules/key-vault"
   key_vault_name                      = var.key_vault_name
   location                            = var.location
@@ -169,12 +151,10 @@ module "azurerm_key_vault" {
   tags                                = var.tags
 }
 
-module "private_endpoint_key_vault" {
-  
+module "private_endpoint_key_vault" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
   }
-
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = "pe-${var.key_vault_name}"
   location                        = var.location
