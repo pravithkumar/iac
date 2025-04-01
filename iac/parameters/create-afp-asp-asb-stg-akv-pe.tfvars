@@ -32,6 +32,9 @@ enable_managed_identity = true
 public_network_access_enabled = false
 trusted_services_allowed      = true
 
+advanced_threat_protection_enabled = true
+identity_type = "SystemAssigned"
+
 private_endpoints = [
   {
     name = "pe-function-app"
