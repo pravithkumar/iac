@@ -253,6 +253,17 @@ variable "storage_accounts" {
   }))
 }
 
+variable "identity_type" {
+  description = "The type of identity for the storage account"
+  type        = string
+}
+
+variable "advanced_threat_protection_enabled" {
+  description = "Enable advanced threat protection for the storage account"
+  type        = bool
+}
+
+
 variable "app_name" {
   description = "The name of the application"
   type        = string
