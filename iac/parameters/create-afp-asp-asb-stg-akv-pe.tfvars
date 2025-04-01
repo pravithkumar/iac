@@ -1,3 +1,5 @@
+app_name     = "frt"      
+environment  = "dev"         
 function_app_name = "afp-fortrea-eus-01"
 location = "East US"
 resource_group_name = "rg-fortrea-delete-01"
