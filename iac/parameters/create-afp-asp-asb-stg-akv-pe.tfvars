@@ -115,7 +115,7 @@ storage_accounts = [
     private_dns_zone_ids = [
       "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/rg-fortrea-delete-01/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net"
     ]
-    public_network_access_enabled = true
+    public_network_access_enabled = false
     https_traffic_only_enabled = true
     identity_type = "SystemAssigned"
     advanced_threat_protection_enabled = true
@@ -132,7 +132,7 @@ storage_accounts = [
     private_dns_zone_ids = [
       "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/rg-fortrea-delete-01/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net"
     ]
-    public_network_access_enabled = true
+    public_network_access_enabled = false
     https_traffic_only_enabled = true
     identity_type = "SystemAssigned"
     advanced_threat_protection_enabled = true
