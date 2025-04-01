@@ -253,7 +253,7 @@ variable "storage_accounts" {
   }))
 }
 
-variable "app_name" {
+variable "appname" {
   description = "The name of the application"
   type        = string
 }
