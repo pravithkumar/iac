@@ -1,4 +1,4 @@
-app_name     = "frt"      
+appname     = "frt"      
 environment  = "dev"         
 function_app_name = "afp-fortrea-eus-01"
 location = "East US"
