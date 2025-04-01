@@ -1,8 +1,5 @@
-app_name     = "frt"      
-environment  = "dev"         
 function_app_name = "afp-fortrea-eus-01"
 location = "East US"
-location-test = "eus"
 resource_group_name = "rg-fortrea-delete-01"
 storage_account_name = "stgfortrea01"
 storage_account_resource_group_name = "rg-fortrea-delete-01"
@@ -31,9 +28,6 @@ sku = "Premium"
 enable_managed_identity = true
 public_network_access_enabled = false
 trusted_services_allowed      = true
-
-advanced_threat_protection_enabled = true
-identity_type = "SystemAssigned"
 
 private_endpoints = [
   {
