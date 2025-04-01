@@ -263,7 +263,7 @@ variable "environment" {
   type        = string
 }
 
-variable "location" {
+variable "location-test" {
   description = "The Azure region (e.g., eastus, westus)"
   type        = string
 }
