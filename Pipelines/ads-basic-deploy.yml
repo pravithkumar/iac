@@ -6,9 +6,9 @@ pr: none
 
 variables:
   # Variable group containing development environment settings
-  - group: ads-dev-basic-deploy
+  - group: vg-fortrea-sample-deploy
   - name: tfvars
-    value: "adsprintdeveastus.tfvars" # Terraform variables file
+    value: "parameters\create-afp-asp-asb-stg-akv-pe.tfvars" # Terraform variables file
   - name: rootFolder
     value: "iac" # Root folder for IaC files
 
