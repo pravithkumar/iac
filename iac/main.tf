@@ -6,7 +6,7 @@ module "azurerm_linux_function_app" {
   source                              = "../modules/function-app"
    function_app_name                  = local.function_app_name
   location                            = var.location
-  resource_group_name                 = local.resource_group_name
+  resource_group_name                 = var.resource_group_name
   storage_account_name                = var.storage_account_name
   storage_account_resource_group_name = var.storage_account_resource_group_name
   app_insights_name                   = var.app_insights_name
