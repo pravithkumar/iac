@@ -7,11 +7,11 @@ terraform {
   }
 
   backend "azurerm" {
-    subscription_id      = "01f80ea1-e021-4e3c-ad77-3a7e68205304"
-    resource_group_name  = "rg-tf-eastus-001"
-    storage_account_name = "satfeastus001"
-    container_name       = "devterraformstate"
-    key                  = "adsprint_dev.tfstate"
+    subscription_id      = "795783af-96d3-4629-9161-58de5577ed1e"
+    resource_group_name  = "pravith-vm-jump-box"
+    storage_account_name = "tfstatemsdn"
+    container_name       = "tfstate"
+    key                  = "statefile-fortrea.tfstate"
   }
 }
 
