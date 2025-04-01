@@ -7,7 +7,7 @@
 module "azurerm_linux_function_app" {
   
   providers = {
-    azurerm.integ-nprod-001 = azurerm.integ-nprod-001
+    azurerm = azurerm.integ-nprod-001
   }
 
   source                              = "../modules/function-app"
