@@ -252,29 +252,3 @@ variable "storage_accounts" {
     advanced_threat_protection_enabled = bool
   }))
 }
-
-variable "identity_type" {
-  description = "The type of identity for the storage account"
-  type        = string
-}
-
-variable "advanced_threat_protection_enabled" {
-  description = "Enable advanced threat protection for the storage account"
-  type        = bool
-}
-
-
-variable "app_name" {
-  description = "The name of the application"
-  type        = string
-}
-
-variable "environment" {
-  description = "The environment (e.g., dev, prod)"
-  type        = string
-}
-
-variable "location-test" {
-  description = "The Azure region (e.g., eastus, westus)"
-  type        = string
-}
