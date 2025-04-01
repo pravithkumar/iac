@@ -1,10 +1,9 @@
-
 module "azurerm_linux_function_app" {  
   providers                           = { azurerm = azurerm.integ-nprod-001 }
   source                              = "../modules/function-app"
-  function_app_name                   = "fa-${var.appname}-${var.environment}-${var.location-test}-001"
-  location                            = var.location
-  resource_group_name                 = "rg-${var.appname}-${var.environment}-${var.location-test}-001"
+  function_app_name                   = local.function_app_name
+  location                            = local.location
+  resource_group_name                 = local.resource_group_name
   storage_account_name                = var.storage_account_name
   storage_account_resource_group_name = var.storage_account_resource_group_name
   app_insights_name                   = var.app_insights_name
@@ -17,25 +16,27 @@ module "azurerm_linux_function_app" {
   tags                                = var.tags
   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account]
 }
+
 module "azurerm_service_plan" {  
   providers                           = { azurerm = azurerm.integ-nprod-001 }
   source                              = "../modules/app-service-plan"
-  resource_group_name                 = "rg-${var.appname}-${var.environment}-${var.location-test}-001"
-  location                            = var.location
+  resource_group_name                 = local.resource_group_name
+  location                            = local.location
   os_type                             = var.os_type
   aspsku_name                         = var.aspsku_name
-  service_plan_name                   = "asp-${var.appname}-${var.environment}-${var.location-test}-001"
+  service_plan_name                   = local.service_plan_name
   worker_count                        = var.worker_count
   tags                                = var.tags
 }
+
 module "private_endpoint_function_app" {  
   providers                       = { azurerm = azurerm.integ-nprod-001 }
   source                          = "../modules/private-endpoint"
-  private_endpoint_name           = "pe-${var.function_app_name}"
-  location                        = var.location
-  resource_group_name             = "rg-${var.appname}-${var.environment}-${var.location-test}-001"
+  private_endpoint_name           = local.private_endpoint_name
+  location                        = local.location
+  resource_group_name             = local.resource_group_name
   subnet_id                       = var.private_endpoints[0].subnet_id
-  private_service_connection_name = "${var.function_app_name}-psc"
+  private_service_connection_name = "${local.function_app_name}-psc"
   private_connection_resource_id  = module.azurerm_linux_function_app.function_app_id
   subresource_names               = var.private_endpoints[0].subresource_names
   is_manual_connection            = false
@@ -48,74 +49,77 @@ module "azurerm_storage_account" {
   providers               = { azurerm = azurerm.integ-nprod-001 }
   for_each                = { for sa in var.storage_accounts : sa.name => sa }
   source                  = "../modules/storage-account"
-  storage_account_name    = "stg${var.appname}${var.environment}${var.location-test}001"
-  resource_group_name     = "rg-${var.appname}-${var.environment}-${var.location-test}-001"
-  location                = each.value.location
-  account_tier            = each.value.account_tier
-  account_replication_type = each.value.account_replication
-  public_network_access_enabled = each.value.public_network_access_enabled
-  https_traffic_only_enabled = each.value.https_traffic_only_enabled
-  identity_type           = each.value.identity_type
-  advanced_threat_protection_enabled = each.value.advanced_threat_protection_enabled
+  storage_account_name    = local.storage_account_name
+  resource_group_name     = local.resource_group_name
+  location                = local.location
+  account_tier            = var.account_tier
+  account_replication_type = var.account_replication
+  public_network_access_enabled = var.public_network_access_enabled
+  https_traffic_only_enabled = var.https_traffic_only_enabled
+  identity_type           = var.identity_type
+  advanced_threat_protection_enabled = var.advanced_threat_protection_enabled
   tags                    = var.tags
 }
+
 module "private_endpoint_storage" {  
   providers                       = { azurerm = azurerm.integ-nprod-001 }
   for_each                        = { for sa in var.storage_accounts : sa.name => sa }
   source                          = "../modules/private-endpoint"
-  private_endpoint_name           = "pe-${each.value.name}"
-  location                        = each.value.location
-  resource_group_name             = "rg-${var.appname}-${var.environment}-${var.location-test}-001"
-  subnet_id                       = each.value.subnet_id
-  private_service_connection_name = "${each.value.name}-psc"
+  private_endpoint_name           = local.private_endpoint_name
+  location                        = local.location
+  resource_group_name             = local.resource_group_name
+  subnet_id                       = var.subnet_id
+  private_service_connection_name = "${local.storage_account_name}-psc"
   private_connection_resource_id  = module.azurerm_storage_account[each.key].id
-  subresource_names               = each.value.subresource_names
+  subresource_names               = var.subresource_names
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
-  private_dns_zone_ids            = each.value.private_dns_zone_ids
+  private_dns_zone_ids            = var.private_dns_zone_ids
   depends_on                     = [module.azurerm_storage_account]
 }
+
 module "servicebus" {  
   providers           = { azurerm = azurerm.integ-nprod-001 }
   source                = "../modules/servicebus"
-  resource_group_name   = "rg-${var.appname}-${var.environment}-${var.location-test}-001"
-  location              = var.location
-  servicebus_name       = "asb-${var.appname}-${var.environment}-${var.location-test}-001"
-  enable_managed_identity =var.enable_managed_identity
+  resource_group_name   = local.resource_group_name
+  location              = local.location
+  servicebus_name       = local.servicebus_name
+  enable_managed_identity = var.enable_managed_identity
   public_network_access_enabled = var.public_network_access_enabled
-   trusted_services_allowed      = var.trusted_services_allowed
+  trusted_services_allowed      = var.trusted_services_allowed
   sku                   = var.sku
 }
 
 module "private_endpoint_servicebus" {  
   providers                       = { azurerm = azurerm.integ-nprod-001 }
   source                          = "../modules/private-endpoint"
-  private_endpoint_name           = "pe-${var.servicebus_name}"
-  location                        = var.location
-  resource_group_name             = "rg-${var.appname}-${var.environment}-${var.location-test}-001"
-  subnet_id                       = var.private_endpoints[1].subnet_id
-  private_service_connection_name = "${var.servicebus_name}-psc"
+  private_endpoint_name           = local.private_endpoint_name
+  location                        = local.location
+  resource_group_name             = local.resource_group_name
+  subnet_id                       = var.subnet_id
+  private_service_connection_name = "${local.servicebus_name}-psc"
   private_connection_resource_id  = module.servicebus.servicebus_id
-  subresource_names               = var.private_endpoints[1].subresource_names
+  subresource_names               = var.subresource_names
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
-  private_dns_zone_ids            = var.private_endpoints[1].private_dns_zone_ids
+  private_dns_zone_ids            = var.private_dns_zone_ids
   depends_on                      = [module.servicebus]
 }
+
 module "azurerm_key_vault" {  
   providers                           = { azurerm = azurerm.integ-nprod-001 }
   source                              = "../modules/key-vault"
-  key_vault_name                      = "kv-${var.appname}-${var.environment}-${var.location-test}-001"
-  location                            = var.location
-  resource_group_name                 = "rg-${var.appname}-${var.environment}-${var.location-test}-001" 
-  kvskuname                            = var.kvsku_name
-  kvpurge_protection_enabled           = var.kvpurge_protection_enabled
-  kvrbac_authorization                 = var.kvrbac_authorization
-  kvsoft_delete_retention_days         = var.kvsoft_delete_retention_days
-  enabled_for_deployment                 = var.enabled_for_deployment
-  enabledfordiskencryption         = var.enabled_for_disk_encryption
-  enabledfortemplatedeployment     = var.enabled_for_template_deployment
-  public_network_access_enabled    = var.public_network_access_enabled
+  key_vault_name                      = local.key_vault_name
+  location                            = local.location
+  resource_group_name                 = local.resource_group_name
+  kvskuname                           = var.kvsku_name
+  kvpurge_protection_enabled          = var.kvpurge_protection_enabled
+  kvrbac_authorization                = var.kvrbac_authorization
+  kvsoft_delete_retention_days        = var.kvsoft_delete_retention_days
+  enabled_for_deployment              = var.enabled_for_deployment
+  enabledfordiskencryption            = var.enabled_for_disk_encryption
+  enabledfortemplatedeployment        = var.enabled_for_template_deployment
+  public_network_access_enabled       = var.public_network_access_enabled
   kvnetdefaultaction                  = var.kvnetdefaultaction
   kvnetaclbypass                      = var.kvnetaclbypass
   kvip_rules                          = var.kvip_rules
@@ -124,16 +128,17 @@ module "azurerm_key_vault" {
   kvtimeoutdelete                     = var.kvtimeoutdelete
   tags                                = var.tags
 }
+
 module "private_endpoint_key_vault" {  
   providers                       = { azurerm = azurerm.integ-nprod-001 }
   source                          = "../modules/private-endpoint"
-  private_endpoint_name           = "pe-${var.key_vault_name}"
-  location                        = var.location
-  resource_group_name             = "rg-${var.appname}-${var.environment}-${var.location-test}-001"
-  subnet_id                       = var.private_endpoints[2].subnet_id
-  private_service_connection_name = "${var.key_vault_name}-psc"
+  private_endpoint_name           = local.private_endpoint_name
+  location                        = local.location
+  resource_group_name             = local.resource_group_name
+  subnet_id                       = var.subnet_id
+  private_service_connection_name = "${local.key_vault_name}-psc"
   private_connection_resource_id  = module.azurerm_key_vault.key_vault_id
-  subresource_names               = var.private_endpoints[2].subresource_names
+  subresource_names               = var.subresource_names
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = var.private_endpoints[2].private_dns_zone_ids
