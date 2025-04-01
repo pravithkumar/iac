@@ -1,6 +1,6 @@
-provider "azurerm" {
-  features {}  
-}
+// provider "azurerm" {
+//   features {}  
+// }
 
 module "azurerm_linux_function_app" {
   source                              = "../modules/function-app"
