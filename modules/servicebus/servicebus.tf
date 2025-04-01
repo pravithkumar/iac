@@ -3,7 +3,7 @@ resource "azurerm_servicebus_namespace" "servicebus" {
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = var.sku
-  // public_network_access_enabled = false
+  public_network_access_enabled = var.public_network_access_enabled
   capacity                     = var.sku == "Premium" ? var.servicebus_capacity : null
   premium_messaging_partitions = var.sku == "Premium" ? var.premium_messaging_partitions : null
 
@@ -15,7 +15,7 @@ resource "azurerm_servicebus_namespace" "servicebus" {
   }
 
   network_rule_set {
-    public_network_access_enabled = var.public_network_access_enabled
+    // public_network_access_enabled = var.public_network_access_enabled
     trusted_services_allowed      = var.trusted_services_allowed
 }
 
