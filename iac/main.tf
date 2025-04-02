@@ -165,19 +165,18 @@ module "azurerm_key_vault" {
   source                              = "../modules/key-vault"
   azurerm_key_vault_name          = local.key_vault_name
   resource_group_name             = local.resource_group_name
-  location                        = var.location
-  tags                            = var.tags
+  location                        = var.location  
   enabled_for_disk_encryption     = true
   tenant_id                       = data.azurerm_client_config.this.tenant_id 
   soft_delete_retention_days      = 90
   purge_protection_enabled        = true
-  tags                            = var.tags
   sku_name                        = "standard"
   enabled_for_template_deployment = true
   enabled_for_deployment          = true
   enable_rbac_authorization       = true
   public_network_access_enabled   = false
   network_acls                    = []
+  tags                            = var.tags
   
 }
 module "private_endpoint_key_vault" {  
