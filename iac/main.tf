@@ -53,23 +53,25 @@ module "azurerm_service_plan" {
   tags                                = var.tags
 }
 
-module "azurerm_storage_account" {  
+module "private_endpoint_storage" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
   }
-  for_each                = { for sa in var.storage_accounts : sa.name => sa }
-  source                  = "../modules/storage-account"
-  storage_account_name    = each.value.name
-  resource_group_name     = each.value.resource_group_name
-  location                = each.value.location
-  account_tier            = each.value.account_tier
-  account_replication_type = each.value.account_replication
-  public_network_access_enabled = each.value.public_network_access_enabled
-  https_traffic_only_enabled = each.value.https_traffic_only_enabled
-  identity_type           = each.value.identity_type
-  advanced_threat_protection_enabled = each.value.advanced_threat_protection_enabled
-  tags                    = var.tags
+  for_each                        = { for sa in var.storage_accounts : sa.name => sa }
+  source                          = "../modules/private-endpoint"
+  private_endpoint_name           = "pe-${each.value.name}"
+  location                        = each.value.location
+  resource_group_name             = each.value.resource_group_name
+  subnet_id                       = data.azurerm_subnet.default_subnet.id
+  private_service_connection_name = "${each.value.name}-psc"
+  private_connection_resource_id  = module.azurerm_storage_account[each.key].id
+  subresource_names               = each.value.subresource_names
+  is_manual_connection            = false
+  private_dns_zone_group_name     = "private-dns-zone-group"
+  private_dns_zone_ids            = [data.azurerm_private_dns_zone.storageaccount1_dns.id, data.azurerm_private_dns_zone.storageaccount2_dns.id]
+  depends_on                      = [module.azurerm_storage_account]
 }
+
 
 module "private_endpoint_storage" {  
   providers = {
