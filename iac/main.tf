@@ -1,7 +1,5 @@
 module "azurerm_linux_function_app" {  
-  providers = {
-    azurerm = azurerm.integ-nprod-001
-  }
+  providers                      =  {azurerm = azurerm.integ-nprod-001}
   source                              = "../modules/function-app"
   function_app_name                   = local.function_app_name
   location                            = var.location
@@ -20,9 +18,7 @@ module "azurerm_linux_function_app" {
 }
 
 module "private_endpoint_function_app" {  
-  providers = {
-    azurerm = azurerm.integ-nprod-001
-  }
+  providers                      =  {azurerm = azurerm.integ-nprod-001}
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = "pe-${local.function_app_name}"
   location                        = var.location
@@ -40,9 +36,7 @@ module "private_endpoint_function_app" {
 
 
 module "azurerm_service_plan" {  
-  providers = {
-    azurerm = azurerm.integ-nprod-001
-  }
+  providers                      =  {azurerm = azurerm.integ-nprod-001}
   source                              = "../modules/app-service-plan"
   resource_group_name                 = local.resource_group_name
   service_plan_name                   = local.asp_service_plan_name
@@ -54,9 +48,7 @@ module "azurerm_service_plan" {
 }
 
 module "azurerm_storage_account_1" {  
-  providers = {
-    azurerm = azurerm.integ-nprod-001
-  }
+  providers                      =  {azurerm = azurerm.integ-nprod-001}
   source                  = "../modules/storage-account"
   storage_account_name    = local.storage_account_name_1
   resource_group_name     = local.resource_group_name
@@ -71,9 +63,7 @@ module "azurerm_storage_account_1" {
 }
 
 module "azurerm_storage_account_2" {  
-  providers = {
-    azurerm = azurerm.integ-nprod-001
-  }
+  providers                      =  {azurerm = azurerm.integ-nprod-001}
   source                  = "../modules/storage-account"
   storage_account_name    = local.storage_account_name_2
   resource_group_name     = local.resource_group_name
@@ -88,9 +78,7 @@ module "azurerm_storage_account_2" {
 }
 
 module "private_endpoint_storage_1" {  
-  providers = {
-    azurerm = azurerm.integ-nprod-001
-  }
+  providers                      =  {azurerm = azurerm.integ-nprod-001}
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = "pe-${local.storage_account_name_1}"
   location                        = var.location
@@ -106,9 +94,7 @@ module "private_endpoint_storage_1" {
 }
 
 module "private_endpoint_storage_2" {  
-  providers = {
-    azurerm = azurerm.integ-nprod-001
-  }
+  providers                      =  {azurerm = azurerm.integ-nprod-001}
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = "pe-${local.storage_account_name_2}"
   location                        = var.location
@@ -123,25 +109,27 @@ module "private_endpoint_storage_2" {
   depends_on                      = [module.azurerm_storage_account_2]
 }
 
-
-module "servicebus" {  
-  providers = {
-    azurerm = azurerm.integ-nprod-001
-  }
-  source                = "../modules/servicebus"
-  resource_group_name   = local.resource_group_name
-  location              = var.location
-  servicebus_name       = local.servicebus_name
-  enable_managed_identity = var.enable_managed_identity
-  public_network_access_enabled = var.public_network_access_enabled
-  trusted_services_allowed      = var.trusted_services_allowed
-  sku                   = var.sku
+module "servicebus" {
+  providers                      =  {    azurerm = azurerm.integ-nprod-001}
+  source                         = "../modules/servicebus"
+  resource_group_name            = local.resource_group_name
+  location                       = var.location
+  servicebus_name                = local.servicebus_name
+  sku                            = var.sku
+  enable_managed_identity        = var.enable_managed_identity
+  public_network_access_enabled  = var.public_network_access_enabled
+  trusted_services_allowed       = var.trusted_services_allowed
+  servicebus_capacity            = var.servicebus_capacity
+  premium_messaging_partitions   = var.premium_messaging_partitions
+  queue_names                    = var.queue_names
+  topic_names                    = var.topic_names
+  queue_max_size                 = var.queue_max_size
+  topic_max_size                 = var.topic_max_size
+  subscription_max_delivery_count = var.subscription_max_delivery_count
 }
 
 module "private_endpoint_servicebus" {  
-  providers = {
-    azurerm = azurerm.integ-nprod-001
-  }
+  providers                      =  {azurerm = azurerm.integ-nprod-001}
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = "pe-${local.servicebus_name}"
   location                        = var.location
@@ -159,9 +147,7 @@ module "private_endpoint_servicebus" {
 
 
 module "azurerm_key_vault" {  
-  providers = {
-    azurerm = azurerm.integ-nprod-001
-  }
+  providers                      =  {azurerm = azurerm.integ-nprod-001}
   source                              = "../modules/key-vault"
   azurerm_key_vault_name          = local.key_vault_name
   resource_group_name             = local.resource_group_name
@@ -179,9 +165,7 @@ module "azurerm_key_vault" {
   
 }
 module "private_endpoint_key_vault" {  
-  providers = {
-    azurerm = azurerm.integ-nprod-001
-  }
+  providers                      =  {azurerm = azurerm.integ-nprod-001}
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = "pe-${local.key_vault_name}"
   location                        = var.location
