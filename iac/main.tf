@@ -5,7 +5,7 @@ module "azurerm_linux_function_app" {
   source                              = "../modules/function-app"
   function_app_name                   = local.function_app_name
   location                            = var.location
-  resource_group_name                 = var.resource_group_name
+  resource_group_name                 = local.resource_group_name
   storage_account_name                = var.storage_account_name
   storage_account_resource_group_name = var.storage_account_resource_group_name
   app_insights_name                   = var.app_insights_name
@@ -26,7 +26,7 @@ module "private_endpoint_function_app" {
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = "pe-${var.function_app_name}"
   location                        = var.location
-  resource_group_name             = var.resource_group_name
+  resource_group_name             = local.resource_group_name
   subnet_id                       = data.azurerm_subnet.default_subnet.id
   private_service_connection_name = "${var.function_app_name}-psc"
   private_connection_resource_id  = module.azurerm_linux_function_app.function_app_id
@@ -44,7 +44,7 @@ module "azurerm_service_plan" {
     azurerm = azurerm.integ-nprod-001
   }
   source                              = "../modules/app-service-plan"
-  resource_group_name                 = var.asp_resource_group_name
+  resource_group_name                 = local.resource_group_name
   location                            = var.location
   os_type                             = var.os_type
   aspsku_name                         = var.aspsku_name
@@ -98,7 +98,7 @@ module "servicebus" {
     azurerm = azurerm.integ-nprod-001
   }
   source                = "../modules/servicebus"
-  resource_group_name   = var.resource_group_name
+  resource_group_name   = local.resource_group_name
   location              = var.location
   servicebus_name       = var.servicebus_name
   enable_managed_identity = var.enable_managed_identity
@@ -114,7 +114,7 @@ module "private_endpoint_servicebus" {
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = "pe-${var.servicebus_name}"
   location                        = var.location
-  resource_group_name             = var.resource_group_name
+  resource_group_name             = local.resource_group_name
   subnet_id                       = data.azurerm_subnet.default_subnet.id
   private_service_connection_name = "${var.servicebus_name}-psc"
   private_connection_resource_id  = module.servicebus.servicebus_id
@@ -134,7 +134,7 @@ module "azurerm_key_vault" {
   source                              = "../modules/key-vault"
   key_vault_name                      = var.key_vault_name
   location                            = var.location
-  resource_group_name                 = var.resource_group_name 
+  resource_group_name                 = local.resource_group_name
   kvskuname                            = var.kvsku_name
   kvpurge_protection_enabled           = var.kvpurge_protection_enabled
   kvrbac_authorization                 = var.kvrbac_authorization
@@ -158,7 +158,7 @@ module "private_endpoint_key_vault" {
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = "pe-${var.key_vault_name}"
   location                        = var.location
-  resource_group_name             = var.resource_group_name
+  resource_group_name             = local.resource_group_name
   subnet_id                       = data.azurerm_subnet.default_subnet.id
   private_service_connection_name = "${var.key_vault_name}-psc"
   private_connection_resource_id  = module.azurerm_key_vault.key_vault_id
