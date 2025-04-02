@@ -10,7 +10,7 @@ module "azurerm_linux_function_app" {
   storage_account_resource_group_name = local.resource_group_name
   app_insights_name                   = var.app_insights_name
   app_insights_resource_group_name    = var.app_insights_resource_group_name
-  app_service_plan_name               = var.asp_service_plan_name
+  app_service_plan_name               = local.asp_service_plan_name
   runtime                             = var.runtime
   runtime_version                     = var.runtime_version
   https_only                          = var.https_only
@@ -28,7 +28,7 @@ module "private_endpoint_function_app" {
   location                        = var.location
   resource_group_name             = local.resource_group_name
   subnet_id                       = data.azurerm_subnet.default_subnet.id
-  private_service_connection_name = "${var.function_app_name}-psc"
+  private_service_connection_name = "${local.function_app_name}-psc"
   private_connection_resource_id  = module.azurerm_linux_function_app.function_app_id
   subresource_names               = ["sites"]
   is_manual_connection            = false
@@ -147,7 +147,7 @@ module "private_endpoint_servicebus" {
   location                        = var.location
   resource_group_name             = local.resource_group_name
   subnet_id                       = data.azurerm_subnet.default_subnet.id
-  private_service_connection_name = "${var.servicebus_name}-psc"
+  private_service_connection_name = "${local.servicebus_name}-psc"
   private_connection_resource_id  = module.servicebus.servicebus_id
   subresource_names               = ["namespace"]
   is_manual_connection            = false
@@ -191,7 +191,7 @@ module "private_endpoint_key_vault" {
   location                        = var.location
   resource_group_name             = local.resource_group_name
   subnet_id                       = data.azurerm_subnet.default_subnet.id
-  private_service_connection_name = "${var.key_vault_name}-psc"
+  private_service_connection_name = "${local.key_vault_name}-psc"
   private_connection_resource_id  = module.azurerm_key_vault.key_vault_id
   subresource_names               = ["vault"]
   is_manual_connection            = false
