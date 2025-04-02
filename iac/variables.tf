@@ -66,7 +66,6 @@ variable "worker_count" {
   type = number
 }
 
-
 variable "account_tier" {
   type = string
 }
@@ -101,15 +100,6 @@ variable "trusted_services_allowed" {
   default     = true
 }
 
-variable "private_endpoints" {
-  type = list(object({
-    name                = string
-    subnet_id           = string
-    private_dns_zone_ids = list(string)
-    subresource_names   = list(string)
-  }))
-}
-
 variable "queue_names" {
   type = list(string)
 }
@@ -138,26 +128,6 @@ variable "subscription_max_delivery_count" {
   type = number
 }
 
-// variable "api_management_name" {
-//   type = string
-// }
-
-// variable "publisher_name" {
-//   type = string
-// }
-
-// variable "publisher_email" {
-//   type = string
-// }
-
-// variable "api_sku" {
-//   type = string
-// }
-
-// variable "sku_count" {
-//   type = string
-// }
-
 variable "key_vault_name" {
   description = "The name of the Key Vault."
   type        = string
@@ -178,7 +148,6 @@ variable "kvrbac_authorization" {
   type        = bool
 }
 
-
 variable "kvsoft_delete_retention_days" {
   description = "Number of days to retain soft deleted items."
   type        = number
@@ -198,12 +167,6 @@ variable "enabled_for_template_deployment" {
   description = "Enable the Key Vault for template deployment."
   type        = bool
 }
-
-// variable "public_network_access_enabled" {
-//   description = "Enable public_network_access_enabled"
-//   type        = bool
-//   default     = false
-// }
 
 variable "kvnetdefaultaction" {
   description = "Default action for network ACLs."
@@ -237,14 +200,12 @@ variable "kvtimeoutdelete" {
 
 variable "storage_accounts" {
   type = list(object({
-     name                             = string
+    name                             = string
     resource_group_name              = string
     location                         = string
     account_tier                     = string
     account_replication              = string
     private_endpoint_name            = string
-    subnet_id                        = string
-    private_dns_zone_ids             = list(string)
     subresource_names                = list(string)
     public_network_access_enabled    = bool
     https_traffic_only_enabled       = bool
