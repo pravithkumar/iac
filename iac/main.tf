@@ -163,24 +163,22 @@ module "azurerm_key_vault" {
     azurerm = azurerm.integ-nprod-001
   }
   source                              = "../modules/key-vault"
-  key_vault_name                      = local.key_vault_name
-  location                            = var.location
-  resource_group_name                 = local.resource_group_name
-  kvskuname                            = var.kvsku_name
-  kvpurge_protection_enabled           = var.kvpurge_protection_enabled
-  kvrbac_authorization                 = var.kvrbac_authorization
-  kvsoft_delete_retention_days         = var.kvsoft_delete_retention_days
-  enabled_for_deployment                 = var.enabled_for_deployment
-  enabledfordiskencryption         = var.enabled_for_disk_encryption
-  enabledfortemplatedeployment     = var.enabled_for_template_deployment
-  public_network_access_enabled    = var.public_network_access_enabled
-  kvnetdefaultaction                  = var.kvnetdefaultaction
-  kvnetaclbypass                      = var.kvnetaclbypass
-  kvip_rules                          = var.kvip_rules
-  kvtimeoutcreate                     = var.kvtimeoutcreate
-  kvtimeoutupdate                     = var.kvtimeoutupdate
-  kvtimeoutdelete                     = var.kvtimeoutdelete
-  tags                                = var.tags
+  azurerm_key_vault_name          = local.key_vault_name
+  resource_group_name             = local.resource_group_name
+  location                        = var.location
+  tags                            = var.tags
+  enabled_for_disk_encryption     = true
+  tenant_id                       = data.azurerm_client_config.this.tenant_id 
+  soft_delete_retention_days      = 90
+  purge_protection_enabled        = true
+  tags                            = var.tags
+  sku_name                        = "standard"
+  enabled_for_template_deployment = true
+  enabled_for_deployment          = true
+  enable_rbac_authorization       = true
+  public_network_access_enabled   = false
+  network_acls                    = []
+  
 }
 module "private_endpoint_key_vault" {  
   providers = {
