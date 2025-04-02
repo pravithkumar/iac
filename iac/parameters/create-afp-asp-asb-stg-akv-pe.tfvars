@@ -62,8 +62,7 @@ kvtimeoutupdate = "30m"
 kvtimeoutdelete = "30m"
 
 
-account_tier = "Standard"
-account_replication = "LRS"
+
 private_endpoint_name = "privateendpoint2"
 
 
