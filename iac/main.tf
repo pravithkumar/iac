@@ -20,6 +20,7 @@ module "azurerm_linux_function_app" {
 }
 
 module "private_endpoint_function_app" {  
+module "private_endpoint_function_app" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
   }
@@ -27,17 +28,16 @@ module "private_endpoint_function_app" {
   private_endpoint_name           = "pe-${var.function_app_name}"
   location                        = var.location
   resource_group_name             = var.resource_group_name
-  private_endpoint = {
-    subnet_id            = data.azurerm_subnet.default_subnet.id
-    private_dns_zone_ids = [data.azurerm_private_dns_zone.function_app_dns.id]
-  }
+  subnet_id                       = data.azurerm_subnet.default_subnet.id
   private_service_connection_name = "${var.function_app_name}-psc"
   private_connection_resource_id  = module.azurerm_linux_function_app.function_app_id
   subresource_names               = var.private_endpoints[0].subresource_names
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
+  private_dns_zone_ids            = [data.azurerm_private_dns_zone.function_app_dns.id]
   depends_on                      = [module.azurerm_linux_function_app]
 }
+
 
 module "azurerm_service_plan" {  
   providers = {
