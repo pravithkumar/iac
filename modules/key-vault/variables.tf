@@ -18,10 +18,6 @@ variable "enabled_for_disk_encryption" {
   type        = bool
 }
 
-variable "tenant_id" {
-  description = "The tenant ID for the Azure subscription."
-  type        = string
-}
 
 variable "soft_delete_retention_days" {
   description = "The number of days to retain deleted vaults."
