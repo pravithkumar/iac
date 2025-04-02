@@ -104,3 +104,31 @@ variable "app_insights_name" {
 variable "subscription_max_delivery_count" {
   type = number
 }
+
+variable "queue_names" {
+  type = list(string)
+}
+
+variable "topic_names" {
+  type = list(string)
+}
+
+variable "servicebus_capacity" {
+  type = number
+}
+
+variable "premium_messaging_partitions" {
+  type = number
+}
+
+variable "queue_max_size" {
+  type = number
+}
+
+variable "topic_max_size" {
+  type = number
+}
+
+variable "subscription_max_delivery_count" {
+  type = number
+}
