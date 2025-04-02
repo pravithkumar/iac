@@ -11,7 +11,7 @@ module "azurerm_linux_function_app" {
   app_service_plan_name               = local.asp_service_plan_name
   runtime                             = var.runtime
   runtime_version                     = var.runtime_version
-  https_only                          = var.https_only
+  https_only                          = true
   always_on                           = var.always_on
   tags                                = var.tags
   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_1]
