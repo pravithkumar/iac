@@ -1,11 +1,10 @@
 app_name     = "fort"      
 environment  = "dev"       
 location_test = "eus"
-function_app_name = "afp-fortrea-eus-01"
+
+
 location = "East US"
-resource_group_name = "rg-fortrea-delete-01"
-storage_account_name = "stgfortrea01"
-storage_account_resource_group_name = "rg-fortrea-delete-01"
+
 app_insights_name = "ai-fortres-eus-01"
 app_insights_resource_group_name = "rg-fortrea-delete-01"
 runtime = "python"
@@ -32,28 +31,6 @@ enable_managed_identity = true
 public_network_access_enabled = false
 trusted_services_allowed      = true
 
-private_endpoints = [
-  {
-    name = "pe-function-app"
-    subresource_names = ["sites"]
-  },
-  {
-    name = "pe-servicebus-namespace"
-    subresource_names = ["namespace"]
-  },
-  {
-    name = "pe-key-vault"
-    subresource_names = ["vault"]
-  },
-  {
-    name = "pe-storageaccount1"
-    subresource_names = ["blob"]
-  },
-  {
-    name = "pe-storageaccount2"
-    subresource_names = ["blob"]
-  }
-]
 
 queue_names = ["queue1", "queue2"]
 topic_names = ["topic1", "topic2"]
@@ -84,31 +61,14 @@ kvtimeoutcreate = "30m"
 kvtimeoutupdate = "30m"
 kvtimeoutdelete = "30m"
 
-storage_accounts = [
-  {
-    name = "stgfortrea01"
-    resource_group_name = "rg-fortrea-delete-01"
-    location = "eastus"
-    account_tier = "Standard"
-    account_replication = "LRS"
-    private_endpoint_name = "privateendpoint1"
-    subresource_names = ["blob"]
-    public_network_access_enabled = false
-    https_traffic_only_enabled = true
-    identity_type = "SystemAssigned"
-    advanced_threat_protection_enabled = true
-  },
-  {
-    name = "stgfortrea02"
-    resource_group_name = "rg-fortrea-delete-01"
-    location = "eastus"
-    account_tier = "Standard"
-    account_replication = "LRS"
-    private_endpoint_name = "privateendpoint2"
-    subresource_names = ["blob"]
-    public_network_access_enabled = false
-    https_traffic_only_enabled = true
-    identity_type = "SystemAssigned"
-    advanced_threat_protection_enabled = true
-  }
-]
+
+account_tier = "Standard"
+account_replication = "LRS"
+private_endpoint_name = "privateendpoint2"
+subresource_names = ["blob"]
+public_network_access_enabled = false
+https_traffic_only_enabled = true
+identity_type = "SystemAssigned"
+advanced_threat_protection_enabled = true
+
+
