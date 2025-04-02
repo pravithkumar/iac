@@ -129,6 +129,3 @@ variable "topic_max_size" {
   type = number
 }
 
-variable "subscription_max_delivery_count" {
-  type = number
-}
