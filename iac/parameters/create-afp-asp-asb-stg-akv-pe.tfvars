@@ -65,8 +65,8 @@ kvtimeoutdelete = "30m"
 account_tier = "Standard"
 account_replication = "LRS"
 private_endpoint_name = "privateendpoint2"
-subresource_names = ["blob"]
-public_network_access_enabled = false
+
+
 https_traffic_only_enabled = true
 identity_type = "SystemAssigned"
 advanced_threat_protection_enabled = true
