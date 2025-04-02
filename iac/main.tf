@@ -114,17 +114,16 @@ module "private_endpoint_servicebus" {
   private_endpoint_name           = "pe-${var.servicebus_name}"
   location                        = var.location
   resource_group_name             = var.resource_group_name
-  private_endpoint = {
-    subnet_id            = data.azurerm_subnet.default_subnet.id
-    private_dns_zone_ids = [data.azurerm_private_dns_zone.servicebus_dns.id]
-  }
+  subnet_id                       = data.azurerm_subnet.default_subnet.id
   private_service_connection_name = "${var.servicebus_name}-psc"
   private_connection_resource_id  = module.servicebus.servicebus_id
   subresource_names               = var.private_endpoints[1].subresource_names
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
+  private_dns_zone_ids            = [data.azurerm_private_dns_zone.servicebus_dns.id]
   depends_on                      = [module.servicebus]
 }
+
 
 module "azurerm_key_vault" {  
   providers = {
@@ -158,14 +157,13 @@ module "private_endpoint_key_vault" {
   private_endpoint_name           = "pe-${var.key_vault_name}"
   location                        = var.location
   resource_group_name             = var.resource_group_name
-  private_endpoint = {
-    subnet_id            = data.azurerm_subnet.default_subnet.id
-    private_dns_zone_ids = [data.azurerm_private_dns_zone.key_vault_dns.id]
-  }
+  subnet_id                       = data.azurerm_subnet.default_subnet.id
   private_service_connection_name = "${var.key_vault_name}-psc"
   private_connection_resource_id  = module.azurerm_key_vault.key_vault_id
   subresource_names               = var.private_endpoints[2].subresource_names
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
+  private_dns_zone_ids            = [data.azurerm_private_dns_zone.key_vault_dns.id]
   depends_on                      = [module.azurerm_key_vault]
 }
+
