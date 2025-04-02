@@ -1,28 +1,4 @@
-variable "function_app_name" {
-  type = string
-}
-
 variable "location" {
-  type = string
-}
-
-variable "resource_group_name" {
-  type = string
-}
-
-variable "storage_account_name" {
-  type = string
-}
-
-variable "storage_account_resource_group_name" {
-  type = string
-}
-
-variable "app_insights_name" {
-  type = string
-}
-
-variable "app_insights_resource_group_name" {
   type = string
 }
 
@@ -42,18 +18,6 @@ variable "always_on" {
   type = bool
 }
 
-variable "tags" {
-  type = map(string)
-}
-
-variable "asp_resource_group_name" {
-  type = string
-}
-
-variable "asp_service_plan_name" {
-  type = string
-}
-
 variable "os_type" {
   type = string
 }
@@ -71,10 +35,6 @@ variable "account_tier" {
 }
 
 variable "account_replication_type" {
-  type = string
-}
-
-variable "servicebus_name" {
   type = string
 }
 
@@ -126,11 +86,6 @@ variable "topic_max_size" {
 
 variable "subscription_max_delivery_count" {
   type = number
-}
-
-variable "key_vault_name" {
-  description = "The name of the Key Vault."
-  type        = string
 }
 
 variable "kvsku_name" {
@@ -198,20 +153,20 @@ variable "kvtimeoutdelete" {
   type        = string
 }
 
-variable "storage_accounts" {
-  type = list(object({
-    name                             = string
-    resource_group_name              = string
-    location                         = string
-    account_tier                     = string
-    account_replication              = string
-    private_endpoint_name            = string
-    subresource_names                = list(string)
-    public_network_access_enabled    = bool
-    https_traffic_only_enabled       = bool
-    identity_type                    = string
-    advanced_threat_protection_enabled = bool
-  }))
+variable "https_traffic_only_enabled" {
+  type = bool
+}
+
+variable "identity_type" {
+  type = string
+}
+
+variable "advanced_threat_protection_enabled" {
+  type = bool
+}
+
+variable "tags" {
+  type = map(string)
 }
 
 variable "app_name" {
