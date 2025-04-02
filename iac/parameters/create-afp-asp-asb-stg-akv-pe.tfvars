@@ -37,7 +37,7 @@ servicebus_capacity                = 1
 premium_messaging_partitions       = 1
 queue_max_size                     = 1024
 topic_max_size                     = 1024
-subscription_max_delivery_count = 10
+subscription_max_delivery_count    = 10
 
 # Other Settings (Potentially for other resources)
 identity_type                      = "SystemAssigned"
