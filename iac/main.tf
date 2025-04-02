@@ -20,7 +20,6 @@ module "azurerm_linux_function_app" {
 }
 
 module "private_endpoint_function_app" {  
-module "private_endpoint_function_app" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
   }
@@ -37,6 +36,7 @@ module "private_endpoint_function_app" {
   private_dns_zone_ids            = [data.azurerm_private_dns_zone.function_app_dns.id]
   depends_on                      = [module.azurerm_linux_function_app]
 }
+
 
 
 module "azurerm_service_plan" {  
@@ -125,6 +125,7 @@ module "private_endpoint_servicebus" {
 }
 
 
+
 module "azurerm_key_vault" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
@@ -166,4 +167,5 @@ module "private_endpoint_key_vault" {
   private_dns_zone_ids            = [data.azurerm_private_dns_zone.key_vault_dns.id]
   depends_on                      = [module.azurerm_key_vault]
 }
+
 
