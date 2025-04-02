@@ -17,7 +17,6 @@ app_insights_resource_group_name = "rg-fort-dev-eus-001"
 # Function App
 runtime                            = "python"
 runtime_version                    = "3.9"
-https_only                         = true
 always_on                          = true
 
 # App Service Plan
