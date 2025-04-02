@@ -39,24 +39,6 @@ topic_max_size = 1024
 subscription_max_delivery_count = 10
 
 
-
-
-kvsku_name = "standard"
-kvpurge_protection_enabled = true
-kvrbac_authorization = true
-kvsoft_delete_retention_days = 7
-enabled_for_deployment = false
-enabled_for_disk_encryption = false
-enabled_for_template_deployment = false
-kvnetdefaultaction = "Deny"
-kvnetaclbypass = "AzureServices"
-kvip_rules = ["124.56.78.91", "124.56.78.0/24"]
-kvtimeoutcreate = "30m"
-kvtimeoutupdate = "30m"
-kvtimeoutdelete = "30m"
-
-
-
 private_endpoint_name = "privateendpoint2"
 
 
