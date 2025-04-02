@@ -5,8 +5,8 @@ location_test = "eus"
 
 location = "East US"
 
-app_insights_name = "ai-fortres-eus-01"
-app_insights_resource_group_name = "rg-fortrea-delete-01"
+app_insights_name = "ai-fort-dev-eus-01"
+app_insights_resource_group_name = "rg-fort-dev-eus-001"
 runtime = "python"
 runtime_version = "3.9"
 https_only = true
