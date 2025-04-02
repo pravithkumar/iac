@@ -167,7 +167,6 @@ module "azurerm_key_vault" {
   resource_group_name             = local.resource_group_name
   location                        = var.location  
   enabled_for_disk_encryption     = true
-  tenant_id                       = data.azurerm_client_config.this.tenant_id 
   soft_delete_retention_days      = 90
   purge_protection_enabled        = true
   sku_name                        = "standard"
