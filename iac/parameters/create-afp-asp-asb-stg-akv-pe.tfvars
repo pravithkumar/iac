@@ -39,7 +39,7 @@ topic_max_size = 1024
 subscription_max_delivery_count = 10
 
 
-private_endpoint_name = "privateendpoint2"
+
 
 
 https_traffic_only_enabled = true
