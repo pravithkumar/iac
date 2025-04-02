@@ -19,21 +19,6 @@ module "azurerm_linux_function_app" {
   tags                                = var.tags
   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account]
 }
-
-module "azurerm_service_plan" {  
-  providers = {
-    azurerm = azurerm.integ-nprod-001
-  }
-  source                              = "../modules/app-service-plan"
-  resource_group_name                 = var.asp_resource_group_name
-  location                            = var.location
-  os_type                             = var.os_type
-  aspsku_name                         = var.aspsku_name
-  service_plan_name                   = var.asp_service_plan_name
-  worker_count                        = var.worker_count
-  tags                                = var.tags
-}
-
 module "private_endpoint_function_app" {  
   providers = {
     azurerm = azurerm.integ-nprod-001
@@ -51,6 +36,20 @@ module "private_endpoint_function_app" {
   private_dns_zone_ids            = var.private_endpoints[0].private_dns_zone_ids
   depends_on                      = [module.azurerm_linux_function_app]
 }
+module "azurerm_service_plan" {  
+  providers = {
+    azurerm = azurerm.integ-nprod-001
+  }
+  source                              = "../modules/app-service-plan"
+  resource_group_name                 = var.asp_resource_group_name
+  location                            = var.location
+  os_type                             = var.os_type
+  aspsku_name                         = var.aspsku_name
+  service_plan_name                   = var.asp_service_plan_name
+  worker_count                        = var.worker_count
+  tags                                = var.tags
+}
+
 
 module "azurerm_storage_account" {  
   providers = {
