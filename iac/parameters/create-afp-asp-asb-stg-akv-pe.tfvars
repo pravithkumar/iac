@@ -1,12 +1,11 @@
 app_name     = "fort"      
 environment  = "dev"       
 location_test = "eus"
-
-
 location = "East US"
 
 app_insights_name = "ai-fort-dev-eus-01"
 app_insights_resource_group_name = "rg-fort-dev-eus-001"
+
 runtime = "python"
 runtime_version = "3.9"
 https_only = true
@@ -16,8 +15,7 @@ tags = {
   project     = "function-app"
 }
 
-asp_resource_group_name = "rg-fortrea-delete-01"
-asp_service_plan_name = "asp-fortrea-eus-01"
+
 os_type = "Linux"
 aspsku_name = "B1"
 worker_count = 1
@@ -25,7 +23,7 @@ worker_count = 1
 account_tier = "Standard"
 account_replication_type = "LRS"
 
-servicebus_name = "my-fortrea-servicebus-namespace"
+
 sku = "Premium"
 enable_managed_identity = true
 public_network_access_enabled = false
@@ -40,13 +38,9 @@ queue_max_size = 1024
 topic_max_size = 1024
 subscription_max_delivery_count = 10
 
-api_management_name = "unique-api-management-name-2"
-publisher_name = "Your Publisher Name"
-publisher_email = "publisher@example.com"
-api_sku = "Premium"
-sku_count = "1"
 
-key_vault_name = "kv-fortrea-eus-02"
+
+
 kvsku_name = "standard"
 kvpurge_protection_enabled = true
 kvrbac_authorization = true
