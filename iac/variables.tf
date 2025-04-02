@@ -183,3 +183,13 @@ variable "location_test" {
   description = "The Azure region (e.g., eastus, westus)"
   type        = string
 }
+
+variable "app_insights_resource_group_name" {
+  description = "app_insights_name  RG"
+  type        = string
+}
+
+variable "app_insights_name" {
+  description = "app_insights_name  existing "
+  type        = string
+}
