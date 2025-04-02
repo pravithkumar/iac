@@ -1,4 +1,4 @@
-resource "azurerm_key_vault" "this" {
+resource "azurerm_key_vault" "key_vault"
 
   name                            = var.azurerm_key_vault_name
   location                        = var.location
