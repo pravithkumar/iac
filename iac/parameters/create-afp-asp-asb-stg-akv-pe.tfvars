@@ -1,7 +1,7 @@
-app_name = "fort"
-environment = "dev"
-location_test = "eus"
-location = "East US"
+app_name       = "fort"
+environment    = "dev"
+location_test  = "eus"
+location       = "East US"
 
 tags = {
   environment = "dev"
