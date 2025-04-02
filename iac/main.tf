@@ -24,7 +24,7 @@ module "private_endpoint_function_app" {
     azurerm = azurerm.integ-nprod-001
   }
   source                          = "../modules/private-endpoint"
-  private_endpoint_name           = "pe-${var.function_app_name}"
+  private_endpoint_name           = "pe-${local.function_app_name}"
   location                        = var.location
   resource_group_name             = local.resource_group_name
   subnet_id                       = data.azurerm_subnet.default_subnet.id
@@ -143,7 +143,7 @@ module "private_endpoint_servicebus" {
     azurerm = azurerm.integ-nprod-001
   }
   source                          = "../modules/private-endpoint"
-  private_endpoint_name           = "pe-${var.servicebus_name}"
+  private_endpoint_name           = "pe-${local.servicebus_name}"
   location                        = var.location
   resource_group_name             = local.resource_group_name
   subnet_id                       = data.azurerm_subnet.default_subnet.id
@@ -187,7 +187,7 @@ module "private_endpoint_key_vault" {
     azurerm = azurerm.integ-nprod-001
   }
   source                          = "../modules/private-endpoint"
-  private_endpoint_name           = "pe-${var.key_vault_name}"
+  private_endpoint_name           = "pe-${local.key_vault_name}"
   location                        = var.location
   resource_group_name             = local.resource_group_name
   subnet_id                       = data.azurerm_subnet.default_subnet.id
