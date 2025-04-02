@@ -45,7 +45,7 @@ module "azurerm_service_plan" {
   }
   source                              = "../modules/app-service-plan"
   resource_group_name                 = local.resource_group_name
-  service_plan_name                   = local.service_plan_name
+  service_plan_name                   = local.asp_service_plan_name
   location                            = var.location
   os_type                             = var.os_type
   aspsku_name                         = var.aspsku_name  
