@@ -45,10 +45,10 @@ module "azurerm_service_plan" {
   }
   source                              = "../modules/app-service-plan"
   resource_group_name                 = local.resource_group_name
+  service_plan_name                   = local.service_plan_name
   location                            = var.location
   os_type                             = var.os_type
-  aspsku_name                         = var.aspsku_name
-  service_plan_name                   = var.asp_service_plan_name
+  aspsku_name                         = var.aspsku_name  
   worker_count                        = var.worker_count
   tags                                = var.tags
 }
@@ -100,7 +100,7 @@ module "servicebus" {
   source                = "../modules/servicebus"
   resource_group_name   = local.resource_group_name
   location              = var.location
-  servicebus_name       = var.servicebus_name
+  servicebus_name       = local.servicebus_name
   enable_managed_identity = var.enable_managed_identity
   public_network_access_enabled = var.public_network_access_enabled
   trusted_services_allowed      = var.trusted_services_allowed
@@ -132,7 +132,7 @@ module "azurerm_key_vault" {
     azurerm = azurerm.integ-nprod-001
   }
   source                              = "../modules/key-vault"
-  key_vault_name                      = var.key_vault_name
+  key_vault_name                      = local.key_vault_name
   location                            = var.location
   resource_group_name                 = local.resource_group_name
   kvskuname                            = var.kvsku_name
