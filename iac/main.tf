@@ -30,7 +30,7 @@ module "private_endpoint_function_app" {
   subnet_id                       = data.azurerm_subnet.default_subnet.id
   private_service_connection_name = "${var.function_app_name}-psc"
   private_connection_resource_id  = module.azurerm_linux_function_app.function_app_id
-  subresource_names               = var.private_endpoints[0].subresource_names
+  subresource_names               = ["sites"]
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = [data.azurerm_private_dns_zone.function_app_dns.id]
@@ -118,7 +118,7 @@ module "private_endpoint_servicebus" {
   subnet_id                       = data.azurerm_subnet.default_subnet.id
   private_service_connection_name = "${var.servicebus_name}-psc"
   private_connection_resource_id  = module.servicebus.servicebus_id
-  subresource_names               = var.private_endpoints[1].subresource_names
+  subresource_names               = ["namespace"]
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = [data.azurerm_private_dns_zone.servicebus_dns.id]
@@ -162,7 +162,7 @@ module "private_endpoint_key_vault" {
   subnet_id                       = data.azurerm_subnet.default_subnet.id
   private_service_connection_name = "${var.key_vault_name}-psc"
   private_connection_resource_id  = module.azurerm_key_vault.key_vault_id
-  subresource_names               = var.private_endpoints[2].subresource_names
+  subresource_names               = ["vault"]
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
   private_dns_zone_ids            = [data.azurerm_private_dns_zone.key_vault_dns.id]
