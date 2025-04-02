@@ -100,3 +100,7 @@ variable "app_insights_name" {
   description = "app_insights_name  existing "
   type        = string
 }
+
+variable "subscription_max_delivery_count" {
+  type = number
+}
