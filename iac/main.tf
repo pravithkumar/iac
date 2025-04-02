@@ -118,7 +118,7 @@ module "servicebus" {
   sku                            = var.sku
   enable_managed_identity        = var.enable_managed_identity
   public_network_access_enabled  = var.public_network_access_enabled
-  trusted_services_allowed       = var.trusted_services_allowed
+  trusted_services_allowed       = true
   servicebus_capacity            = var.servicebus_capacity
   premium_messaging_partitions   = var.premium_messaging_partitions
   queue_names                    = var.queue_names
