@@ -8,7 +8,7 @@ resource "azurerm_log_analytics_workspace" "law" {
     for_each = var.identity_type == null ? [] : [1] # Adds identity block only if needed
     content {
       type         = var.identity_type
-      identity_ids = var.identity_type == "UserAssigned" ? var.user_identity_ids : null
+      identity_ids = var.identity_type == "UserAssigned" ? var.identity_ids : null
     }
   }
 }
