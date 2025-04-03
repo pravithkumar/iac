@@ -24,3 +24,11 @@ variable "retention_in_days" {
   type        = number
   default     = null  # This is optional, defaulting to null if not provided
 }
+
+variable "identity" {
+  description = "Configuration for the identity block"
+  type = object({
+    type         = string
+    identity_ids = list(string)
+  })   
+}
