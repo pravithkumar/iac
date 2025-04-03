@@ -10,7 +10,8 @@ module "infrastructure" {
   resource_group_3_name = var.resource_group_3_name
   location              = var.location
   vnet_name             = var.vnet_name
-  vnet_address_space    = var.vnet_address_space
-  subnet_name               = var.subnets
+  address_space       = var.address_space
+  subnet_prefixes     = var.subnet_prefixes
+  subnet_names        = var.subnet_names
   private_dns_zones     = var.private_dns_zones
 }
