@@ -12,10 +12,10 @@ subnets = [
 ]
 
 private_dns_zones = [
-  { name = "privatelink.apimanagement.azure-api.net" },
-  { name = "privatelink.azure-api.net" },
-  { name = "privatelink.azurewebsites.net" },
-  { name = "privatelink.blob.core.windows.net" },
-  { name = "privatelink.servicebus.windows.net" },
-  { name = "privatelink.vaultcore.azure.net" }
+  "1" = { name = "privatelink.apimanagement.azure-api.net" },
+  "2" = { name = "privatelink.azure-api.net" },
+  "3" = { name = "privatelink.azurewebsites.net" },
+  "4" = { name = "privatelink.blob.core.windows.net" },
+  "5" = { name = "privatelink.servicebus.windows.net" },
+  "6" = { name = "privatelink.vaultcore.azure.net" }
 ]
