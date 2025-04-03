@@ -1,7 +1,3 @@
-provider "azurerm" {
-  features {}
-}
-
 resource "azurerm_resource_group" "rg1" {
   name     = var.resource_group_1_name
   location = var.location
