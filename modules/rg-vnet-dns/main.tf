@@ -30,7 +30,7 @@ resource "azurerm_subnet" "subnet" {
 }
 
 resource "azurerm_private_dns_zone" "private_dns_zone" {
-  for_each            = var.private_dns_zones
+  for_each            = { for zone in var.private_dns_zones : zone.name => zone }
   name                = each.value.name
   resource_group_name = azurerm_resource_group.rg2.name
 }
