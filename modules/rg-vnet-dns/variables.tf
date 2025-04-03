@@ -28,19 +28,13 @@ variable "vnet_address_space" {
   type        = list(string)
 }
 
-variable "subnet_name" {
-  description = "The name of the subnet"
-  type        = string
-}
-
 variable "subnets" {
   description = "A list of subnets to create"
   type        = list(object({
-    name            = string
+    name             = string
     address_prefixes = list(string)
   }))
 }
-
 
 variable "private_dns_zones" {
   description = "A list of private DNS zones to create"
