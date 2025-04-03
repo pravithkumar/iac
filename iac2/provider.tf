@@ -12,7 +12,7 @@ terraform {
     resource_group_name  = "pravith-vm-jump-box"
     storage_account_name = "tfstatemsdn"
     container_name       = "tfstate"
-    key                  = "statefile-fortrea.tfstate"
+    key                  = "statefile-fortrea-vnet.tfstate"
     service_arm          = "SC_CCS_400847_Priya_MSDN-2"
   }
 }
