@@ -31,7 +31,7 @@ variable "vnet_address_space" {
 variable "subnets" {
   description = "A list of subnets to create"
   type        = list(object({
-    name            = string
+    name             = string
     address_prefixes = list(string)
   }))
 }
