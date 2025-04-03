@@ -8,12 +8,10 @@ subnet_name           = "my-subnet"
 subnet_address_prefixes = ["10.0.1.0/24"]
 
 private_dns_zones = [
-  { name = "privatednszone-stg.com" },
-  { name = "privatednszone-fnapp.com" },
-  { name = "privatednszone-ase.com" },
-  { name = "privatednszone-kv.com" },
-  { name = "privatednszone-db.com" },
-  { name = "privatednszone-web.com" },
-  { name = "privatednszone-api.com" },
-  { name = "privatednszone-cache.com" }
+  { name = "privatelink.apimanagement.azure-api.net" },
+  { name = "privatelink.azure-api.net" },
+  { name = "privatelink.azurewebsites.net" },
+  { name = "privatelink.blob.core.windows.net" },
+  { name = "privatelink.servicebus.windows.net" },
+  { name = "privatelink.vaultcore.azure.net" }
 ]
