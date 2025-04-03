@@ -4,7 +4,7 @@ provider "azurerm" {
 
 module "infrastructure" {
   source = "./modules/private_dns_zone"
-
+  providers                           =  {azurerm = azurerm.integ-nprod-001}
   resource_group_1_name = var.resource_group_1_name
   resource_group_2_name = var.resource_group_2_name
   resource_group_3_name = var.resource_group_3_name
