@@ -1,5 +1,5 @@
 resource "azurerm_log_analytics_workspace" "law" {
-  name                = var.name
+  name                = var.law_name
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = var.sku
