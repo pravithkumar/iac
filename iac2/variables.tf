@@ -36,12 +36,6 @@ variable "subnets" {
   }))
 }
 
-
-variable "subnet_address_prefixes" {
-  description = "The address prefixes for the subnet"
-  type        = list(string)
-}
-
 variable "private_dns_zones" {
   description = "A list of private DNS zones to create"
   type        = list(object({
