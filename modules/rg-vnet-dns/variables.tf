@@ -1,0 +1,46 @@
+variable "resource_group_1_name" {
+  description = "The name of the first resource group"
+  type        = string
+}
+
+variable "resource_group_2_name" {
+  description = "The name of the second resource group"
+  type        = string
+}
+
+variable "resource_group_3_name" {
+  description = "The name of the third resource group"
+  type        = string
+}
+
+variable "location" {
+  description = "The location for the resource groups"
+  type        = string
+}
+
+variable "vnet_name" {
+  description = "The name of the virtual network"
+  type        = string
+}
+
+variable "vnet_address_space" {
+  description = "The address space for the virtual network"
+  type        = list(string)
+}
+
+variable "subnet_name" {
+  description = "The name of the subnet"
+  type        = string
+}
+
+variable "subnet_address_prefixes" {
+  description = "The address prefixes for the subnet"
+  type        = list(string)
+}
+
+variable "private_dns_zones" {
+  description = "A list of private DNS zones to create"
+  type        = list(object({
+    name = string
+  }))
+}
