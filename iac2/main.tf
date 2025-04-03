@@ -11,6 +11,6 @@ module "infrastructure" {
   location              = var.location
   vnet_name             = var.vnet_name
   vnet_address_space    = var.vnet_address_space
-  name                  = var.subnets
+  subnets               = var.subnets
   private_dns_zones     = var.private_dns_zones
 }
