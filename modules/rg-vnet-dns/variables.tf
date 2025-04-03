@@ -33,10 +33,14 @@ variable "subnet_name" {
   type        = string
 }
 
-variable "subnet_address_prefixes" {
-  description = "The address prefixes for the subnet"
-  type        = list(string)
+variable "subnets" {
+  description = "A list of subnets to create"
+  type        = list(object({
+    name            = string
+    address_prefixes = list(string)
+  }))
 }
+
 
 variable "private_dns_zones" {
   description = "A list of private DNS zones to create"
