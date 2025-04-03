@@ -6,8 +6,13 @@ location                           = "East US"
 
 # Tags
 tags = {
-  environment                      = "dev"
-  project                          = "function-app"
+  ApplicationName                  = "Azure Integration Platform"
+  BusinessUnit                     = "CTO"
+  CI                               =  ""
+  CostCenter                       = "8855 Data & Tech: Informatics"
+  Environment                      =  ""
+  ITApplicationOwner               = "Diarmaid O’Reilly"
+  ITCostowner                      = "Diarmaid O’Reilly"
 }
 
 # App Insights
