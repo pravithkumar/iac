@@ -3,15 +3,16 @@ provider "azurerm" {
 }
 
 module "infrastructure" {
-  source = "../modules/rg-vnet-dns"
+  source    = "../modules/rg-vnet-dns"
   providers = { azurerm = azurerm.integ-nprod-001 }
+
   resource_group_1_name = var.resource_group_1_name
   resource_group_2_name = var.resource_group_2_name
   resource_group_3_name = var.resource_group_3_name
   location              = var.location
   vnet_name             = var.vnet_name
-  address_space       = var.address_space
-  subnet_prefixes     = var.subnet_prefixes
-  subnet_names        = var.subnet_names
+  vnet_address_space    = var.vnet_address_space
+  subnet_prefixes       = var.subnet_prefixes
+  subnet_names          = var.subnet_names
   private_dns_zones     = var.private_dns_zones
 }
