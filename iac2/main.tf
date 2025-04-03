@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 module "infrastructure" {
-  source = "./modules/rg-vnet-dns"
+  source = "../modules/rg-vnet-dns"
   providers                           =  {azurerm = azurerm.integ-nprod-001}
   resource_group_1_name = var.resource_group_1_name
   resource_group_2_name = var.resource_group_2_name
