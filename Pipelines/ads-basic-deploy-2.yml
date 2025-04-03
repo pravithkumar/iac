@@ -4,13 +4,15 @@ trigger: none
 
 pr: none
 
-parameters:
+variables:
+  # Variable group containing development environment settings
+  - group: vg-fortrea-sample-deploy
   - name: tfvars
-    type: string
-    default: "parameters/create-afp-asp-asb-stg-akv-pe.tfvars" # Default Terraform variables file
+    value: "parameters/terraform.tfvars" # Terraform variables file
   - name: rootFolder
-    type: string
-    default: "iac" # Default root folder for IaC files
+    value: "iac2" # Root folder for IaC files
+
+parameters:
   - name: tf_plan
     type: boolean
     default: False
@@ -35,11 +37,11 @@ stages:
           backendAzureRmStorageAccountName: $(backendAzureRmStorageAccountName)
           backendAzureRmContainerName: $(backendAzureRmContainerName)
           backendAzureRmKey: $(backendAzureRmKey)
-          rootFolder: ${{ parameters.rootFolder }}
+          rootFolder: ${{ variables.rootFolder }}
 
   - stage: terraform_plan
     dependsOn: [terraform_validate]
-    condition: and(succeeded(), ${{ eq(parameters.tf_plan, True) }})
+    condition: and(succeeded(), ${{ eq(parameters.tf_plan , True) }})
     jobs:
       - template: templates/terraform-plan.yml
         parameters:
@@ -49,12 +51,12 @@ stages:
           backendAzureRmStorageAccountName: $(backendAzureRmStorageAccountName)
           backendAzureRmContainerName: $(backendAzureRmContainerName)
           backendAzureRmKey: $(backendAzureRmKey)
-          rootFolder: ${{ parameters.rootFolder }}
-          tfvars: ${{ parameters.tfvars }}
+          rootFolder: ${{ variables.rootFolder }}
+          tfvars: ${{ variables.tfvars }}
 
   - stage: terraform_apply
     dependsOn: [terraform_plan]
-    condition: and(succeeded(), ${{ eq(parameters.tf_apply, True) }})
+    condition: and(succeeded(), ${{ eq(parameters.tf_apply , True) }})
     jobs:
       - template: templates/terraform-apply.yml
         parameters:
@@ -64,8 +66,8 @@ stages:
           backendAzureRmStorageAccountName: $(backendAzureRmStorageAccountName)
           backendAzureRmContainerName: $(backendAzureRmContainerName)
           backendAzureRmKey: $(backendAzureRmKey)
-          rootFolder: ${{ parameters.rootFolder }}
-          tfvars: ${{ parameters.tfvars }}
+          rootFolder: ${{ variables.rootFolder }}
+          tfvars: ${{ variables.tfvars }}
 
   - stage: terraform_destroy
     condition: eq(${{ parameters.tf_destroy }}, True)
@@ -78,5 +80,5 @@ stages:
           backendAzureRmStorageAccountName: $(backendAzureRmStorageAccountName)
           backendAzureRmContainerName: $(backendAzureRmContainerName)
           backendAzureRmKey: $(backendAzureRmKey)
-          rootFolder: ${{ parameters.rootFolder }}
-          tfvars: ${{ parameters.tfvars }}
+          rootFolder: ${{ variables.rootFolder }}
+          tfvars: ${{ variables.tfvars }}
