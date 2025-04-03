@@ -6,7 +6,7 @@ pr: none
 
 variables:
   # Variable group containing development environment settings
-  - group: vg-fortrea-sample-deploy
+  - group: vg-fortrea-vnet-deploy
   - name: tfvars
     value: "parameters/terraform.tfvars" # Terraform variables file
   - name: rootFolder
