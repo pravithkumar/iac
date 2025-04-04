@@ -1,7 +1,3 @@
-provider "azurerm" {
-  features {}
-}
-
 module "infrastructure" {
   source    = "../modules/rg-vnet-dns"
   providers = { azurerm = azurerm.integ-nprod-001 }
