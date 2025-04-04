@@ -5,6 +5,14 @@ data "azurerm_subnet" "default_subnet" {
   resource_group_name  = "rg-int-vnet-esu-001"
 }
 
+
+data "azurerm_storage_account" "storage" {
+  provider             = azurerm.integ-mgmt-001
+  name                = var.storage_account_name
+  resource_group_name = var.storage_resource_group_name
+  
+}
+
 data "azurerm_private_dns_zone" "function_app_dns" {
   provider            = azurerm.integ-mgmt-001
   name                = "privatelink.azurewebsites.net"
