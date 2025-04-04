@@ -9,7 +9,7 @@ data "azurerm_subnet" "default_subnet" {
 data "azurerm_storage_account" "storage" {
   provider             = azurerm.integ-mgmt-001
   name                = var.storage_account_name
-  resource_group_name = var.storage_resource_group_name
+  resource_group_name = local.resource_group_name
   
 }
 
