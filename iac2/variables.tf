@@ -34,3 +34,34 @@ variable "private_dns_zones" {
     name = string
   }))
 }
+
+variable "appinsights" {
+  description = "Application Insights configuration"
+  type = object({
+    name                 = string
+    resource_group_name  = string
+    law_workspace_id     = string
+    application_type     = string
+    retention_in_days   = optional(number)
+  })
+}
+
+variable "loganalytics" {
+  description = "Log Analytics workspace configuration"
+  type = object({
+    name                 = string
+    resource_group_name  = string
+    sku                  = string
+    retention_in_days    = optional(number)
+    identity             = object({
+      type         = string
+      identity_ids = list(string)
+    })
+})
+}
+
+variable "tags" {
+  description = "(Optional) A mapping of tags to assign to the resource."
+  type        = map(string)
+  default     = {}
+}
