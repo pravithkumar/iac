@@ -21,3 +21,16 @@ private_dns_zones = [
   { name = "privatelink.servicebus.windows.net" },
   { name = "privatelink.vaultcore.azure.net" }
 ]
+
+loganalytics = {
+  name                 = "rg-int-esu-law"
+  resource_group_name  = "rg-int-apps-esu-003"
+  sku                  = "PerGB2018"
+  identity             = null
+}
+
+appinsights = {
+  name                 = "rg-int-esu-law"
+  resource_group_name  = "rg-int-apps-esu-003"
+  application_type     = "web"
+}
