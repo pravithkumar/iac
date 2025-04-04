@@ -5,7 +5,9 @@ locals {
 
   logic_app_name               = "la-${local.app_name}-${local.environment}-${local.location_test}-001" 
   app_service_plan_name        = "asp-${local.app_name}-${local.environment}-${local.location_test}-002" 
-  ase_name                     = "ase-${local.app_name}-${local.environment}-${local.location_test}-001" 
+  ase_name                     = "ase-${local.app_name}-${local.environment}-${local.location_test}-001"
+
+  api_management_name          = "api-${local.app_name}-${local.environment}-${local.location_test}-001"
 
   ase_resource_group_name      = "rg-${local.app_name}-${local.environment}-${local.location_test}-001" 
   storage_resource_group_name  = "rg-${local.app_name}-${local.environment}-${local.location_test}-001"
