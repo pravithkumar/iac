@@ -34,3 +34,9 @@ data "azurerm_private_dns_zone" "storageaccount2_dns" {
   name                = "privatelink.blob.core.windows.net"
   resource_group_name = "rg-int-dns-esu-002"
 }
+
+data "azurerm_private_dns_zone" "api_management_dns" {
+  provider            = azurerm.integ-mgmt-001
+  name                = "privatelink.azure-api.net"
+  resource_group_name = "rg-int-dns-esu-002"
+}
