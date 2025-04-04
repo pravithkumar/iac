@@ -136,3 +136,24 @@ variable "storage_account_access_key" {
   type        = string
 }
 
+#########
+
+
+variable "publisher_name" {
+  type = string
+}
+
+variable "publisher_email" {
+  type = string
+}
+
+variable "api_sku" {
+  type = string
+}
+
+variable "sku_count" {
+  type = string
+}
+
+
+
