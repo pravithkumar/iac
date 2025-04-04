@@ -20,8 +20,9 @@ module "logworkspace" {
   location            = var.location
   resource_group_name = var.loganalytics.resource_group_name
   sku                 = var.loganalytics.sku
-  retention_in_days = var.loganalytics.retention_in_days
-  identity = var.loganalytics.identity
+  retention_in_days   = var.loganalytics.retention_in_days
+  identity            = var.loganalytics.identity
+  tags                = var.tags
 }
 
 module "app_insight" {
@@ -32,4 +33,5 @@ module "app_insight" {
   law_workspace_id    = var.appinsights.law_workspace_id
   application_type    = var.appinsights.application_type
   retention_in_days   = var.appinsights.retention_in_days
+  tags                = var.tags
 }
