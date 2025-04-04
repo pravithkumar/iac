@@ -11,4 +11,5 @@ resource "azurerm_log_analytics_workspace" "law" {
       identity_ids = var.identity.type == "UserAssigned" ? var.identity.identity_ids : null
     }
   }
+  tags                = var.tags
 }
