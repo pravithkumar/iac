@@ -5,7 +5,7 @@ resource "azurerm_log_analytics_workspace" "law" {
   sku                 = var.sku
   retention_in_days   = var.retention_in_days != null ? var.retention_in_days : null
   dynamic "identity" {
-  for_each = var.identity != null && (var.identity.type != null && contains(["SystemAssigned", "UserAssigned"], var.identity.type)) ? [1] : []
+  for_each = var.identity != null ? [1] : []
   content {
     type       = var.identity.type
     identity_ids = var.identity.type == "UserAssigned" ? var.identity.identity_ids : null
