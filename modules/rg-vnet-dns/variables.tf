@@ -1,16 +1,8 @@
-variable "resource_group_1_name" {
-  description = "The name of the first resource group"
-  type        = string
-}
-
-variable "resource_group_2_name" {
-  description = "The name of the second resource group"
-  type        = string
-}
-
-variable "resource_group_3_name" {
-  description = "The name of the third resource group"
-  type        = string
+variable "resource_groups" {
+  description = "List of resource groups with their names"
+  type = list(object({
+    name = string
+  })
 }
 
 variable "location" {
