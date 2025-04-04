@@ -233,7 +233,7 @@ module "app_logic_app" {
   location                        = var.location
         
   storage_account_access_key      = var.storage_account_access_key  
-  enable_managed_identity         = var.enable_managed_identity 
+  enable_managed_identity         = true
 
    depends_on = [module.app_service_environment]
 }
