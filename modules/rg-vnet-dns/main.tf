@@ -1,23 +1,14 @@
-resource "azurerm_resource_group" "rg1" {
-  name     = var.resource_group_1_name
-  location = var.location
-}
-
-resource "azurerm_resource_group" "rg2" {
-  name     = var.resource_group_2_name
-  location = var.location
-}
-
-resource "azurerm_resource_group" "rg3" {
-  name     = var.resource_group_3_name
-  location = var.location
+resource "azurerm_resource_group" "rg" {
+  for_each = { for idx, group in var.resource_groups : idx => group }
+  name     = each.value.name 
+  location = var.location     
 }
 
 resource "azurerm_virtual_network" "vnet" {
   name                = var.vnet_name
   address_space       = var.vnet_address_space
-  location            = azurerm_resource_group.rg1.location
-  resource_group_name = azurerm_resource_group.rg1.name
+  location            = azurerm_resource_group.rg["0"].location
+  resource_group_name = azurerm_resource_group.rg["0"].name
 }
 
 resource "azurerm_subnet" "subnet" {
@@ -32,5 +23,5 @@ resource "azurerm_subnet" "subnet" {
 resource "azurerm_private_dns_zone" "private_dns_zone" {
   for_each            = { for zone in var.private_dns_zones : zone.name => zone }
   name                = each.value.name
-  resource_group_name = azurerm_resource_group.rg2.name
+  resource_group_name = azurerm_resource_group.rg["1"].name
 }
