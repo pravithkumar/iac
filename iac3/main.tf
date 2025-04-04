@@ -185,7 +185,7 @@ module "api_management" {
   source                          = "../modules/api-management"
   api_management_name             = var.api_management_name
   location                        = var.location
-  resource_group_name             = var.resource_group_name
+  resource_group_name             = local.resource_group_name
   publisher_name                  = var.publisher_name
   publisher_email                 = var.publisher_email
   sku                             = var.api_sku
@@ -197,7 +197,7 @@ module "private_endpoint_api_management" {
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = var.private_endpoints[0].name
   location                        = var.location
-  resource_group_name             = var.resource_group_name
+  resource_group_name             = local.resource_group_name
   subnet_id                       = var.private_endpoints[0].subnet_id
   private_service_connection_name = "${var.api_management_name}-psc"
   private_connection_resource_id  = module.api_management.id
@@ -210,9 +210,9 @@ module "private_endpoint_api_management" {
 
 module "app_service_environment" {
   source                          = "../modules/app-service-environment"
-  ase_name                        = var.ase_name
-  resource_group_name             = var.resource_group_name
-  subnet_id                       = var.subnet_id
+  ase_name                        = local.ase_name
+  resource_group_name             = local.resource_group_name
+  subnet_id                       = data.azurerm_subnet.default_subnet.id
   internal_load_balancing_mode    = var.internal_load_balancing_mode
   disable_tls1_0                  = var.disable_tls1_0
   internal_encryption             = var.internal_encryption
@@ -223,17 +223,17 @@ module "app_service_environment" {
 
 module "app_logic_app" {
   source                          = "../modules/logic-app"
-  resource_group_name             = var.resource_group_name
+  resource_group_name             = local.resource_group_name
+  app_service_plan_name           = local.app_service_plan_name
+  logic_app_name                  = local.logic_app_name
+  storage_resource_group_name     = local.storage_resource_group_name
+  ase_name                        = local.ase_name
+  ase_resource_group_name         = local.ase_resource_group_name
+  storage_account_name            = local.storage_account_name_1
   location                        = var.location
-  ase_name                        = var.ase_name
-  ase_resource_group_name         = var.ase_resource_group_name
-  storage_account_name            = var.storage_account_name
-  storage_resource_group_name     = var.storage_resource_group_name
-  storage_account_access_key      = var.storage_account_access_key
-  app_service_plan_name           = var.app_service_plan_name
-  logic_app_name                  = var.logic_app_name
-  enable_managed_identity         = var.enable_managed_identity
-  
+        
+  storage_account_access_key      = var.storage_account_access_key  
+  enable_managed_identity         = var.enable_managed_identity 
 
    depends_on = [module.app_service_environment]
 }
