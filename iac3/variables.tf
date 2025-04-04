@@ -131,10 +131,7 @@ variable "frontend_ssl_cipher_suite_order" {
   default     = "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
 }
 
-variable "storage_account_access_key" {
-  description = "The access key of the existing storage account"
-  type        = string
-}
+
 
 #########
 
