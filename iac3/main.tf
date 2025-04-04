@@ -179,5 +179,62 @@ module "private_endpoint_key_vault" {
   private_dns_zone_ids              = [data.azurerm_private_dns_zone.key_vault_dns.id]
   depends_on                        = [module.azurerm_key_vault]
 }
+------------
 
+module "api_management" {
+  source                          = "../modules/api-management"
+  api_management_name             = var.api_management_name
+  location                        = var.location
+  resource_group_name             = var.resource_group_name
+  publisher_name                  = var.publisher_name
+  publisher_email                 = var.publisher_email
+  sku                             = var.api_sku
+  sku_count                       = var.sku_count
+  tags                            = var.tags
+}
+
+module "private_endpoint_api_management" {
+  source                          = "../modules/private-endpoint"
+  private_endpoint_name           = var.private_endpoints[0].name
+  location                        = var.location
+  resource_group_name             = var.resource_group_name
+  subnet_id                       = var.private_endpoints[0].subnet_id
+  private_service_connection_name = "${var.api_management_name}-psc"
+  private_connection_resource_id  = module.api_management.id
+  subresource_names               = var.private_endpoints[0].subresource_names
+  is_manual_connection            = false
+  private_dns_zone_group_name     = "private-dns-zone-group"
+  private_dns_zone_ids            = var.private_endpoints[0].private_dns_zone_ids
+  depends_on                      = [module.api_management]
+}
+
+module "app_service_environment" {
+  source                          = "../modules/app-service-environment"
+  ase_name                        = var.ase_name
+  resource_group_name             = var.resource_group_name
+  subnet_id                       = var.subnet_id
+  internal_load_balancing_mode    = var.internal_load_balancing_mode
+  disable_tls1_0                  = var.disable_tls1_0
+  internal_encryption             = var.internal_encryption
+  frontend_ssl_cipher_suite_order = var.frontend_ssl_cipher_suite_order
+  enable_managed_identity         = var.enable_managed_identity
+  tags                            = var.tags
+}
+
+module "app_logic_app" {
+  source                          = "../modules/logic-app"
+  resource_group_name             = var.resource_group_name
+  location                        = var.location
+  ase_name                        = var.ase_name
+  ase_resource_group_name         = var.ase_resource_group_name
+  storage_account_name            = var.storage_account_name
+  storage_resource_group_name     = var.storage_resource_group_name
+  storage_account_access_key      = var.storage_account_access_key
+  app_service_plan_name           = var.app_service_plan_name
+  logic_app_name                  = var.logic_app_name
+  enable_managed_identity         = var.enable_managed_identity
+  
+
+   depends_on = [module.app_service_environment]
+}
 
