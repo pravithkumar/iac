@@ -179,7 +179,7 @@ module "private_endpoint_key_vault" {
   private_dns_zone_ids              = [data.azurerm_private_dns_zone.key_vault_dns.id]
   depends_on                        = [module.azurerm_key_vault]
 }
-------------
+
 
 module "api_management" {
   source                          = "../modules/api-management"
