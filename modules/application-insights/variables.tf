@@ -13,7 +13,7 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "workspace_id" {
+variable "law_workspace_id" {
   description = "The ID of the Log Analytics Workspace where the Application Insights data will be stored."
   type        = string
   default     = null
