@@ -12,7 +12,8 @@ module "infrastructure" {
 
 module "logworkspace" {
   source     = "../modules/log-analytics-workspace"
-  law_name                = var.loganalytics.name
+  providers           = { azurerm = azurerm.integ-nprod-001 }
+  law_name            = var.loganalytics.name
   location            = var.location
   resource_group_name = var.loganalytics.resource_group_name
   sku                 = var.loganalytics.sku
@@ -23,6 +24,7 @@ module "logworkspace" {
 
 module "app_insight" {
   source = "../modules/application-insights"
+  providers           = { azurerm = azurerm.integ-nprod-001 }
   appinsights_name    = var.appinsights.name
   location            = var.location
   resource_group_name = var.appinsights.resource_group_name
