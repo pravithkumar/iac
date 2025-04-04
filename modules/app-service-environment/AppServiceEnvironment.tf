@@ -3,9 +3,7 @@ resource "azurerm_app_service_environment_v3" "ase" {
   resource_group_name           = var.resource_group_name
   subnet_id                     = var.subnet_id
   internal_load_balancing_mode  = var.internal_load_balancing_mode
-   identity {
-    type = "SystemAssigned"
-  }
+
   cluster_setting {
     name  = "DisableTls1.0"
     value = var.disable_tls1_0
