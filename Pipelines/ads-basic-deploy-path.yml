@@ -33,7 +33,7 @@ stages:
           backendAzureRmStorageAccountName: $(backendAzureRmStorageAccountName)
           backendAzureRmContainerName: $(backendAzureRmContainerName)
           backendAzureRmKey: $(backendAzureRmKey)
-          rootFolder: ${{rootFolder}}
+          rootFolder: $(rootFolder)
 
   - stage: terraform_plan
     dependsOn: [terraform_validate]
@@ -47,8 +47,8 @@ stages:
           backendAzureRmStorageAccountName: $(backendAzureRmStorageAccountName)
           backendAzureRmContainerName: $(backendAzureRmContainerName)
           backendAzureRmKey: $(backendAzureRmKey)
-          rootFolder: ${{rootFolder}}
-          tfvars: ${{tfvars}}
+          rootFolder: $(rootFolder)
+          tfvars: $(tfvars)
 
   - stage: terraform_apply
     dependsOn: [terraform_plan]
@@ -62,8 +62,8 @@ stages:
           backendAzureRmStorageAccountName: $(backendAzureRmStorageAccountName)
           backendAzureRmContainerName: $(backendAzureRmContainerName)
           backendAzureRmKey: $(backendAzureRmKey)
-          rootFolder: ${{rootFolder}}
-          tfvars: ${{tfvars}}
+          rootFolder: $(rootFolder)
+          tfvars: $(tfvars)
 
   - stage: terraform_destroy
     condition: eq(${{ parameters.tf_destroy }}, True)
@@ -76,5 +76,5 @@ stages:
           backendAzureRmStorageAccountName: $(backendAzureRmStorageAccountName)
           backendAzureRmContainerName: $(backendAzureRmContainerName)
           backendAzureRmKey: $(backendAzureRmKey)
-          rootFolder: ${{rootFolder}}
-          tfvars: ${{tfvars}}
+          rootFolder: $(rootFolder)
+          tfvars: $(tfvars)
