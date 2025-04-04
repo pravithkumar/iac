@@ -15,7 +15,7 @@ module "app_service_environment" {
   tags                            = var.tags
 }
 
-module "app_service_resources" {
+module "app_logic_app" {
   source                          = "../modules/logic-app"
   resource_group_name             = var.resource_group_name
   location                        = var.location
