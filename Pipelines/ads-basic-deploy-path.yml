@@ -7,10 +7,6 @@ pr: none
 variables:
   # Variable group containing development environment settings
   - group: vg-fortrea-vnet-deploy-path
-  - name: tfvars
-    value: "parameters/terraform.tfvars" # Terraform variables file
-  - name: rootFolder
-    value: "iac2" # Root folder for IaC files
 
 parameters:
   - name: tf_plan
