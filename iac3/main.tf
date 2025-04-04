@@ -117,7 +117,7 @@ module "servicebus" {
   servicebus_name                   = local.servicebus_name
   sku                               = var.sku
   enable_managed_identity           = var.enable_managed_identity
-  public_network_access_enabled     = var.public_network_access_enabled
+  public_network_access_enabled     = false
   trusted_services_allowed          = true
   servicebus_capacity               = var.servicebus_capacity
   premium_messaging_partitions      = var.premium_messaging_partitions
