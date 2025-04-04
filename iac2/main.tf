@@ -15,7 +15,7 @@ module "infrastructure" {
 }
 
 module "logworkspace" {
-  source     = "..modules/log-analytics-workspace"
+  source     = "../modules/log-analytics-workspace"
   law_name                = var.loganalytics.name
   location            = var.location
   resource_group_name = var.loganalytics.resource_group_name
@@ -26,7 +26,7 @@ module "logworkspace" {
 }
 
 module "app_insight" {
-  source = ".../modules/application-insights"
+  source = "../modules/application-insights"
   appinsights_name    = var.appinsights.name
   location            = var.location
   resource_group_name = var.appinsights.resource_group_name
