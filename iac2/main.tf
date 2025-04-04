@@ -30,7 +30,7 @@ module "app_insight" {
   appinsights_name    = var.appinsights.name
   location            = var.location
   resource_group_name = var.appinsights.resource_group_name
-  law_workspace_id    = var.appinsights.law_workspace_id
+  law_workspace_id    = module.logworkspace.log_analytics_workspace_id
   application_type    = var.appinsights.application_type
   retention_in_days   = var.appinsights.retention_in_days
   tags                = var.tags
