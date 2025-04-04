@@ -2,7 +2,7 @@ variable "resource_groups" {
   description = "List of resource groups with their names"
   type = list(object({
     name = string
-  })
+  }))
 }
 
 variable "location" {
