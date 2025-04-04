@@ -35,7 +35,7 @@ resource "azurerm_logic_app_standard" "logic_app" {
   resource_group_name = data.azurerm_resource_group.rg.name
   app_service_plan_id = azurerm_service_plan.asp.id
   storage_account_name = data.azurerm_storage_account.storage.name
-  storage_account_access_key = data.azurerm_storage_account.storage.primary_access_key
+  storage_account_access_key = var.storage_account_access_key
 
   site_config {
     always_on = false
