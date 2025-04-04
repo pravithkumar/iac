@@ -201,10 +201,10 @@ module "private_endpoint_api_management" {
   subnet_id                       = data.azurerm_subnet.default_subnet.id
   private_service_connection_name = "${local.api_management_name}-psc"
   private_connection_resource_id  = module.api_management.id
-  subresource_names               = [Gateway]
+  subresource_names               = ["Gateway"]
   is_manual_connection            = false
   private_dns_zone_group_name     = "private-dns-zone-group"
-  private_dns_zone_ids            = data.azurerm_private_dns_zone.api_management_dns.id  
+  private_dns_zone_ids            = [data.azurerm_private_dns_zone.api_management_dns.id]  
   depends_on                      = [module.api_management]
 }
 
