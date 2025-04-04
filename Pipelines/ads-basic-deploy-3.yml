@@ -6,11 +6,7 @@ pr: none
 
 variables:
   # Variable group containing development environment settings
-  - group: vg-fortrea-test-deploy
-  - name: tfvars
-    value: "parameters/terraform.tfvars" # Terraform variables file
-  - name: rootFolder
-    value: "iac3" # Root folder for IaC files
+  - group: vg-fortrea-services-deploy
 
 parameters:
   - name: tf_plan
@@ -37,7 +33,7 @@ stages:
           backendAzureRmStorageAccountName: $(backendAzureRmStorageAccountName)
           backendAzureRmContainerName: $(backendAzureRmContainerName)
           backendAzureRmKey: $(backendAzureRmKey)
-          rootFolder: ${{ variables.rootFolder }}
+          rootFolder: $(rootFolder)
 
   - stage: terraform_plan
     dependsOn: [terraform_validate]
@@ -51,8 +47,8 @@ stages:
           backendAzureRmStorageAccountName: $(backendAzureRmStorageAccountName)
           backendAzureRmContainerName: $(backendAzureRmContainerName)
           backendAzureRmKey: $(backendAzureRmKey)
-          rootFolder: ${{ variables.rootFolder }}
-          tfvars: ${{ variables.tfvars }}
+          rootFolder: $(rootFolder)
+          tfvars: $(tfvars)
 
   - stage: terraform_apply
     dependsOn: [terraform_plan]
@@ -66,8 +62,8 @@ stages:
           backendAzureRmStorageAccountName: $(backendAzureRmStorageAccountName)
           backendAzureRmContainerName: $(backendAzureRmContainerName)
           backendAzureRmKey: $(backendAzureRmKey)
-          rootFolder: ${{ variables.rootFolder }}
-          tfvars: ${{ variables.tfvars }}
+          rootFolder: $(rootFolder)
+          tfvars: $(tfvars)
 
   - stage: terraform_destroy
     condition: eq(${{ parameters.tf_destroy }}, True)
@@ -80,5 +76,5 @@ stages:
           backendAzureRmStorageAccountName: $(backendAzureRmStorageAccountName)
           backendAzureRmContainerName: $(backendAzureRmContainerName)
           backendAzureRmKey: $(backendAzureRmKey)
-          rootFolder: ${{ variables.rootFolder }}
-          tfvars: ${{ variables.tfvars }}
+          rootFolder: $(rootFolder)
+          tfvars: $(tfvars)
