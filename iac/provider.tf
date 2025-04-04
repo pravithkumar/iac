@@ -15,12 +15,6 @@ terraform {
     key                  = "statefile-fortrea.tfstate"
     service_arm          = "SC_CCS_400847_Priya_MSDN-2"
 
-    // subscription_id       = "795783af-96d3-4629-9161-58de5577ed1e"
-    // backendAzureRmResourceGroupName    = "pravith-vm-jump-box"
-    // backendAzureRmStorageAccountName   = "tfstatemsdn"
-    // backendAzureRmContainerName        = "tfstate"
-    // backendAzureRmKey                  = "statefile-fortrea.tfstate"
-    // backendServiceArm                  = "SC_CCS_400847_Priya_MSDN-2"
   }
 }
 
