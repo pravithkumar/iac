@@ -40,7 +40,6 @@ variable "appinsights" {
   type = object({
     name                 = string
     resource_group_name  = string
-    law_workspace_id     = string
     application_type     = string
     retention_in_days   = optional(number)
   })
