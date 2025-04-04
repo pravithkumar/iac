@@ -182,6 +182,7 @@ module "private_endpoint_key_vault" {
 
 
 module "api_management" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                          = "../modules/api-management"
   api_management_name             = local.api_management_name
   location                        = var.location
@@ -194,6 +195,7 @@ module "api_management" {
 }
 
 module "private_endpoint_api_management" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                          = "../modules/private-endpoint"
   private_endpoint_name           = "pe-${local.api_management_name}"
   location                        = var.location
@@ -209,6 +211,7 @@ module "private_endpoint_api_management" {
 }
 
 module "app_service_environment" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                          = "../modules/app-service-environment"
   ase_name                        = local.ase_name
   resource_group_name             = local.resource_group_name
@@ -222,6 +225,7 @@ module "app_service_environment" {
 }
 
 module "app_logic_app" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                          = "../modules/logic-app"
   resource_group_name             = local.resource_group_name
   app_service_plan_name           = local.app_service_plan_name
