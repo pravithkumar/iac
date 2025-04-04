@@ -38,10 +38,10 @@ variable "logic_app_name" {
   type        = string
 }
 
-variable "storage_account_access_key" {
-  description = "The access key of the existing storage account"
-  type        = string
-}
+// variable "storage_account_access_key" {
+//   description = "The access key of the existing storage account"
+//   type        = string
+// }
 
 variable "enable_managed_identity" {
   description = "Enable system-assigned managed identity for the Service Bus namespace."
