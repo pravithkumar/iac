@@ -152,5 +152,9 @@ variable "sku_count" {
   type = string
 }
 
+######
 
+variable "app_service_environment_id" {
+  type = string
+}
 
