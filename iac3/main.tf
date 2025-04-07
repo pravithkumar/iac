@@ -222,7 +222,7 @@ module "app_service_environment" {
   source                          = "../modules/app-service-environment"
   ase_name                        = local.ase_name
   resource_group_name             = local.resource_group_name
-  subnet_id                       = data.azurerm_subnet.default_subnet.id
+  subnet_id                       = data.azurerm_subnet.delegated_subnet.id
   internal_load_balancing_mode    = var.internal_load_balancing_mode
   disable_tls1_0                  = var.disable_tls1_0
   internal_encryption             = var.internal_encryption
