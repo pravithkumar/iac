@@ -6,12 +6,12 @@ data "azurerm_subnet" "default_subnet" {
 }
 
 
-// data "azurerm_storage_account" "storage" {
-//   provider             = azurerm.integ-mgmt-001
-//   name                = local.storage_account_name_1
-//   resource_group_name = local.resource_group_name
-  
-// }
+data "azurerm_subnet" "delegated_subnet" {
+  provider             = azurerm.integ-mgmt-001
+  name                 = "subnet2"
+  virtual_network_name = "vnet-int-dev-esu-001"
+  resource_group_name  = "rg-int-vnet-esu-001"
+}
 
 data "azurerm_private_dns_zone" "function_app_dns" {
   provider            = azurerm.integ-mgmt-001
