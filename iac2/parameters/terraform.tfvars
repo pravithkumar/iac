@@ -23,14 +23,14 @@ private_dns_zones = [
 ]
 
 loganalytics = {
-  name                 = "rg-int-esu-law"
+  name                 = "law-int-esu-001"
   resource_group_name  = "rg-int-apps-esu-003"
   sku                  = "PerGB2018"
   identity             = null
 }
 
 appinsights = {
-  name                 = "rg-int-esu-law"
+  name                 = "appinsights-int-esu-001"
   resource_group_name  = "rg-int-apps-esu-003"
   application_type     = "web"
 }
