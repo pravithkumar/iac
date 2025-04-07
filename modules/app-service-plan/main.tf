@@ -6,4 +6,5 @@ resource "azurerm_service_plan" "asp" {
   sku_name            = var.aspsku_name
   worker_count        = var.worker_count
   tags                = var.tags
+  app_service_environment_id = var.app_service_environment_id
 }
