@@ -16,8 +16,8 @@ tags = {
 }
 
 # App Insights
-app_insights_name                  = "ai-fort-dev-eus-01"
-app_insights_resource_group_name   = "rg-fort-dev-eus-001"
+app_insights_name                  = "appinsights-int-esu-001"
+app_insights_resource_group_name   = "rg-int-apps-esu-003"
 
 # Function App
 runtime                            = "python"
