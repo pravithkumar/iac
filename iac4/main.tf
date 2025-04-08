@@ -1,6 +1,6 @@
 
 module "azurerm_key_vault" {  
-  providers                         =  azurerm.integ-nprod-001
+  providers                         =  { azurerm = azurerm.integ-nprod-001 }
   source                            = "../modules/key-vault"
   azurerm_key_vault_name            = local.key_vault_name
   resource_group_name               = local.resource_group_name
@@ -19,7 +19,7 @@ module "azurerm_key_vault" {
 }
 
 resource "azurerm_private_endpoint" "example" {
-  provider            = {azurerm = azurerm.integ-nprod-001}
+  provider            = azurerm.integ-nprod-001
   name                = "pe-${local.key_vault_name}"
   location            = var.location
   resource_group_name = "local.resource_group_name"
