@@ -23,7 +23,7 @@ resource "azurerm_private_endpoint" "example" {
   name                = "pe-${local.key_vault_name}"
   location            = var.location
   resource_group_name = "rg-fort-dev-eus-004"
-  subnet_id           = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/rg-fortrea-delete-01/providers/Microsoft.Network/virtualNetworks/vnet-fortrea-01/subnets/default"
+  subnet_id           = "/subscriptions/c6806c08-6845-4be9-bda8-0d35ff0251eb/resourceGroups/rg-fort-dev-eus-004/providers/Microsoft.Network/virtualNetworks/vnet-fort-dev-eus-001/subnets/default"
   private_service_connection {
     name                           = "exampleConnection"
     private_connection_resource_id = module.azurerm_key_vault.key_vault_id
