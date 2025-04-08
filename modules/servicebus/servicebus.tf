@@ -7,12 +7,13 @@ resource "azurerm_servicebus_namespace" "servicebus" {
   capacity                     = var.sku == "Premium" ? var.servicebus_capacity : null
   premium_messaging_partitions = var.sku == "Premium" ? var.premium_messaging_partitions : null
 
-   dynamic "identity" {
-    for_each = var.enable_managed_identity ? [1] : []
-    content {
-      type = "SystemAssigned"
-    }
+  dynamic "identity" {
+  for_each = var.identity != null ? [1] : []
+  content {
+    type       = var.identity.type
+    identity_ids = var.identity.type == "UserAssigned" ? var.identity.identity_ids : null
   }
+}
 
   network_rule_set {
     // public_network_access_enabled = var.public_network_access_enabled
