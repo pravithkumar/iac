@@ -51,7 +51,6 @@ module "azurerm_service_plan" {
   os_type                             = var.os_type
   aspsku_name                         = var.aspsku_name  
   worker_count                        = var.worker_count
-  app_service_environment_id          = module.app_service_environment.id
   tags                                = var.tags
 }
 
@@ -66,7 +65,7 @@ module "azurerm_storage_account_1" {
   public_network_access_enabled         = false
   https_traffic_only_enabled            = true
   identity_type                         = "SystemAssigned"
-  advanced_threat_protection_enabled    = true
+  advanced_threat_protection_enabled    = false
   tags                                  = var.tags
 }
 
@@ -81,7 +80,7 @@ module "azurerm_storage_account_2" {
   public_network_access_enabled         = false
   https_traffic_only_enabled            = true
   identity_type                         = "SystemAssigned"
-  advanced_threat_protection_enabled    = true
+  advanced_threat_protection_enabled    = false
   tags                                  = var.tags
 }
 
@@ -236,11 +235,13 @@ module "app_logic_app" {
   providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                          = "../modules/logic-app"
   resource_group_name             = local.resource_group_name
-  // app_service_plan_name           = local.app_service_plan_name
+  app_service_plan_name           = local.app_service_plan_name
   logic_app_name                  = local.logic_app_name
+  os_type                         = "Windows"
+  sku_name                        = "I1v2"
   storage_resource_group_name     = local.storage_resource_group_name
-  // ase_name                        = local.ase_name
-  // ase_resource_group_name         = local.ase_resource_group_name
+  ase_name                        = local.ase_name
+  ase_resource_group_name         = local.ase_resource_group_name
   app_service_plan_id             = module.azurerm_service_plan.service_plan_id
   storage_account_name            = local.storage_account_name_1
   storage_account_access_key      = module.azurerm_storage_account_1.primary_access_key
