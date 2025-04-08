@@ -26,7 +26,7 @@ resource "azurerm_private_endpoint" "example" {
   subnet_id           = data.azurerm_subnet.default_subnet.id
   private_service_connection {
     name                           = "exampleConnection"
-    private_connection_resource_id = azurerm_key_vault.example.id
+    private_connection_resource_id = module.azurerm_key_vault.key_vault_id
     subresource_names              = ["vault"]
     is_manual_connection           = false
   }
