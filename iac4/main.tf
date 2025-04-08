@@ -1,9 +1,3 @@
-module "resource_group" {
-  providers                           =  {azurerm = azurerm.integ-nprod-001}
-  source                              = "../modules/resource-group"
-  resource_group_name                 = local.resource_group_name
-  location                            = var.location
-}
 
 module "azurerm_key_vault" {  
   providers                         =  {azurerm = azurerm.integ-nprod-001}
