@@ -222,7 +222,6 @@ module "app_service_environment" {
   disable_tls1_0                  = var.disable_tls1_0
   internal_encryption             = var.internal_encryption
   frontend_ssl_cipher_suite_order = var.frontend_ssl_cipher_suite_order
-  enable_managed_identity         = var.enable_managed_identity
   tags                            = var.tags
 }
 
