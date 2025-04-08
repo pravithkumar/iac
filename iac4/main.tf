@@ -15,20 +15,25 @@ module "azurerm_key_vault" {
   public_network_access_enabled     = false
   network_acls                      = []
   tags                              = var.tags
-  
+ 
 }
-module "private_endpoint_key_vault" {  
-  providers                         =  {azurerm = azurerm.integ-nprod-001}
-  source                            = "../modules/private-endpoint"
-  private_endpoint_name             = "pe-${local.key_vault_name}"
-  location                          = var.location
-  resource_group_name               = "local.resource_group_name"
-  subnet_id                         = data.azurerm_subnet.default_subnet.id
-  private_service_connection_name   = "${local.key_vault_name}-psc"
-  private_connection_resource_id    = module.azurerm_key_vault.key_vault_id
-  subresource_names                 = ["vault"]
-  is_manual_connection              = false
-  private_dns_zone_group_name       = "rg-int-dns-esu-002"
-  private_dns_zone_ids              = [data.azurerm_private_dns_zone.key_vault_dns.id]
-  depends_on                        = [module.azurerm_key_vault]
+
+resource "azurerm_private_endpoint" "example" {
+  provider            = {azurerm = azurerm.integ-nprod-001}
+  name                = "pe-${local.key_vault_name}"
+  location            = var.location
+  resource_group_name = "local.resource_group_name"
+  subnet_id           = data.azurerm_subnet.default_subnet.id
+  private_service_connection {
+    name                           = "exampleConnection"
+    private_connection_resource_id = azurerm_key_vault.example.id
+    subresource_names              = ["vault"]
+    is_manual_connection           = false
+  }
+  private_dns_zone_group {
+    name                 = "exampleDnsZoneGroup"
+    private_dns_zone_ids = [data.azurerm_private_dns_zone.key_vault_dns.id]
+  }
 }
+
+
