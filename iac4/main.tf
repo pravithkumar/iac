@@ -24,11 +24,11 @@ module "azurerm_key_vault" {
   
 }
 module "private_endpoint_key_vault" {  
-  providers                         =  {azurerm = azurerm.integ-mgmt-001}
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                            = "../modules/private-endpoint"
   private_endpoint_name             = "pe-${local.key_vault_name}"
   location                          = var.location
-  resource_group_name               = local.resource_group_name
+  resource_group_name               = "local.resource_group_name"
   subnet_id                         = data.azurerm_subnet.default_subnet.id
   private_service_connection_name   = "${local.key_vault_name}-psc"
   private_connection_resource_id    = module.azurerm_key_vault.key_vault_id
