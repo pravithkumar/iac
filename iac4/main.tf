@@ -31,7 +31,7 @@ resource "azurerm_private_endpoint" "example" {
     is_manual_connection           = false
   }
   private_dns_zone_group {
-    name                 = "exampleDnsZoneGroup"
+    name                 = "privatelink.vaultcore.azure.net"
     private_dns_zone_ids = [data.azurerm_private_dns_zone.key_vault_dns.id]
   }
 }
