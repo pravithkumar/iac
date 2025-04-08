@@ -40,17 +40,6 @@ variable "sku" {
   type = string
 }
 
-variable "enable_managed_identity" {
-  description = "Enable system-assigned managed identity for the Service Bus namespace."
-  type        = bool
-  default     = true
-}
-
-variable "identity_type" {
-  type = string
-}
-
-
 variable "tags" {
   type = map(string)
 }
