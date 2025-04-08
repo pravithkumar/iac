@@ -1,6 +1,7 @@
 
 
 module "app_service_environment" {
+  providers                             =  {azurerm = azurerm.integ-mgmt-001}
   source                          = "../modules/app-service-environment"
   ase_name                        = var.ase_name
   resource_group_name             = var.resource_group_name
@@ -14,6 +15,7 @@ module "app_service_environment" {
 }
 
 module "app_logic_app" {
+  providers                             =  {azurerm = azurerm.integ-mgmt-001}
   source                          = "../modules/logic-app"
   resource_group_name             = var.resource_group_name
   location                        = var.location
