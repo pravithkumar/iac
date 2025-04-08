@@ -35,7 +35,6 @@ account_replication_type           = "LRS"
 
 # Service Bus
 sku                                = "Premium"
-enable_managed_identity            = true
 queue_names                        = ["queue1", "queue2"]
 topic_names                        = ["topic1", "topic2"]
 servicebus_capacity                = 1
@@ -45,7 +44,7 @@ topic_max_size                     = 1024
 subscription_max_delivery_count    = 10
 
 # Other Settings (Potentially for other resources)
-identity_type                      = "SystemAssigned"
+// identity_type                      = "SystemAssigned"
 
 # api managment
 publisher_name = "Your Publisher Name"
