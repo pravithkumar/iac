@@ -235,7 +235,7 @@ module "app_logic_app" {
   providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                          = "../modules/logic-app"
   resource_group_name             = local.resource_group_name
-  app_service_plan_name           = local.app_service_plan_name
+  app_service_plan_name_1         = local.app_service_plan_name_1
   logic_app_name                  = local.logic_app_name
   os_type                         = "Windows"
   sku_name                        = "I1v2"
