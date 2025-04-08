@@ -57,7 +57,7 @@ module "azurerm_storage_account_1" {
   account_replication_type              = var.account_replication_type
   public_network_access_enabled         = false
   https_traffic_only_enabled            = true
-  identity_type                         = "SystemAssigned"
+  identity                              = var.identity
   advanced_threat_protection_enabled    = false
   tags                                  = var.tags
 }
@@ -72,7 +72,7 @@ module "azurerm_storage_account_2" {
   account_replication_type              = var.account_replication_type
   public_network_access_enabled         = false
   https_traffic_only_enabled            = true
-  identity_type                         = "SystemAssigned"
+  identity                              = var.identity
   advanced_threat_protection_enabled    = false
   tags                                  = var.tags
 }
