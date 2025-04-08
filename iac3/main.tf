@@ -14,6 +14,7 @@ module "azurerm_linux_function_app" {
   https_only                          = true
   always_on                           = var.always_on
   tags                                = var.tags
+  identity                            = var.identity
   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_1]
 }
 
