@@ -20,6 +20,8 @@ module "app_logic_app" {
   ase_name                        = var.ase_name
   ase_resource_group_name         = var.ase_resource_group_name
   storage_account_name            = var.storage_account_name
+  os_type                         = "Windows"
+  sku_name                        = "I1v2"
   storage_resource_group_name     = var.storage_resource_group_name
   storage_account_access_key      = var.storage_account_access_key
   app_service_plan_name_1           = var.app_service_plan_name
