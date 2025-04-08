@@ -7,7 +7,11 @@ resource "azurerm_api_management" "api" {
   sku_name            = "${var.sku}_${var.sku_count}"
   tags                = var.tags
 
-  identity {
-    type = "SystemAssigned"
+  dynamic "identity" {
+  for_each = var.identity != null ? [1] : []
+  content {
+    type       = var.identity.type
+    identity_ids = var.identity.type == "UserAssigned" ? var.identity.identity_ids : null
   }
+}
 }
