@@ -51,3 +51,15 @@ variable "tags" {
   type = map(string)
 }
 
+variable "identity" {
+  description = "Identity configuration for the resource"
+  type = object({
+    type        = string
+    identity_ids = list(string)
+  })
+  default = {
+    type        = "SystemAssigned"
+    identity_ids = []
+  }
+}
+
