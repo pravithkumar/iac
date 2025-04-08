@@ -28,10 +28,14 @@ variable "storage_resource_group_name" {
   type        = string
 }
 
-variable "app_service_plan_id" {
-  description = "The id of the App Service Plan"
-  type        = string
+variable "app_service_plan_name_1" {
+  description = "name of the service plan for logic app and app service environment"
+  type        = string 
 }
+// variable "app_service_plan_id" {
+//   description = "The id of the App Service Plan"
+//   type        = string
+// }
 
 variable "logic_app_name" {
   description = "The name of the Logic App"
