@@ -31,9 +31,13 @@ variable "tags" {
 }
 
 variable "identity" {
-  description = "Configuration for the identity block"
+  description = "Identity configuration for the resource"
   type = object({
-    type         = string
+    type        = string
     identity_ids = list(string)
-  })   
+  })
+  default = {
+    type        = "SystemAssigned"
+    identity_ids = []
+  }
 }
