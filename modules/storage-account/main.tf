@@ -13,9 +13,13 @@ resource "azurerm_storage_account" "sa" {
 
   https_traffic_only_enabled = var.https_traffic_only_enabled
 
-  identity {
-    type = var.identity_type
+  dynamic "identity" {
+  for_each = var.identity != null ? [1] : []
+  content {
+    type       = var.identity.type
+    identity_ids = var.identity.type == "UserAssigned" ? var.identity.identity_ids : null
   }
+}
 
   // Uncomment and set values if you want to enable soft delete
   // blob_properties {
