@@ -36,7 +36,3 @@ variable "tags" {
   description = "A map of tags to apply to the App Service Plan."
   default     = {}
 }
-
-variable "app_service_environment_id" {
-  type = string
-}
