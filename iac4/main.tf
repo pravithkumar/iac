@@ -1,6 +1,6 @@
 
 module "azurerm_key_vault" {  
-  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  providers                         =  azurerm.integ-nprod-001
   source                            = "../modules/key-vault"
   azurerm_key_vault_name            = local.key_vault_name
   resource_group_name               = local.resource_group_name
