@@ -29,3 +29,11 @@ variable "sku_count" {
 variable "tags" {
   type = map(string)
 }
+
+variable "identity" {
+  description = "Configuration for the identity block"
+  type = object({
+    type         = string
+    identity_ids = list(string)
+  })   
+}
