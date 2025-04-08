@@ -9,7 +9,7 @@ locals {
 
   api_management_name          = "api-${local.app_name}-${local.environment}-${local.location_test}-001"
 
-  // ase_resource_group_name      = "rg-${local.app_name}-${local.environment}-${local.location_test}-001" 
+  ase_resource_group_name      = "rg-${local.app_name}-${local.environment}-${local.location_test}-001" 
   storage_resource_group_name  = "rg-${local.app_name}-${local.environment}-${local.location_test}-001"
 
 
