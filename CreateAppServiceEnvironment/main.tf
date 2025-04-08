@@ -1,6 +1,4 @@
-provider "azurerm" {
-  features {}  
-}
+
 
 module "app_service_environment" {
   source                          = "../modules/app-service-environment"
