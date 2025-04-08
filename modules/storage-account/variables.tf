@@ -28,9 +28,16 @@ variable "https_traffic_only_enabled" {
   default = true
 }
 
-variable "identity_type" {
-  type    = string
-  default = "SystemAssigned"
+variable "identity" {
+  description = "Identity configuration for the resource"
+  type = object({
+    type        = string
+    identity_ids = list(string)
+  })
+  default = {
+    type        = "SystemAssigned"
+    identity_ids = []
+  }
 }
 
 variable "advanced_threat_protection_enabled" {
