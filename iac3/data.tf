@@ -1,16 +1,16 @@
 data "azurerm_subnet" "default_subnet" {
-  provider             = azurerm.integ-mgmt-001
-  name                 = "subnet1"
-  virtual_network_name = "vnet-int-dev-esu-001"
-  resource_group_name  = "rg-int-vnet-esu-001"
+  provider             = azurerm.integ-nprod-001
+  name                 = "default"
+  virtual_network_name = "vnet-fort-dev-eus-001"
+  resource_group_name  = "rg-fort-dev-eus-004"
 }
 
 
 data "azurerm_subnet" "delegated_subnet" {
-  provider             = azurerm.integ-mgmt-001
-  name                 = "subnet2"
-  virtual_network_name = "vnet-int-dev-esu-001"
-  resource_group_name  = "rg-int-vnet-esu-001"
+  provider             = azurerm.integ-nprod-001
+  name                 = "default2"
+  virtual_network_name = "vnet-fort-dev-eus-001"
+  resource_group_name  = "rg-fort-dev-eus-004"
 }
 
 data "azurerm_private_dns_zone" "function_app_dns" {
