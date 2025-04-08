@@ -24,7 +24,7 @@ module "azurerm_key_vault" {
   
 }
 module "private_endpoint_key_vault" {  
-  providers                         =  {azurerm = azurerm.rg-fort-dev-eus-001}
+  providers                         =  {azurerm = azurerm.integ-mgmt-001}
   source                            = "../modules/private-endpoint"
   private_endpoint_name             = "pe-${local.key_vault_name}"
   location                          = var.location
