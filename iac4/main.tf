@@ -34,7 +34,7 @@ module "private_endpoint_key_vault" {
   private_connection_resource_id    = module.azurerm_key_vault.key_vault_id
   subresource_names                 = ["vault"]
   is_manual_connection              = false
-  private_dns_zone_group_name       = "private-dns-zone-group"
+  private_dns_zone_group_name       = "rg-int-dns-esu-002"
   private_dns_zone_ids              = [data.azurerm_private_dns_zone.key_vault_dns.id]
   depends_on                        = [module.azurerm_key_vault]
 }
