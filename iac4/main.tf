@@ -22,7 +22,7 @@ resource "azurerm_private_endpoint" "example" {
   provider            = azurerm.integ-nprod-001
   name                = "pe-${local.key_vault_name}"
   location            = var.location
-  resource_group_name = "local.resource_group_name"
+  resource_group_name = "rg-fort-dev-eus-004"
   subnet_id           = data.azurerm_subnet.default_subnet.id
   private_service_connection {
     name                           = "exampleConnection"
