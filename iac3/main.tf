@@ -1,3 +1,10 @@
+module "resource_group" {
+  providers                           =  {azurerm = azurerm.integ-nprod-001}
+  source                              = "../modules/resource-group"
+  resource_group_name                 = local.resource_group_name
+  location                            = var.location
+}
+
 module "azurerm_linux_function_app" {  
   providers                           =  {azurerm = azurerm.integ-nprod-001}
   source                              = "../modules/function-app"
