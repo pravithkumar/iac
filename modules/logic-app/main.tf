@@ -15,7 +15,7 @@ data "azurerm_storage_account" "storage" {
 // }
 
 resource "azurerm_service_plan" "logicasp" {
-  name                = var.app_service_plan_name
+  name                = var.app_service_plan_name_1
   location            = var.location
   resource_group_name = var.resource_group_name    
   os_type = var.os_type
