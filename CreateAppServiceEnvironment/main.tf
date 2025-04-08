@@ -23,7 +23,7 @@ module "app_logic_app" {
   ase_resource_group_name         = var.ase_resource_group_name
   storage_account_name            = var.storage_account_name
   storage_resource_group_name     = var.storage_resource_group_name
-  storage_account_access_key      = module.azurerm_storage_account_1.primary_access_key
+  storage_account_access_key      = var.storage_account_access_key
   app_service_plan_name           = var.app_service_plan_name
   logic_app_name                  = var.logic_app_name
   enable_managed_identity         = var.enable_managed_identity
