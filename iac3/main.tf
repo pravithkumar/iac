@@ -116,7 +116,7 @@ module "servicebus" {
   location                          = var.location
   servicebus_name                   = local.servicebus_name
   sku                               = var.sku
-  enable_managed_identity           = var.enable_managed_identity
+  identity                          = var.identity
   public_network_access_enabled     = false
   trusted_services_allowed          = true
   servicebus_capacity               = var.servicebus_capacity
