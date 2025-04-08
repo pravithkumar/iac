@@ -67,7 +67,7 @@ variable "storage_resource_group_name" {
   type        = string
 }
 
-variable "app_service_plan_name" {
+variable "app_service_plan_name_1" {
   description = "The name of the App Service Plan"
   type        = string
 }
