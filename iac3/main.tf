@@ -191,6 +191,7 @@ module "api_management" {
   publisher_email                 = var.publisher_email
   sku                             = var.api_sku
   sku_count                       = var.sku_count
+  identity                        = var.identity
   tags                            = var.tags
 }
 
