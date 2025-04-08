@@ -29,7 +29,7 @@ resource "azurerm_logic_app_standard" "logic_app" {
   name                = var.logic_app_name
   location            = var.location
   resource_group_name = var.resource_group_name
-  app_service_plan_id = azurerm_service_plan.asp.id
+  app_service_plan_id = azurerm_service_plan.logicasp.id
   storage_account_name = data.azurerm_storage_account.storage.name
   storage_account_access_key = var.storage_account_access_key   
 
