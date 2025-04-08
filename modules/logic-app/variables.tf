@@ -8,15 +8,15 @@ variable "location" {
   type        = string
 }
 
-// variable "ase_name" {
-//   description = "The name of the existing App Service Environment"
-//   type        = string
-// }
+variable "ase_name" {
+  description = "The name of the existing App Service Environment"
+  type        = string
+}
 
-// variable "ase_resource_group_name" {
-//   description = "The resource group name of the existing App Service Environment"
-//   type        = string
-// }
+variable "ase_resource_group_name" {
+  description = "The resource group name of the existing App Service Environment"
+  type        = string
+}
 
 variable "storage_account_name" {
   description = "The name of the existing storage account"
@@ -47,4 +47,15 @@ variable "enable_managed_identity" {
   description = "Enable system-assigned managed identity for the Service Bus namespace."
   type        = bool
   default     = true
+}
+
+variable "os_type" {
+  description = "The operating system type for the App Service Plan (e.g., Windows, Linux)."
+  type        = string
+  default     = "Windows"
+}
+
+variable "sku_name" {
+  description = "The SKU name for the App Service Plan (e.g., B1, P1v2)."
+  type        = string
 }
