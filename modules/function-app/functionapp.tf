@@ -26,6 +26,13 @@ resource "azurerm_linux_function_app" "fa" {
   storage_account_access_key = data.azurerm_storage_account.sa.primary_access_key
   https_only                 = var.https_only
   tags                       = var.tags
+  dynamic "identity" {
+  for_each = var.identity != null ? [1] : []
+  content {
+    type       = var.identity.type
+    identity_ids = var.identity.type == "UserAssigned" ? var.identity.identity_ids : null
+  }
+}  
 
   site_config {
     always_on = var.always_on
