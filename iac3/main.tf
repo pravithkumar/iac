@@ -246,10 +246,7 @@ module "app_logic_app" {
   storage_account_name            = local.storage_account_name_1
   storage_account_access_key      = module.azurerm_storage_account_1.primary_access_key
   location                        = var.location
-        
- 
-  enable_managed_identity         = true
-
-   depends_on = [module.app_service_environment,module.azurerm_storage_account_1]
+  identity                        = var.identity
+  depends_on = [module.app_service_environment,module.azurerm_storage_account_1]
 }
 
