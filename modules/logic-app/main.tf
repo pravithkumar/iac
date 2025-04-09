@@ -32,11 +32,12 @@ resource "azurerm_logic_app_standard" "logic_app" {
     always_on = false
   }
   dynamic "identity" {
-    for_each = var.enable_managed_identity ? [1] : []
-    content {
-      type = "SystemAssigned"
-    }
-  } 
+  for_each = var.identity != null ? [1] : []
+  content {
+    type       = var.identity.type
+    identity_ids = var.identity.type == "UserAssigned" ? var.identity.identity_ids : null
+  }
+}
 }
 
 resource "azurerm_role_assignment" "mi" {
