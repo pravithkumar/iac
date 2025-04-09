@@ -8,10 +8,10 @@ resource "azurerm_api_management" "api" {
   tags                = var.tags
 
   dynamic "identity" {
-  for_each = var.identity != null ? [1] : []
+  for_each = var.identity_type != null ? [1] : []
   content {
-    type       = var.identity.type
-    identity_ids = var.identity.type == "UserAssigned" ? var.identity.identity_ids : null
+    type       = var.identity_type
+    identity_ids = var.identity_type == "UserAssigned" ? var.identity_ids : []
   }
 }
 }
