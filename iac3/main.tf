@@ -21,7 +21,8 @@ module "azurerm_linux_function_app" {
   https_only                          = true
   always_on                           = var.always_on
   tags                                = var.tags
-  identity                            = var.identity
+  identity_type                       = "SystemAssigned"
+  identity_ids                        = []
   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_1]
 }
 
@@ -65,7 +66,8 @@ module "azurerm_storage_account_1" {
   account_replication_type              = var.account_replication_type
   public_network_access_enabled         = false
   https_traffic_only_enabled            = true
-  identity                              = var.identity
+  identity_type                         = "SystemAssigned"
+  identity_ids                          = []
   advanced_threat_protection_enabled    = false
   tags                                  = var.tags
 }
@@ -80,7 +82,8 @@ module "azurerm_storage_account_2" {
   account_replication_type              = var.account_replication_type
   public_network_access_enabled         = false
   https_traffic_only_enabled            = true
-  identity                              = var.identity
+  identity_type                         = "SystemAssigned"
+  identity_ids                          = []
   advanced_threat_protection_enabled    = false
   tags                                  = var.tags
 }
@@ -124,7 +127,8 @@ module "servicebus" {
   location                          = var.location
   servicebus_name                   = local.servicebus_name
   sku                               = var.sku
-  identity                          = var.identity
+  identity_type                     = "SystemAssigned"
+  identity_ids                      = []
   public_network_access_enabled     = false
   trusted_services_allowed          = true
   servicebus_capacity               = var.servicebus_capacity
@@ -199,7 +203,8 @@ module "api_management" {
   publisher_email                 = var.publisher_email
   sku                             = var.api_sku
   sku_count                       = var.sku_count
-  identity                        = var.identity
+  identity_type                   = "SystemAssigned"
+  identity_ids                    = []
   tags                            = var.tags
 }
 
@@ -246,7 +251,8 @@ module "app_logic_app" {
   storage_account_name            = local.storage_account_name_1
   storage_account_access_key      = module.azurerm_storage_account_1.primary_access_key
   location                        = var.location
-  identity                        = var.identity
+  identity_type                   = "SystemAssigned"
+  identity_ids                    = []
   depends_on = [module.app_service_environment,module.azurerm_storage_account_1]
 }
 
