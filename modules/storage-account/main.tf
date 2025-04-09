@@ -20,6 +20,7 @@ resource "azurerm_storage_account" "sa" {
     identity_ids = var.identity.type == "UserAssigned" ? var.identity.identity_ids : null
   }
 }
+}
 
 resource "azurerm_advanced_threat_protection" "example" {
   target_resource_id = azurerm_storage_account.sa.id
