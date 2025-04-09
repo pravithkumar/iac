@@ -141,16 +141,17 @@ variable "sku_count" {
   type = string
 }
 
-variable "identity" {
-  description = "Identity configuration for the resource"
-  type = object({
-    type        = string
-    identity_ids = list(string)
-  })
-  default = {
-    type        = "SystemAssigned"
-    identity_ids = []
-  }
+
+variable "identity_type" {
+  description = "Type of identity to be assigned to the resource"
+  type        = string
+  default     = "SystemAssigned"
+}
+
+variable "identity_ids" {
+  description = "List of identity IDs for UserAssigned identity type"
+  type        = list(string)
+  default     = []
 }
 
 
