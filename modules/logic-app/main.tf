@@ -9,11 +9,6 @@ data "azurerm_storage_account" "storage" {
   
 }
 
-// data "azurerm_user_assigned_identity" "mi" {
-//   name                = var.user_assigned_identity_name
-//   resource_group_name = var.resource_group_name
-// }
-
 resource "azurerm_service_plan" "logicasp" {
   name                = var.app_service_plan_name_1
   location            = var.location
