@@ -32,10 +32,10 @@ resource "azurerm_logic_app_standard" "logic_app" {
     always_on = false
   }
   dynamic "identity" {
-  for_each = var.identity != null ? [1] : []
+  for_each = var.identity_type != null ? [1] : []
   content {
-    type       = var.identity.type
-    identity_ids = var.identity.type == "UserAssigned" ? var.identity.identity_ids : null
+    type       = var.identity_type
+    identity_ids = var.identity_type == "UserAssigned" ? var.identity_ids : []
   }
 }
 }
