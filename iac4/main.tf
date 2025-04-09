@@ -1,10 +1,4 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">=4.7.0"
-    }
-  }
+
 module "azurerm_key_vault" {  
   providers                         =  { azurerm = azurerm.integ-nprod-001 }
   source                            = "../modules/key-vault"
