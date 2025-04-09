@@ -43,10 +43,16 @@ variable "storage_account_access_key" {
   type        = string
 }
 
-variable "enable_managed_identity" {
-  description = "Enable system-assigned managed identity for the Service Bus namespace."
-  type        = bool
-  default     = true
+variable "identity" {
+  description = "Identity configuration for the resource"
+  type = object({
+    type        = string
+    identity_ids = list(string)
+  })
+  default = {
+    type        = "SystemAssigned"
+    identity_ids = []
+  }
 }
 
 variable "os_type" {
