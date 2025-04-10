@@ -28,9 +28,16 @@ resource "azurerm_linux_function_app" "fa" {
     type       = var.identity_type
     identity_ids = var.identity_type == "UserAssigned" ? var.identity_ids : []
   }
-}  
-
+}
   site_config {
     always_on = var.always_on
+
+    dynamic "app_settings" {
+      for_each = var.enable_app_insights ? [1] : [] # Use a boolean variable to control inclusion
+      content {
+        APPINSIGHTS_INSTRUMENTATIONKEY = data.azurerm_application_insights.ai.instrumentation_key
+        APPLICATIONINSIGHTS_CONNECTIONSTRING = data.azurerm_application_insights.ai.connection_string
+      }
+    }
   }
 }
