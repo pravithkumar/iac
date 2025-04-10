@@ -75,6 +75,17 @@ variable "app_insights_name" {
   type        = string
 }
 
+
+variable "appinsights_instrumentationkey" {
+  type        = string
+  description = "Instrumentation Key for Application Insights"
+}
+
+variable "applicationinsights_connectionstring" {
+  type        = string
+  description = "Connection String for Application Insights"
+}
+
 variable "subscription_max_delivery_count" {
   type = number
 }
