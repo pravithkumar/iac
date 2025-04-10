@@ -22,8 +22,8 @@ module "azurerm_linux_function_app" {
   identity_type                       = "SystemAssigned"
   identity_ids                        = []
   enable_app_insights                 = true
-  app_insights_name                   = ""
-  app_insights_resource_group_name    = ""
+  app_insights_name                   = "appinsights-int-esu-001"
+  app_insights_resource_group_name    = "rg-int-apps-esu-003"
   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_1]
 }
 
