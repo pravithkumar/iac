@@ -24,6 +24,8 @@ module "azurerm_linux_function_app" {
   enable_app_insights                 = true
   app_insights_name                   = "appinsights-int-esu-001"
   app_insights_resource_group_name    = "rg-int-apps-esu-003"
+  appinsights_instrumentationkey      = data.azurerm_application_insights.ai.instrumentation_key
+  applicationinsights_connectionstring= data.azurerm_application_insights.ai.connection_string
   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_1]
 }
 
