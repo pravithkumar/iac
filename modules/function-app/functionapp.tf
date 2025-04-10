@@ -8,11 +8,6 @@ data "azurerm_service_plan" "asp" {
   resource_group_name = var.resource_group_name
 }
 
-data "azurerm_application_insights" "ai" {
-  name                = var.app_insights_name
-  resource_group_name = var.app_insights_resource_group_name
-}
-
 resource "azurerm_linux_function_app" "fa" {
   name                       = var.function_app_name
   location                   = var.location
@@ -35,8 +30,8 @@ resource "azurerm_linux_function_app" "fa" {
     dynamic "app_settings" {
       for_each = var.enable_app_insights ? [1] : [] # Use a boolean variable to control inclusion
       content {
-        APPINSIGHTS_INSTRUMENTATIONKEY = data.azurerm_application_insights.ai.instrumentation_key
-        APPLICATIONINSIGHTS_CONNECTIONSTRING = data.azurerm_application_insights.ai.connection_string
+        APPINSIGHTS_INSTRUMENTATIONKEY = var.appinsights_instrumentationkey
+        APPLICATIONINSIGHTS_CONNECTIONSTRING = var.applicationinsights_connectionstring
       }
     }
   }
