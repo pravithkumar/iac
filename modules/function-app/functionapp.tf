@@ -1,3 +1,9 @@
+provider "azurerm" {
+  alias           = "integ-mgmt-001"
+  subscription_id = "795783af-96d3-4629-9161-58de5577ed1e"
+  features {}
+}
+
 data "azurerm_storage_account" "sa" {
   name                = var.storage_account_name
   resource_group_name = var.storage_account_resource_group_name
@@ -9,6 +15,7 @@ data "azurerm_service_plan" "asp" {
 }
 
 data "azurerm_application_insights" "ai" {
+  provider            = azurerm.integ-mgmt-001
   name                = var.app_insights_name
   resource_group_name = var.app_insights_resource_group_name
 }
