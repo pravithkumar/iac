@@ -59,6 +59,12 @@ variable "location_test" {
   type        = string
 }
 
+variable "enable_app_insights" {
+  type        = bool
+  description = "Whether to enable Application Insights integration for the Function App."
+  default     = false
+}
+
 variable "app_insights_resource_group_name" {
   description = "app_insights_name  RG"
   type        = string
