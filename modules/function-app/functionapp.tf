@@ -27,13 +27,13 @@ resource "azurerm_linux_function_app" "fa" {
   site_config {
     always_on = var.always_on
 
-    dynamic "app_settings" {
-      for_each = var.enable_app_insights ? [1] : [] # Use a boolean variable to control inclusion
-      content {
-        APPINSIGHTS_INSTRUMENTATIONKEY = var.appinsights_instrumentationkey
-        APPLICATIONINSIGHTS_CONNECTIONSTRING = var.applicationinsights_connectionstring
-      }
-    }
+    app_settings = merge(
+    var.enable_application_insights ? {
+      APPINSIGHTS_INSTRUMENTATIONKEY = var.appinsights_instrumentationkey
+      APPLICATIONINSIGHTS_CONNECTIONSTRING = var.applicationinsights_connectionstring
+    } : {},
+    var.app_settings,
+  )
   }
 }
 
