@@ -1,7 +1,7 @@
-variable "enable_monitor" {
+variable "enable_monitoring" {
   description = "Enable or disable monitoring"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "monitor_diagnostic_name" {
