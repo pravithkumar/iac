@@ -28,7 +28,7 @@ resource "azurerm_linux_function_app" "fa" {
     always_on = var.always_on
 
     app_settings = merge(
-    var.enable_application_insights ? {
+    var.enable_app_insights ? {
       APPINSIGHTS_INSTRUMENTATIONKEY = var.appinsights_instrumentationkey
       APPLICATIONINSIGHTS_CONNECTIONSTRING = var.applicationinsights_connectionstring
     } : {},
