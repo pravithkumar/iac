@@ -123,7 +123,7 @@ module "private_endpoint_storage_2" {
 
 module "servicebus" {
   providers                         =  {    azurerm = azurerm.integ-nprod-001}
-  source                            = "../modules/servicebus"
+  source                            = "../modules/service-bus"
   resource_group_name               = local.resource_group_name
   location                          = var.location
   servicebus_name                   = local.servicebus_name
