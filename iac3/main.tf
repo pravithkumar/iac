@@ -22,8 +22,9 @@ module "azurerm_linux_function_app" {
   identity_type                       = "SystemAssigned"
   identity_ids                        = []
   enable_app_insights                 = true
-  appinsights_instrumentationkey      = data.azurerm_application_insights.ai.instrumentation_key
-  applicationinsights_connectionstring= data.azurerm_application_insights.ai.connection_string
+  enable_application_insights         = var.enable_application_insights
+  appinsights_instrumentationkey      = var.enable_application_insights ? data.azurerm_application_insights.ai.instrumentation_key : null
+  applicationinsights_connectionstring = var.enable_application_insights ? data.azurerm_application_insights.ai.connection_string : null
   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_1]
 }
 
