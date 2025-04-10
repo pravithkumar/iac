@@ -14,6 +14,8 @@ data "azurerm_subnet" "delegated_subnet" {
 }
 
 data "azurerm_application_insights" "ai" {
+  provider            = azurerm.integ-mgmt-001
+  count               = var.enable_application_insights ? 1 : 0
   name                = "appinsights-int-esu-001"
   resource_group_name = "rg-int-apps-esu-003"
 }
