@@ -26,15 +26,13 @@ resource "azurerm_linux_function_app" "fa" {
 }
   site_config {
     always_on = var.always_on
-
-    app_settings = merge(
-    var.enable_app_insights ? {
+  }
+  app_settings = merge(var.enable_app_insights ? {
       APPINSIGHTS_INSTRUMENTATIONKEY = var.appinsights_instrumentationkey
       APPLICATIONINSIGHTS_CONNECTIONSTRING = var.applicationinsights_connectionstring
     } : {},
     var.app_settings,
   )
-  }
 }
 
 resource "azurerm_role_assignment" "function_app_role" {
