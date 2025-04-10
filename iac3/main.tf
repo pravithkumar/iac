@@ -13,8 +13,6 @@ module "azurerm_linux_function_app" {
   resource_group_name                 = local.resource_group_name
   storage_account_name                = local.storage_account_name_1
   storage_account_resource_group_name = local.resource_group_name
-  app_insights_name                   = var.app_insights_name
-  app_insights_resource_group_name    = var.app_insights_resource_group_name
   app_service_plan_name               = local.asp_service_plan_name
   runtime                             = var.runtime
   runtime_version                     = var.runtime_version
@@ -23,6 +21,9 @@ module "azurerm_linux_function_app" {
   tags                                = var.tags
   identity_type                       = "SystemAssigned"
   identity_ids                        = []
+  enable_app_insights                 = true
+  app_insights_name                   = ""
+  app_insights_resource_group_name    = ""
   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_1]
 }
 
