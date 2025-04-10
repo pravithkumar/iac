@@ -39,6 +39,12 @@ variable "applicationinsights_connectionstring" {
   description = "Connection String for Application Insights"
 }
 
+variable "app_settings" {
+  type        = map(string)
+  description = "A map of application settings to apply to the Function App."
+  default     = {}
+}
+
 variable "runtime" {
   type = string
 }
