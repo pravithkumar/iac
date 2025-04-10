@@ -31,6 +31,12 @@ variable "app_insights_resource_group_name" {
   type = string
 }
 
+variable "enable_app_insights" {
+  type        = bool
+  description = "Whether to enable Application Insights integration for the Function App."
+  default     = false
+}
+
 variable "runtime" {
   type = string
 }
