@@ -36,3 +36,9 @@ resource "azurerm_linux_function_app" "fa" {
     }
   }
 }
+
+resource "azurerm_role_assignment" "function_app_role" {
+  scope                = azurerm_linux_function_app.fa.id # Replace with your Function App resource ID
+  role_definition_name = "Contributor"                               # Or use role_definition_id
+  principal_id         = azurerm_function_app.fa.identity[0].principal_id             # Replace with the principal's object ID
+}
