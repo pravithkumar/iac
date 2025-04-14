@@ -25,7 +25,7 @@ module "azurerm_linux_function_app" {
   enable_app_insights                 = true
   appinsights_instrumentationkey      = var.enable_app_insights ? data.azurerm_application_insights.ai.instrumentation_key : null
   applicationinsights_connectionstring = var.enable_app_insights ? data.azurerm_application_insights.ai.connection_string : null
-  depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_1]
+  depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_1,module.resource_group]
 }
 
 module "private_endpoint_function_app" {  
