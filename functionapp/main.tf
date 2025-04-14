@@ -68,6 +68,15 @@ module "diagnostic_setting" {
   depends_on                         = [module.azurerm_linux_function_app]
 }
 
+module "role_assignment_storage_contributor" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                            = "../modules/role_assignments"
+  scope                             = module.azurerm_storage_account_1.id
+  role_definition_name              = "Storage Account Contributor"
+  principal_id                      = module.azurerm_linux_function_app.identity.principal_id
+
+}
+
 module "azurerm_storage_account_1" {  
   providers                             =  {azurerm = azurerm.integ-nprod-001}
   source                                = "../modules/storage-account"
