@@ -73,8 +73,7 @@ module "role_assignment_storage_contributor" {
   source                            = "../modules/role_assignments"
   scope                             = module.azurerm_storage_account_1.id
   role_definition_name              = "Storage Account Contributor"
-  principal_id                      = module.azurerm_linux_function_app.identity.principal_id
-
+  principal_id                      = module.azurerm_linux_function_app.principal_id
 }
 
 module "azurerm_storage_account_1" {  
