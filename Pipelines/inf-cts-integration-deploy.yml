@@ -24,7 +24,7 @@ parameters:
     default: False
 
 pool:
-  name: "Vardo-Dev-IaC"
+  vmImage: 'windows-2022'
 
 stages:
   - stage: terraform_validate
