@@ -6,7 +6,6 @@ resource "azurerm_monitor_diagnostic_setting" "diagnostic" {
 
   enabled_log {
     category = "WorkflowRuntime"
-    enabled  = true
   }
 
   metric {
