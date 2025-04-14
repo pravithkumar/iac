@@ -3,6 +3,7 @@ module "resource_group" {
   source                              = "../modules/resource-group"
   resource_group_name                 = local.resource_group_name
   location                            = var.location
+  tags                                  = var.tags
 }
 
 module "azurerm_linux_function_app" {  
@@ -61,5 +62,21 @@ module "diagnostic_setting" {
     enable_monitoring                 = true
     monitor_diagnostic_name           = local.monitor_diagnostic_name
     target_resource_id                = module.azurerm_linux_function_app.function_app_id
-    log_analytics_workspace_id        = 
+    log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la
+}
+
+module "azurerm_storage_account_1" {  
+  providers                             =  {azurerm = azurerm.integ-nprod-001}
+  source                                = "../modules/storage-account"
+  storage_account_name                  = local.storage_account_name_1
+  resource_group_name                   = local.resource_group_name
+  location                              = var.location
+  account_tier                          = var.account_tier
+  account_replication_type              = var.account_replication_type
+  public_network_access_enabled         = false
+  https_traffic_only_enabled            = true
+  identity_type                         = "SystemAssigned"
+  identity_ids                          = []
+  advanced_threat_protection_enabled    = false
+  tags                                  = var.tags
 }
