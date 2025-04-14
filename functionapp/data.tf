@@ -1,6 +1,7 @@
 data "azurerm_log_analytics_workspace" "existing" {
-  name                = "your-log-analytics-workspace-name"
-  resource_group_name = "your-resource-group-name"
+  provider            = azurerm.integ-mgmt-001
+  name                = "law-int-esu-001"
+  resource_group_name = "rg-int-apps-esu-003"
 }
 
 data "azurerm_application_insights" "ai" {
