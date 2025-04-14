@@ -10,7 +10,7 @@ variables:
   - name: tfvars
     value: 'parameters/dev-terrafrom.tfvars' # Terraform variables file
   - name: rootFolder
-    value: 'iac/project' # Root folder for IaC files
+    value: 'iac-fortrea/project' # Root folder for IaC files
 
 parameters:
   - name: tf_plan
