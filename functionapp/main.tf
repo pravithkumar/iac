@@ -23,8 +23,8 @@ module "azurerm_linux_function_app" {
   identity_type                       = "SystemAssigned"
   identity_ids                        = []
   enable_app_insights                 = true
-  appinsights_instrumentationkey      = var.enable_app_insights ? data.azurerm_application_insights.ai.instrumentation_key : null
-  applicationinsights_connectionstring = var.enable_app_insights ? data.azurerm_application_insights.ai.connection_string : null
+  appinsights_instrumentationkey      = "03067677-311f-4345-928c-a5ef19f7ad50"
+  applicationinsights_connectionstring = "InstrumentationKey=03067677-311f-4345-928c-a5ef19f7ad50;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/;ApplicationId=eae33b3a-46bb-4235-a19d-3a6a7f373a2a"
   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_1,module.resource_group]
 }
 
