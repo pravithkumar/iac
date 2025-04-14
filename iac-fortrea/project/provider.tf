@@ -7,13 +7,26 @@ terraform {
   }
 
   backend "azurerm" {
-    subscription_id      = "01f80ea1-e021-4e3c-ad77-3a7e68205304" 
+
+    subscription_id      = "795783af-96d3-4629-9161-58de5577ed1e"
+    resource_group_name  = "pravith-vm-jump-box"
+    storage_account_name = "tfstatemsdn"
+    container_name       = "tfstate"
+    key                  = "statefile-fortrea.tfstate"
+    service_arm          = "SC_CCS_400847_Priya_MSDN-2"
+
   }
 }
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
   alias           = "integ-nprod-001"
-  subscription_id = "6a188292-2123-478e-aea7-0876e0c388b9"
+  subscription_id = "c6806c08-6845-4be9-bda8-0d35ff0251eb"
+  features {}
+}
+
+provider "azurerm" {
+  alias           = "integ-mgmt-001"
+  subscription_id = "795783af-96d3-4629-9161-58de5577ed1e"
   features {}
 }
