@@ -62,7 +62,7 @@ module "diagnostic_setting" {
     enable_monitoring                 = true
     monitor_diagnostic_name           = local.monitor_diagnostic_name
     target_resource_id                = module.azurerm_linux_function_app.function_app_id
-    log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la
+    log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
 }
 
 module "azurerm_storage_account_1" {  
