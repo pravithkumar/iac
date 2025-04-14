@@ -1,4 +1,4 @@
-data "azurerm_log_analytics_workspace" "existing" {
+data "azurerm_log_analytics_workspace" "la" {
   provider            = azurerm.integ-mgmt-001
   name                = "law-int-esu-001"
   resource_group_name = "rg-int-apps-esu-003"
