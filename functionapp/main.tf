@@ -54,15 +54,17 @@ module "azurerm_service_plan" {
   aspsku_name                         = var.aspsku_name  
   worker_count                        = var.worker_count
   tags                                = var.tags
+  depends_on                          = [module.resource_group]
 }
 
 module "diagnostic_setting" {
-    providers                         =  {azurerm = azurerm.integ-nprod-001}
-    source                            = "../modules/diagnostic-settings"
-    enable_monitoring                 = true
-    monitor_diagnostic_name           = local.monitor_diagnostic_name
-    target_resource_id                = module.azurerm_linux_function_app.function_app_id
-    log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                            = "../modules/diagnostic-settings"
+  enable_monitoring                 = true
+  monitor_diagnostic_name           = local.monitor_diagnostic_name
+  target_resource_id                = module.azurerm_linux_function_app.function_app_id
+  log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
+  depends_on                         = [module.azurerm_linux_function_app]
 }
 
 module "azurerm_storage_account_1" {  
@@ -79,4 +81,5 @@ module "azurerm_storage_account_1" {
   identity_ids                          = []
   advanced_threat_protection_enabled    = false
   tags                                  = var.tags
+  depends_on                          = [module.resource_group]
 }
