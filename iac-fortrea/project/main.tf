@@ -272,8 +272,8 @@ module "app_logic_app" {
   os_type                         = "Windows"
   sku_name                        = "I1v2"
   storage_resource_group_name     = local.storage_resource_group_name
-  ase_name                        = local.ase_name
-  ase_resource_group_name         = local.ase_resource_group_name
+  // ase_name                        = local.ase_name
+  // ase_resource_group_name         = local.ase_resource_group_name
   storage_account_name            = local.storage_account_name_1
   storage_account_access_key      = module.azurerm_storage_account_1.primary_access_key
   location                        = var.location
