@@ -66,6 +66,12 @@ variable "sku_name" {
   type        = string
 }
 
+variable "enable_app_insights" {
+  type        = bool
+  description = "Whether to enable Application Insights integration for the Function App."
+  default     = false
+}
+
 variable "appinsights_instrumentationkey" {
   type        = string
   description = "Instrumentation Key for Application Insights"
