@@ -45,7 +45,7 @@ module "private_endpoint_function_app" {
   depends_on                         = [module.azurerm_linux_function_app,module.resource_group]
 }
 
-module "diagnostic_setting" {
+module "diagnostic_setting_fa" {
   providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                            = "../modules/diagnostic-settings"
   enable_monitoring                 = true
@@ -285,7 +285,7 @@ module "app_logic_app" {
   depends_on = [module.app_service_environment,module.azurerm_storage_account_1,module.resource_group]
 }
 
-module "diagnostic_setting" {
+module "diagnostic_setting_logicapp" {
   providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                            = "../modules/diagnostic-settings"
   enable_monitoring                 = true
