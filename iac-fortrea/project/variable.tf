@@ -137,4 +137,9 @@ variable "sku_count" {
   type = string
 }
 
+variable "app_settings" {
+  type        = map(string)
+  description = "A map of application settings to apply to the Function App."
+  default     = {}
+}
 
