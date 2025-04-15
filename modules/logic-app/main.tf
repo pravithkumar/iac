@@ -31,6 +31,12 @@ resource "azurerm_logic_app_standard" "logic_app" {
   site_config {
     always_on = false
   }
+  app_settings = merge(var.enable_app_insights ? {
+      APPINSIGHTS_INSTRUMENTATIONKEY = var.appinsights_instrumentationkey
+      APPLICATIONINSIGHTS_CONNECTIONSTRING = var.applicationinsights_connectionstring
+    } : {},
+    var.app_settings,
+  )
   dynamic "identity" {
   for_each = var.identity_type != null ? [1] : []
   content {
