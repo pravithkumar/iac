@@ -273,7 +273,7 @@ module "app_logic_app" {
   storage_resource_group_name     = local.storage_resource_group_name
   ase_name                        = local.ase_name
   ase_resource_group_name         = local.ase_resource_group_name
-  storage_account_name            = local.storage_account_name_1
+  storage_account_name            = local.storage_account_name_2
   storage_account_access_key      = module.azurerm_storage_account_1.primary_access_key
   location                        = var.location
   identity_type                   = "SystemAssigned"
@@ -289,7 +289,7 @@ module "diagnostic_setting" {
   providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                            = "../modules/diagnostic-settings"
   enable_monitoring                 = true
-  monitor_diagnostic_name           = local.monitor_diagnostic_name
+  monitor_diagnostic_name           = local.monitor_diagnostic_name_1
   target_resource_id                = module.app_logic_app.id
   log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
   depends_on                         = [module.app_logic_app.id]
@@ -298,7 +298,7 @@ module "diagnostic_setting" {
 module "role_assignment_storage_contributor" {
   providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                            = "../modules/role_assignments"
-  scope                             = module.app_logic_app.id
+  scope                             = module.azurerm_storage_account_2.id
   role_definition_name              = "Storage Blob Data Contributor"
   principal_id                      = module.app_logic_app.principal_id
 }
