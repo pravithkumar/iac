@@ -295,7 +295,7 @@ module "diagnostic_setting" {
   depends_on                         = [module.app_logic_app.id]
 }
 
-module "role_assignment_storage_contributor" {
+module "role_assignment_storage_blob_data_contributor" {
   providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                            = "../modules/role_assignments"
   scope                             = module.azurerm_storage_account_1.id
