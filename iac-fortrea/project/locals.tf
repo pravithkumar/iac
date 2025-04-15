@@ -20,6 +20,6 @@ locals {
   key_vault_name          = "kv-${local.app_name}-${local.environment}-${local.location_test}-001"
   storage_account_name_1  = "stg${local.app_name}${local.environment}${local.location_test}001"
   storage_account_name_2  = "stg${local.app_name}${local.environment}${local.location_test}002"
-  monitor_diagnostic_name = "mds-${local.app_name}-${local.environment}-${local.location_test}-001"
-  monitor_diagnostic_name = "mds-${local.app_name}-${local.environment}-${local.location_test}-002"
+  monitor_diagnostic_name_1 = "mds-${local.app_name}-${local.environment}-${local.location_test}-001"
+  monitor_diagnostic_name_2 = "mds-${local.app_name}-${local.environment}-${local.location_test}-002"
 }
