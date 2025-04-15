@@ -12,7 +12,7 @@ module "azurerm_linux_function_app" {
   function_app_name                   = local.function_app_name
   location                            = var.location
   resource_group_name                 = local.resource_group_name
-  storage_account_name                = local.storage_account_name_1
+  storage_account_name                = local.storage_account_name_2
   storage_account_resource_group_name = local.resource_group_name
   app_service_plan_name               = local.asp_service_plan_name
   runtime                             = var.runtime
@@ -58,7 +58,7 @@ module "diagnostic_setting" {
 module "role_assignment_storage_contributor" {
   providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                            = "../modules/role_assignments"
-  scope                             = module.azurerm_storage_account_1.id
+  scope                             = module.azurerm_storage_account_2.id
   role_definition_name              = "Storage Blob Data Owner"
   principal_id                      = module.azurerm_linux_function_app.principal_id
 }
@@ -273,7 +273,7 @@ module "app_logic_app" {
   storage_resource_group_name     = local.storage_resource_group_name
   ase_name                        = local.ase_name
   ase_resource_group_name         = local.ase_resource_group_name
-  storage_account_name            = local.storage_account_name_2
+  storage_account_name            = local.storage_account_name_1
   storage_account_access_key      = module.azurerm_storage_account_1.primary_access_key
   location                        = var.location
   identity_type                   = "SystemAssigned"
@@ -298,7 +298,7 @@ module "diagnostic_setting" {
 module "role_assignment_storage_contributor" {
   providers                         =  {azurerm = azurerm.integ-nprod-001}
   source                            = "../modules/role_assignments"
-  scope                             = module.azurerm_storage_account_2.id
+  scope                             = module.azurerm_storage_account_1.id
   role_definition_name              = "Storage Blob Data Contributor"
   principal_id                      = module.app_logic_app.principal_id
 }
