@@ -52,6 +52,7 @@ module "diagnostic_setting_fa" {
   monitor_diagnostic_name           = local.monitor_diagnostic_name_1
   target_resource_id                = module.azurerm_linux_function_app.function_app_id
   log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
+  category                          = "FunctionAppLogs"
   depends_on                         = [module.azurerm_linux_function_app]
 }
 
@@ -292,6 +293,7 @@ module "diagnostic_setting_logicapp" {
   monitor_diagnostic_name           = local.monitor_diagnostic_name_2
   target_resource_id                = module.app_logic_app.id
   log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
+  category                          = "WorkflowRuntime"
   depends_on                         = [module.app_logic_app.id]
 }
 
