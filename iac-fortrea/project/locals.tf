@@ -21,5 +21,5 @@ locals {
   storage_account_name_1  = "stg${local.app_name}${local.environment}${local.location_test}002"
   storage_account_name_2  = "stg${local.app_name}${local.environment}${local.location_test}003"
   monitor_diagnostic_name_1 = "mds-${local.app_name}-${local.environment}-${local.location_test}-001"
-  monitor_diagnostic_name_2 = "mds-${local.app_name}-${local.environment}-${local.location_test}-002"
+  monitor_diagnostic_name_2 = "mds-${local.app_name}-${local.environment}-${local.location_test}-006"
 }
