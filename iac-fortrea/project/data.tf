@@ -13,6 +13,12 @@ data "azurerm_subnet" "delegated_subnet" {
   resource_group_name  = "rg-fort-dev-eus-004"
 }
 
+data "azurerm_log_analytics_workspace" "la" {
+  provider            = azurerm.integ-mgmt-001
+  name                = "law-int-esu-001"
+  resource_group_name = "rg-int-apps-esu-003"
+}
+
 data "azurerm_application_insights" "ai" {
   provider            = azurerm.integ-mgmt-001
   name                = "appinsights-int-esu-001"
