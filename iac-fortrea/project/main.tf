@@ -22,6 +22,7 @@ module "azurerm_linux_function_app" {
   tags                                = var.tags
   identity_type                       = "SystemAssigned"
   identity_ids                        = []
+  app_settings                        = var.app_settings
   enable_app_insights                 = true
   appinsights_instrumentationkey      = data.azurerm_application_insights.ai.instrumentation_key
   applicationinsights_connectionstring = data.azurerm_application_insights.ai.connection_string
@@ -44,7 +45,23 @@ module "private_endpoint_function_app" {
   depends_on                         = [module.azurerm_linux_function_app,module.resource_group]
 }
 
+module "diagnostic_setting" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                            = "../modules/diagnostic-settings"
+  enable_monitoring                 = true
+  monitor_diagnostic_name           = local.monitor_diagnostic_name
+  target_resource_id                = module.azurerm_linux_function_app.function_app_id
+  log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
+  depends_on                         = [module.azurerm_linux_function_app]
+}
 
+module "role_assignment_storage_contributor" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                            = "../modules/role_assignments"
+  scope                             = module.azurerm_storage_account_1.id
+  role_definition_name              = "Storage Blob Data Owner"
+  principal_id                      = module.azurerm_linux_function_app.principal_id
+}
 
 module "azurerm_service_plan" {  
   providers                           =  {azurerm = azurerm.integ-nprod-001}
@@ -261,6 +278,28 @@ module "app_logic_app" {
   location                        = var.location
   identity_type                   = "SystemAssigned"
   identity_ids                    = []
+  app_settings                        = var.app_settings
+  enable_app_insights                 = true
+  appinsights_instrumentationkey      = data.azurerm_application_insights.ai.instrumentation_key
+  applicationinsights_connectionstring = data.azurerm_application_insights.ai.connection_string
   depends_on = [module.app_service_environment,module.azurerm_storage_account_1,module.resource_group]
+}
+
+module "diagnostic_setting" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                            = "../modules/diagnostic-settings"
+  enable_monitoring                 = true
+  monitor_diagnostic_name           = local.monitor_diagnostic_name
+  target_resource_id                = module.app_logic_app.id
+  log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
+  depends_on                         = [module.app_logic_app.id]
+}
+
+module "role_assignment_storage_contributor" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                            = "../modules/role_assignments"
+  scope                             = module.app_logic_app.id
+  role_definition_name              = "Storage Blob Data Contributor"
+  principal_id                      = module.app_logic_app.principal_id
 }
 
