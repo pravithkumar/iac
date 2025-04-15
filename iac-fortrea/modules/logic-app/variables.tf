@@ -65,3 +65,25 @@ variable "sku_name" {
   description = "The SKU name for the App Service Plan (e.g., B1, P1v2)."
   type        = string
 }
+
+variable "enable_app_insights" {
+  type        = bool
+  description = "Whether to enable Application Insights integration for the Function App."
+  default     = false
+}
+
+variable "appinsights_instrumentationkey" {
+  type        = string
+  description = "Instrumentation Key for Application Insights"
+}
+
+variable "applicationinsights_connectionstring" {
+  type        = string
+  description = "Connection String for Application Insights"
+}
+
+variable "app_settings" {
+  type        = map(string)
+  description = "A map of application settings to apply to the Function App."
+  default     = {}
+}
