@@ -20,14 +20,14 @@ tags = {
 #app_insights_resource_group_name   = "rg-int-apps-esu-003"
 
 # Function App
-runtime                            = "python"
-runtime_version                    = "3.9"
-always_on                          = true
+// runtime                            = "python"
+// runtime_version                    = "3.9"
+// always_on                          = true
 
 # App Service Plan
-os_type                            = "Linux"
-aspsku_name                        = "S1"
-worker_count                       = 1
+// os_type                            = "Linux"
+// aspsku_name                        = "S1"
+// worker_count                       = 1
 
 # Storage
 account_tier                       = "Standard"
