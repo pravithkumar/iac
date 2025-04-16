@@ -1,5 +1,5 @@
 # Application Naming and Environment
-app_name                           = "UAT"
+app_name                           = "uat"
 environment                        = "dev"
 location_test                      = "eus"
 location                           = "East US"
