@@ -332,10 +332,10 @@ module "role_assignment_keyvault_reader" {
 }
 
 module "access_policy_logicapp" {
-  providers          =  {azurerm = azurerm.integ-nprod-001}
-  source             = "../modules/key_vault_access_policy"
-  key_vault_id       = module.azurerm_key_vault.key_vault_id
-  tenant_id          = data.azurerm_client_config.current.tenant_id
-  object_id          = module.app_logic_app.principal_id
+  providers      =  {azurerm = azurerm.integ-nprod-001}
+  source         = "../modules/key_vault_access_policy"
+  key_vault_id   = module.azurerm_key_vault.key_vault_id
+  tenant_id      = data.azurerm_client_config.current.tenant_id
+  object_id      = module.app_logic_app.principal_id
   secret_permissions = ["Get", "List"]
 }
