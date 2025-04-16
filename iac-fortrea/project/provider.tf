@@ -18,6 +18,10 @@ terraform {
   }
 }
 
+provider "azurerm" {
+  features {}
+}
+
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
   alias           = "integ-nprod-001"
