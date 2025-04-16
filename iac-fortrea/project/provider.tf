@@ -18,6 +18,11 @@ terraform {
   }
 }
 
+provider "azurerm" {
+  subscription_id = "c6806c08-6845-4be9-bda8-0d35ff0251eb"
+  features {}
+}
+
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
   alias           = "integ-nprod-001"
