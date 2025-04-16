@@ -338,3 +338,4 @@ module "access_policy_logicapp" {
   tenant_id          = data.azurerm_client_config.current.tenant_id
   object_id          = module.app_logic_app.principal_id
   secret_permissions = ["Get", "List"]
+}
