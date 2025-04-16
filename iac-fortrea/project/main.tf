@@ -180,6 +180,24 @@ module "private_endpoint_servicebus" {
   depends_on                        = [module.servicebus,module.resource_group]
 }
 
+module "diagnostic_setting_servicebus" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                            = "../modules/diagnostic-settings"
+  enable_monitoring                 = true
+  monitor_diagnostic_name           = local.monitor_diagnostic_name_3
+  target_resource_id                = module.servicebus.servicebus_id
+  log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
+  category                          = "OperationalLogs"
+  depends_on                         = [module.servicebus]
+}
+
+module "role_assignment_servicebus" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                            = "../modules/role_assignments"
+  scope                             = module.servicebus.servicebus_id
+  role_definition_name              = "Azure Service Bus Data Owner"
+  principal_id                      = module.servicebus.principal_id
+}
 
 
 module "azurerm_key_vault" {  
@@ -294,7 +312,7 @@ module "diagnostic_setting_logicapp" {
   target_resource_id                = module.app_logic_app.id
   log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
   category                          = "WorkflowRuntime"
-  depends_on                         = [module.app_logic_app.id]
+  depends_on                         = [module.app_logic_app]
 }
 
 module "role_assignment_storage_blob_data_contributor" {
