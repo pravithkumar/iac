@@ -1,3 +1,7 @@
+
+data "azurerm_client_config" "current" {}
+
+
 data "azurerm_subnet" "default_subnet" {
   provider             = azurerm.integ-nprod-001
   name                 = "default"
