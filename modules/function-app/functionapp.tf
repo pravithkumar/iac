@@ -37,19 +37,17 @@ resource "azurerm_linux_function_app" "fa" {
 
  
 auth_settings {
-    enabled          = true
-    runtime_version  = "~2" // auth v2
-    dynamic "microsoft" {
-      for_each = var.auth_settings_enabled ? [1] : []
-      content {
-        managed_identity {
-          client_id = azurerm_linux_function_app.fa.identity.principal_id
-        }
-        oauth_scopes = ["https://graph.microsoft.com/.default"]
-      }
-    }
-  }
+  enabled         = true
+  runtime_version = "~2" // auth v2
 
+  dynamic "microsoft" {
+    for_each = var.auth_settings_enabled ? [1] : []
+    content {
+      client_id = azurerm_linux_function_app.fa.identity[0].principal_id
+      oauth_scopes = ["https://graph.microsoft.com/.default"]
+    }
+  }
+}
 
 
 }
