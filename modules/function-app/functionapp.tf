@@ -48,7 +48,7 @@ auth_settings_v2 {
     for_each = var.auth_enabled ? [1] : []
     content {
       client_id     = "cfe072e8-149a-4a79-b7d6-9df55eb4aa6b"      
-      tenant_auth_endpoint  = ["https://login.microsoftonline.com/%7Btenant-guid%7D/v2.0/"] # Adjust scopes as needed
+      tenant_auth_endpoint  = "https://login.microsoftonline.com/%7Btenant-guid%7D/v2.0/" # Adjust scopes as needed
     }
   }
 }
