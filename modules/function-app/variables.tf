@@ -77,7 +77,7 @@ variable "identity_ids" {
   default     = []
 }
 
-variable "auth_settings_enabled" {
+variable "auth_enabled" {
   type        = bool
   description = "Whether to enable the Microsoft authentication settings."
   default     = true
