@@ -27,6 +27,7 @@ resource "azurerm_linux_function_app" "fa" {
 }
   site_config {
     always_on = var.always_on
+    public_network_access_enabled = false
  
     dynamic "application_stack" {
       for_each = var.runtime != null ? [1] : []
