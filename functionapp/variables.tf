@@ -66,3 +66,22 @@ variable "app_settings" {
   description = "A map of application settings to apply to the Function App."
   default     = {}
 }
+
+variable "allowed_external_redirect_urls" {
+  description = "Allowed external redirect URLs"
+  type        = list(string)
+  default     = ["openid", "profile", "email"]
+}
+
+variable "client_id" {
+  description = "Client ID of the Azure Active Directory application"
+  type        = string
+  default     = "cfe072e8-149a-4a79-b7d6-9df55eb4aa6b"
+}
+
+variable "tenant_auth_endpoint" {
+  description = "Tenant authentication endpoint"
+  type        = string
+  default     = "https://login.microsoftonline.com/{tenant-guid}/v2.0/"
+}
+
