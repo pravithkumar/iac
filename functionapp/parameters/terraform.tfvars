@@ -18,6 +18,9 @@ tags = {
 runtime                            = "python"
 runtime_version                    = "3.9"
 always_on                          = true
+tenant_auth_endpoint               = "Tenant authentication endpoint"
+client_id                          = "cfe072e8-149a-4a79-b7d6-9df55eb4aa6b"
+allowed_external_redirect_urls     = ["openid", "profile", "email"]
 
 # App Service Plan
 os_type                            = "Linux"
