@@ -36,7 +36,7 @@ resource "azurerm_linux_function_app" "fa" {
 
 
  
-auth_settings {
+auth_settings_v2 {
   enabled         = true
   runtime_version = "~2" // auth v2
 
