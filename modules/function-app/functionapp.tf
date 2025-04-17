@@ -37,18 +37,18 @@ resource "azurerm_linux_function_app" "fa" {
 
  
 auth_settings_v2 {
-  auth_enabled         = true
-  runtime_version = "~2" // auth v2
+  auth_enabled    = var.auth_enabled
+  runtime_version = var.runtime_version 
 
   login {
-    allowed_external_redirect_urls = ["openid", "profile", "email"] # Adjust scopes as needed
+    allowed_external_redirect_urls = var.allowed_external_redirect_urls 
   }
 
   dynamic "active_directory_v2" {
     for_each = var.auth_enabled ? [1] : []
     content {
-      client_id     = "cfe072e8-149a-4a79-b7d6-9df55eb4aa6b"      
-      tenant_auth_endpoint  = "https://login.microsoftonline.com/%7Btenant-guid%7D/v2.0/" # Adjust scopes as needed
+      client_id           = var.client_id
+      tenant_auth_endpoint = var.tenant_auth_endpoint 
     }
   }
 }
