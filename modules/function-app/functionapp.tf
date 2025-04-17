@@ -26,9 +26,25 @@ resource "azurerm_linux_function_app" "fa" {
 }
   site_config {
     always_on = var.always_on
-    application_stack {
-      linux_fx_version = var.linux_fx_version
+ 
+    dynamic "application_stack" {
+      for_each = var.runtime != null ? [1] : []
+      content {
+       
+        dotnet_version = var.runtime == "dotnet" ? var.runtime_version : null
+        use_dotnet_isolated_runtime = var.runtime == "dotnet" ? var.use_dotnet_isolated_runtime : null
+ 
+        java_version = var.runtime == "java" ? var.runtime_version : null
+ 
+        node_version = var.runtime == "node" ? var.runtime_version : null
+ 
+        python_version = var.runtime == "python" ? var.runtime_version : null
+ 
+        powershell_core_version = var.runtime == "powershell" ? var.runtime_version : null
+ 
+        use_custom_runtime = var.use_custom_runtime
       }
+    }
   }
   app_settings = merge(var.enable_app_insights ? {
       APPINSIGHTS_INSTRUMENTATIONKEY = var.appinsights_instrumentationkey
