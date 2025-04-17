@@ -43,8 +43,9 @@ auth_settings {
   dynamic "microsoft" {
     for_each = var.auth_settings_enabled ? [1] : []
     content {
-      client_id = azurerm_linux_function_app.fa.identity[0].principal_id
-      oauth_scopes = ["https://graph.microsoft.com/.default"]
+      client_id     = "cfe072e8-149a-4a79-b7d6-9df55eb4aa6b"
+      client_secret = "Ih0h~dfkW73DBrfRhgG0ClviDkjD_7aLLR"
+      oauth_scopes  = ["openid", "profile", "email"] # Adjust scopes as needed
     }
   }
 }
