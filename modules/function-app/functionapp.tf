@@ -35,7 +35,8 @@ resource "azurerm_linux_function_app" "fa" {
   )
 
 
- auth_settings {
+ 
+auth_settings {
     enabled          = true
     runtime_version  = "~2" // auth v2
     dynamic "microsoft" {
@@ -48,6 +49,7 @@ resource "azurerm_linux_function_app" "fa" {
       }
     }
   }
+
 
 
 }
