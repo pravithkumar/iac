@@ -37,11 +37,11 @@ resource "azurerm_linux_function_app" "fa" {
 
  
 auth_settings_v2 {
-  enabled         = true
+  auth_enabled         = true
   runtime_version = "~2" // auth v2
 
-  dynamic "microsoft" {
-    for_each = var.auth_settings_enabled ? [1] : []
+  dynamic "azure_active_directory_v2" {
+    for_each = var.auth_enabled ? [1] : []
     content {
       client_id     = "cfe072e8-149a-4a79-b7d6-9df55eb4aa6b"
       client_secret = "Ih0h~dfkW73DBrfRhgG0ClviDkjD_7aLLR"
