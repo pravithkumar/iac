@@ -40,7 +40,7 @@ auth_settings_v2 {
   enabled         = true
   runtime_version = "~2" // auth v2
 
-  dynamic "azure_active_directory_v2" {
+  dynamic "microsoft" {
     for_each = var.auth_settings_enabled ? [1] : []
     content {
       client_id     = "cfe072e8-149a-4a79-b7d6-9df55eb4aa6b"
