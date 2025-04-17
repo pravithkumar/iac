@@ -41,7 +41,7 @@ auth_settings_v2 {
   runtime_version = "~2" // auth v2
 
   login {
-    scopes = ["openid", "profile", "email"] # Adjust scopes as needed
+    allowed_external_redirect_urls = ["openid", "profile", "email"] # Adjust scopes as needed
   }
 
   dynamic "active_directory_v2" {
