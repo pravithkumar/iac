@@ -32,7 +32,7 @@ resource "azurerm_linux_function_app" "fa" {
       content {
        
         dotnet_version = var.runtime == "dotnet" ? var.runtime_version : null
-        use_dotnet_isolated_runtime = var.runtime == "dotnet" ? var.use_dotnet_isolated_runtime : null
+        
  
         java_version = var.runtime == "java" ? var.runtime_version : null
  
