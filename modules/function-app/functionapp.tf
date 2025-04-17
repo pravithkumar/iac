@@ -26,6 +26,9 @@ resource "azurerm_linux_function_app" "fa" {
 }
   site_config {
     always_on = var.always_on
+    application_stack {
+    linux_fx_version = var.linux_fx_version
+  }
   }
   app_settings = merge(var.enable_app_insights ? {
       APPINSIGHTS_INSTRUMENTATIONKEY = var.appinsights_instrumentationkey
