@@ -42,7 +42,7 @@ resource "azurerm_linux_function_app" "fa" {
  
         powershell_core_version = var.runtime == "powershell" ? var.runtime_version : null
  
-        use_custom_runtime = var.use_custom_runtime
+        
       }
     }
   }
