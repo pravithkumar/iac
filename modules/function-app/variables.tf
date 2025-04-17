@@ -49,9 +49,9 @@ variable "runtime" {
   type = string
 }
 
-variable "runtime_version" {
-  type = string
-}
+// variable "runtime_version" {
+//   type = string
+// }
 
 variable "https_only" {
   type = bool
