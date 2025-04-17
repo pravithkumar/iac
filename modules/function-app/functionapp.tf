@@ -35,6 +35,41 @@ resource "azurerm_linux_function_app" "fa" {
   )
 }
 
+resource "azurerm_app_registration" "example" {
+  name                       = azurerm_linux_function_app.fa.name
+  resource_group_name        = var.resource_group_name
+  location                   = var.location
+  client_secret_expiration   = "90d"
+  supported_account_types    = "SingleTenant"
+  additional_checks {
+    client_application_requirement = "AllowRequestsFromThisApplicationItself"
+    identity_requirement           = "AllowRequestsFromAnyIdentity"
+    tenant_requirement             = "AllowRequestsOnlyFromIssuerTenant"
+  }
+  identity {
+    type = "SystemAssigned"
+    identity_ids = [azurerm_linux_function_app.fa.identity[0].principal_id]
+  }
+  depends_on = [azurerm_linux_function_app.fa]
+}
+
+resource "azurerm_app_service_authentication" "auth" {
+  name                = azurerm_linux_function_app.fa.name
+  resource_group_name = var.resource_group_name
+  enabled             = true
+  unauthenticated_client_action = "RedirectToLoginPage"
+  token_store_enabled           = true
+  allowed_external_redirect_urls = [
+    "https://example.com/redirect"
+  ]
+  identity {
+    type = "SystemAssigned"
+    identity_ids = [azurerm_linux_function_app.fa.identity[0].principal_id]
+  }
+  depends_on = [azurerm_linux_function_app.fa]
+}
+
+
 resource "azurerm_role_assignment" "function_app_role" {
   scope                = data.azurerm_storage_account.sa.id
   role_definition_name = "Storage Account Contributor" 
