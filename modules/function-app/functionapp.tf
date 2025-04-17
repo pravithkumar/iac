@@ -33,22 +33,23 @@ resource "azurerm_linux_function_app" "fa" {
     } : {},
     var.app_settings,
   )
+
+  auth_settings {
+    enabled          = var.auth_settings_enabled
+    runtime_version = "~2" // auth v2
+    dynamic "microsoft" {
+      for_each = auth_settings_enabled ? [1] : []
+      content {
+        client_id         = var.auth_active_directory.client_id
+        client_secret     = var.auth_active_directory.client_secret
+        oauth_scopes = var.auth_active_directory.allowed_audiences
+      }
+    }
+  }
+
 }
 
-resource "azurerm_app_service_auth_settings_v2" "auth" {
-  name                = azurerm_linux_function_app.fa.name
-  resource_group_name = var.resource_group_name
-  enabled             = true
-  unauthenticated_client_action = "RedirectToLoginPage"
-  token_store_enabled           = true
-  allowed_external_redirect_urls = [
-    "https://example.com/redirect"
-  ]
-  identity {
-    type = "SystemAssigned"
-  }
-  depends_on = [azurerm_linux_function_app.fa]
-}
+
 
 resource "azurerm_role_assignment" "function_app_role" {
   scope                = data.azurerm_storage_account.sa.id
