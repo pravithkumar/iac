@@ -57,7 +57,7 @@ resource "azurerm_linux_function_app" "fa" {
  
 auth_settings_v2 {
   auth_enabled    = var.auth_enabled
-  runtime_version = var.runtime_version 
+  
 
   login {
     allowed_external_redirect_urls = var.allowed_external_redirect_urls 
