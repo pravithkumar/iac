@@ -17,6 +17,7 @@ resource "azurerm_linux_function_app" "fa" {
   storage_account_access_key = data.azurerm_storage_account.sa.primary_access_key
   https_only                 = var.https_only
   tags                       = var.tags
+  virtual_network_subnet_id = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/rg-fortrea-delete-01/providers/Microsoft.Network/virtualNetworks/vnet-fortrea-01/subnets/default"
   dynamic "identity" {
   for_each = var.identity_type != null ? [1] : []
   content {
