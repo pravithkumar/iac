@@ -84,4 +84,8 @@ variable "tenant_auth_endpoint" {
   type        = string
   default     = "https://login.microsoftonline.com/{tenant-guid}/v2.0/"
 }
-
+variable "auth_enabled" {
+  description = "Enable authentication settings"
+  type        = bool
+  default     = true
+}
