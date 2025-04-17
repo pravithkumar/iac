@@ -26,6 +26,13 @@ module "azurerm_linux_function_app" {
   enable_app_insights                 = true
   appinsights_instrumentationkey      = data.azurerm_application_insights.ai.instrumentation_key
   applicationinsights_connectionstring = data.azurerm_application_insights.ai.connection_string
+
+  
+  auth_enabled                        = var.auth_enabled
+  allowed_external_redirect_urls      = var.allowed_external_redirect_urls
+  client_id                           = var.client_id
+  tenant_auth_endpoint                = var.tenant_auth_endpoint
+
   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_1,module.resource_group]
 }
 
