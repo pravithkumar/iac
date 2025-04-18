@@ -25,8 +25,8 @@ variable "category" {
 }
 
 variable "log_categories" {
-  description = "List of log categories to enable"
-  type        = list(string)
-  default     = ["FunctionAppLogs", "AppServicePlatformLogs", "AuditLogs"]
+  description = "List of log categories to enable"
+  type        = list(string)
+  default     = ["FunctionAppLogs", "AppServicePlatformLogs", "AuditLogs"]
 }
 
