@@ -13,8 +13,7 @@ resource "azurerm_linux_function_app" "fa" {
   location                   = var.location
   resource_group_name        = var.resource_group_name
   service_plan_id            = data.azurerm_service_plan.asp.id
-  storage_account_name       = data.azurerm_storage_account.sa.name
-  storage_account_access_key = data.azurerm_storage_account.sa.primary_access_key
+  storage_account_name       = data.azurerm_storage_account.sa.name  
   https_only                 = var.https_only
   public_network_access_enabled = false
   tags                       = var.tags
@@ -27,25 +26,16 @@ resource "azurerm_linux_function_app" "fa" {
   }
 }
   site_config {
-    always_on = var.always_on
-    
+    always_on = var.always_on   
  
     dynamic "application_stack" {
       for_each = var.runtime != null ? [1] : []
-      content {
-       
-        dotnet_version = var.runtime == "dotnet" ? var.runtime_version : null
-        
- 
+      content {       
+        dotnet_version = var.runtime == "dotnet" ? var.runtime_version : null       
         java_version = var.runtime == "java" ? var.runtime_version : null
- 
         node_version = var.runtime == "node" ? var.runtime_version : null
- 
         python_version = var.runtime == "python" ? var.runtime_version : null
- 
-        powershell_core_version = var.runtime == "powershell" ? var.runtime_version : null
- 
-        
+        powershell_core_version = var.runtime == "powershell" ? var.runtime_version : null      
       }
     }
   }
@@ -55,15 +45,12 @@ resource "azurerm_linux_function_app" "fa" {
     } : {},
     var.app_settings,
   )
-
-
  
 auth_settings_v2 {
   auth_enabled    = var.auth_enabled
-  
 
   login {
-    allowed_external_redirect_urls = var.allowed_external_redirect_urls 
+    allowed_external_redirect_urls = var.allowed_external_redirect_urls
   }
 
   dynamic "active_directory_v2" {
@@ -73,12 +60,8 @@ auth_settings_v2 {
       tenant_auth_endpoint = var.tenant_auth_endpoint 
     }
   }
+ }
 }
-
-
-}
-
-
 
 resource "azurerm_role_assignment" "function_app_role" {
   scope                = data.azurerm_storage_account.sa.id
