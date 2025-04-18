@@ -235,37 +235,48 @@ module "private_endpoint_key_vault" {
 }
 
 
-// module "api_management" {
-//   providers                         =  {azurerm = azurerm.integ-nprod-001}
-//   source                          = "../modules/api-management"
-//   api_management_name             = local.api_management_name
-//   location                        = var.location
-//   resource_group_name             = local.resource_group_name
-//   publisher_name                  = var.publisher_name
-//   publisher_email                 = var.publisher_email
-//   sku                             = var.api_sku
-//   sku_count                       = var.sku_count
-//   identity_type                   = "SystemAssigned"
-//   identity_ids                    = []
-//   tags                            = var.tags
-//   depends_on = [module.resource_group]
-// }
+module "api_management" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                          = "../modules/api-management"
+  api_management_name             = local.api_management_name
+  location                        = var.location
+  resource_group_name             = local.resource_group_name
+  publisher_name                  = var.publisher_name
+  publisher_email                 = var.publisher_email
+  sku                             = var.api_sku
+  sku_count                       = var.sku_count
+  identity_type                   = "SystemAssigned"
+  identity_ids                    = []
+  tags                            = var.tags
+  depends_on = [module.resource_group]
+}
 
-// module "private_endpoint_api_management" {
-//   providers                         =  {azurerm = azurerm.integ-nprod-001}
-//   source                          = "../modules/private-endpoint"
-//   private_endpoint_name           = "pe-${local.api_management_name}"
-//   location                        = var.location
-//   resource_group_name             = local.resource_group_name
-//   subnet_id                       = data.azurerm_subnet.default_subnet.id
-//   private_service_connection_name = "${local.api_management_name}-psc"
-//   private_connection_resource_id  = module.api_management.id
-//   subresource_names               = ["Gateway"]
-//   is_manual_connection            = false
-//   private_dns_zone_group_name     = "private-dns-zone-group"
-//   private_dns_zone_ids            = [data.azurerm_private_dns_zone.api_management_dns.id]  
-//   depends_on                      = [module.api_management,module.resource_group]
-// }
+module "private_endpoint_api_management" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                          = "../modules/private-endpoint"
+  private_endpoint_name           = "pe-${local.api_management_name}"
+  location                        = var.location
+  resource_group_name             = local.resource_group_name
+  subnet_id                       = data.azurerm_subnet.default_subnet.id
+  private_service_connection_name = "${local.api_management_name}-psc"
+  private_connection_resource_id  = module.api_management.id
+  subresource_names               = ["Gateway"]
+  is_manual_connection            = false
+  private_dns_zone_group_name     = "private-dns-zone-group"
+  private_dns_zone_ids            = [data.azurerm_private_dns_zone.api_management_dns.id]  
+  depends_on                      = [module.api_management,module.resource_group]
+}
+
+module "diagnostic_setting_api" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                            = "../modules/diagnostic-settings"
+  enable_monitoring                 = true
+  monitor_diagnostic_name           = local.monitor_diagnostic_name_2
+  target_resource_id                = module.api_management.id
+  log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
+  category                          = "GatewayLogs"
+  depends_on                         = [module.api_management.id]
+}
 
 // module "app_service_environment" {
 //   providers                         =  {azurerm = azurerm.integ-nprod-001}
