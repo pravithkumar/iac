@@ -5,11 +5,11 @@ resource "azurerm_monitor_diagnostic_setting" "diagnostic" {
   log_analytics_workspace_id = var.log_analytics_workspace_id
 
   dynamic "enabled_log" {
-    for_each = var.log_categories
-    content {
-      category = enabled_log.value
-    }
-  }
+    for_each = var.log_categories
+    content {
+      category = enabled_log.value
+    }
+  }
   metric {
     category = "AllMetrics"
     enabled  = true
