@@ -107,9 +107,4 @@ variable "tenant_auth_endpoint" {
   default     = "https://login.microsoftonline.com/{tenant-guid}/v2.0/"
 }
 
-# variables.tf
-variable "linux_fx_version" {
-  type = string
-  description = "The Linux FX Version to use (e.g., 'PYTHON|3.9', 'JAVA|11')."
-  default     = "PYTHON|3.9"
-}
+
