@@ -16,7 +16,7 @@ resource "azurerm_api_management" "api" {
 }
 }
 resource "azurerm_api_management_logger" "logger" {
-  name                = "$(var.api_management_name)-logger"
+  name                = "appinsights_logger"
   api_management_name = azurerm_api_management.api.name
   resource_group_name = var.resource_group_name
   resource_id         = var.app_insights_id
