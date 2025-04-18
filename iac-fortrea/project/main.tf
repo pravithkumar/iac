@@ -248,6 +248,8 @@ module "api_management" {
   identity_type                   = "SystemAssigned"
   identity_ids                    = []
   tags                            = var.tags
+  app_insights_id                 = data.azurerm_application_insights.ai.id
+  app_insights_key                = data.azurerm_application_insights.ai.instrumentation_key
   depends_on = [module.resource_group]
 }
 
