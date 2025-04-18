@@ -311,7 +311,7 @@ module "diagnostic_setting_logicapp" {
   monitor_diagnostic_name           = local.monitor_diagnostic_name_2
   target_resource_id                = module.app_logic_app.id
   log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
-  log_categories                    = ["WorkflowRuntime", "WorkflowMetrics"]
+  category                          = "WorkflowRuntime"
   depends_on                         = [module.app_logic_app]
 }
 
