@@ -41,3 +41,14 @@ variable "identity_ids" {
   type        = list(string)
   default     = []
 }
+
+variable "app_insights_id" {
+  type        = string
+  description = "The resource ID of the Application Insights instance"
+}
+
+variable "app_insights_key" {
+  type        = string
+  description = "The instrumentation key of the Application Insights instance"
+  sensitive   = true
+}
