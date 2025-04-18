@@ -7,7 +7,7 @@ locals {
   app_service_plan_name        = "asp-${local.app_name}-${local.environment}-${local.location_test}-10" 
   // ase_name                     = "ase-${local.app_name}-${local.environment}-${local.location_test}-001"
 
-  // api_management_name          = "api-${local.app_name}-${local.environment}-${local.location_test}-05"
+  api_management_name          = "api-${local.app_name}-${local.environment}-${local.location_test}-05"
 
   // ase_resource_group_name      = "rg-${local.app_name}-${local.environment}-${local.location_test}-002" 
   storage_resource_group_name  = "rg-${local.app_name}-${local.environment}-${local.location_test}-01"
