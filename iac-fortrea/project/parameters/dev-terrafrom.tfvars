@@ -59,10 +59,6 @@ sku_count = 1
 internal_load_balancing_mode  = "Web, Publishing"
 cluster_settings = [
   {
-    name  = "DisableTls1.0"
-    value = "1"
-  },
-  {
     name  = "InternalEncryption"
     value = true
   },
