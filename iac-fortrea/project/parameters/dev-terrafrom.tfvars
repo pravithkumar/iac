@@ -1,6 +1,6 @@
 # Application Naming and Environment
-app_name                           = "uat"
-environment                        = "dev"
+app_name                           = "int"
+environment                        = "tst"
 location_test                      = "eus"
 location                           = "East US"
 
@@ -20,9 +20,12 @@ tags = {
 #app_insights_resource_group_name   = "rg-int-apps-esu-003"
 
 # Function App
-runtime                            = "python"
-runtime_version                    = "3.9"
+runtime                            = "java"
+runtime_version                    = "11"
 always_on                          = true
+tenant_auth_endpoint               = "https://login.microsoftonline.com/{tenant-guid}/v2.0/"
+client_id                          = ""
+allowed_external_redirect_urls     = ["openid", "profile", "email"]
 
 # App Service Plan
 os_type                            = "Linux"
@@ -49,7 +52,7 @@ subscription_max_delivery_count    = 10
 # api managment
 publisher_name = "Your Publisher Name"
 publisher_email = "publisher@example.com"
-api_sku = "Premium"
+api_sku = "Standard"
 sku_count = 1
 
 # app service environment
