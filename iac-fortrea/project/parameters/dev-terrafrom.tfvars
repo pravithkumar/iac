@@ -60,7 +60,7 @@ internal_load_balancing_mode  = "Web, Publishing"
 cluster_settings = [
   {
     name  = "DisableTls1.0"
-    value = true
+    value = "true"
   },
   {
     name  = "InternalEncryption"
