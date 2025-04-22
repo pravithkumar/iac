@@ -3,6 +3,18 @@ resource "azurerm_app_service_environment_v3" "ase" {
   resource_group_name           = var.resource_group_name
   subnet_id                     = var.subnet_id
   internal_load_balancing_mode  = var.internal_load_balancing_mode
+  allow_new_private_endpoint_connections = true
+  remote_debugging_enabled = true
+
+  dynamic "identity" {
+  for_each = var.identity_type != null ? [1] : []
+  content {
+    type       = var.identity_type
+    identity_ids = var.identity_type == "UserAssigned" ? var.identity_ids : []
+  }
+}
+}
+
   timeouts {
         create = "120m"
         delete = "120m"
@@ -18,6 +30,10 @@ resource "azurerm_app_service_environment_v3" "ase" {
   cluster_setting {
     name  = "FrontEndSSLCipherSuiteOrder"
     value = var.frontend_ssl_cipher_suite_order
+  }
+  cluster_setting {
+    name  = "ftpEnabled"
+    value = "true" 
   }
   tags = var.tags
 }
