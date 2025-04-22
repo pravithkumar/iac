@@ -56,7 +56,7 @@ api_sku = "Standard"
 sku_count = 1
 
 # app service environment
-internal_load_balancing_mode=true
+internal_load_balancing_mode  = "Web, Publishing"
 cluster_settings = {  
   "DisableTls1.0"=true,
   "InternalEncryption"=true,
