@@ -13,7 +13,6 @@ resource "azurerm_app_service_environment_v3" "ase" {
     identity_ids = var.identity_type == "UserAssigned" ? var.identity_ids : []
   }
 }
-}
 
   timeouts {
         create = "120m"
