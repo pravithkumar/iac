@@ -17,7 +17,7 @@ locals {
   resource_group_name     = "rg-${local.app_name}-${local.environment}-${local.location_test}-002"
   asp_service_plan_name   = "asp-${local.app_name}-${local.environment}-${local.location_test}-001"
   servicebus_name         = "sb-${local.app_name}-${local.environment}-${local.location_test}-001"
-  key_vault_name          = "kv-${local.app_name}-${local.environment}-${local.location_test}-001"
+  key_vault_name          = "akv-${local.app_name}-${local.environment}-${local.location_test}-001"
   storage_account_name_1  = "stg${local.app_name}${local.environment}${local.location_test}001"
   storage_account_name_2  = "stg${local.app_name}${local.environment}${local.location_test}002"
 
