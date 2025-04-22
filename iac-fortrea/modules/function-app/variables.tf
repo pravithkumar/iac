@@ -77,3 +77,31 @@ variable "identity_ids" {
   default     = []
 }
 
+variable "auth_enabled" {
+  description = "Enable authentication settings"
+  type        = bool
+  default     = true
+}
+
+
+variable "allowed_external_redirect_urls" {
+  description = "Allowed external redirect URLs"
+  type        = list(string)
+  default     = ["openid", "profile", "email"]
+}
+
+variable "client_id" {
+  description = "Client ID of the Azure Active Directory application"
+  type        = string
+}
+
+variable "tenant_auth_endpoint" {
+  description = "Tenant authentication endpoint"
+  type        = string
+  default     = "https://login.microsoftonline.com/{tenant-guid}/v2.0/"
+}
+
+variable "subnet_id" {
+  description = "Subnet ID for outbound"
+  type        = string
+}
