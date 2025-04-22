@@ -24,7 +24,7 @@ runtime                            = "java"
 runtime_version                    = "11"
 always_on                          = true
 tenant_auth_endpoint               = "https://login.microsoftonline.com/{tenant-guid}/v2.0/"
-client_id                          = ""
+client_id                          = "cfe072e8-149a-4a79-b7d6-9df55eb4aa6b"
 allowed_external_redirect_urls     = ["openid", "profile", "email"]
 
 # App Service Plan
