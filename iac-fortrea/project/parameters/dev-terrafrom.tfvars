@@ -57,34 +57,13 @@ sku_count = 1
 
 # app service environment
 internal_load_balancing_mode  = "Web, Publishing"
-cluster_settings = [
-  {
-    name  = "InternalEncryption"
-    value = true
-  },
-  {
-    name  = "FrontEndSSLCipherSuiteOrder"
-    value = "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
-  },
-  {
-    name  = "RemoteDebugEnabled"
-    value = false
-  },
-  {
-    name  = "FtpEnabled"
-    value = false
-  },
-  {
-    name  = "AllowNewPrivateEndpointConnections"
-    value = true
-  },
-  {
-    name  = "MaxWorkerCount"
-    value = 10
-  },
-  {
-    name  = "DiagnosticLogsEnabled"
-    value = true
-  }
-]
 
+cluster_settings = {
+  DisableTls1.0                       = "1"
+  InternalEncryption                  = "true"
+  FrontEndSSLCipherSuiteOrder         = "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+  FtpEnabled                          = "false"
+  AllowNewPrivateEndpointConnections  = "true"
+  MaxWorkerCount                      = "10"
+  DiagnosticLogsEnabled               = "true"
+}
