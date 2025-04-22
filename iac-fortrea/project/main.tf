@@ -174,7 +174,7 @@ module "azurerm_key_vault" {
   location                          = var.location  
   enabled_for_disk_encryption       = true
   soft_delete_retention_days        = 7
-  purge_protection_enabled          = true
+  purge_protection_enabled          = false
   sku_name                          = "standard"
   enabled_for_template_deployment   = true
   enabled_for_deployment            = true
