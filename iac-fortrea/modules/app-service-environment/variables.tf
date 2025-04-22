@@ -23,7 +23,7 @@ variable "cluster_settings" {
   description = "List of cluster settings"
   type        = list(object({
     name  = string
-    value = string
+    value = any
   }))
 }
 
