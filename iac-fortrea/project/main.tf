@@ -262,7 +262,9 @@ module "app_service_environment" {
   resource_group_name             = local.resource_group_name
   subnet_id                       = data.azurerm_subnet.delegated_subnet.id
   internal_load_balancing_mode    = var.internal_load_balancing_mode 
-  cluster_settings                =var.cluster_settings
+  disable_tls1_0                  = var.disable_tls1_0
+  internal_encryption             = var.internal_encryption
+  frontend_ssl_cipher_suite_order = var.frontend_ssl_cipher_suite_order
   tags                            = var.tags
   depends_on = [module.resource_group]
 }
