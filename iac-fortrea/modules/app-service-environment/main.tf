@@ -19,24 +19,5 @@ resource "azurerm_app_service_environment_v3" "ase" {
     name  = "FrontEndSSLCipherSuiteOrder"
     value = var.frontend_ssl_cipher_suite_order
   }
- 
-
-cluster_setting {
-  name = "FtpEnabled"
-  value = false
-}
-cluster_setting {
-  name = "AllowNewPrivateEndpointConnections"
-  value = true
-}
-cluster_setting {
-  name = "MaxWorkerCount"
-  value = 10
-}
-cluster_setting {
-  name = "DiagnosticLogsEnabled"
-  value = true
-}
-
   tags = var.tags
 }
