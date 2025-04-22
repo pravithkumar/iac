@@ -22,7 +22,7 @@ variable "internal_load_balancing_mode" {
 variable "cluster_settings" {
   description = "List of cluster settings"
   type        = list(object({
-    key  = string
+    name  = string
     value = string
   }))
 }
