@@ -288,8 +288,7 @@ module "app_logic_app" {
   app_settings                        = var.app_settings
   enable_app_insights                 = true
   appinsights_instrumentationkey      = data.azurerm_application_insights.ai.instrumentation_key
-  applicationinsights_connectionstring = data.azurerm_application_insights.ai.connection_string
-  depends_on                      = [module.azurerm_storage_account_1,module.resource_group]
+  applicationinsights_connectionstring = data.azurerm_application_insights.ai.connection_string 
   depends_on                      = [module.app_service_environment,module.azurerm_storage_account_1,module.resource_group]
 }
 
