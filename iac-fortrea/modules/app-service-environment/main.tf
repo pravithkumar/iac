@@ -6,14 +6,6 @@ resource "azurerm_app_service_environment_v3" "ase" {
   allow_new_private_endpoint_connections = true
   remote_debugging_enabled = true
 
-  dynamic "identity" {
-  for_each = var.identity_type != null ? [1] : []
-  content {
-    type       = var.identity_type
-    identity_ids = var.identity_type == "UserAssigned" ? var.identity_ids : []
-  }
-}
-
   timeouts {
         create = "120m"
         delete = "120m"
