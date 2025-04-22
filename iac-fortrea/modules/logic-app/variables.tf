@@ -8,15 +8,15 @@ variable "location" {
   type        = string
 }
 
-// variable "ase_name" {
-//   description = "The name of the existing App Service Environment"
-//   type        = string
-// }
+variable "ase_name" {
+  description = "The name of the existing App Service Environment"
+  type        = string
+}
 
-// variable "ase_resource_group_name" {
-//   description = "The resource group name of the existing App Service Environment"
-//   type        = string
-// }
+variable "ase_resource_group_name" {
+  description = "The resource group name of the existing App Service Environment"
+  type        = string
+}
 
 variable "storage_account_name" {
   description = "The name of the existing storage account"
