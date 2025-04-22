@@ -20,11 +20,8 @@ variable "internal_load_balancing_mode" {
 
 
 variable "cluster_settings" {
-  description = "List of cluster settings"
-  type        = list(object({
-    name  = string
-    value = any
-  }))
+  description = "Map of cluster settings"
+  type        = map(any)
 }
 
 variable "tags" {
