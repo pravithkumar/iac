@@ -287,7 +287,12 @@ module "app_logic_app" {
   location                        = var.location
   identity_type                   = "SystemAssigned"
   identity_ids                    = []
-  depends_on = [module.app_service_environment,module.azurerm_storage_account_1,module.resource_group]
+  app_settings                        = var.app_settings
+  enable_app_insights                 = true
+  appinsights_instrumentationkey      = data.azurerm_application_insights.ai.instrumentation_key
+  applicationinsights_connectionstring = data.azurerm_application_insights.ai.connection_string
+  depends_on                      = [module.azurerm_storage_account_1,module.resource_group]
+  depends_on                      = [module.app_service_environment,module.azurerm_storage_account_1,module.resource_group]
 }
 
 module "azurerm_storage_account_1" {  
