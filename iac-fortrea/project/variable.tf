@@ -167,3 +167,10 @@ variable "tenant_auth_endpoint" {
   default     = "https://login.microsoftonline.com/{tenant-guid}/v2.0/"
 }
 
+variable "cluster_settings" {
+  description = "List of cluster settings"
+  type        = list(object({
+    name  = string
+    value = string
+  }))
+}
