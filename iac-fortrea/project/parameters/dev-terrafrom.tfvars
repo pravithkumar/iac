@@ -59,11 +59,11 @@ sku_count = 1
 internal_load_balancing_mode  = "Web, Publishing"
 
 cluster_settings = {
-  DisableTls1.0                       = "1"
-  InternalEncryption                  = "true"
+  DisableTls1.0                       = 1
+  InternalEncryption                  = true
   FrontEndSSLCipherSuiteOrder         = "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
-  FtpEnabled                          = "false"
-  AllowNewPrivateEndpointConnections  = "true"
-  MaxWorkerCount                      = "10"
-  DiagnosticLogsEnabled               = "true"
+  FtpEnabled                          = false
+  AllowNewPrivateEndpointConnections  = true
+  MaxWorkerCount                      = 10
+  DiagnosticLogsEnabled               = true
 }
