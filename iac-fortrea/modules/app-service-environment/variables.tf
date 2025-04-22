@@ -19,9 +19,22 @@ variable "internal_load_balancing_mode" {
 }
 
 
-variable "cluster_settings" {
-  description = "Map of cluster settings"
-  type        = map(any)
+variable "disable_tls1_0" {
+  description = "Disable TLS 1.0 setting"
+  type        = string
+  default     = "1"
+}
+
+variable "internal_encryption" {
+  description = "Internal encryption setting"
+  type        = string
+  default     = "true"
+}
+
+variable "frontend_ssl_cipher_suite_order" {
+  description = "Front-end SSL cipher suite order"
+  type        = string
+  default     = "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
 }
 
 variable "tags" {
