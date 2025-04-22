@@ -265,6 +265,8 @@ module "app_service_environment" {
   disable_tls1_0                  = var.disable_tls1_0
   internal_encryption             = var.internal_encryption
   frontend_ssl_cipher_suite_order = var.frontend_ssl_cipher_suite_order
+  identity_type                     = "SystemAssigned"
+  identity_ids                      = []
   tags                            = var.tags
   depends_on = [module.resource_group]
 }
