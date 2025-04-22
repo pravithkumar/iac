@@ -22,9 +22,5 @@ resource "azurerm_app_service_environment_v3" "ase" {
     name  = "FrontEndSSLCipherSuiteOrder"
     value = var.frontend_ssl_cipher_suite_order
   }
-  cluster_setting {
-    name  = "ftpEnabled"
-    value = "true" 
-  }
   tags = var.tags
 }
