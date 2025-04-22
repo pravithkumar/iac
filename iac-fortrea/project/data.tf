@@ -9,6 +9,13 @@ data "azurerm_subnet" "default_subnet" {
   resource_group_name  = "rg-fort-dev-eus-004"
 }
 
+data "azurerm_subnet" "fa_outbound_subnet" {
+  provider             = azurerm.integ-nprod-001
+  name                 = "subnet3"
+  virtual_network_name = "vnet-fort-dev-eus-001"
+  resource_group_name  = "rg-fort-dev-eus-004"
+}
+
 
 data "azurerm_subnet" "delegated_subnet" {
   provider             = azurerm.integ-nprod-001
