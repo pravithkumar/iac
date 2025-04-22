@@ -57,14 +57,14 @@ sku_count = 1
 
 # app service environment
 
-cluster_settings = {
-  "DisableTls1.0"                  = true,
-  "InternalEncryption"             = true,
-  "FrontEndSSLCipherSuiteOrder"    = "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
-  "RemoteDebugEnabled"             = false,
-  "FtpEnabled"                     = false,
-  "AllowNewPrivateEndpointConnections" = true,
-  "MaxWorkerCount"                 = 10,
-  "DiagnosticLogsEnabled"          = true
+cluster_settings = {  
+  "DisableTls1.0"=true,
+  "InternalEncryption"=true,
+  "FrontEndSSLCipherSuiteOrder"="TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+  "RemoteDebugEnabled"=false,
+  "FtpEnabled"=false,
+  "AllowNewPrivateEndpointConnections"=true,
+  "MaxWorkerCount"=10,
+  "DiagnosticLogsEnabled"=true
 }
 
