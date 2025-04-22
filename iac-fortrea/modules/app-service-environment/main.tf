@@ -7,7 +7,7 @@ resource "azurerm_app_service_environment_v3" "ase" {
   dynamic "cluster_setting" {
     for_each = var.cluster_settings
     content {
-      name  = cluster_setting.key
+      name  = cluster_setting.name
       value = cluster_setting.value
       }
   }
