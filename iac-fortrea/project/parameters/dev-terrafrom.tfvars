@@ -57,6 +57,14 @@ sku_count = 1
 
 # app service environment
 
-internal_load_balancing_mode  = "Web, Publishing"  
-disable_tls1_0 = 1 
-frontend_ssl_cipher_suite_order = "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+cluster_settings = {
+  "DisableTls1.0"                  = true,
+  "InternalEncryption"             = true,
+  "FrontEndSSLCipherSuiteOrder"    = "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+  "RemoteDebugEnabled"             = false,
+  "FtpEnabled"                     = false,
+  "AllowNewPrivateEndpointConnections" = true,
+  "MaxWorkerCount"                 = 10,
+  "DiagnosticLogsEnabled"          = true
+}
+
