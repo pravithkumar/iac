@@ -45,9 +45,3 @@ resource "azurerm_logic_app_standard" "logic_app" {
   }
 }
 }
-
-resource "azurerm_role_assignment" "mi" {
-  scope                = data.azurerm_storage_account.storage.id
-  role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azurerm_logic_app_standard.logic_app.identity[0].principal_id  
-}
