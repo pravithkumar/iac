@@ -170,7 +170,7 @@ variable "tenant_auth_endpoint" {
 variable "cluster_settings" {
   description = "List of cluster settings"
   type        = list(object({
-    key  = string
+    name  = string
     value = string
   }))
 }
