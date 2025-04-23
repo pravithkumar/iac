@@ -52,3 +52,21 @@ variable "app_insights_key" {
   description = "The instrumentation key of the Application Insights instance"
   sensitive   = true
 }
+
+variable "client_id" {
+  type        = string
+  description = "The Client ID of the Azure Active Directory application."
+  sensitive   = true
+}
+
+variable "client_secret" {
+  type        = string
+  description = "The Client Secret of the Azure Active Directory application."
+  sensitive   = true
+}
+
+variable "allowed_tenants" {
+  type        = list(string)
+  description = "A list of tenant IDs that will be allowed to sign in."
+  default     = []
+}
