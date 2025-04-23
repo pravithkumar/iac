@@ -254,7 +254,28 @@ module "private_endpoint_api_management" {
 //   principal_id                      = module.api_management.principal_id
 // }
 
-
+module "app_logic_app" {
+  providers                       =  {azurerm = azurerm.integ-nprod-001}
+  source                          = "../modules/logic-app"
+  resource_group_name             = local.resource_group_name
+  app_service_plan_name_1         = local.app_service_plan_name
+  logic_app_name                  = local.logic_app_name
+  os_type                         = "Windows"
+  sku_name                        = "I1v2"
+  storage_resource_group_name     = local.storage_resource_group_name
+  ase_name                        = local.ase_name
+  ase_resource_group_name         = local.ase_resource_group_name
+  storage_account_name            = local.storage_account_name_1
+  storage_account_access_key      = module.azurerm_storage_account_1.primary_access_key
+  location                        = var.location
+  identity_type                   = "SystemAssigned"
+  identity_ids                    = []
+  app_settings                        = var.app_settings
+  enable_app_insights                 = true
+  appinsights_instrumentationkey      = data.azurerm_application_insights.ai.instrumentation_key
+  applicationinsights_connectionstring = data.azurerm_application_insights.ai.connection_string 
+  depends_on                      = [module.app_service_environment,module.azurerm_storage_account_1,module.resource_group]
+}
 
 // module "azurerm_storage_account_1" {  
 //   providers                             =  {azurerm = azurerm.integ-nprod-001}
