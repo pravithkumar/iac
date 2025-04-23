@@ -215,6 +215,9 @@ module "api_management" {
   identity_ids                    = []
   app_insights_id                 = data.azurerm_application_insights.ai.id
   app_insights_key                = data.azurerm_application_insights.ai.instrumentation_key
+  client_id                       = "cfe072e8-149a-4a79-b7d6-9df55eb4aa6b"
+  client_secret                   = "Ih0h~dfkW73DBrfRhgG0ClviDkjD_7aLL"
+  allowed_tenants                 = ["188285f7-8f1e-4c0d-a0bc-797e3e38c5b3"]
   tags                            = var.tags
   depends_on = [module.resource_group]
 }
