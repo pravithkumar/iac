@@ -260,7 +260,7 @@ module "app_logic_app" {
   resource_group_name             = local.resource_group_name
   app_service_plan_name_1         = local.app_service_plan_name
   logic_app_name                  = local.logic_app_name
-  os_type                         = "Windows"
+  os_type                         = "Linux"
   sku_name                        = "I1v2"
   storage_resource_group_name     = local.storage_resource_group_name
   ase_name                        = local.ase_name
