@@ -254,42 +254,42 @@ module "role_assignment_api_mgmt_kv" {
   principal_id                      = module.api_management.principal_id
 }
 
-module "app_service_environment" {
-  providers                         =  {azurerm = azurerm.integ-nprod-001}
-  source                          = "../modules/app-service-environment"
-  ase_name                        = local.ase_name
-  resource_group_name             = local.resource_group_name
-  subnet_id                       = data.azurerm_subnet.delegated_subnet.id
-  internal_load_balancing_mode    = var.internal_load_balancing_mode
-  disable_tls1_0                  = var.disable_tls1_0
-  internal_encryption             = var.internal_encryption
-  frontend_ssl_cipher_suite_order = var.frontend_ssl_cipher_suite_order
-  tags                            = var.tags
-  depends_on = [module.resource_group]
-}
+// module "app_service_environment" {
+//   providers                         =  {azurerm = azurerm.integ-nprod-001}
+//   source                          = "../modules/app-service-environment"
+//   ase_name                        = local.ase_name
+//   resource_group_name             = local.resource_group_name
+//   subnet_id                       = data.azurerm_subnet.delegated_subnet.id
+//   internal_load_balancing_mode    = var.internal_load_balancing_mode
+//   disable_tls1_0                  = var.disable_tls1_0
+//   internal_encryption             = var.internal_encryption
+//   frontend_ssl_cipher_suite_order = var.frontend_ssl_cipher_suite_order
+//   tags                            = var.tags
+//   depends_on = [module.resource_group]
+// }
 
-module "app_logic_app" {
-  providers                       =  {azurerm = azurerm.integ-nprod-001}
-  source                          = "../modules/logic-app"
-  resource_group_name             = local.resource_group_name
-  app_service_plan_name_1         = local.app_service_plan_name
-  logic_app_name                  = local.logic_app_name
-  os_type                         = "Linux"
-  sku_name                        = "I1v2"
-  storage_resource_group_name     = local.storage_resource_group_name
-  ase_name                        = local.ase_name
-  ase_resource_group_name         = local.ase_resource_group_name
-  storage_account_name            = local.storage_account_name_1
-  storage_account_access_key      = module.azurerm_storage_account_1.primary_access_key
-  location                        = var.location
-  identity_type                   = "SystemAssigned"
-  identity_ids                    = []
-  app_settings                        = var.app_settings
-  enable_app_insights                 = true
-  appinsights_instrumentationkey      = data.azurerm_application_insights.ai.instrumentation_key
-  applicationinsights_connectionstring = data.azurerm_application_insights.ai.connection_string 
-  depends_on                      = [module.app_service_environment,module.azurerm_storage_account_1,module.resource_group]
-}
+// module "app_logic_app" {
+//   providers                       =  {azurerm = azurerm.integ-nprod-001}
+//   source                          = "../modules/logic-app"
+//   resource_group_name             = local.resource_group_name
+//   app_service_plan_name_1         = local.app_service_plan_name
+//   logic_app_name                  = local.logic_app_name
+//   os_type                         = "Linux"
+//   sku_name                        = "I1v2"
+//   storage_resource_group_name     = local.storage_resource_group_name
+//   ase_name                        = local.ase_name
+//   ase_resource_group_name         = local.ase_resource_group_name
+//   storage_account_name            = local.storage_account_name_1
+//   storage_account_access_key      = module.azurerm_storage_account_1.primary_access_key
+//   location                        = var.location
+//   identity_type                   = "SystemAssigned"
+//   identity_ids                    = []
+//   app_settings                        = var.app_settings
+//   enable_app_insights                 = true
+//   appinsights_instrumentationkey      = data.azurerm_application_insights.ai.instrumentation_key
+//   applicationinsights_connectionstring = data.azurerm_application_insights.ai.connection_string 
+//   depends_on                      = [module.app_service_environment,module.azurerm_storage_account_1,module.resource_group]
+// }
 
 module "azurerm_storage_account_1" {  
   providers                             =  {azurerm = azurerm.integ-nprod-001}
@@ -328,30 +328,30 @@ private_dns_zone_ids                  = [data.azurerm_private_dns_zone.storageac
 depends_on                            = [module.azurerm_storage_account_1,module.resource_group]
 }
 
-module "diagnostic_setting_logicapp" {
-  providers                         =  {azurerm = azurerm.integ-nprod-001}
-  source                            = "../modules/diagnostic-settings"
-  enable_monitoring                 = true
-  monitor_diagnostic_name           = "diag-${local.logic_app_name}"
-  target_resource_id                = module.app_logic_app.id
-  log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
-  category                          = "WorkflowRuntime"
-  depends_on                         = [module.app_logic_app]
-}
+// module "diagnostic_setting_logicapp" {
+//   providers                         =  {azurerm = azurerm.integ-nprod-001}
+//   source                            = "../modules/diagnostic-settings"
+//   enable_monitoring                 = true
+//   monitor_diagnostic_name           = "diag-${local.logic_app_name}"
+//   target_resource_id                = module.app_logic_app.id
+//   log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
+//   category                          = "WorkflowRuntime"
+//   depends_on                         = [module.app_logic_app]
+// }
 
-module "role_assignment_logic_app_stg" {
-  providers                         =  {azurerm = azurerm.integ-nprod-001}
-  source                            = "../modules/role_assignments"
-  scope                             = module.azurerm_storage_account_1.id
-  role_definition_name              = "Storage Blob Data Contributor"
-  principal_id                      = module.app_logic_app.principal_id
-}
+// module "role_assignment_logic_app_stg" {
+//   providers                         =  {azurerm = azurerm.integ-nprod-001}
+//   source                            = "../modules/role_assignments"
+//   scope                             = module.azurerm_storage_account_1.id
+//   role_definition_name              = "Storage Blob Data Contributor"
+//   principal_id                      = module.app_logic_app.principal_id
+// }
 
-module "role_assignment_logic_app_kv" {
-  providers                         =  {azurerm = azurerm.integ-nprod-001}
-  source                            = "../modules/role_assignments"
-  scope                             = module.azurerm_key_vault.key_vault_id
-  role_definition_name              = "Reader"
-  principal_id                      = module.app_logic_app.principal_id
-}
+// module "role_assignment_logic_app_kv" {
+//   providers                         =  {azurerm = azurerm.integ-nprod-001}
+//   source                            = "../modules/role_assignments"
+//   scope                             = module.azurerm_key_vault.key_vault_id
+//   role_definition_name              = "Reader"
+//   principal_id                      = module.app_logic_app.principal_id
+// }
 
