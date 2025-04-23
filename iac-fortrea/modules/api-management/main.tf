@@ -25,6 +25,8 @@ resource "azurerm_api_management_identity_provider_aad" "example" {
   allowed_tenants = [
     "188285f7-8f1e-4c0d-a0bc-797e3e38c5b3"
   ]
+  client_library = "MSAL"
+  redirect_url   = "https://your-redirect-url"
 }
 resource "azurerm_api_management_logger" "logger" {
   name                = "appinsights_logger"
