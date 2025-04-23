@@ -1,7 +1,7 @@
-// data "azurerm_app_service_environment_v3" "ase" {
-//   name                = var.ase_name
-//   resource_group_name = var.ase_resource_group_name
-// }
+data "azurerm_app_service_environment_v3" "ase" {
+  name                = var.ase_name
+  resource_group_name = var.ase_resource_group_name
+}
 
 data "azurerm_storage_account" "storage" {
   name                = var.storage_account_name
@@ -17,7 +17,7 @@ resource "azurerm_service_plan" "logicasp" {
   sku_name = var.sku_name
 
  
-  // app_service_environment_id = data.azurerm_app_service_environment_v3.ase.id
+  app_service_environment_id = data.azurerm_app_service_environment_v3.ase.id
 }
 
 resource "azurerm_logic_app_standard" "logic_app" {
