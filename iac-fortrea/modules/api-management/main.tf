@@ -21,7 +21,8 @@ resource "azurerm_api_management_identity_provider_aad" "example" {
   resource_group_name = var.resource_group_name 
 
   client_id     = "cfe072e8-149a-4a79-b7d6-9df55eb4aa6b"
-  client_secret = "Ih0h~dfkW73DBrfRhgG0ClviDkjD_7aLLR"  
+  client_secret = "Ih0h~dfkW73DBrfRhgG0ClviDkjD_7aLLR"
+  client_library = "MSAL"  
   allowed_tenants = [
     "188285f7-8f1e-4c0d-a0bc-797e3e38c5b3"
   ]  
