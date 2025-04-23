@@ -52,7 +52,7 @@ subscription_max_delivery_count    = 10
 # api managment
 publisher_name = "Your Publisher Name"
 publisher_email = "publisher@example.com"
-api_sku = "Standard"
+api_sku = "Developer"
 sku_count = 1
 
 # app service environment
