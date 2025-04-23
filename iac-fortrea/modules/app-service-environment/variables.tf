@@ -57,3 +57,15 @@ variable "identity_ids" {
   type        = list(string)
   default     = []
 }
+
+variable "allow_new_private_endpoint_connections" {
+  type        = bool
+  description = "Specifies if the API Management service should allow new private endpoint connections."
+  default     = true # Or false, depending on your desired default
+}
+
+variable "remote_debugging_enabled" {
+  type        = bool
+  description = "Specifies if remote debugging is enabled for the API Management service."
+  default     = false # Or true, depending on your desired default
+}
