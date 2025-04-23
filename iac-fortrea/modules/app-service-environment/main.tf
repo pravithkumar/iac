@@ -3,8 +3,8 @@ resource "azurerm_app_service_environment_v3" "ase" {
   resource_group_name           = var.resource_group_name
   subnet_id                     = var.subnet_id
   internal_load_balancing_mode  = var.internal_load_balancing_mode
-  allow_new_private_endpoint_connections = true
-  remote_debugging_enabled = true
+  allow_new_private_endpoint_connections = var.allow_new_private_endpoint_connections
+  remote_debugging_enabled = var.remote_debugging_enabled
 
   timeouts {
         create = "120m"
