@@ -257,19 +257,21 @@ module "role_assignment_api_mgmt_kv" {
   principal_id                      = module.api_management.principal_id
 }
 
-// module "app_service_environment" {
-//   providers                         =  {azurerm = azurerm.integ-nprod-001}
-//   source                          = "../modules/app-service-environment"
-//   ase_name                        = local.ase_name
-//   resource_group_name             = local.resource_group_name
-//   subnet_id                       = data.azurerm_subnet.delegated_subnet.id
-//   internal_load_balancing_mode    = var.internal_load_balancing_mode
-//   disable_tls1_0                  = var.disable_tls1_0
-//   internal_encryption             = var.internal_encryption
-//   frontend_ssl_cipher_suite_order = var.frontend_ssl_cipher_suite_order
-//   tags                            = var.tags
-//   depends_on = [module.resource_group]
-// }
+module "app_service_environment" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                          = "../modules/app-service-environment"
+  ase_name                        = local.ase_name
+  resource_group_name             = local.resource_group_name
+  subnet_id                       = data.azurerm_subnet.delegated_subnet.id
+  internal_load_balancing_mode    = var.internal_load_balancing_mode
+  disable_tls1_0                  = var.disable_tls1_0
+  internal_encryption             = var.internal_encryption
+  frontend_ssl_cipher_suite_order = var.frontend_ssl_cipher_suite_order
+  allow_new_private_endpoint_connections = true
+  remote_debugging_enabled        = true
+  tags                            = var.tags
+  depends_on = [module.resource_group]
+}
 
 // module "app_logic_app" {
 //   providers                       =  {azurerm = azurerm.integ-nprod-001}
