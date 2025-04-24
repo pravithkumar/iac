@@ -312,7 +312,7 @@ module "azurerm_storage_account_1" {
   default_to_oauth_authentication       = false
   access_tier                           = "Hot"
   account_kind                          = "StorageV2"
-  retention_days                        = 7
+  delete_retention_days                 = 7
   permanent_delete_enabled              = false
 
   tags                                  = var.tags  
