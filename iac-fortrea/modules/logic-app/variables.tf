@@ -87,3 +87,9 @@ variable "app_settings" {
   description = "A map of application settings to apply to the Function App."
   default     = {}
 }
+
+variable "https_only" {
+  type        = bool
+  description = "Should only HTTPS traffic be allowed to the Linux Function App?"
+  default     = true
+}
