@@ -165,6 +165,14 @@ module "resource_group" {
 //   depends_on                        = [module.servicebus,module.resource_group]
 // }
 
+// module "role_assignment_servicebus_kv" {
+//   providers                         =  {azurerm = azurerm.integ-nprod-001}
+//   source                            = "../modules/role_assignments"
+//   scope                             = module.azurerm_key_vault.key_vault_id
+//   role_definition_name              = "Reader"
+//   principal_id                      = module.servicebus.principal_id
+// }
+
 
 
 // module "azurerm_key_vault" {  
