@@ -18,6 +18,7 @@ resource "azurerm_linux_function_app" "fa" {
   public_network_access_enabled = false
   tags                       = var.tags
   virtual_network_subnet_id  = var.subnet_id
+  https_only                 = var.https_only
   dynamic "identity" {
   for_each = var.identity_type != null ? [1] : []
   content {
@@ -26,7 +27,8 @@ resource "azurerm_linux_function_app" "fa" {
   }
 }
   site_config {
-    always_on = var.always_on   
+    always_on = var.always_on
+    ftps_state = var.ftps_state   
  
     dynamic "application_stack" {
       for_each = var.runtime != null ? [1] : []
