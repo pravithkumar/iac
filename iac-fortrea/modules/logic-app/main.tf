@@ -26,7 +26,8 @@ resource "azurerm_logic_app_standard" "logic_app" {
   resource_group_name = var.resource_group_name
   app_service_plan_id = azurerm_service_plan.logicasp.id
   storage_account_name = data.azurerm_storage_account.storage.name
-  storage_account_access_key = var.storage_account_access_key   
+  storage_account_access_key = var.storage_account_access_key  
+  https_only                 = var.https_only 
 
   site_config {
     always_on = false
