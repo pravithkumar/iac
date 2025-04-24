@@ -23,6 +23,12 @@ variable "storage_account_name" {
   type        = string
 }
 
+variable "https_only" {
+  type        = bool
+  description = "Should only HTTPS traffic be allowed to the Linux Function App?"
+  default     = true
+}
+
 variable "storage_resource_group_name" {
   description = "The resource group name of the existing storage account"
   type        = string
