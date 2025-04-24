@@ -6,33 +6,35 @@ module "resource_group" {
   tags                                =var.tags
 }
 
-// module "azurerm_linux_function_app" {  
-//   providers                           =  {azurerm = azurerm.integ-nprod-001}
-//   source                              = "../modules/function-app"
-//   function_app_name                   = local.function_app_name
-//   location                            = var.location
-//   resource_group_name                 = local.resource_group_name
-//   storage_account_name                = local.storage_account_name_2
-//   storage_account_resource_group_name = local.resource_group_name
-//   app_service_plan_name               = local.asp_service_plan_name
-//   runtime                             = var.runtime
-//   runtime_version                     = var.runtime_version
-//   https_only                          = true
-//   always_on                           = var.always_on
-//   tags                                = var.tags
-//   identity_type                       = "SystemAssigned"
-//   identity_ids                        = []
-//   app_settings                        = var.app_settings
-//   enable_app_insights                 = true
-//   appinsights_instrumentationkey      = data.azurerm_application_insights.ai.instrumentation_key
-//   applicationinsights_connectionstring = data.azurerm_application_insights.ai.connection_string
-//   auth_enabled                         = var.auth_enabled
-//   allowed_external_redirect_urls       = var.allowed_external_redirect_urls
-//   client_id                            = var.client_id
-//   tenant_auth_endpoint                 = var.tenant_auth_endpoint
-//   subnet_id                            = data.azurerm_subnet.fa_outbound_subnet.id
-//   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_2,module.resource_group]
-// }
+module "azurerm_linux_function_app" {  
+  providers                           =  {azurerm = azurerm.integ-nprod-001}
+  source                              = "../modules/function-app"
+  function_app_name                   = local.function_app_name
+  location                            = var.location
+  resource_group_name                 = local.resource_group_name
+  storage_account_name                = local.storage_account_name_2
+  storage_account_resource_group_name = local.resource_group_name
+  app_service_plan_name               = local.asp_service_plan_name
+  runtime                             = var.runtime
+  runtime_version                     = var.runtime_version
+  https_only                          = true
+  always_on                           = var.always_on
+  tags                                = var.tags
+  identity_type                       = "SystemAssigned"
+  identity_ids                        = []
+  app_settings                        = var.app_settings
+  enable_app_insights                 = true
+  appinsights_instrumentationkey      = data.azurerm_application_insights.ai.instrumentation_key
+  applicationinsights_connectionstring = data.azurerm_application_insights.ai.connection_string
+  auth_enabled                         = var.auth_enabled
+  allowed_external_redirect_urls       = var.allowed_external_redirect_urls
+  client_id                            = var.client_id
+  tenant_auth_endpoint                 = var.tenant_auth_endpoint
+  https_only                           = true
+  ftps_state                           = "FtpsOnly"
+  subnet_id                            = data.azurerm_subnet.fa_outbound_subnet.id
+  depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_2,module.resource_group]
+}
 
 // module "private_endpoint_function_app" {
 //   providers                          =  {azurerm = azurerm.integ-nprod-001}
