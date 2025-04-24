@@ -110,3 +110,13 @@ variable "container_delete_retention_days" {
   type        = number
   default     = 7
 }
+
+variable "retention_days" {
+  type    = number
+  default = 7
+}
+
+variable "permanent_delete_enabled" {
+  type    = bool
+  default = false
+}
