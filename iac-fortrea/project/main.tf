@@ -30,7 +30,6 @@ module "resource_group" {
 //   allowed_external_redirect_urls       = var.allowed_external_redirect_urls
 //   client_id                            = var.client_id
 //   tenant_auth_endpoint                 = var.tenant_auth_endpoint
-//   https_only                           = true
 //   ftps_state                           = "FtpsOnly"
 //   subnet_id                            = data.azurerm_subnet.fa_outbound_subnet.id
 //   depends_on                          = [module.azurerm_service_plan, module.azurerm_storage_account_2,module.resource_group]
