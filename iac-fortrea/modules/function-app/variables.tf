@@ -105,3 +105,15 @@ variable "subnet_id" {
   description = "Subnet ID for outbound"
   type        = string
 }
+
+variable "https_only" {
+  type        = bool
+  description = "Should only HTTPS traffic be allowed to the Linux Function App?"
+  default     = true
+}
+
+variable "ftps_state" {
+  type        = string
+  description = "The state of FTP / FTPS service for this Linux Function App. Possible values are AllAllowed, FtpsOnly and Disabled."
+  default     = "AllAllowed"
+}
