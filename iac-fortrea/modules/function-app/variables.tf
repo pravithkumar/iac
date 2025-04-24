@@ -53,10 +53,6 @@ variable "runtime_version" {
   type = string
 }
 
-variable "https_only" {
-  type = bool
-}
-
 variable "always_on" {
   type = bool
 }
