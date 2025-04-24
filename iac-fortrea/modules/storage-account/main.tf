@@ -23,12 +23,12 @@ resource "azurerm_storage_account" "sa" {
   }
 
   blob_properties {
-    delete_retention_policy {
-      days = 7
-      permanent_delete_enabled = false
-    }
-    container_delete_retention_policy {
-      days = 7
-    }
+  delete_retention_policy {
+    days                    = var.retention_days
+    permanent_delete_enabled = var.permanent_delete_enabled
   }
+  container_delete_retention_policy {
+    days = var.retention_days
+  }
+}
 }
