@@ -94,8 +94,3 @@ variable "app_settings" {
   default     = {}
 }
 
-variable "https_only" {
-  type        = bool
-  description = "Should only HTTPS traffic be allowed to the Linux Function App?"
-  default     = true
-}
