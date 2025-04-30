@@ -7,8 +7,8 @@ data "azuread_service_principal" "by_name" {
   display_name = "pravith_sso_test"
 }
 
-resource "azuread_service_principal_password" "example" {  
-  service_principal_id = "/servicePrincipals/a496c409-1b17-47b5-94bc-3a42ba9fb87c"
+resource "azuread_application_password" "example" {  
+  service_principal_id = "/servicePrincipals/d75ad180-a90a-4fee-91af-48c3849f6272"
   end_date             = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
 
