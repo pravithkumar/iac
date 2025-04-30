@@ -20,7 +20,7 @@ data "azurerm_key_vault" "existing" {
 
 resource "azurerm_key_vault_secret" "example" {
   name         = "spn-password"
-  value        = azuread_service_principal_password.example.value
+  value        = random_password.spn_password.result
   key_vault_id = data.azurerm_key_vault.existing.id
 }
 
