@@ -1,3 +1,8 @@
+variable "location_test" {
+  type = string
+  description = "Location for testing"
+}
+
 resource "random_password" "spn_password" {
   length  = 16
   special = true
@@ -6,7 +11,7 @@ resource "random_password" "spn_password" {
 resource "azuread_service_principal_password" "example" {
   service_principal_id = var.service_principal_id
   value                = random_password.spn_password.result
-  end_date_relative    = "2160h"  # Valid for 90 days
+  end_date             = timeadd(timestamp(), "2160h")  # Valid for 90 days
 }
 
 data "azurerm_key_vault" "existing" {
