@@ -11,9 +11,3 @@ terraform {
   }
 }
 
-# Configure the Microsoft Azure Provider
-provider "azurerm" {
-  alias           = "integ-nprod-001"
-  subscription_id = "6a188292-2123-478e-aea7-0876e0c388b9"
-  features {}
-}
