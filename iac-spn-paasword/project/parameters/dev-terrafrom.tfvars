@@ -1,3 +1,3 @@
-﻿service_principal_id = "39fe4fa5-a205-4949-8895-5e99d8bab126"
+﻿service_principal_id = "a496c409-1b17-47b5-94bc-3a42ba9fb87c"
 keyvault_name        = "kv-int-nprd-001"
 resource_group_name  = "rg-fortrea-delete-01"
