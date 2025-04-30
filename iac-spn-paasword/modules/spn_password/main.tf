@@ -1,8 +1,3 @@
-variable "location_test" {
-  type = string
-  description = "Location for testing"
-}
-
 resource "random_password" "spn_password" {
   length  = 16
   special = true
