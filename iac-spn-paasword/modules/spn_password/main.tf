@@ -1,19 +1,13 @@
-resource "random_password" "spn_password" {
-  length  = 16
-  special = true
-}
-
 data "azuread_application" "example" {
   display_name = "pravith_sso_test"
 }
 
 resource "azuread_application_password" "example" {  
-  application_id = azuread_application.example.object_id
+  application_id = data.azuread_application.example.object_id
   display_name = "example"
   end_date             = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
 
-//service_principal_id = "/servicePrincipals/39fe4fa5-a205-4949-8895-5e99d8bab126"  
 data "azurerm_key_vault" "existing" {
   name                = var.keyvault_name
   resource_group_name = var.resource_group_name
