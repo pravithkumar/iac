@@ -9,6 +9,7 @@ data "azuread_service_principal" "by_name" {
 
 resource "azuread_service_principal_password" "example" {  
   service_principal_id = "/servicePrincipals/39fe4fa5-a205-4949-8895-5e99d8bab126"
+  value                = random_password.spn_password.result
   end_date             = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
 
