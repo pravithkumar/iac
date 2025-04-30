@@ -8,10 +8,11 @@ data "azuread_service_principal" "by_name" {
 }
 
 resource "azuread_service_principal_password" "example" {  
-  service_principal_id = "/servicePrincipals/39fe4fa5-a205-4949-8895-5e99d8bab126"  
+  service_principal_id = data.azuread_service_principal.by_name.object_id
   end_date             = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
 
+//service_principal_id = "/servicePrincipals/39fe4fa5-a205-4949-8895-5e99d8bab126"  
 data "azurerm_key_vault" "existing" {
   name                = var.keyvault_name
   resource_group_name = var.resource_group_name
