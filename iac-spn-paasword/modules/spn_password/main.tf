@@ -8,8 +8,7 @@ data "azuread_service_principal" "by_name" {
 }
 
 resource "azuread_service_principal_password" "example" {  
-  service_principal_id = "/servicePrincipals/39fe4fa5-a205-4949-8895-5e99d8bab126"
-  value                = random_password.spn_password.result
+  service_principal_id = "/servicePrincipals/39fe4fa5-a205-4949-8895-5e99d8bab126"  
   end_date             = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
 
@@ -20,7 +19,7 @@ data "azurerm_key_vault" "existing" {
 
 resource "azurerm_key_vault_secret" "example" {
   name         = "spn-password"
-  value        = random_password.spn_password.result
+  value        = azuread_service_principal_password.example.value
   key_vault_id = data.azurerm_key_vault.existing.id
 }
 
