@@ -3,4 +3,5 @@ module "spn_password" {
   service_principal_id = var.service_principal_id
   keyvault_name        = var.keyvault_name
   resource_group_name  = var.resource_group_name
+  location = var.location_test
 }
