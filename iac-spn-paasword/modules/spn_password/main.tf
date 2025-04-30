@@ -3,8 +3,12 @@ resource "random_password" "spn_password" {
   special = true
 }
 
-resource "azuread_service_principal_password" "example" {
-  service_principal_id = var.service_principal_id
+data "azuread_service_principal" "by_name" {
+  display_name = "pravith_sso_test"
+}
+
+resource "azuread_service_principal_password" "example" {  
+  service_principal_id = data.azuread_service_principal.by_name.object_id
   end_date             = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
 
