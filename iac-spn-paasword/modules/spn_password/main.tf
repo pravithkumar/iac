@@ -8,7 +8,7 @@ data "azuread_application_registration" "example" {
 }
 
 resource "azuread_application_password" "example" {  
-  application_object_id = azuread_application_registration.example.id
+  application_id = azuread_application_registration.example.id
   display_name = "example"
   end_date             = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
@@ -21,7 +21,7 @@ data "azurerm_key_vault" "existing" {
 
 resource "azurerm_key_vault_secret" "example" {
   name         = "spn-password"
-  value        = azuread_application_password.example.value
+  value        = azuread_application_registration.example.value
   key_vault_id = data.azurerm_key_vault.existing.id
 }
 
