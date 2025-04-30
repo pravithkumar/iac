@@ -5,18 +5,17 @@ resource "random_password" "spn_password" {
 
 resource "azuread_service_principal_password" "example" {
   service_principal_id = var.service_principal_id
-  value                = random_password.spn_password.result
-  end_date             = timeadd(timestamp(), "2160h")  # Valid for 90 days
+  end_date             = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
 
 data "azurerm_key_vault" "existing" {
   name                = var.keyvault_name
   resource_group_name = var.resource_group_name
- 
 }
 
 resource "azurerm_key_vault_secret" "example" {
   name         = "spn-password"
-  value        = random_password.spn_password.result
+  value        = azuread_service_principal_password.example.value
   key_vault_id = data.azurerm_key_vault.existing.id
 }
+
