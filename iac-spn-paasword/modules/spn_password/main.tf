@@ -12,7 +12,7 @@ resource "azuread_service_principal_password" "example" {
 data "azurerm_key_vault" "existing" {
   name                = var.keyvault_name
   resource_group_name = var.resource_group_name
-  location            = var.location_test
+ 
 }
 
 resource "azurerm_key_vault_secret" "example" {
