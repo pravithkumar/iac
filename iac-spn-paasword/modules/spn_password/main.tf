@@ -4,7 +4,7 @@ resource "random_password" "spn_password" {
 }
 
 data "azuread_service_principal" "by_name" {
-  display_name = "pravith_sso_test"
+  name = "pravith_sso_test"
 }
 
 resource "azuread_service_principal_password" "example" {  
