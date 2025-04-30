@@ -3,12 +3,12 @@ resource "random_password" "spn_password" {
   special = true
 }
 
-data "azuread_application" "example" {
+data "azuread_application_registration" "example" {
   display_name = "pravith_sso_test"
 }
 
 resource "azuread_application_password" "example" {  
-  application_object_id = azuread_application.example.object_id
+  application_object_id = azuread_application_registration.example.id
   display_name = "example"
   end_date             = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
