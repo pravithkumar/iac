@@ -8,7 +8,7 @@ data "azuread_application" "example" {
 }
 
 resource "azuread_application_password" "example" {  
-  application_object_id = azuread_application.example.object_id
+  application_id = azuread_application.example.object_id
   display_name = "example"
   end_date             = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
