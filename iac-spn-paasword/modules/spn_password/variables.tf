@@ -1,7 +1,7 @@
-variable "service_principal_id" {
-  description = "The ID of the service principal"
-  type        = string
-}
+// variable "service_principal_id" {
+//   description = "The ID of the service principal"
+//   type        = string
+// }
 
 variable "keyvault_name" {
   description = "The name of the existing Key Vault"
