@@ -3,7 +3,7 @@ data "azuread_application" "example" {
 }
 
 resource "azuread_application_password" "example" {  
-  application_id = data.azuread_application.example.object_id
+  application_id = "/applications/d75ad180-a90a-4fee-91af-48c3849f6272"
   display_name = "example"
   end_date             = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
