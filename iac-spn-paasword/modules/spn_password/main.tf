@@ -8,7 +8,7 @@ data "azuread_service_principal" "by_name" {
 }
 
 resource "azuread_service_principal_password" "example" {  
-  service_principal_id = data.azuread_service_principal.by_name.object_id
+  service_principal_id = "/servicePrincipals/d75ad180-a90a-4fee-91af-48c3849f6272"
   end_date             = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
 
