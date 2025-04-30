@@ -7,9 +7,13 @@ terraform {
   }
 
   backend "azurerm" {
-    subscription_id      = "795783af-96d3-4629-9161-58de5577ed1e" 
-    features {}
+    subscription_id      = "795783af-96d3-4629-9161-58de5577ed1e"  
   }
+}
+
+provider "azurerm" {
+  subscription_id = "795783af-96d3-4629-9161-58de5577ed1e"
+  features {}
 }
 
 provider "azurerm" {
