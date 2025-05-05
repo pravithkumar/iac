@@ -1,5 +1,5 @@
 data "azuread_application" "example" {
-  display_name = "pravith_sso_test"
+  display_name = var.spn_name
 }
 
 resource "azuread_application_password" "this" {  
