@@ -9,7 +9,7 @@ data "azurerm_key_vault" "existing" {
   resource_group_name = var.resource_group_name
 }
 
-resource "azurerm_key_vault_secret" "example" {
+resource "azurerm_key_vault_secret" "this" {
   name         = "spn-password"
   value        = azuread_application_password.this.value
   key_vault_id = data.azurerm_key_vault.existing.id
