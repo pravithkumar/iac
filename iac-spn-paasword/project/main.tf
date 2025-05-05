@@ -6,4 +6,5 @@ module "spn_password" {
   app_password_display_name =var.app_password_display_name
   app_kv_secret_name        =var.app_kv_secret_name
   spn_name                  =var.spn_name
+  password_validity_days    =var.password_validity_days
 }
