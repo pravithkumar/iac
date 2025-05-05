@@ -2,4 +2,4 @@
 keyvault_name        = "kv-int-nprd-001"
 resource_group_name  = "rg-fortrea-delete-01"
 app_kv_secret_name   = "test1"
-app_password_display_name = "test2"
+app_password_display_name = "test02"
