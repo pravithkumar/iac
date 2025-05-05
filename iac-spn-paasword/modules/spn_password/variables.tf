@@ -17,3 +17,7 @@ variable "app_kv_secret_name" {
   description = "application keyvault secret name" 
 }
 
+variable "spn_name" {
+  type        = string
+  description = "SPN name" 
+}
