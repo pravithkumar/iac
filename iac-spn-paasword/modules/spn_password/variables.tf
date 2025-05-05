@@ -21,3 +21,9 @@ variable "spn_name" {
   type        = string
   description = "SPN name" 
 }
+
+variable "password_validity_days" {
+  description = "Number of days the password is valid for"
+  type        = number
+  default     = 90
+}
