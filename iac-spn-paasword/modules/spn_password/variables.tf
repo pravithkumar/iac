@@ -7,8 +7,13 @@ variable "resource_group_name" {
   description = "The name of the resource group containing the Key Vault"
   type        = string
 }
-variable "location_test" {
+variable "app_password_display_name" {
   type        = string
-  description = "Location for testing"
-  default     = "eastus"
+  description = "application password display name" 
 }
+
+variable "app_kv_secret_name" {
+  type        = string
+  description = "application keyvault secret name" 
+}
+
