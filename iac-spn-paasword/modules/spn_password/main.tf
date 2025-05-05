@@ -3,7 +3,7 @@ data "azuread_application" "example" {
 }
 
 resource "azuread_application_password" "this" {  
-  application_id = data.azuread_application.example.object_id
+  application_id = "/applications/${data.azuread_application.example.object_id}"
   display_name   = var.app_password_display_name
   end_date       = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
