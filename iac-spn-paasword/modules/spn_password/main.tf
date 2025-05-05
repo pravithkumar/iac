@@ -1,10 +1,6 @@
-data "azuread_application" "example" {
-  display_name = "pravith_sso_test"
-}
-
-resource "azuread_application_password" "example" {  
+resource "azuread_application_password" "this" {  
   application_id = "/applications/d75ad180-a90a-4fee-91af-48c3849f6272"
-  display_name = "example"
+  display_name = var.spn_Password_display_name
   end_date             = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
 
@@ -15,7 +11,7 @@ data "azurerm_key_vault" "existing" {
 
 resource "azurerm_key_vault_secret" "example" {
   name         = "spn-password"
-  value        = azuread_application_password.example.value
+  value        = azuread_application_password.this.value
   key_vault_id = data.azurerm_key_vault.existing.id
 }
 
