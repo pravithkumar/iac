@@ -1,5 +1,9 @@
+data "azuread_application" "example" {
+  display_name = "pravith_sso_test"
+}
+
 resource "azuread_application_password" "this" {  
-  application_id = "/applications/d75ad180-a90a-4fee-91af-48c3849f6272"
+  application_id = data.azuread_application.example.application_id
   display_name   = var.app_password_display_name
   end_date       = timeadd(timestamp(), "2160h") # Valid for 90 days
 }
