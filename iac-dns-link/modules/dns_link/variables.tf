@@ -3,7 +3,7 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "vnet_name" {
+variable "virtual_network_id" {
   description = "The name of the existing VNet"
   type        = string
 }
