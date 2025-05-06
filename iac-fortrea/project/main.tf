@@ -128,42 +128,42 @@ module "resource_group" {
 //   depends_on                         = [module.azurerm_storage_account_2,module.resource_group]
 // }
 
-// module "servicebus" {
-//   providers                         =  {    azurerm = azurerm.integ-nprod-001}
-//   source                            = "../modules/service-bus"
-//   resource_group_name               = local.resource_group_name
-//   location                          = var.location
-//   servicebus_name                   = local.servicebus_name
-//   sku                               = var.sku
-//   identity_type                     = "SystemAssigned"
-//   identity_ids                      = []
-//   public_network_access_enabled     = false
-//   trusted_services_allowed          = true
-//   servicebus_capacity               = var.servicebus_capacity
-//   premium_messaging_partitions      = var.premium_messaging_partitions
-//   queue_names                       = var.queue_names
-//   topic_names                       = var.topic_names
-//   queue_max_size                    = var.queue_max_size
-//   topic_max_size                    = var.topic_max_size
-//   subscription_max_delivery_count   = var.subscription_max_delivery_count
-//   depends_on = [module.resource_group]
-// }
+module "servicebus" {
+  providers                         =  {    azurerm = azurerm.integ-nprod-001}
+  source                            = "../modules/service-bus"
+  resource_group_name               = local.resource_group_name
+  location                          = var.location
+  servicebus_name                   = local.servicebus_name
+  sku                               = var.sku
+  identity_type                     = "SystemAssigned"
+  identity_ids                      = []
+  public_network_access_enabled     = false
+  trusted_services_allowed          = true
+  servicebus_capacity               = var.servicebus_capacity
+  premium_messaging_partitions      = var.premium_messaging_partitions
+  queue_names                       = var.queue_names
+  topic_names                       = var.topic_names
+  queue_max_size                    = var.queue_max_size
+  topic_max_size                    = var.topic_max_size
+  subscription_max_delivery_count   = var.subscription_max_delivery_count
+  depends_on = [module.resource_group]
+}
 
-// module "private_endpoint_servicebus" {  
-//   providers                         =  {azurerm = azurerm.integ-nprod-001}
-//   source                            = "../modules/private-endpoint"
-//   private_endpoint_name             = "pe-${local.servicebus_name}"
-//   location                          = var.location
-//   resource_group_name               = local.resource_group_name
-//   subnet_id                         = data.azurerm_subnet.default_subnet.id
-//   private_service_connection_name   = "${local.servicebus_name}-psc"
-//   private_connection_resource_id    = module.servicebus.servicebus_id
-//   subresource_names                 = ["namespace"]
-//   is_manual_connection              = false
-//   private_dns_zone_group_name       = "private-dns-zone-group"
-//   private_dns_zone_ids              = [data.azurerm_private_dns_zone.servicebus_dns.id]
-//   depends_on                        = [module.servicebus,module.resource_group]
-// }
+module "private_endpoint_servicebus" {  
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                            = "../modules/private-endpoint"
+  private_endpoint_name             = "pe-${local.servicebus_name}"
+  location                          = var.location
+  resource_group_name               = local.resource_group_name
+  subnet_id                         = data.azurerm_subnet.default_subnet.id
+  private_service_connection_name   = "${local.servicebus_name}-psc"
+  private_connection_resource_id    = module.servicebus.servicebus_id
+  subresource_names                 = ["namespace"]
+  is_manual_connection              = false
+  private_dns_zone_group_name       = "private-dns-zone-group"
+  private_dns_zone_ids              = [data.azurerm_private_dns_zone.servicebus_dns.id]
+  depends_on                        = [module.servicebus,module.resource_group]
+}
 
 // module "role_assignment_servicebus_kv" {
 //   providers                         =  {azurerm = azurerm.integ-nprod-001}
@@ -306,44 +306,44 @@ module "resource_group" {
 //   depends_on                      = [module.app_service_environment,module.azurerm_storage_account_1,module.resource_group]
 // }
 
-module "azurerm_storage_account_1" {  
-  providers                             =  {azurerm = azurerm.integ-nprod-001}
-  source                                = "../modules/storage-account"
-  storage_account_name                  = local.storage_account_name_1
-  resource_group_name                   = local.resource_group_name
-  location                              = var.location
-  account_tier                          = var.account_tier
-  account_replication_type              = var.account_replication_type
-  public_network_access_enabled         = false
-  https_traffic_only_enabled            = true
-  identity_type                         = "SystemAssigned"
-  identity_ids                          = []  
-  large_file_share_enabled              = true
-  default_to_oauth_authentication       = false
-  access_tier                           = "Hot"
-  account_kind                          = "StorageV2"
-  delete_retention_days                 = 7
-  permanent_delete_enabled              = false
+// module "azurerm_storage_account_1" {  
+//   providers                             =  {azurerm = azurerm.integ-nprod-001}
+//   source                                = "../modules/storage-account"
+//   storage_account_name                  = local.storage_account_name_1
+//   resource_group_name                   = local.resource_group_name
+//   location                              = var.location
+//   account_tier                          = var.account_tier
+//   account_replication_type              = var.account_replication_type
+//   public_network_access_enabled         = false
+//   https_traffic_only_enabled            = true
+//   identity_type                         = "SystemAssigned"
+//   identity_ids                          = []  
+//   large_file_share_enabled              = true
+//   default_to_oauth_authentication       = false
+//   access_tier                           = "Hot"
+//   account_kind                          = "StorageV2"
+//   delete_retention_days                 = 7
+//   permanent_delete_enabled              = false
 
-  tags                                  = var.tags  
-  depends_on = [module.resource_group]
-}
+//   tags                                  = var.tags  
+//   depends_on = [module.resource_group]
+// }
 
-module "private_endpoint_storage_1" {  
-providers                             =  {azurerm = azurerm.integ-nprod-001}
-source                                = "../modules/private-endpoint"
-private_endpoint_name                 = "pe-${local.storage_account_name_1}"
-location                              = var.location
-resource_group_name                   = local.resource_group_name
-subnet_id                             = data.azurerm_subnet.default_subnet.id
-private_service_connection_name       = "${local.storage_account_name_1}-psc"
-private_connection_resource_id        = module.azurerm_storage_account_1.id
-subresource_names                     = ["blob"]
-is_manual_connection                  = false
-private_dns_zone_group_name           = "private-dns-zone-group"
-private_dns_zone_ids                  = [data.azurerm_private_dns_zone.storageaccount1_dns.id]
-depends_on                            = [module.azurerm_storage_account_1,module.resource_group]
-}
+// module "private_endpoint_storage_1" {  
+// providers                             =  {azurerm = azurerm.integ-nprod-001}
+// source                                = "../modules/private-endpoint"
+// private_endpoint_name                 = "pe-${local.storage_account_name_1}"
+// location                              = var.location
+// resource_group_name                   = local.resource_group_name
+// subnet_id                             = data.azurerm_subnet.default_subnet.id
+// private_service_connection_name       = "${local.storage_account_name_1}-psc"
+// private_connection_resource_id        = module.azurerm_storage_account_1.id
+// subresource_names                     = ["blob"]
+// is_manual_connection                  = false
+// private_dns_zone_group_name           = "private-dns-zone-group"
+// private_dns_zone_ids                  = [data.azurerm_private_dns_zone.storageaccount1_dns.id]
+// depends_on                            = [module.azurerm_storage_account_1,module.resource_group]
+// }
 
 // module "diagnostic_setting_logicapp" {
 //   providers                         =  {azurerm = azurerm.integ-nprod-001}
