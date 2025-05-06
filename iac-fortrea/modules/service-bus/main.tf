@@ -6,6 +6,7 @@ resource "azurerm_servicebus_namespace" "servicebus" {
   public_network_access_enabled = var.public_network_access_enabled
   capacity                     = var.sku == "Premium" ? var.servicebus_capacity : null
   premium_messaging_partitions = var.sku == "Premium" ? var.premium_messaging_partitions : null
+  local_auth_enabled = false
 
   dynamic "identity" {
   for_each = var.identity_type != null ? [1] : []
