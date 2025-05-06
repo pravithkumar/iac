@@ -21,3 +21,9 @@ provider "azurerm" {
   subscription_id = "795783af-96d3-4629-9161-58de5577ed1e"
   features {}
 }
+
+provider "azurerm" {
+  alias           = "integ-mgmt-001"
+  subscription_id = "c6806c08-6845-4be9-bda8-0d35ff0251eb"
+  features {}
+}
