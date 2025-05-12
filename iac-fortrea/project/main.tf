@@ -128,42 +128,42 @@ module "resource_group" {
 //   depends_on                         = [module.azurerm_storage_account_2,module.resource_group]
 // }
 
-module "servicebus" {
-  providers                         =  {    azurerm = azurerm.integ-nprod-001}
-  source                            = "../modules/service-bus"
-  resource_group_name               = local.resource_group_name
-  location                          = var.location
-  servicebus_name                   = local.servicebus_name
-  sku                               = var.sku
-  identity_type                     = "SystemAssigned"
-  identity_ids                      = []
-  public_network_access_enabled     = false
-  trusted_services_allowed          = true
-  servicebus_capacity               = var.servicebus_capacity
-  premium_messaging_partitions      = var.premium_messaging_partitions
-  queue_names                       = var.queue_names
-  topic_names                       = var.topic_names
-  queue_max_size                    = var.queue_max_size
-  topic_max_size                    = var.topic_max_size
-  subscription_max_delivery_count   = var.subscription_max_delivery_count
-  depends_on = [module.resource_group]
-}
+// module "servicebus" {
+//   providers                         =  {    azurerm = azurerm.integ-nprod-001}
+//   source                            = "../modules/service-bus"
+//   resource_group_name               = local.resource_group_name
+//   location                          = var.location
+//   servicebus_name                   = local.servicebus_name
+//   sku                               = var.sku
+//   identity_type                     = "SystemAssigned"
+//   identity_ids                      = []
+//   public_network_access_enabled     = false
+//   trusted_services_allowed          = true
+//   servicebus_capacity               = var.servicebus_capacity
+//   premium_messaging_partitions      = var.premium_messaging_partitions
+//   queue_names                       = var.queue_names
+//   topic_names                       = var.topic_names
+//   queue_max_size                    = var.queue_max_size
+//   topic_max_size                    = var.topic_max_size
+//   subscription_max_delivery_count   = var.subscription_max_delivery_count
+//   depends_on = [module.resource_group]
+// }
 
-module "private_endpoint_servicebus" {  
-  providers                         =  {azurerm = azurerm.integ-nprod-001}
-  source                            = "../modules/private-endpoint"
-  private_endpoint_name             = "pe-${local.servicebus_name}"
-  location                          = var.location
-  resource_group_name               = local.resource_group_name
-  subnet_id                         = data.azurerm_subnet.default_subnet.id
-  private_service_connection_name   = "${local.servicebus_name}-psc"
-  private_connection_resource_id    = module.servicebus.servicebus_id
-  subresource_names                 = ["namespace"]
-  is_manual_connection              = false
-  private_dns_zone_group_name       = "private-dns-zone-group"
-  private_dns_zone_ids              = [data.azurerm_private_dns_zone.servicebus_dns.id]
-  depends_on                        = [module.servicebus,module.resource_group]
-}
+// module "private_endpoint_servicebus" {  
+//   providers                         =  {azurerm = azurerm.integ-nprod-001}
+//   source                            = "../modules/private-endpoint"
+//   private_endpoint_name             = "pe-${local.servicebus_name}"
+//   location                          = var.location
+//   resource_group_name               = local.resource_group_name
+//   subnet_id                         = data.azurerm_subnet.default_subnet.id
+//   private_service_connection_name   = "${local.servicebus_name}-psc"
+//   private_connection_resource_id    = module.servicebus.servicebus_id
+//   subresource_names                 = ["namespace"]
+//   is_manual_connection              = false
+//   private_dns_zone_group_name       = "private-dns-zone-group"
+//   private_dns_zone_ids              = [data.azurerm_private_dns_zone.servicebus_dns.id]
+//   depends_on                        = [module.servicebus,module.resource_group]
+// }
 
 // module "role_assignment_servicebus_kv" {
 //   providers                         =  {azurerm = azurerm.integ-nprod-001}
@@ -266,21 +266,32 @@ module "private_endpoint_servicebus" {
 //   principal_id                      = module.api_management.principal_id
 // }
 
-// module "app_service_environment" {
-//   providers                         =  {azurerm = azurerm.integ-nprod-001}
-//   source                          = "../modules/app-service-environment"
-//   ase_name                        = local.ase_name
-//   resource_group_name             = local.resource_group_name
-//   subnet_id                       = data.azurerm_subnet.delegated_subnet.id
-//   internal_load_balancing_mode    = var.internal_load_balancing_mode
-//   disable_tls1_0                  = var.disable_tls1_0
-//   internal_encryption             = var.internal_encryption
-//   frontend_ssl_cipher_suite_order = var.frontend_ssl_cipher_suite_order
-//   allow_new_private_endpoint_connections = true
-//   remote_debugging_enabled        = true
-//   tags                            = var.tags
-//   depends_on = [module.resource_group]
-// }
+module "app_service_environment" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                          = "../modules/app-service-environment"
+  ase_name                        = local.ase_name
+  resource_group_name             = local.resource_group_name
+  subnet_id                       = data.azurerm_subnet.delegated_subnet.id
+  internal_load_balancing_mode    = var.internal_load_balancing_mode
+  disable_tls1_0                  = var.disable_tls1_0
+  internal_encryption             = var.internal_encryption
+  frontend_ssl_cipher_suite_order = var.frontend_ssl_cipher_suite_order
+  allow_new_private_endpoint_connections = true
+  remote_debugging_enabled        = true
+  tags                            = var.tags
+  depends_on = [module.resource_group]
+}
+
+module "diagnostic_setting_appservice" {
+  providers                         =  {azurerm = azurerm.integ-nprod-001}
+  source                            = "../modules/diagnostic-settings"
+  enable_monitoring                 = true
+  monitor_diagnostic_name           = "diag-${local.ase_name}"
+  target_resource_id                = module.app_service_environment.id
+  log_analytics_workspace_id        = data.azurerm_log_analytics_workspace.la.id
+  category                          = "AppServiceEnvironmentPlatformLogs"
+  depends_on                        = [module.app_service_environment]
+}
 
 // module "app_logic_app" {
 //   providers                       =  {azurerm = azurerm.integ-nprod-001}
