@@ -1,0 +1,61 @@
+{
+  "es_root": {
+    "policy_assignments": [
+      "Audit-ResourceRGLocation",
+      "Audit-TrustedLaunch",
+      "Audit-UnusedResources",
+      "Audit-ZoneResiliency",
+      "Deny-Classic-Resources",
+      "Deny-UnmanagedDisk",
+      "Deploy-ASC-Monitoring",
+      "Deploy-AzActivity-Log",
+      "Deploy-Diag-Logs",
+      "Deploy-MDEndpoints",
+      "Deploy-MDEndpointsAMA",
+      "Deploy-MDFC-Config-H224",
+      "Deploy-MDFC-OssDb",
+      "Deploy-MDFC-SqlAtp",
+      "Enforce-ACSB"
+    ],
+    "policy_definitions": [
+       "Enforce-RG-Tags",
+       "Enforce-Resource-Tags",
+       "Deny-NIC-NSG",
+       "Deny-Private-DNS-Zones",
+       "Deny-PublicIP",
+       "Deny-RDP-From-Internet",
+       "Deny-MgmtPorts-From-Internet",
+       "Deny-Redis-http",
+       "Deny-MySql-http",
+       "Deny-PostgreSql-http",
+       "Deny-PublicEndpoint-MariaDB",
+       "Deny-Service-Endpoints",
+       "Deny-Sql-minTLS",
+       "Deny-SqlMi-minTLS",
+       "Deny-VNET-Peer-Cross-Sub",
+       "Deny-Storage-ContainerDeleteRetentionPolicy",
+       "DenyAction-DeleteResources",
+       "Audit-AzureHybridBenefit",
+       "Audit-Disks-UnusedResourcesCostOptimization",
+       "Audit-PublicIpAddresses-UnusedResourcesCostOptimization",
+       "Audit-ServerFarms-UnusedResourcesCostOptimization",
+       "Deploy-ASC-SecurityContacts"
+    ],
+    "policy_set_definitions": [
+      "Enforce-Mandatory-Tags",
+      "Audit-TrustedLaunch",
+      "Audit-UnusedResourcesCostOptimization",
+      "Deploy-MDFC-Config_20240319",
+      "Enforce-ACSB",
+      "Enforce-Guardrails-KeyVault",
+      "Enforce-Backup",
+      "Enforce-ALZ-Sandbox",
+      "Deploy-AUM-CheckUpdates"
+    ],
+    "role_definitions": [],
+    "archetype_config": {
+      "parameters": {},
+      "access_control": {}
+    }
+  }
+}

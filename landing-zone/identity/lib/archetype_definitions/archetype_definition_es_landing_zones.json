@@ -1,0 +1,17 @@
+{
+  "es_landing_zones": {
+    "policy_assignments": [
+      "Audit-AppGW-WAF",
+      "Deny-IP-forwarding",
+      "Deny-MgmtPorts-Internet",
+      "Deny-Storage-http"
+    ],
+    "policy_definitions": [],
+    "policy_set_definitions": [],
+    "role_definitions": [],
+    "archetype_config": {
+      "parameters": {},
+      "access_control": {}
+    }
+  }
+}

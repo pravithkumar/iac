@@ -1,0 +1,17 @@
+{
+  "es_platform": {
+    "policy_assignments": [
+      "DenyAction-DeleteUAMIAMA",
+      "Enforce-GR-KeyVault",
+      "Enforce-ASR",
+      "Enable-AUM-CheckUpdates"
+    ],
+    "policy_definitions": [],
+    "policy_set_definitions": [],
+    "role_definitions": [],
+    "archetype_config": {
+      "parameters": {},
+      "access_control": {}
+    }
+  }
+}
