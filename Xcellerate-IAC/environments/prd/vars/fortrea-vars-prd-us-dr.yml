@@ -1,0 +1,10 @@
+variables:
+ projectname: xcellerate 
+ ApplicationName: xl
+ LocationName: eastus
+ EnvironmentName: prod
+# terraform subscription
+ SUBSCRIPTION_ID: 01f80ea1-e021-4e3c-ad77-3a7e68205304
+ 
+
+

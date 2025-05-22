@@ -1,0 +1,286 @@
+parameters:
+  - name: SERVICE_CONNECTION_NAME
+    type: string
+  - name: TENANT_ID
+    type: string
+  - name: CLIENT_ID
+    type: string
+  - name: CLIENT_SECRET
+    type: string
+  - name: location
+    type: string
+  - name: environments
+    type: object
+    default: {}
+  - name: regionname
+    type: string
+  - name: environment
+    type: string
+  - name: projectname
+    type: string
+    default: fortrea
+  - name: CERT_PASSWORD
+    type: string
+
+###
+
+stages:
+  - ${{ each environ in parameters.environments }}:
+      - stage: terraform_plan${{ replace(environ, '-','_')}}
+        displayName: terraform plan_${{ replace(environ, '-','_')}}
+        jobs:
+          - deployment: resource_validation
+            displayName: deploy_to_${{ replace(environ, '-','_')}}
+            ${{ if eq(parameters.environment, 'dev')}}:
+              environment: non-approval
+            ${{ elseif eq(parameters.location, 'default (both)')}}:
+              ${{ if contains(environ, 'primary')}}:
+                environment: non-approval
+              ${{ else }}:
+                environment: non-approval
+            ${{ else }}:
+              environment: non-approval
+            variables:
+              - name: commonVarFileName
+                ${{ if contains(environ, 'primary')}}:
+                  value: ${{ replace( environ, 'primary', 'common')}}
+                ${{ if contains(environ, 'dr')}}:
+                  value: ${{replace(environ, 'dr', 'common')}}
+              - template: /environments/post_configuration/${{ parameters.environment  }}/vars/${{ parameters.projectName}}-vars-${{ environ }}.yml
+              - name: StorageResourceGroup
+                value: ${{
+                  format('rg-tf-{0}-001',
+                  variables.LocationName)
+                  }}
+              - name: StorageAccountName
+                value: ${{
+                  format('satf{0}001',
+                  variables.LocationName)
+                  }}
+              - name: StorageContainerName
+                value: ${{
+                  format('{0}-tfstate-{1}-{2}-001',
+                  variables.ApplicationName,
+                  variables.LocationName,
+                  variables.EnvironmentName)
+                  }}
+
+            strategy:
+              runOnce:
+                deploy:
+                  steps:
+                    - task: Bash@3
+                      inputs:
+                        targetType: "inline"
+                        script: |
+                          # Update the list of packages
+                          sudo apt-get update
+
+                          # Install prerequisites
+                          sudo apt-get install -y wget apt-transport-https software-properties-common
+
+                          # Download and install the Microsoft repository GPG keys
+                          wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+                          sudo dpkg -i packages-microsoft-prod.deb
+
+                          # Update the list of packages after adding the Microsoft repository
+                          sudo apt-get update
+
+                          # Install PowerShell
+                          sudo apt-get install -y powershell
+
+                          # Verify installation
+                          pwsh -v
+
+                    - task: DownloadSecureFile@1
+                      displayName: Downloading the cert
+                      name: pfxFile
+                      inputs:
+                        secureFile: "cert-int-xl-stg-eastus-agw.pfx"
+
+                    - task: PowerShell@2
+                      displayName: Importing the cert
+                      inputs:
+                        targetType: "inline"
+                        script: |
+                          $pfxPath = "$(Agent.TempDirectory)/cert-int-xl-stg-eastus-agw.pfx"
+                          Write-Host "PFX file found at $pfxPath"
+                          $password = "${{ parameters.CERT_PASSWORD }}"
+                          Write-Host "password value $password"
+                          $pfxBytes = [System.IO.File]::ReadAllBytes($pfxPath)
+                          $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2($pfxBytes, $password)
+                          $base64Value = [Convert]::ToBase64String($cert.RawData)
+                          Write-Host "##vso[task.setvariable variable=certificateBase64Content_agw;]$base64Value"
+
+                    - task: AzureCLI@2
+                      displayName: Creating container for backend storage
+                      inputs:
+                        azureSubscription: ${{ parameters.SERVICE_CONNECTION_NAME }}
+                        scriptType: "pscore"
+                        scriptLocation: "inlineScript"
+                        inlineScript: |
+                          az login --service-principal -u ${{ parameters.CLIENT_ID }} -p ${{ parameters.CLIENT_SECRET }} --tenant ${{ parameters.TENANT_ID }}
+                          az account set --subscription ${{ variables.SUBSCRIPTION_ID }}
+                          az storage container create --name ${{ variables.StorageContainerName }} --account-name ${{ variables.StorageAccountName }}
+
+                    - checkout: self
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_download
+                      inputs:
+                        provider: "azurerm"
+                        command: "init"
+                        workingDirectory: "$(System.DefaultWorkingDirectory)/environments/post_configuration/${{ parameters.environment  }}"
+                        backendServiceArm: ${{ parameters.SERVICE_CONNECTION_NAME  }}
+                        backendAzureRmResourceGroupName: ${{ variables.StorageResourceGroup}}
+                        backendAzureRmStorageAccountName: ${{ variables.StorageAccountName }}
+                        backendAzureRmContainerName: ${{ variables.StorageContainerName }}
+                        backendAzureRmKey: xl-post-${{ environ }}.terraform.tfstate
+
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_format
+                      inputs:
+                        provider: "azurerm"
+                        command: "custom"
+                        outputTo: "console"
+                        customCommand: "fmt"
+                        environmentServiceNameAzureRM: ${{ parameters.SERVICE_CONNECTION_NAME }}
+
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_plan
+                      inputs:
+                        provider: "azurerm"
+                        command: "plan"
+                        commandOptions: >
+                          -out main.tfplan 
+                          -input=false 
+                          -var-file="../../../environments/post_configuration/${{ parameters.environment  }}/${{ environ }}.terraform.tfvars" 
+                          -var "CERT_APPGW=$pfxPath" 
+                          -var "CERT_PASSWORD=${{ parameters.CERT_PASSWORD }}"
+                        workingDirectory: "$(System.DefaultWorkingDirectory)/environments/post_configuration/${{ parameters.environment  }}"
+                        environmentServiceNameAzureRM: ${{ parameters.SERVICE_CONNECTION_NAME }}
+
+      - stage: terraform_apply${{ replace(environ, '-','_')}}
+        condition: succeeded('terraform_plan${{ replace(environ, '-','_')}}')
+        dependsOn: terraform_plan${{ replace(environ, '-','_')}}
+        displayName: terraform apply_${{ replace(environ, '-','_')}}
+        jobs:
+          - deployment: resource_deployment
+            timeoutInMinutes: 360
+            displayName: deploy_to_${{ replace(environ, '-','_')}}
+            ${{ if eq(parameters.environment, 'dev')}}:
+              environment: ${{ environ }}
+            ${{ elseif eq(parameters.location, 'default (both)')}}:
+              ${{ if contains(environ, 'primary')}}:
+                environment: ${{ environ }}
+              ${{ else }}:
+                environment: ${{ environ }}
+            ${{ else }}:
+              environment: ${{ environ }}
+            variables:
+              - name: commonVarFileName
+                ${{ if contains(environ, 'primary')}}:
+                  value: ${{ replace( environ, 'primary', 'common')}}
+                ${{ if contains(environ, 'dr')}}:
+                  value: ${{replace(environ, 'dr', 'common')}}
+              - template: /environments/post_configuration/${{ parameters.environment  }}/vars/${{ parameters.projectName}}-vars-${{ environ }}.yml
+              - name: StorageResourceGroup
+                value: ${{
+                  format('rg-tf-{0}-001',
+                  variables.LocationName)
+                  }}
+              - name: StorageAccountName
+                value: ${{
+                  format('satf{0}001',
+                  variables.LocationName)
+                  }}
+              - name: StorageContainerName
+                value: ${{
+                  format('{0}-tfstate-{1}-{2}-001',
+                  variables.ApplicationName,
+                  variables.LocationName,
+                  variables.EnvironmentName)
+                  }}
+
+            strategy:
+              runOnce:
+                deploy:
+                  steps:
+                    - task: DownloadSecureFile@1
+                      displayName: Downloading the cert
+                      name: pfxFile
+                      inputs:
+                        secureFile: "cert-int-xl-stg-eastus-agw.pfx"
+
+                    - task: PowerShell@2
+                      displayName: Importing the cert
+                      inputs:
+                        targetType: "inline"
+                        script: |
+                          $pfxPath = "$(Agent.TempDirectory)/cert-int-xl-stg-eastus-agw.pfx"
+                          Write-Host "PFX file found at $pfxPath"
+                          $password = "${{ parameters.CERT_PASSWORD }}"
+                          Write-Host "password value $password"
+                          $pfxBytes = [System.IO.File]::ReadAllBytes($pfxPath)
+                          $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2($pfxBytes, $password)
+                          $base64Value = [Convert]::ToBase64String($cert.RawData)
+                          Write-Host "##vso[task.setvariable variable=certificateBase64Content_agw;]$base64Value"
+
+                    - task: AzureCLI@2
+                      displayName: Creating container for backend storage
+                      inputs:
+                        azureSubscription: ${{ parameters.SERVICE_CONNECTION_NAME }}
+                        scriptType: "pscore"
+                        scriptLocation: "inlineScript"
+                        inlineScript: |
+                          az login --service-principal -u ${{ parameters.CLIENT_ID }} -p ${{ parameters.CLIENT_SECRET }} --tenant ${{ parameters.TENANT_ID }}
+                          az account set --subscription ${{ variables.SUBSCRIPTION_ID }}
+                          az storage container create --name ${{ variables.StorageContainerName }} --account-name ${{ variables.StorageAccountName }}
+
+                    - checkout: self
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_download
+                      inputs:
+                        provider: "azurerm"
+                        command: "init"
+                        workingDirectory: "$(System.DefaultWorkingDirectory)/environments/post_configuration/${{ parameters.environment  }}"
+                        backendServiceArm: ${{ parameters.SERVICE_CONNECTION_NAME  }}
+                        backendAzureRmResourceGroupName: ${{ variables.StorageResourceGroup}}
+                        backendAzureRmStorageAccountName: ${{ variables.StorageAccountName }}
+                        backendAzureRmContainerName: ${{ variables.StorageContainerName }}
+                        backendAzureRmKey: xl-post-${{ environ }}.terraform.tfstate
+
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_format
+                      inputs:
+                        provider: "azurerm"
+                        command: "custom"
+                        outputTo: "console"
+                        customCommand: "fmt"
+                        environmentServiceNameAzureRM: ${{ parameters.SERVICE_CONNECTION_NAME }}
+
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_plan
+                      inputs:
+                        provider: "azurerm"
+                        command: "plan"
+                        commandOptions: >
+                          -out main.tfplan 
+                          -input=false 
+                          -var-file="../../../environments/post_configuration/${{ parameters.environment  }}/${{ environ }}.terraform.tfvars" 
+                          -var "CERT_APPGW=$pfxPath"  
+                          -var "CERT_PASSWORD=${{ parameters.CERT_PASSWORD }}"
+                        workingDirectory: "$(System.DefaultWorkingDirectory)/environments/post_configuration/${{ parameters.environment  }}"
+                        environmentServiceNameAzureRM: ${{ parameters.SERVICE_CONNECTION_NAME }}
+
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_apply
+                      inputs:
+                        provider: "azurerm"
+                        command: "apply"
+                        commandOptions: >
+                          -input=false 
+                          -var-file="../../../environments/post_configuration/${{ parameters.environment  }}/${{ environ }}.terraform.tfvars" 
+                          -var "CERT_APPGW=$pfxPath"  
+                          -var "CERT_PASSWORD=${{ parameters.CERT_PASSWORD }}"
+                        workingDirectory: "$(System.DefaultWorkingDirectory)/environments/post_configuration/${{ parameters.environment  }}"
+                        environmentServiceNameAzureRM: ${{ parameters.SERVICE_CONNECTION_NAME  }}

@@ -1,0 +1,61 @@
+name: xcellerate-destroy-infraprodtest-subs-pipeline
+
+trigger:
+ - none
+
+# pool:
+#   vmImage: 'ubuntu-latest'
+
+pool:
+  name: "Vardo-Dev-IaC"
+
+parameters:
+- name: environment
+  displayName: Environment
+  type: string
+  values:
+  - prod
+  - stage
+
+- name: regionname
+  displayName: Region
+  type: string
+  values:
+  - us
+
+- name: location
+  displayName: Location
+  type: string
+  values:
+  - primary
+
+variables:
+- group: xl-iac-prod-deploy
+
+resources:
+  repositories:
+    - repository: Xcellerate-IAC
+      type: git
+      name: Fortrea-IaC/Xcellerate-IAC
+      ref: refs/heads/Feature/pooja-IAC-code-initial
+
+stages:
+- template: templates/xcellerate-template-infradestroy-subs.yml@Xcellerate-IAC
+  parameters:
+    ${{ if eq(parameters.location, 'default (both)') }}:
+      environments:
+      - ${{ parameters.environment }}-${{ parameters.regionname }}-primary
+      - ${{ parameters.environment }}-${{ parameters.regionname }}-dr
+    ${{ else}}:
+      environments:
+      - ${{ parameters.environment }}-${{ parameters.regionname }}-${{ parameters.location  }}
+    SERVICE_CONNECTION_NAME: $(AZURE_SERVICE_CONNECTION_NAME)
+    # SUBSCRIPTION_NAME: $(ARM_SUBSCRIPTION_ID)
+    environment: ${{ parameters.environment  }}
+    regionname: ${{ parameters.regionname }}
+    location: ${{ parameters.location }}
+    CLIENT_SECRET: $(ARM_CLIENT_SECRET)         
+    TENANT_ID: $(ARM_TENANT_ID)    
+    CLIENT_ID: $(ARM_CLIENT_ID)
+  
+    

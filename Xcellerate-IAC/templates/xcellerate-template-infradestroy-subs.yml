@@ -1,0 +1,223 @@
+parameters:
+  - name: SERVICE_CONNECTION_NAME
+    type: string
+  # - name: SUBSCRIPTION_NAME
+  #   type: string
+  - name: TENANT_ID
+    type: string
+  - name: CLIENT_ID
+    type: string
+  - name: CLIENT_SECRET
+    type: string
+  - name: location
+    type: string
+  - name: environments
+    type: object
+    default: {}
+  - name: regionname
+    type: string
+  - name: environment
+    type: string
+  - name: projectname
+    type: string
+    default: fortrea
+
+###
+
+stages:
+  - ${{ each environ in parameters.environments }}:
+      - stage: terraform_plan${{ replace(environ, '-','_')}}
+        displayName: terraform plan_${{ replace(environ, '-','_')}}
+        jobs:              
+          - deployment: resource_validation
+            displayName: deploy_to_${{ replace(environ, '-','_')}}
+            ${{ if eq(parameters.environment, 'dev')}}:
+              environment: non-approval
+            ${{ elseif eq(parameters.location, 'default (both)')}}:
+              ${{ if contains(environ, 'primary')}}:
+                environment: non-approval
+              ${{ else }}:
+                environment: non-approval
+            ${{ else }}:
+              environment: non-approval
+            variables:
+              - name: commonVarFileName
+                ${{ if contains(environ, 'primary')}}:
+                  value: ${{ replace( environ, 'primary', 'common')}}
+                ${{ if contains(environ, 'dr')}}:
+                  value: ${{replace(environ, 'dr', 'common')}}
+              - template: /environments/${{ parameters.environment  }}/vars/${{ parameters.projectName}}-vars-${{ environ }}.yml
+              - name: StorageResourceGroup
+                value: ${{
+                  format('rg-tf-{0}-001',
+                  variables.LocationName)
+                  }}
+              - name: StorageAccountName
+                value: ${{
+                  format('satf{0}001',
+                  variables.LocationName)
+                  }}
+              - name: StorageContainerName
+                value: ${{
+                  format('{0}-tfstate-{1}-{2}-001',
+                  variables.ApplicationName,
+                  variables.LocationName,
+                  variables.EnvironmentName)
+                  }}
+
+            strategy:
+              runOnce:
+                deploy:
+                  steps:
+                    # - task: Bash@3
+                    #   inputs:
+                    #     targetType: "inline"
+                    #     script: |
+                    #       # Update the list of packages
+                    #       sudo apt-get update
+
+                    #       # Install prerequisites
+                    #       sudo apt-get install -y wget apt-transport-https software-properties-common
+
+                    #       # Download and install the Microsoft repository GPG keys
+                    #       wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+                    #       sudo dpkg -i packages-microsoft-prod.deb
+
+                    #       # Update the list of packages after adding the Microsoft repository
+                    #       sudo apt-get update
+
+                    #       # Install PowerShell
+                    #       sudo apt-get install -y powershell
+
+                    #       # Verify installation
+                    #       pwsh -v
+
+                    - task: AzureCLI@2
+                      displayName: Creating container for backend storage
+                      inputs:
+                        azureSubscription: ${{ parameters.SERVICE_CONNECTION_NAME }}
+                        scriptType: "pscore"
+                        scriptLocation: "inlineScript"
+                        inlineScript: |
+                          az login --service-principal -u ${{ parameters.CLIENT_ID }} -p ${{ parameters.CLIENT_SECRET }} --tenant ${{ parameters.TENANT_ID }}
+                          az account set --subscription ${{ variables.SUBSCRIPTION_ID }}
+                          az storage container create --name ${{ variables.StorageContainerName }} --account-name ${{ variables.StorageAccountName }}
+
+
+                    - checkout: self
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_download
+                      inputs:
+                        provider: "azurerm"
+                        command: "init"
+                        workingDirectory: "$(System.DefaultWorkingDirectory)/environments/${{ parameters.environment  }}"
+                        backendServiceArm: ${{ parameters.SERVICE_CONNECTION_NAME  }}
+                        backendAzureRmResourceGroupName: ${{ variables.StorageResourceGroup}}
+                        backendAzureRmStorageAccountName: ${{ variables.StorageAccountName }}
+                        backendAzureRmContainerName: ${{ variables.StorageContainerName }}
+                        backendAzureRmKey: xl-${{ environ }}.terraform.tfstate
+
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_format
+                      inputs:
+                        provider: "azurerm"
+                        command: "custom"
+                        outputTo: "console"
+                        customCommand: "fmt"
+                        environmentServiceNameAzureRM: ${{ parameters.SERVICE_CONNECTION_NAME }}                    
+                       
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_plan
+                      inputs:
+                        provider: "azurerm"
+                        command: "plan"
+                        commandOptions: -out main.tfplan -input=false -var-file="../../environments/${{ parameters.environment  }}/${{ environ }}.terraform.tfvars"
+                        workingDirectory: "$(System.DefaultWorkingDirectory)/environments/${{ parameters.environment  }}"
+                        environmentServiceNameAzureRM: ${{ parameters.SERVICE_CONNECTION_NAME }}
+
+
+      - stage: terraform_destroy${{ replace(environ, '-','_')}}
+        condition: succeeded('terraform_plan${{ replace(environ, '-','_')}}')
+        dependsOn: terraform_plan${{ replace(environ, '-','_')}}
+        displayName: terraform destroy_${{ replace(environ, '-','_')}}
+        jobs:
+          - deployment: resource_deployment
+            timeoutInMinutes: 180
+            displayName: destroy_to_${{ replace(environ, '-','_')}}
+            ${{ if eq(parameters.environment, 'dev')}}:
+              environment: ${{ environ }}
+            ${{ elseif eq(parameters.location, 'default (both)')}}:
+              ${{ if contains(environ, 'primary')}}:
+                environment: ${{ environ }}
+              ${{ else }}:
+                environment: ${{ environ }}
+            ${{ else }}:
+              environment: ${{ environ }}
+            variables:
+              - name: commonVarFileName
+                ${{ if contains(environ, 'primary')}}:
+                  value: ${{ replace( environ, 'primary', 'common')}}
+                ${{ if contains(environ, 'dr')}}:
+                  value: ${{replace(environ, 'dr', 'common')}}
+              - template: /environments/${{ parameters.environment  }}/vars/${{ parameters.projectName}}-vars-${{ environ }}.yml
+              - name: StorageResourceGroup
+                value: ${{
+                  format('rg-tf-{0}-001',
+                  variables.LocationName)
+                  }}
+              - name: StorageAccountName
+                value: ${{
+                  format('satf{0}001',
+                  variables.LocationName)
+                  }}
+              - name: StorageContainerName
+                value: ${{
+                  format('{0}-tfstate-{1}-{2}-001',
+                  variables.ApplicationName,
+                  variables.LocationName,
+                  variables.EnvironmentName)
+                  }}
+
+            strategy:
+              runOnce:
+                deploy:
+                  steps:
+                    - checkout: self
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_download
+                      inputs:
+                        provider: "azurerm"
+                        command: "init"
+                        workingDirectory: "$(System.DefaultWorkingDirectory)/environments/${{ parameters.environment  }}"
+                        backendServiceArm: ${{ parameters.SERVICE_CONNECTION_NAME  }}
+                        backendAzureRmResourceGroupName: ${{ variables.StorageResourceGroup}}
+                        backendAzureRmStorageAccountName: ${{ variables.StorageAccountName }}
+                        backendAzureRmContainerName: ${{ variables.StorageContainerName }}
+                        backendAzureRmKey: xl-${{ environ }}.terraform.tfstate
+
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_format
+                      inputs:
+                        provider: "azurerm"
+                        command: "custom"
+                        outputTo: "console"
+                        customCommand: "fmt"
+                        environmentServiceNameAzureRM: ${{ parameters.SERVICE_CONNECTION_NAME }}
+
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_plan
+                      inputs:
+                        provider: "azurerm"
+                        command: "plan"
+                        commandOptions: -out main.tfplan -input=false -var-file="../../environments/${{ parameters.environment  }}/${{ environ }}.terraform.tfvars"
+                        workingDirectory: "$(System.DefaultWorkingDirectory)/environments/${{ parameters.environment  }}"
+                        environmentServiceNameAzureRM: ${{ parameters.SERVICE_CONNECTION_NAME }}
+
+                    - task: TerraformTaskV4@4
+                      displayName: terraform_destroy
+                      inputs:
+                        provider: "azurerm"
+                        command: "destroy"
+                        commandOptions: -auto-approve -input=false -var-file="../../environments/${{ parameters.environment  }}/${{ environ }}.terraform.tfvars"
+                        workingDirectory: "$(System.DefaultWorkingDirectory)/environments/${{ parameters.environment  }}"
+                        environmentServiceNameAzureRM: ${{ parameters.SERVICE_CONNECTION_NAME  }}
