@@ -1,0 +1,292 @@
+parameters:
+- name: SERVICE_CONNECTION_NAME
+  type: string
+- name: SUBSCRIPTION_NAME
+  type: string
+- name: TENANT_ID
+  type: string    
+- name: CLIENT_ID
+  type: string      
+- name: CLIENT_SECRET
+  type: string
+- name: environments
+  type: object
+  default: {}
+- name: environment
+  type: string
+- name: regionname
+  type: string
+- name: location
+  type: string  
+- name: projectname
+  type: string
+  default: mig
+- name: landing_zone_name
+  type: string
+
+####
+
+stages:
+- ${{ each environ in parameters.environments }}:
+  - stage: terraform_plan${{ replace(environ, '-','_')}}
+    displayName: terraform plan_${{ replace(environ, '-','_')}}
+    jobs:            
+    - deployment: creating_storage_container
+      displayName: container_prereque_to_${{ replace(environ, '-','_')}}
+      ${{ if eq(parameters.landingZoneName, 'identity')}}:
+        environment: ${{ environ }}
+        ${{ else }}:
+          environment: non-approval
+      variables:
+      - name: VarFileName
+      - name: StorageResourceGroup
+        value: ${{
+          format('rg-{0}-tfstate-{1}-{2}-01',
+          parameters.projectname,
+          parameters.location,
+          parameters.environment)
+          }}          
+      - name: StorageAccountName
+        value: ${{
+          format('st{0}tfstat{1}{2}-01',
+          parameters.projectname,
+          parameters.regionname,
+          parameters.environment)
+          }}
+      - name: StorageContainerName
+        value: ${{
+          format('cn-{0}-tfstate-{1}-{2}-01',
+          parameters.projectname,
+          parameters.location,
+          parameters.environment)
+          }}
+
+      strategy:
+        runOnce:
+          deploy:      
+            steps:
+            - task: AzureCLI@2
+              displayName: creating_storage_container
+              inputs:
+                azureSubscription: ${{ parameters.SERVICE_CONNECTION_NAME }} 
+                scriptType: 'bash'
+                scriptLocation: 'inlineScript'
+                inlineScript: |
+                az login --service-principal -u ${{ parameters.CLIENT_ID }} -p ${{ parameters.CLIENT_SECRET }} --tenant ${{ parameters.TENANT_ID }}
+                az account set --subscription ${{ parameters.SUBSCRIPTION_NAME }}
+                az group create --name ${{ variables.StorageResourceGroup }} --location ${{ parameters.location}}
+                az storage account create --name ${{ variables.StorageAccountName }} --resource-group ${{ variables.StorageResourceGroup }} --location ${{ parameters.location }} --sku Standard_LRS
+                az storage container create --name ${{ variables.StorageContainerName }} --account-name ${{ variables.StorageAccountName }}
+
+    ##
+            - script: |
+                echo $(Agent.JobStatus)
+            displayName: 'Get the job Status'
+            condition: always()  
+    ##
+            - script: |
+                postResponse=$(curl -s -X POST -H "Content-Type: application/json" -d '{
+                    "LandingZoneName": "'"${{ parameters.LANDING_ZONE_NAME}}"'",
+                    "LandingZoneStatus": "$(Agent.JobStatus)"
+                }' "http://ec2-3-97-232-96.ca-central-1.compute.amazonaws.com:8006/Landing_Zone/")
+                echo "POST Response: $postResponse"
+            displayName: 'Update Record Status to Executing'
+            condition: always() 
+
+###
+
+
+#   - stage: terraform_plan${{ replace(environ, '-','_')}}
+#     displayName: terraform plan_${{ replace(environ, '-','_')}}
+#     jobs:            
+#     - deployment: creating_storage_container
+#       displayName: container_prereque_to_${{ replace(environ, '-','_')}}
+#       ${{ if eq(parameters.environment, 'identity')}}:
+#         environment: non-approval
+#       ${{ elseif eq(parameters.location, 'default (both)')}}:
+#         ${{ if contains(environ, 'primary')}}:
+#           environment: non-approval
+#         ${{ else }}:
+#           environment: non-approval
+#       ${{ else }}:          
+#         environment: non-approval
+#       variables:
+#       - name: VarFileName
+#         ${{ if contains(environ, 'primary')}}:
+#          value: ${{ replace( environ, 'primary')}}
+#         ${{ if contains(environ, 'dr')}}:
+#           value: ${{replace(environ, 'dr')}}
+#     #   - template: /templates/vars/${{ parameters.environment }}/${{parameters.regionname}}/${{ parameters.projectName}}-vars-${{ environ }}.yml
+#       - name: StorageResourceGroup
+#         value: ${{
+#           format('rg-{0}-tfstate-{1}-{2}-01',
+#           parameters.projectname,
+#           parameters.location,
+#           parameters.environment)
+#           }}          
+#       - name: StorageAccountName
+#         value: ${{
+#           format('st{0}tfstat{1}{2}-01',
+#           parameters.projectname,
+#           parameters.regionname,
+#           parameters.environment)
+#           }}
+#       - name: StorageContainerName
+#         value: ${{
+#           format('cn-{0}-tfstate-{1}-{2}-01',
+#           parameters.projectname,
+#           parameters.location,
+#           parameters.environment)
+#           }}
+
+#       strategy:
+#         runOnce:
+#           deploy:
+#             steps:
+#             - checkout: az-mig-landingzone
+#             - task: TerraformTaskV4@4
+#             displayName: terraform download
+#             inputs:
+#                 provider: 'azurerm'
+#                 command: 'init'
+#                 workingDirectory: '$(System.DefaultWorkingDirectory)/landing-zone/identity'
+#                 backendServiceArm: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }}
+#                 backendAzureRmResourceGroupName: ${{ parameters.IDENTITY_LZ_STORAGE_RESOURCE_GROUP_NAME}}
+#                 backendAzureRmStorageAccountName: ${{parameters.IDENTITY_LZ_STORAGE_ACCOUNT_NAME }}
+#                 backendAzureRmContainerName: ${{ parameters.IDENTITY_LZ_STORAGE_CONTAINER_NAME }}
+#                 backendAzureRmKey: ${{ parameters.IDENTITY_LZ_BACKNED_AZURE_RM_KEY }}
+# ##
+          
+#             - task: TerraformTaskV4@4
+#             displayName: terraform_validate
+#             inputs:
+#                 provider: 'azurerm'
+#                 command: 'validate'
+   
+#             - task: TerraformTaskV4@4
+#             displayName: terraform_plan
+#             inputs:
+#                 provider: 'azurerm'
+#                 command: 'plan'
+#                 workingDirectory: '$(System.DefaultWorkingDirectory)/landing-zone/identity'                
+#                 environmentServiceNameAzureRM: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }}
+# ##
+#             - script: |
+#                 echo $(Agent.JobStatus)
+#             displayName: 'Get the job Status'
+#             condition: always()  
+
+# ##
+#             - script: |
+#                 postResponse=$(curl -s -X POST -H "Content-Type: application/json" -d '{
+#                     "LandingZoneName": "'"${{ parameters.LANDING_ZONE_NAME}}"'",
+#                     "LandingZoneStatus": "$(Agent.JobStatus)"
+#                 }' "http://ec2-3-97-232-96.ca-central-1.compute.amazonaws.com:8006/Landing_Zone/")
+#                 echo "POST Response: $postResponse"
+#             displayName: 'Update Record Status to Executing'
+#             condition: always()  
+# ##
+
+#   - stage: terraform_plan${{ replace(environ, '-','_')}}
+#     displayName: terraform plan_${{ replace(environ, '-','_')}}
+#     jobs:            
+#     - deployment: creating_storage_container
+#       displayName: container_prereque_to_${{ replace(environ, '-','_')}}
+#       ${{ if eq(parameters.environment, 'identity')}}:
+#         environment: non-approval
+#       ${{ elseif eq(parameters.location, 'default (both)')}}:
+#         ${{ if contains(environ, 'primary')}}:
+#           environment: non-approval
+#         ${{ else }}:
+#           environment: non-approval
+#       ${{ else }}:          
+#         environment: non-approval
+#       variables:
+#       - name: VarFileName
+#         ${{ if contains(environ, 'primary')}}:
+#          value: ${{ replace( environ, 'primary')}}
+#         ${{ if contains(environ, 'dr')}}:
+#           value: ${{replace(environ, 'dr')}}
+#     #   - template: /templates/vars/${{ parameters.environment }}/${{parameters.regionname}}/${{ parameters.projectName}}-vars-${{ environ }}.yml
+#       - name: StorageResourceGroup
+#         value: ${{
+#           format('rg-{0}-tfstate-{1}-{2}-01',
+#           parameters.projectname,
+#           parameters.location,
+#           parameters.environment)
+#           }}          
+#       - name: StorageAccountName
+#         value: ${{
+#           format('st{0}tfstat{1}{2}-01',
+#           parameters.projectname,
+#           parameters.regionname,
+#           parameters.environment)
+#           }}
+#       - name: StorageContainerName
+#         value: ${{
+#           format('cn-{0}-tfstate-{1}-{2}-01',
+#           parameters.projectname,
+#           parameters.location,
+#           parameters.environment)
+#           }}
+
+#       strategy:
+#         runOnce:
+#           deploy:
+#             steps:
+#             - checkout: az-mig-landingzone            
+#             - task: TerraformTaskV4@4
+#             displayName: terraform download
+#             inputs:  
+#                 provider: 'azurerm'
+#                 command: 'init'
+#                 workingDirectory: '$(System.DefaultWorkingDirectory)/landing-zone/identity'
+#                 backendServiceArm: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME}}
+#                 backendAzureRmResourceGroupName: ${{ parameters.IDENTITY_LZ_STORAGE_RESOURCE_GROUP_NAME }}
+#                 backendAzureRmStorageAccountName: ${{parameters.IDENTITY_LZ_STORAGE_ACCOUNT_NAME }}
+#                 backendAzureRmContainerName: ${{ parameters.IDENTITY_LZ_STORAGE_CONTAINER_NAME }}
+#                 backendAzureRmKey: ${{ parameters.IDENTITY_LZ_BACKNED_AZURE_RM_KEY }}
+
+
+#             - task: TerraformTaskV4@4
+#             displayName: terraform_format
+#             inputs:
+#                 provider: 'azurerm'
+#                 command: 'custom'
+#                 outputTo: 'console'
+#                 customCommand: 'fmt'
+#                 environmentServiceNameAzureRM: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }}
+
+    
+#             - task: TerraformTaskV4@4
+#             displayName: terraform_plan
+#             inputs:
+#                 provider: 'azurerm'
+#                 command: 'plan'
+#                 workingDirectory: '$(System.DefaultWorkingDirectory)/landing-zone/identity'                
+#                 environmentServiceNameAzureRM: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }}
+
+#             - task: TerraformTaskV4@4
+#             displayName: terraform apply
+#             inputs:        
+#                 provider: 'azurerm'
+#                 command: 'apply'
+#                 workingDirectory: '$(System.DefaultWorkingDirectory)/landing-zone/identity'
+#                 environmentServiceNameAzureRM: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME}}
+
+# ##
+#             - script: |
+#                 echo $(Agent.JobStatus)
+#             displayName: 'Get the job Status'
+#             condition: always() 
+
+# ##
+#             - script: |
+#                 postResponse=$(curl -s -X POST -H "Content-Type: application/json" -d '{
+#                     "LandingZoneName": "'"${{ parameters.LANDING_ZONE_NAME}}"'",
+#                     "LandingZoneStatus": "$(Agent.JobStatus)"
+#                 }' "http://ec2-3-97-232-96.ca-central-1.compute.amazonaws.com:8006/Landing_Zone/")
+#                 echo "POST Response: $postResponse"
+#             displayName: 'Update Record Status to Executing'
+#             condition: always() 
+# ##

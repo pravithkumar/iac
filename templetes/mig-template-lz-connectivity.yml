@@ -1,0 +1,195 @@
+parameters:
+- name: CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME
+  type: string
+- name: CONNECTIVITY_LZ_STORAGE_ACCOUNT_NAME 
+  type: string
+- name: CONNECTIVITY_LZ_STORAGE_CONTAINER_NAME
+  type: string
+- name: CONNECTIVITY_LZ_BACKNED_AZURE_RM_KEY
+  type: string
+- name: AZURE_LZ_SERVICE_CONNECTION_NAME
+  type: string
+- name: LANDING_ZONE_NAME
+  type: string
+- name: CONNECTIVITY_SUBSCRIPTION_NAME
+  type: string
+- name: LOCATION
+  type: string
+# - name: VIRTUAL_NETWORK_GATEWAY_ENABLE
+#   type: boolean
+# - name: EXPRESSROUTE_GATEWAY_SKU
+#   type: string 
+# - name: VPN_GATEWAY_SKU
+#   type: string
+# - name: DEPLOY_LOCAL_NETWORK_GATEWAY
+#   type: boolean
+# - name: AZURE_FIREWALL_ENABLE
+#   type: boolean
+# - name: AZURE_FIREWALL_SKU_TIER
+#   type: string
+# - name: DNS_ZONE_ENABLE
+#   type: boolean
+# - name: DDOS_PROTECTION_PLAN_ENABLE
+#   type: boolean
+# - name: DDOS_PROTECTION_PLAN_LINK
+#   type: boolean
+#
+- name: CLIENT_ID
+  type: string      
+- name: CLIENT_SECRET
+  type: string
+- name: TENANT_ID
+  type: string  
+
+##
+
+stages: 
+  - stage: setup_prerequisites   
+    jobs:
+      - job: Creating_storage_container       
+        steps:
+         - task: AzureCLI@2
+           displayName: Creating_storageAccount
+           inputs:
+             azureSubscription: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }} 
+             scriptType: 'pscore'
+             scriptLocation: 'inlineScript'
+             inlineScript: |
+               az login --service-principal -u ${{ parameters.CLIENT_ID }} -p ${{ parameters.CLIENT_SECRET }} --tenant ${{ parameters.TENANT_ID }}
+               az account set --subscription ${{ parameters.CONNECTIVITY_SUBSCRIPTION_NAME }}
+               az group create --name ${{ parameters.CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME }} --location ${{ parameters.LOCATION }}
+               az storage account create --name ${{ parameters.CONNECTIVITY_LZ_STORAGE_ACCOUNT_NAME }} --resource-group ${{ parameters.CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME }} --location ${{ parameters.LOCATION }} --sku Standard_LRS
+               az storage container create --name ${{ parameters.CONNECTIVITY_LZ_STORAGE_CONTAINER_NAME }} --account-name ${{ parameters.CONNECTIVITY_LZ_STORAGE_ACCOUNT_NAME }}
+               az lock create --name CanNotDelete --lock-type CanNotDelete --resource-group ${{ parameters.CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME }}
+               Write-Host "####### ${{ parameters.CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME }} RG is locked successfull #########"
+##
+         - script: |
+               echo $(Agent.JobStatus)
+           displayName: 'Get the job Status'
+           condition: always() 
+##
+
+         - script: |
+               postResponse=$(curl -s -X POST -H "Content-Type: application/json" -d '{
+                   "LandingZoneName": "'"${{ parameters.LANDING_ZONE_NAME}}"'",
+                   "LandingZoneStatus": "$(Agent.JobStatus)"
+               }' "http://ec2-3-97-232-96.ca-central-1.compute.amazonaws.com:8006/Landing_Zone/")
+               echo "POST Response: $postResponse"
+           displayName: 'Update Record Status to Executing'
+           condition: always() 
+## 
+
+  - stage: terraform_plan
+    condition: succeeded('setup_prerequisites')
+    dependsOn: setup_prerequisites    
+    jobs:
+      - job: resource_validation
+        steps:
+         - checkout: az-mig-landingzone
+         - task: TerraformTaskV4@4
+           displayName: terraform download
+           inputs:   
+             provider: 'azurerm'
+             command: 'init'
+             workingDirectory: '$(System.DefaultWorkingDirectory)/landing-zone/connectivity'
+             backendServiceArm: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }}
+             backendAzureRmResourceGroupName: ${{ parameters.CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME }}
+             backendAzureRmStorageAccountName: ${{parameters.CONNECTIVITY_LZ_STORAGE_ACCOUNT_NAME }}
+             backendAzureRmContainerName: ${{ parameters.CONNECTIVITY_LZ_STORAGE_CONTAINER_NAME }}
+             backendAzureRmKey: ${{ parameters.CONNECTIVITY_LZ_BACKNED_AZURE_RM_KEY }}
+
+         - task: TerraformTaskV4@4
+           displayName: terraform_validate
+           inputs:
+             provider: 'azurerm'
+             command: 'validate'
+ 
+         - task: TerraformTaskV4@4
+           displayName: terraform_plan
+           inputs:
+               provider: 'azurerm'
+               command: 'plan'
+               workingDirectory: '$(System.DefaultWorkingDirectory)/landing-zone/connectivity'
+              #  commandOptions: '-out main.tfplan -var virtual_network_gateway_enable=${{ lower(parameters.VIRTUAL_NETWORK_GATEWAY_ENABLE) }} -var expressroute_gateway_sku=${{ parameters.EXPRESSROUTE_GATEWAY_SKU }} -var vpn_gateway_sku=${{ parameters.VPN_GATEWAY_SKU }} -var deploy_local_network_gateway=${{ lower(parameters.DEPLOY_LOCAL_NETWORK_GATEWAY) }} -var azure_firewall_enable=${{ lower(parameters.AZURE_FIREWALL_ENABLE) }} -var azure_firewall_sku_tier=${{ parameters.AZURE_FIREWALL_SKU_TIER }} -var dns_zone_enable=${{ lower(parameters.DNS_ZONE_ENABLE) }} -var ddos_protection_plan_enable=${{ lower(parameters.DDOS_PROTECTION_PLAN_ENABLE) }} -var ddos_protection_plan_link=${{ lower(parameters.DDOS_PROTECTION_PLAN_LINK) }} -var deployment_location=${{ parameters.LOCATION }}'                     
+               environmentServiceNameAzureRM: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }}
+
+##
+         - script: |
+               echo $(Agent.JobStatus)
+           displayName: 'Get the job Status'
+           condition: always()             
+
+##
+         - script: |
+               postResponse=$(curl -s -X POST -H "Content-Type: application/json" -d '{
+                   "LandingZoneName": "'"${{ parameters.LANDING_ZONE_NAME}}"'",
+                   "LandingZoneStatus": "$(Agent.JobStatus)"
+               }' "http://ec2-3-97-232-96.ca-central-1.compute.amazonaws.com:8006/Landing_Zone/")
+               echo "POST Response: $postResponse"
+           displayName: 'Update Record Status to Executing'
+           condition: always()             
+##           
+
+  - stage: terraform_apply
+    condition: succeeded('terraform_plan')
+    dependsOn: terraform_plan    
+    jobs:
+      - job: resource_deployment
+        steps:
+         - checkout: az-mig-landingzone
+         - task: TerraformTaskV4@4
+           displayName: terraform download
+           inputs:   
+             provider: 'azurerm'
+             command: 'init'
+             workingDirectory: '$(System.DefaultWorkingDirectory)/landing-zone/connectivity'
+             backendServiceArm: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }}
+             backendAzureRmResourceGroupName: ${{ parameters.CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME }}
+             backendAzureRmStorageAccountName: ${{parameters.CONNECTIVITY_LZ_STORAGE_ACCOUNT_NAME }}
+             backendAzureRmContainerName: ${{ parameters.CONNECTIVITY_LZ_STORAGE_CONTAINER_NAME }}
+             backendAzureRmKey: ${{ parameters.CONNECTIVITY_LZ_BACKNED_AZURE_RM_KEY }}
+
+
+         - task: TerraformTaskV4@4
+           displayName: terraform_format
+           inputs:
+              provider: 'azurerm'
+              command: 'custom'
+              outputTo: 'console'
+              customCommand: 'fmt'
+              environmentServiceNameAzureRM: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }}
+ 
+         - task: TerraformTaskV4@4
+           displayName: terraform_plan
+           inputs:
+               provider: 'azurerm'
+               command: 'plan'
+               workingDirectory: '$(System.DefaultWorkingDirectory)/landing-zone/connectivity'
+              #  commandOptions: '-out main.tfplan -var virtual_network_gateway_enable=${{ lower(parameters.VIRTUAL_NETWORK_GATEWAY_ENABLE) }} -var expressroute_gateway_sku=${{ parameters.EXPRESSROUTE_GATEWAY_SKU }} -var vpn_gateway_sku=${{ parameters.VPN_GATEWAY_SKU }} -var deploy_local_network_gateway=${{ lower(parameters.DEPLOY_LOCAL_NETWORK_GATEWAY) }} -var azure_firewall_enable=${{ lower(parameters.AZURE_FIREWALL_ENABLE) }} -var azure_firewall_sku_tier=${{ parameters.AZURE_FIREWALL_SKU_TIER }} -var dns_zone_enable=${{ lower(parameters.DNS_ZONE_ENABLE) }} -var ddos_protection_plan_enable=${{ lower(parameters.DDOS_PROTECTION_PLAN_ENABLE) }} -var ddos_protection_plan_link=${{ lower(parameters.DDOS_PROTECTION_PLAN_LINK) }} -var deployment_location=${{ parameters.LOCATION }}'                   
+               environmentServiceNameAzureRM: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }}
+
+         - task: TerraformTaskV4@4
+           displayName: terraform apply         
+           inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/landing-zone/connectivity'
+              # commandOptions: '-auto-approve -input=false main.tfplan'
+              environmentServiceNameAzureRM: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }}
+
+##
+         - script: |
+               echo $(Agent.JobStatus)
+           displayName: 'Get the job Status'
+           condition: always() 
+
+##
+         - script: |
+               postResponse=$(curl -s -X POST -H "Content-Type: application/json" -d '{
+                   "LandingZoneName": "'"${{ parameters.LANDING_ZONE_NAME}}"'",
+                   "LandingZoneStatus": "$(Agent.JobStatus)"
+               }' "http://ec2-3-97-232-96.ca-central-1.compute.amazonaws.com:8006/Landing_Zone/")
+               echo "POST Response: $postResponse"
+           displayName: 'Update Record Status to Executing'
+           condition: always() 
+##                   
