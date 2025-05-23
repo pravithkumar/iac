@@ -148,9 +148,9 @@ variables:
 
 resources:
   repositories:
-    - repository: Pravith.Yedla
+    - repository: PravithYedla
       type: git
-      name: Pravith.Yedla/Pravith.Yedla
+      name: PravithYedla/PravithYedla
       ref: main
       
 
