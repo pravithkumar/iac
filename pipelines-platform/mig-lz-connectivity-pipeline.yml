@@ -11,20 +11,20 @@ parameters:
   displayName: ConnectivityStorageResourceGroupName
   type: string  
   values:
-  - rg-mig-tfstate-eastus2-cmg-01
+  - pravith-vm-jump-box
 
 
 - name: CONNECTIVITY_LZ_STORAGE_ACCOUNT_NAME 
   displayName: ConnectivityStorageAccountName
   type: string
   values:
-  - stmigtfstateus1cmg    
+  - tfstatemsdn    
 
 - name: CONNECTIVITY_LZ_STORAGE_CONTAINER_NAME
   displayName: ConnectivityStorageContainerName
   type: string
   values:
-  - mig-lz-tfstate-cmg  
+  - tfstate  
 
 - name: CONNECTIVITY_LZ_BACKNED_AZURE_RM_KEY
   displayName: ConnectivityBacknedAzureRmKey
@@ -36,14 +36,14 @@ parameters:
   displayName: AzureServiceConnectionName
   type: string
   values:
-  - spn-azure-platform-ops
+  -  SC_CCS_400847_Priya_MSDN-2
 
 
 - name: CONNECTIVITY_SUBSCRIPTION_NAME
   displayName: subscriptionName
   type: string
   values:
-  - ef1ee86b-4147-4f18-a1b0-08f64bcc72be 
+  - 795783af-96d3-4629-9161-58de5577ed1e 
 
 
 # - name: VIRTUAL_NETWORK_GATEWAY_ENABLE
