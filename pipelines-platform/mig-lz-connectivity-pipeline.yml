@@ -1,0 +1,183 @@
+name: az-mig-lz-connectivity-pipeline
+
+trigger:
+ - none
+
+pool: az-selfhosted-linux
+
+parameters:
+- name: CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME
+  displayName: ConnectivityStorageResourceGroupName
+  type: string  
+  values:
+  - rg-mig-tfstate-eastus2-cmg-01
+
+
+- name: CONNECTIVITY_LZ_STORAGE_ACCOUNT_NAME 
+  displayName: ConnectivityStorageAccountName
+  type: string
+  values:
+  - stmigtfstateus1cmg    
+
+- name: CONNECTIVITY_LZ_STORAGE_CONTAINER_NAME
+  displayName: ConnectivityStorageContainerName
+  type: string
+  values:
+  - mig-lz-tfstate-cmg  
+
+- name: CONNECTIVITY_LZ_BACKNED_AZURE_RM_KEY
+  displayName: ConnectivityBacknedAzureRmKey
+  type: string
+  values:
+  - Connectivity-lz.terraform.tfstate 
+
+- name: AZURE_LZ_SERVICE_CONNECTION_NAME
+  displayName: AzureServiceConnectionName
+  type: string
+  values:
+  - spn-azure-platform-ops
+
+
+- name: CONNECTIVITY_SUBSCRIPTION_NAME
+  displayName: subscriptionName
+  type: string
+  values:
+  - ef1ee86b-4147-4f18-a1b0-08f64bcc72be 
+
+
+# - name: VIRTUAL_NETWORK_GATEWAY_ENABLE
+#   displayName: EnableVirtualNetworkGateway
+#   type: boolean
+#   default: true 
+#   values:
+#   - false
+
+
+# - name: EXPRESSROUTE_GATEWAY_SKU
+#   displayName: Select expressGatwayRouteSku
+#   type: string
+#   default: empty
+#   values:
+#   - empty
+#   - Standard
+#   - High performance
+#   - Ultra performance
+#   - ErGw1AZ
+#   - ErGw2AZ
+#   - ErGw3AZ
+
+
+# - name: VPN_GATEWAY_SKU
+#   displayName: Select vpnGatwaySku
+#   type: string
+#   default: VpnGw1
+#   values:
+#   - empty  
+#   - VpnGw1
+#   - VpnGw2
+#   - VpnGw3
+#   - VpnGw4
+#   - VpnGw5
+#   - VpnGw1AZ
+#   - VpnGw2AZ
+#   - VpnGw3AZ
+#   - VpnGw4AZ
+#   - VpnGw5AZ
+
+# - name: DEPLOY_LOCAL_NETWORK_GATEWAY
+#   displayName: DeployLocalNetworkGateway
+#   type: boolean
+#   default: true
+#   values:
+#   - false
+
+# - name: AZURE_FIREWALL_ENABLE
+#   displayName: EnbaleAzureFirewall
+#   type: boolean
+#   default: true  
+#   values:
+#   - false
+
+# - name: AZURE_FIREWALL_SKU_TIER
+#   displayName: Select AzureFirewallSkuTier
+#   type: string
+#   values:
+#   - Standard
+#   - Premium
+
+
+# - name: DNS_ZONE_ENABLE
+#   displayName: EnableDnsZone
+#   type: boolean
+#   default: true  
+#   values:
+#   - false
+
+# - name: DDOS_PROTECTION_PLAN_ENABLE
+#   displayName: EnableDDOSProtectionPlan
+#   default: true   
+#   type: boolean
+#   values:
+#   - false
+
+# - name: DDOS_PROTECTION_PLAN_LINK
+#   displayName: LinkDDOSProtectionPlan
+#   default: true   
+#   type: boolean
+#   values:
+#   - false
+
+- name: LANDING_ZONE_NAME
+  displayName: landingzoneName
+  type: string
+  values:
+  - connectivity
+
+
+- name: LOCATION
+  displayName: location
+  type: string
+  values:
+  - eastus2 
+
+
+variables:
+- group: az-mig-lz-connectivity-group
+
+
+resources:
+  repositories:
+    - repository: az-mig-landingzone
+      type: git
+      name: AZ-Cloud-Migration/az-mig-landingzone
+      ref: main
+      
+    - repository: az-mig-templates
+      type: git
+      name: AZ-Cloud-Migration/az-mig-templates
+      ref: main      
+
+stages:
+- template: templates/landing-zone/mig-template-lz-connectivity.yml@az-mig-templates
+  parameters:
+    CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME: ${{ parameters.CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME }}
+    CONNECTIVITY_LZ_STORAGE_ACCOUNT_NAME : ${{ parameters.CONNECTIVITY_LZ_STORAGE_ACCOUNT_NAME  }}
+    CONNECTIVITY_LZ_STORAGE_CONTAINER_NAME: ${{ parameters.CONNECTIVITY_LZ_STORAGE_CONTAINER_NAME }}
+    CONNECTIVITY_LZ_BACKNED_AZURE_RM_KEY: ${{ parameters.CONNECTIVITY_LZ_BACKNED_AZURE_RM_KEY }}
+    AZURE_LZ_SERVICE_CONNECTION_NAME: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }}
+    CONNECTIVITY_SUBSCRIPTION_NAME: ${{ parameters.CONNECTIVITY_SUBSCRIPTION_NAME }}
+    # VIRTUAL_NETWORK_GATEWAY_ENABLE: ${{ parameters.VIRTUAL_NETWORK_GATEWAY_ENABLE }}
+    # EXPRESSROUTE_GATEWAY_SKU: ${{ parameters.EXPRESSROUTE_GATEWAY_SKU }}
+    # VPN_GATEWAY_SKU: ${{ parameters.VPN_GATEWAY_SKU }}
+    # DEPLOY_LOCAL_NETWORK_GATEWAY: ${{ parameters.DEPLOY_LOCAL_NETWORK_GATEWAY }}
+    # AZURE_FIREWALL_ENABLE: ${{ parameters.AZURE_FIREWALL_ENABLE }}
+    # DDOS_PROTECTION_PLAN_ENABLE: ${{ parameters.DDOS_PROTECTION_PLAN_ENABLE }}
+    # DDOS_PROTECTION_PLAN_LINK: ${{ parameters.DDOS_PROTECTION_PLAN_LINK }}
+    # AZURE_FIREWALL_SKU_TIER: ${{ parameters.AZURE_FIREWALL_SKU_TIER }}
+    # DNS_ZONE_ENABLE: ${{ parameters.DNS_ZONE_ENABLE }}
+    LANDING_ZONE_NAME: ${{ parameters.LANDING_ZONE_NAME }}
+    LOCATION: ${{ parameters.LOCATION}}
+    CLIENT_SECRET: $(ARM_CLIENT_SECRET)    
+    TENANT_ID: $(ARM_TENANT_ID)
+    CLIENT_ID: $(ARM_CLIENT_ID)
+

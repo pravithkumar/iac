@@ -1,0 +1,87 @@
+name: az-mig-lz-management-pipeline
+
+trigger:
+ - none
+
+pool: az-selfhosted-linux
+
+parameters:
+- name: MANAGEMENT_LZ_STORAGE_RESOURCE_GROUP_NAME
+  displayName: ManagementStorageResourceGroupName
+  type: string
+  values:
+  - rg-mig-tfstate-eastus2-mmg-01
+
+- name: MANAGEMENT_LZ_STORAGE_ACCOUNT_NAME  
+  displayName: ManagementStorageAccountName
+  type: string
+  values:
+  - stmigtfstateus1mmg  
+
+- name: MANAGEMENT_LZ_STORAGE_CONTAINER_NAME
+  displayName: ManagementStorageContainerName
+  type: string
+  values:
+  - mig-lz-tfstate-mmg 
+
+- name: MANAGEMENT_LZ_BACKNED_AZURE_RM_KEY
+  displayName: ManagementBacknedAzureRmKey
+  type: string
+  values:
+  - Management-lz.terraform.tfstate    
+
+- name: AZURE_LZ_SERVICE_CONNECTION_NAME
+  displayName: AzureServiceConnectionName
+  type: string
+  values:
+  - spn-azure-platform-ops
+
+- name: MANAGEMENT_SUBSCRIPTION_NAME
+  displayName: management subscriptionName
+  type: string
+  values:
+  - c9980f13-e913-4a6e-89d9-703107b8ec4c
+
+- name: LANDING_ZONE_NAME
+  displayName: landingzoneName
+  type: string
+  values:
+  - management
+
+- name: LOCATION
+  displayName: location
+  type: string
+  values:
+  - eastus2 
+
+
+variables:
+- group: az-mig-lz-management-group
+
+
+resources:
+  repositories:
+    - repository: az-mig-landingzone
+      type: git
+      name: AZ-Cloud-Migration/az-mig-landingzone
+      ref: main
+      
+    - repository: az-mig-templates
+      type: git
+      name: AZ-Cloud-Migration/az-mig-templates
+      ref: main      
+
+stages:
+- template: templates/landing-zone/mig-template-lz-management.yml@az-mig-templates
+  parameters:
+    MANAGEMENT_LZ_STORAGE_RESOURCE_GROUP_NAME: ${{ parameters.MANAGEMENT_LZ_STORAGE_RESOURCE_GROUP_NAME }}
+    MANAGEMENT_LZ_STORAGE_ACCOUNT_NAME: ${{ parameters.MANAGEMENT_LZ_STORAGE_ACCOUNT_NAME }}
+    MANAGEMENT_LZ_STORAGE_CONTAINER_NAME: ${{ parameters.MANAGEMENT_LZ_STORAGE_CONTAINER_NAME }}
+    MANAGEMENT_LZ_BACKNED_AZURE_RM_KEY: ${{ parameters.MANAGEMENT_LZ_BACKNED_AZURE_RM_KEY }}
+    AZURE_LZ_SERVICE_CONNECTION_NAME: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }}
+    MANAGEMENT_SUBSCRIPTION_NAME: ${{ parameters.MANAGEMENT_SUBSCRIPTION_NAME }}
+    LANDING_ZONE_NAME: ${{ parameters.LANDING_ZONE_NAME }}
+    LOCATION: ${{ parameters.LOCATION }}
+    TENANT_ID: $(ARM_TENANT_ID)
+    CLIENT_ID: $(ARM_CLIENT_ID)
+    CLIENT_SECRET: $(ARM_CLIENT_SECRET)

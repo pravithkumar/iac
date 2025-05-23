@@ -1,0 +1,89 @@
+name: az-mig-lz-delete-Identity-pipeline
+
+trigger:
+ - none
+
+pool: az-selfhosted-linux
+
+
+parameters:
+- name: LANDING_ZONE_NAME
+  displayName: landingzoneName
+  type: string
+  values:
+  - identity  
+
+
+- name: IDENTITY_LZ_STORAGE_RESOURCE_GROUP_NAME
+  displayName: IdentityStorageResourceGroupName
+  type: string
+  values:
+  - rg-mig-tfstate-eastus2-img-01  
+
+- name: IDENTITY_LZ_STORAGE_ACCOUNT_NAME 
+  displayName: IdentityStorageAccountName
+  type: string
+  values: 
+  - stmigtfstateus1img
+
+- name: IDENTITY_LZ_STORAGE_CONTAINER_NAME
+  displayName: IdentityStorageContainerName
+  type: string
+  values: 
+  - mig-lz-tfstate-img  
+
+- name: IDENTITY_LZ_BACKNED_AZURE_RM_KEY
+  displayName: IdentityBacknedAzureRmKey
+  type: string
+  values:
+  - Identity-lz.terraform.tfstate  
+
+- name: AZURE_LZ_SERVICE_CONNECTION_NAME
+  displayName: AzureServiceConnectionName
+  type: string
+  values:
+  - spn-azure-platform-ops 
+
+
+- name: IDENTITY_SUBSCRIPTION_NAME
+  displayName: subscriptionName
+  type: string
+  values:
+  - 94876ed9-b91b-4357-ab64-b0080e493e82
+
+- name: LOCATION
+  displayName: location
+  type: string
+  values:
+  - eastus2   
+
+variables:
+- group: az-mig-lz-identity-group
+
+
+resources:
+  repositories:
+    - repository: az-mig-landingzone
+      type: git
+      name: AZ-Cloud-Migration/az-mig-landingzone
+      ref: main
+      
+    - repository: az-mig-templates
+      type: git
+      name: AZ-Cloud-Migration/az-mig-templates
+      ref: main      
+
+stages:
+- template: templates/landing-zone/mig-template-lz-delete-identity.yml@az-mig-templates
+  parameters:
+    LANDING_ZONE_NAME: ${{ parameters.LANDING_ZONE_NAME }}  
+    IDENTITY_LZ_STORAGE_RESOURCE_GROUP_NAME: ${{ parameters.IDENTITY_LZ_STORAGE_RESOURCE_GROUP_NAME}}
+    IDENTITY_LZ_STORAGE_ACCOUNT_NAME: ${{ parameters.IDENTITY_LZ_STORAGE_ACCOUNT_NAME }}
+    IDENTITY_LZ_STORAGE_CONTAINER_NAME: ${{ parameters.IDENTITY_LZ_STORAGE_CONTAINER_NAME}}
+    IDENTITY_LZ_BACKNED_AZURE_RM_KEY: ${{ parameters.IDENTITY_LZ_BACKNED_AZURE_RM_KEY }}
+    AZURE_LZ_SERVICE_CONNECTION_NAME: ${{ parameters.AZURE_LZ_SERVICE_CONNECTION_NAME }}     
+    IDENTITY_SUBSCRIPTION_NAME: ${{parameters.IDENTITY_SUBSCRIPTION_NAME}}
+    LOCATION: ${{ parameters.LOCATION }}
+    CLIENT_ID: $(ARM_CLIENT_ID) 
+    CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+    TENANT_ID: $(ARM_TENANT_ID)
