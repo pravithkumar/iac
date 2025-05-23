@@ -4,7 +4,7 @@ trigger:
  - none
 
 pool:
-  vmImage: 'windows-2022'
+  vmImage: 'ubuntu-latest'
 
 parameters:
 - name: CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME
