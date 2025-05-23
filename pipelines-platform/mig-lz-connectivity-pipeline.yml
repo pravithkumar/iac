@@ -155,7 +155,7 @@ resources:
       
 
 stages:
-- template: templates/Pravith.Yedla/mig-template-lz-connectivity.yml@az-mig-templates
+- template: templates/mig-template-lz-connectivity.yml@az-mig-templates
   parameters:
     CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME: ${{ parameters.CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME }}
     CONNECTIVITY_LZ_STORAGE_ACCOUNT_NAME : ${{ parameters.CONNECTIVITY_LZ_STORAGE_ACCOUNT_NAME  }}
