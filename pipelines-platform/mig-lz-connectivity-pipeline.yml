@@ -3,7 +3,8 @@ name: az-mig-lz-connectivity-pipeline
 trigger:
  - none
 
-pool: az-selfhosted-linux
+pool:
+  vmImage: 'windows-2022'
 
 parameters:
 - name: CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME
