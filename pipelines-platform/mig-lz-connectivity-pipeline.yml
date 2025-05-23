@@ -148,18 +148,14 @@ variables:
 
 resources:
   repositories:
-    - repository: az-mig-landingzone
+    - repository: Pravith.Yedla
       type: git
-      name: AZ-Cloud-Migration/az-mig-landingzone
+      name: Pravith.Yedla/Pravith.Yedla
       ref: main
       
-    - repository: az-mig-templates
-      type: git
-      name: AZ-Cloud-Migration/az-mig-templates
-      ref: main      
 
 stages:
-- template: templates/landing-zone/mig-template-lz-connectivity.yml@az-mig-templates
+- template: templates/Pravith.Yedla/mig-template-lz-connectivity.yml@az-mig-templates
   parameters:
     CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME: ${{ parameters.CONNECTIVITY_LZ_STORAGE_RESOURCE_GROUP_NAME }}
     CONNECTIVITY_LZ_STORAGE_ACCOUNT_NAME : ${{ parameters.CONNECTIVITY_LZ_STORAGE_ACCOUNT_NAME  }}
