@@ -22,6 +22,6 @@ jobs:
         inputs:
           provider: "azurerm"
           command: "plan"
-          commandOptions: '-input=false -var-file="$(System.DefaultWorkingDirectory)/${{ parameters.rootFolder }}/${{ parameters.tfvars }}"'
+          #commandOptions: '-input=false -var-file="$(System.DefaultWorkingDirectory)/${{ parameters.rootFolder }}/${{ parameters.tfvars }}"'
           environmentServiceNameAzureRM: "${{ parameters.backendServiceArm }}"
           workingDirectory: "$(System.DefaultWorkingDirectory)/${{ parameters.rootFolder }}"
