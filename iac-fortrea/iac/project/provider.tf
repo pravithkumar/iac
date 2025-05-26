@@ -7,31 +7,31 @@ terraform {
   }
 
   backend "azurerm" {
-    subscription_id      = "6a188292-2123-478e-aea7-0876e0c388b9" 
+    subscription_id      = "795783af-96d3-4629-9161-58de5577ed1e" 
   }
 }
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
   alias           = "integ-nprod-001"
-  subscription_id = "6a188292-2123-478e-aea7-0876e0c388b9"
+  subscription_id = "795783af-96d3-4629-9161-58de5577ed1e"
   features {}
 }
 
 provider "azurerm" {
   alias           = "dmz"
-  subscription_id = "d5fbc7cc-9748-4dfd-9de6-4915eed83bd0"
+  subscription_id = "795783af-96d3-4629-9161-58de5577ed1e"
   features {}
 }
 
 provider "azurerm" {
   alias           = "mgmt"
-  subscription_id = "87bd9787-7ec0-451d-aa1e-aa20f168e3ed"
+  subscription_id = "795783af-96d3-4629-9161-58de5577ed1e"
   features {}
 }
 
 provider "azurerm" {
   alias           = "shared-dns"
-  subscription_id = "29d43faa-10c8-436c-849e-d0d9c1e03a6f"
+  subscription_id = "795783af-96d3-4629-9161-58de5577ed1e"
   features {}
 }
