@@ -9,7 +9,7 @@ terraform {
     }
   }
    backend "azurerm" {
-     
+     subscription_id = var.connectivity_subscription_id 
    }  
   }  
 
