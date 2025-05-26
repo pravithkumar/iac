@@ -6,7 +6,7 @@ pr: none
 
 variables:
   # Variable group containing development environment settings
-  - group: vg-optum-integration-dev-deploy
+  - group: vg-optum-lz-connectivity-deploy
 
 
 parameters:
