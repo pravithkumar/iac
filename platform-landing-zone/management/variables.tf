@@ -6,7 +6,7 @@ variable "root_id" {
 
 variable "management_subscription_id" {
     type    = string
-    default = "c9980f13-e913-4a6e-89d9-703107b8ec4c"
+    default = "795783af-96d3-4629-9161-58de5577ed1e"
 }
 
 variable "management_resources_location" {
