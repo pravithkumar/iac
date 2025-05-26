@@ -40,7 +40,7 @@ stages:
     dependsOn: [terraform_validate]
     condition: and(succeeded(), ${{ eq(parameters.tf_plan , True) }})
     jobs:
-      - template: templates/terraform-plan.yml
+      - template: templates2/terraform-plan.yml
         parameters:
           backendServiceArm: $(backendServiceArm)
           backendAzureRmSubscriptionId: $(backendAzureRmSubscriptionId)
@@ -55,7 +55,7 @@ stages:
     dependsOn: [terraform_plan]
     condition: and(succeeded(), ${{ eq(parameters.tf_apply , True) }})
     jobs:
-      - template: templates/terraform-apply.yml
+      - template: templates2/terraform-apply.yml
         parameters:
           backendServiceArm: $(backendServiceArm)
           backendAzureRmSubscriptionId: $(backendAzureRmSubscriptionId)
