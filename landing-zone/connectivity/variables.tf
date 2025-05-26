@@ -16,7 +16,7 @@ variable "connectivity_resources_location" {
 
 variable "connectivity_subscription_id" {
     type    = string
-    default = "ef1ee86b-4147-4f18-a1b0-08f64bcc72be"
+    default = "795783af-96d3-4629-9161-58de5577ed1e"
 }
 
 variable "connectivity_resources_tags" {
