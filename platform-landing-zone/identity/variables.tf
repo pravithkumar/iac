@@ -31,17 +31,17 @@ variable "deploy_identity_resources" {
 
 variable "identity_subscription_id" {
     type    = string
-    default = "94876ed9-b91b-4357-ab64-b0080e493e82"
+    default = "795783af-96d3-4629-9161-58de5577ed1e"
 }
 
 variable "connectivity_subscription_id" {
     type    = string
-    default = "ef1ee86b-4147-4f18-a1b0-08f64bcc72be"
+    default = "795783af-96d3-4629-9161-58de5577ed1e"
 }
 
 variable "management_subscription_id" {
     type    = string
-    default = "c9980f13-e913-4a6e-89d9-703107b8ec4c"
+    default = "795783af-96d3-4629-9161-58de5577ed1e"
 }
 
 #--------------------------end-------------------------------
@@ -49,17 +49,17 @@ variable "management_subscription_id" {
 
 variable "identity_subscription_ids" {
     type    = list
-    default = ["94876ed9-b91b-4357-ab64-b0080e493e82"]
+    default = ["795783af-96d3-4629-9161-58de5577ed1e"]
 }
 
 variable "connectivity_subscription_ids" {
     type    = list
-    default = ["ef1ee86b-4147-4f18-a1b0-08f64bcc72be"]
+    default = ["795783af-96d3-4629-9161-58de5577ed1e"]
 }
 
 variable "management_subscription_ids" {
     type    = list
-    default = ["c9980f13-e913-4a6e-89d9-703107b8ec4c"]
+    default = ["795783af-96d3-4629-9161-58de5577ed1e"]
 }
 
 variable "corp-us-eus_subscription_ids" {
