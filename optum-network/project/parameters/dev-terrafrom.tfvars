@@ -1,4 +1,4 @@
-﻿resource_group_name = "rg-networking"
+﻿resource_group_name = "rg-fortrea-delete-01"
 location            = "East US"
 vnet_name           = "vnet-main"
 vnet_address_space  = ["10.0.0.0/16"]
