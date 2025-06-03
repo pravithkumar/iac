@@ -55,6 +55,21 @@ resource "azurerm_virtual_desktop_workspace_application_group_association" "work
   application_group_id  = azurerm_virtual_desktop_application_group.app_group.id
 }
 
+#-----NIC for session host--#
+
+resource "azurerm_network_interface" "nic" {
+  name                = "${var.session_host_vm_name}-nic"
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = data.azurerm_subnet.subnet.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+#----------create NSG for Session host---#
+
 #-----Session Hosts----#
 
 resource "azurerm_windows_virtual_machine" "session_host_vm" {
@@ -68,7 +83,7 @@ resource "azurerm_windows_virtual_machine" "session_host_vm" {
   secure_boot_enabled = true
   vtpm_enabled        = true
   enable_intergrity_monitoring = true
-
+  network_interface_ids = [azurerm_network_interface.nic.id]
   source_image_reference {
     publisher = "MicrosoftWindowsDesktop"
     offer     = "windows-11"
@@ -84,9 +99,10 @@ resource "azurerm_windows_virtual_machine" "session_host_vm" {
   boot_diagnostics {
     storage_account_uri = null
   }
-  
-
 }
+#---------Domain join ---#
+
+
 
 
 
