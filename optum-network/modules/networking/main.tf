@@ -13,15 +13,15 @@ resource "azurerm_subnet" "subnets" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = each.value.address_prefixes
   dynamic "delegation" {
-    for_each = lookup(each.value, "delegations", [])
-    content {
-      name = delegation.value.name
-      service_delegation {
-        name    = delegation.value.service_name
-        actions = delegation.value.actions
-      }
+  for_each = each.value.delegations != null ? each.value.delegations : []
+  content {
+    name = delegation.value.name
+    service_delegation {
+      name    = delegation.value.service_name
+      actions = delegation.value.actions
     }
   }
+}
 }
 
 resource "azurerm_subnet_network_security_group_association" "nsg_assoc" {
