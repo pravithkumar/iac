@@ -1,6 +1,6 @@
 module "avd_deployment" {
   providers            =  {azurerm = azurerm.integ-nprod-001}
-  source = "./modules/avd_deployment" 
+  source = "../modules/avd_deployment" 
   existing_resource_group_name = var.existing_resource_group_name
   existing_virtual_network_name = var.existing_virtual_network_name
   existing_subnet_name       = var.existing_subnet_name
