@@ -57,6 +57,22 @@ variable "application_group_name" {
   type            = string
   default         = "avd-desktop-application-group-name"
 }
+variable "session_host_vm_name" {
+  description     = "Name of Session Host VM"
+  type            = string
+  default         = "avd-session-host"
+}
+variable "vm_size"{
+  description    = "Size of session host VM"
+  type           = string
+  default        = "Standard D2as v5"
+}
+variable "admin_username" {
+  description   = "Username for session host VMs"
+  type          = string
+  default       = "Admin"
+}
+
 
 
 
