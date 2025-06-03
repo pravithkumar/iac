@@ -14,7 +14,7 @@ subnets = [
   {
     name             = "subnet-db"
     address_prefixes = ["10.0.2.0/24"]
-    nsg_id           = null
+    nsg_id           = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/rg-fortrea-delete-01/providers/Microsoft.Network/networkSecurityGroups/test"
     route_table_id   = null
     delegations = [
       {
