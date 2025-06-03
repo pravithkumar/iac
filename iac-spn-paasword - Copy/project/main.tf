@@ -1,4 +1,4 @@
-module "spn_password" {
+module "avd_deployment" {
   providers            =  {azurerm = azurerm.integ-nprod-001}
   source = "../modules/spn_password"
   keyvault_name        = var.keyvault_name
