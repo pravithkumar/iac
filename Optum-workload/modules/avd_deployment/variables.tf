@@ -1,6 +1,3 @@
-provider "azurerm" {
-  
-}
 
 variable "existing_resource_group_name" {
   description = "The name of the existing Resource Group."
