@@ -21,7 +21,7 @@ resource "azurerm_subnet" "subnets" {
       actions = delegation.value.actions
     }
   }
-}
+ }
 }
 
 resource "azurerm_subnet_network_security_group_association" "nsg_assoc" {
