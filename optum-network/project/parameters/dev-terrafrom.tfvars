@@ -1,7 +1,19 @@
-﻿// service_principal_id = "/servicePrincipals/d75ad180-a90a-4fee-91af-48c3849f6272"
-keyvault_name              = "kv-int-nprd-001"
-resource_group_name        = "rg-fortrea-delete-01"
-app_kv_secret_name         = "test1"
-app_password_display_name  = "test03"
-spn_name                   = "pravith_sso_test"
-password_validity_days     =  100
+﻿resource_group_name = "rg-networking"
+location            = "East US"
+vnet_name           = "vnet-main"
+vnet_address_space  = ["10.0.0.0/16"]
+
+subnets = [
+  {
+    name             = "subnet-app"
+    address_prefixes = ["10.0.1.0/24"]
+    nsg_id           = "/subscriptions/xxxx/resourceGroups/rg-networking/providers/Microsoft.Network/networkSecurityGroups/nsg-app"
+    route_table_id   = "/subscriptions/xxxx/resourceGroups/rg-networking/providers/Microsoft.Network/routeTables/rt-app"
+  },
+  {
+    name             = "subnet-db"
+    address_prefixes = ["10.0.2.0/24"]
+    nsg_id           = null
+    route_table_id   = null
+  }
+]
