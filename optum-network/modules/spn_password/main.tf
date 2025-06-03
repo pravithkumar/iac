@@ -1,20 +1,40 @@
-data "azuread_application" "example" {
-  display_name = var.spn_name
-}
-
-resource "azuread_application_password" "this" {  
-  application_id = "/applications/${data.azuread_application.example.object_id}"
-  display_name   = var.app_password_display_name
-  end_date       = timeadd(timestamp(), "${var.password_validity_days * 24}h")
-}
-
-data "azurerm_key_vault" "existing" {
-  name                = var.keyvault_name
+resource "azurerm_virtual_network" "vnet" {
+  name                = var.vnet_name
+  address_space       = var.vnet_address_space
+  location            = var.location
   resource_group_name = var.resource_group_name
 }
 
-resource "azurerm_key_vault_secret" "this" {
-  name         = var.app_kv_secret_name
-  value        = azuread_application_password.this.value
-  key_vault_id = data.azurerm_key_vault.existing.id
+resource "azurerm_subnet" "subnets" {
+  for_each = { for subnet in var.subnets : subnet.name => subnet }
+
+  name                 = each.value.name
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = each.value.address_prefixes
+
+  dynamic "delegation" {
+    for_each = lookup(each.value, "delegation", [])
+    content {
+      name = delegation.value.name
+      service_delegation {
+        name    = delegation.value.service_name
+        actions = delegation.value.actions
+      }
+    }
+  }
+
+  dynamic "route_table" {
+    for_each = each.value.route_table_id != null ? [1] : []
+    content {
+      id = each.value.route_table_id
+    }
+  }
+
+  dynamic "network_security_group" {
+    for_each = each.value.nsg_id != null ? [1] : []
+    content {
+      id = each.value.nsg_id
+    }
+  }
 }
