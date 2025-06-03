@@ -52,7 +52,11 @@ variable "max_session_hosts" {
   type          = number
   default       = 3 
 }
-
+variable "application_group_name" {
+  description     = "Name of application group name"
+  type            = string
+  default         = "avd-desktop-application-group-name"
+}
 
 
 
