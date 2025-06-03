@@ -12,7 +12,24 @@ resource "azurerm_subnet" "subnets" {
   resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = each.value.address_prefixes
+}
 
-  network_security_group_id = each.value.nsg_id != null ? each.value.nsg_id : null
-  route_table_id            = each.value.route_table_id != null ? each.value.route_table_id : null
+resource "azurerm_subnet_network_security_group_association" "nsg_assoc" {
+  for_each = {
+    for subnet in var.subnets : subnet.name => subnet
+    if subnet.nsg_id != null
+  }
+
+  subnet_id                 = azurerm_subnet.subnets[each.key].id
+  network_security_group_id = each.value.nsg_id
+}
+
+resource "azurerm_subnet_route_table_association" "rt_assoc" {
+  for_each = {
+    for subnet in var.subnets : subnet.name => subnet
+    if subnet.route_table_id != null
+  }
+
+  subnet_id      = azurerm_subnet.subnets[each.key].id
+  route_table_id = each.value.route_table_id
 }
