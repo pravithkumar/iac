@@ -15,6 +15,10 @@ data "azurerm_subnet" "subnet" {
 }
 
 
+data "azurerm_network_security_group" "existing_nsg" {
+  name                = var.existing_nsg
+  resource_group_name = "your-existing-nsg-resource-group"
+}
 
 #------AVD Host Pool -----#
 
@@ -68,7 +72,12 @@ resource "azurerm_network_interface" "nic" {
     private_ip_address_allocation = "Dynamic"
   }
 }
-#----------create NSG for Session host---#
+#----------Associated the existing NSG with the NIC---#
+
+resource "azurerm_network_interface_security_group_association" "example_nic_nsg_association" {
+  network_interface_id      = azurerm_network_interface.nic.id
+  network_security_group_id = data.azurerm_network_security_group.existing_nsg.id
+}
 
 #-----Session Hosts----#
 
@@ -100,7 +109,19 @@ resource "azurerm_windows_virtual_machine" "session_host_vm" {
     storage_account_uri = null
   }
 }
-#---------Domain join ---#
+#---------Domain join (Entra Intune) ---#
+
+resource "azurerm_virtual_machine_extension" "aad_join" {
+  name      = "AADLogin"
+  virtual_machine_id = azurerm_windows_virtual_machine.session_host_vm.id
+  publisher          = "Microsoft.Azure.ActiveDirectory"
+  type               = "AADLoginForWindows"
+  type_handler_version = "1.0"
+}
+
+
+
+
 
 
 
