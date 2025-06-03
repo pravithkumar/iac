@@ -7,8 +7,8 @@ subnets = [
   {
     name             = "subnet-app"
     address_prefixes = ["10.0.1.0/24"]
-    nsg_id           = "/subscriptions/xxxx/resourceGroups/rg-networking/providers/Microsoft.Network/networkSecurityGroups/nsg-app"
-    route_table_id   = "/subscriptions/xxxx/resourceGroups/rg-networking/providers/Microsoft.Network/routeTables/rt-app"
+    nsg_id           = null
+    route_table_id   = null
   },
   {
     name             = "subnet-db"
