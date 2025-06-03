@@ -1,4 +1,7 @@
-output "key_vault_secret_id" {
-  description = "The ID of the Key Vault secret"
-  value       = azurerm_key_vault_secret.this.id
+output "vnet_id" {
+  value = azurerm_virtual_network.vnet.id
+}
+
+output "subnet_ids" {
+  value = { for k, v in azurerm_subnet.subnets : k => v.id }
 }
