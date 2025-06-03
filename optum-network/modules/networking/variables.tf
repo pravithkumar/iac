@@ -12,10 +12,10 @@ variable "subnets" {
     address_prefixes = list(string)
     nsg_id           = optional(string)
     route_table_id   = optional(string)
-        delegations = optional(list(object({
-      name          = string
-      service_name  = string
-      actions       = list(string)
+        delegations  = optional(list(object({
+      name           = string
+      service_name   = string
+      actions        = list(string)
     })))
   }))
 }
