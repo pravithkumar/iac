@@ -11,4 +11,22 @@ variable "location" {
   default     = "US"
 }
 
+variable "virtual_network_name" {
+  description = "Name of the Virtual Network."
+  type        = string
+  default     = "avd-vnet"
+}
+
+variable "address_space"{
+  description   = "Address space of VNet"
+  type          = string
+  default     = "10.0.0.0/16"
+}
+
+variable "subnet_address_prefix" {
+  description = "The address prefix for the Subnet."
+  type        = string
+  default     = "10.0.0.0/32"
+}
+
 
