@@ -26,6 +26,12 @@ variable "location" {
   default     = "East US" 
 }
 
+variable "existing_nsg" {
+  description = "Existing NSG."
+  type        = string
+  default     = "chinmayee-nsg"
+}
+
 variable "workspace_name" {
   description = "Name of AVD workspace"
   type        = string
