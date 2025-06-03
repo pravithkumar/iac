@@ -17,7 +17,7 @@ data "azurerm_subnet" "subnet" {
 
 data "azurerm_network_security_group" "existing_nsg" {
   name                = var.existing_nsg
-  resource_group_name = "your-existing-nsg-resource-group"
+  resource_group_name = "data.azurerm_resource_group.rg.name"
 }
 
 #------AVD Host Pool -----#
