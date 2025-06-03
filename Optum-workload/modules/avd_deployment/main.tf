@@ -55,6 +55,39 @@ resource "azurerm_virtual_desktop_workspace_application_group_association" "work
   application_group_id  = azurerm_virtual_desktop_application_group.app_group.id
 }
 
+#-----Session Hosts----#
+
+resource "azurerm_windows_virtual_machine" "session_host_vm" {
+  name                = var.session_host_vm_name
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  size                = var.vm_size
+  admin_username      = var.vm_admin_username
+  admin_password      = "OptumPassword@098"
+  security_type       ="TrustedLaunch"
+  secure_boot_enabled = true
+  vtpm_enabled        = true
+  enable_intergrity_monitoring = true
+
+  source_image_reference {
+    publisher = "MicrosoftWindowsDesktop"
+    offer     = "windows-11"
+    sku       = "win11-22h2-avd"
+    version   = "latest"
+  }
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  boot_diagnostics {
+    storage_account_uri = null
+  }
+  
+
+}
+
 
 
 
