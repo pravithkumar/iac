@@ -4,9 +4,15 @@ variable "keyvault_name" {
 }
 
 variable "resource_group_name" {
-  description = "The name of the resource group containing the Key Vault"
+  description = "The name of the resource group "
   type        = string
 }
+
+variable "location" {
+  description = "The name of the location "
+  type        = string
+}
+
 variable "app_password_display_name" {
   type        = string
   description = "application password display name" 
