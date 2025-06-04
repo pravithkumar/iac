@@ -55,7 +55,7 @@ resource "azurerm_virtual_desktop_application_group" "app_group" {
 #---------AVD Workspace application group association--#
 
 resource "azurerm_virtual_desktop_workspace_application_group_association" "workspace_grp_assc" {
-  workapce_id           = azurerm_virtual_desktop_workspace.avd_workspace.id
+  workspace_id           = azurerm_virtual_desktop_workspace.avd_workspace.id
   application_group_id  = azurerm_virtual_desktop_application_group.app_group.id
 
   depends_on = [
