@@ -9,6 +9,6 @@ output "workspace_name" {
 }
 
 output "nic_id" {
-  value       = module.avd_deployment.nic.id
   description = "The ID of the created Network Interface Card."
+  value       = module.avd_deployment.nic.id
 }
