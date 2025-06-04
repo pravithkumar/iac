@@ -57,6 +57,11 @@ resource "azurerm_virtual_desktop_application_group" "app_group" {
 resource "azurerm_virtual_desktop_workspace_application_group_association" "workspace_grp_assc" {
   workapce_id           = azurerm_virtual_desktop_workspace.avd_workspace.id
   application_group_id  = azurerm_virtual_desktop_application_group.app_group.id
+
+  depends_on = [
+    azurerm_virtual_desktop_workspace.avd_workspace,
+    azurerm_virtual_desktop_application_group.app_group,
+  ]
 }
 
 #-----NIC for session host--#
@@ -78,6 +83,12 @@ resource "azurerm_network_interface" "nic" {
 resource "azurerm_network_interface_security_group_association" "example_nic_nsg_association" {
   network_interface_id      = azurerm_network_interface.nic.id
   network_security_group_id = data.azurerm_network_security_group.existing_nsg.id
+
+  depends_on = [
+    azurerm_network_interface.nic,
+    azurerm_network_security_group.existing_nsg,
+
+  ]
 }
 
 #-----Session Hosts----#
@@ -118,22 +129,5 @@ resource "azurerm_virtual_machine_extension" "aad_join" {
   type               = "AADLoginForWindows"
   type_handler_version = "1.0"
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
