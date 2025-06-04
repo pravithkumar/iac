@@ -9,7 +9,7 @@ module "avd_deployment" {
   host_pool_type             = var.host_pool_type
   load_balancer_type         = var.load_balancer_type
   max_session_hosts          = var.max_session_hosts
-  default_desktop_app_group_name = var.application_group_name
+  application_group_name     = var.application_group_name
   workspace_name             = var.workspace_name
   vm_size                    = var.vm_size
   admin_username             = var.admin_username
