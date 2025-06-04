@@ -1,15 +1,14 @@
 data "azurerm_resource_group" "rg" {
-  name = var.existing_resource_group_name
-  
+  name = "optum-chinmayee"
   }
 
 data "azurerm_virtual_network" "vnet" {
-  name      = var.existing_virtual_network_name
+  name      = "chinmayeevnet"
   resource_group_name = "data.azurerm_resource_group.rg.name"
 }
 
 data "azurerm_subnet" "subnet" {
-  name    = var.existing_subnet_name
+  name    = "chinmayeesubnet"
   virtual_network_name    = "data.azurerm_virtual_network.vnet.name"
   resource_group_name = "data.azurerm_resource_group.rg.name"
 }
@@ -24,8 +23,8 @@ data "azurerm_network_security_group" "existing_nsg" {
 
 resource "azurerm_virtual_desktop_host_pool" "avd-host-pool" {
   name                      = var.host_pool_name
-  location                  = data.azurerm_resource_group.rg.location
-  resource_group_name       = data.azurerm_resource_group.rg.name
+  location                  = "data.azurerm_resource_group.rg.location"
+  resource_group_name       = "data.azurerm_resource_group.rg.name"
   type                      = var.host_pool_type
   load_balancer_type        = var.load_balancer_type
   maximum_sessions_allowed  = var.max_session_hosts
@@ -37,15 +36,15 @@ resource "azurerm_virtual_desktop_host_pool" "avd-host-pool" {
 
 resource "azurerm_virtual_desktop_workspace" "avd_workspace" {
   name                = var.workspace_name
-  location            = data.azurerm_resource_group.rg.location
-  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = "data.azurerm_resource_group.rg.location"
+  resource_group_name = "data.azurerm_resource_group.rg.name"
 }
 
 #-------AVD Application Group (Desktop)------#
 
 resource "azurerm_virtual_desktop_application_group" "app_group" {
   name                = var.application_group_name
-  resource_group_name = data.azurerm_resource_group.rg.name
+  resource_group_name = "data.azurerm_resource_group.rg.name"
   type                = "Desktop" 
   host_pool_id        = azurerm_virtual_desktop_host_pool.avd-host-pool.id
   description         = "AVD Desktop Application Group"
@@ -62,12 +61,12 @@ resource "azurerm_virtual_desktop_workspace_application_group_association" "work
 
 resource "azurerm_network_interface" "nic" {
   name                = "${var.session_host_vm_name}-nic"
-  resource_group_name = data.azurerm_resource_group.rg.name
+  resource_group_name = "data.azurerm_resource_group.rg.name"
 
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = data.azurerm_subnet.subnet.id
+    subnet_id                     = "data.azurerm_subnet.subnet.id"
     private_ip_address_allocation = "Dynamic"
   }
 }
@@ -82,7 +81,7 @@ resource "azurerm_network_interface_security_group_association" "example_nic_nsg
 
 resource "azurerm_windows_virtual_machine" "session_host_vm" {
   name                = var.session_host_vm_name
-  resource_group_name = data.azurerm_resource_group.rg.name
+  resource_group_name = "data.azurerm_resource_group.rg.name"
   size                = var.vm_size
   admin_username      = var.vm_admin_username
   admin_password      = "OptumPassword@098"
