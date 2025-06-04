@@ -48,7 +48,7 @@ variable "host_pool_type" {
 variable "load_balancer_type" {
   description   = "Load Balancer Type"
   type          = string
-  default       = "Breadth-first"
+  default       = "BreadthFirst"
 }
 variable "max_session_hosts" {
   description   = "Maximum session hosts allowed"
