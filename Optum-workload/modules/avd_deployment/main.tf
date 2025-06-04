@@ -1,5 +1,6 @@
 data "azurerm_resource_group" "rg" {
   name = "optum-chinmayee"
+  location = "East US"
   }
 
 data "azurerm_virtual_network" "vnet" {
