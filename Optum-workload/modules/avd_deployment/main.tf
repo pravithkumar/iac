@@ -95,13 +95,14 @@ resource "azurerm_network_interface_security_group_association" "example_nic_nsg
 resource "azurerm_windows_virtual_machine" "session_host_vm" {
   name                = var.session_host_vm_name
   resource_group_name = data.azurerm_resource_group.rg.name
+  location            = var.location
   size                = var.vm_size
   admin_username      = var.admin_username
   admin_password      = "OptumPassword@098"
-  security_type       ="TrustedLaunch"
+  #----security_type       = "TrustedLaunch"
   secure_boot_enabled = true
   vtpm_enabled        = true
-  enable_intergrity_monitoring = true
+  #----enable_intergrity_monitoring = true
   network_interface_ids = [azurerm_network_interface.nic.id]
   source_image_reference {
     publisher = "MicrosoftWindowsDesktop"
