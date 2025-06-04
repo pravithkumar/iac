@@ -86,8 +86,7 @@ resource "azurerm_network_interface_security_group_association" "example_nic_nsg
 
   depends_on = [
     azurerm_network_interface.nic,
-    azurerm_network_security_group.existing_nsg,
-
+    data.azurerm_network_security_group.existing_nsg,
   ]
 }
 
