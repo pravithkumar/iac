@@ -92,7 +92,7 @@ resource "azurerm_network_interface_security_group_association" "example_nic_nsg
 
 #-----Session Hosts----#
 
-resource "azurerm_windows_virtual_machine" "session_host_vm" {
+resource "azurerm_windows_virtual_machine" "sessionhost_vm" {
   name                = var.session_host_vm_name
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = var.location
@@ -124,7 +124,7 @@ resource "azurerm_windows_virtual_machine" "session_host_vm" {
 
 resource "azurerm_virtual_machine_extension" "aad_join" {
   name      = "AADLogin"
-  virtual_machine_id = azurerm_windows_virtual_machine.session_host_vm.id
+  virtual_machine_id = azurerm_windows_virtual_machine.sessionhost_vm.id
   publisher          = "Microsoft.Azure.ActiveDirectory"
   type               = "AADLoginForWindows"
   type_handler_version = "1.0"
