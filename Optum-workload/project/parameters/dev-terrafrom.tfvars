@@ -1,7 +1,15 @@
-﻿// service_principal_id = "/servicePrincipals/d75ad180-a90a-4fee-91af-48c3849f6272"
-keyvault_name              = "kv-int-nprd-001"
-resource_group_name        = "rg-fortrea-delete-01"
-app_kv_secret_name         = "test1"
-app_password_display_name  = "test03"
-spn_name                   = "pravith_sso_test"
-password_validity_days     =  100
+﻿existing_resource_group_name  = "optum-chinmayee"
+existing_virtual_network_name = "chinmayeevnet"
+existing_subnet_name          = "chinmayeesubnet"
+location                      = "East US"
+existing_nsg                  = "chinmayee-nsg"
+workspace_name                = "avd-workspace"
+host_pool_name                = "avd-hostpool"
+host_pool_type                = "Pooled"
+load_balancer_type            = "Breadth-first"
+max_session_hosts             = 3
+application_group_name        = "avd-desktop-application-group-name"
+session_host_vm_name          = "avd-session-host"
+vm_size                       = "Standard D2as v5"
+admin_username                = "Admin"
+
