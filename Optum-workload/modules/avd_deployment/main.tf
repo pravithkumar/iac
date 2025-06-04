@@ -45,6 +45,7 @@ resource "azurerm_virtual_desktop_workspace" "avd_workspace" {
 
 resource "azurerm_virtual_desktop_application_group" "app_group" {
   name                = var.application_group_name
+  location            = var.location
   resource_group_name = data.azurerm_resource_group.rg.name
   type                = "Desktop" 
   host_pool_id        = azurerm_virtual_desktop_host_pool.avd-host-pool.id
@@ -63,6 +64,7 @@ resource "azurerm_virtual_desktop_workspace_application_group_association" "work
 resource "azurerm_network_interface" "nic" {
   name                = "${var.session_host_vm_name}-nic"
   resource_group_name = data.azurerm_resource_group.rg.name
+  location            = var.location
 
 
   ip_configuration {
