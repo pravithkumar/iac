@@ -96,7 +96,7 @@ resource "azurerm_windows_virtual_machine" "session_host_vm" {
   name                = var.session_host_vm_name
   resource_group_name = data.azurerm_resource_group.rg.name
   size                = var.vm_size
-  admin_username      = var.vm_admin_username
+  admin_username      = var.admin_username
   admin_password      = "OptumPassword@098"
   security_type       ="TrustedLaunch"
   secure_boot_enabled = true
