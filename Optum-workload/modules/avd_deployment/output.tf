@@ -19,6 +19,10 @@ output "workspace_name" {
   description = "The name of the AVD Workspace."
   value       = azurerm_virtual_desktop_workspace.avd_workspace.name
 }
+output "workspace_id" {
+  description = "The name of the AVD Workspace."
+  value       = azurerm_virtual_desktop_workspace.avd_workspace.id
+}
 
 output "nic_id" {
   description = "The ID of the created Network Interface Card."
