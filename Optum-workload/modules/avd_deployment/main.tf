@@ -24,6 +24,7 @@ data "azurerm_network_security_group" "existing_nsg" {
 
 resource "azurerm_virtual_desktop_host_pool" "avd-host-pool" {
   name                      = var.host_pool_name
+  location                  = data.azurerm_resource_group.rg.location
   resource_group_name       = data.azurerm_resource_group.rg.name
   type                      = var.host_pool_type
   load_balancer_type        = var.load_balancer_type
@@ -36,6 +37,7 @@ resource "azurerm_virtual_desktop_host_pool" "avd-host-pool" {
 
 resource "azurerm_virtual_desktop_workspace" "avd_workspace" {
   name                = var.workspace_name
+  location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 
@@ -43,7 +45,7 @@ resource "azurerm_virtual_desktop_workspace" "avd_workspace" {
 
 resource "azurerm_virtual_desktop_application_group" "app_group" {
   name                = var.application_group_name
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = data.azurerm_resource_group.rg.name
   type                = "Desktop" 
   host_pool_id        = azurerm_virtual_desktop_host_pool.avd-host-pool.id
   description         = "AVD Desktop Application Group"
@@ -80,7 +82,7 @@ resource "azurerm_network_interface_security_group_association" "example_nic_nsg
 
 resource "azurerm_windows_virtual_machine" "session_host_vm" {
   name                = var.session_host_vm_name
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = data.azurerm_resource_group.rg.name
   size                = var.vm_size
   admin_username      = var.vm_admin_username
   admin_password      = "OptumPassword@098"
