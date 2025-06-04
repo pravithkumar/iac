@@ -26,7 +26,7 @@ output "workspace_id" {
 
 output "subnet_id" {
   description = "The name of the AVD Workspace."
-  value       = azurerm_subnet.subnet.id
+  value       = data.azurerm_subnet.subnet.id
 }
 
 output "nic_id" {
