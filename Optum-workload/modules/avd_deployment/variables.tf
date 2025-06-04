@@ -68,7 +68,7 @@ variable "session_host_vm_name" {
 variable "vm_size"{
   description    = "Size of session host VM"
   type           = string
-  default        = "Standard D2as v5"
+  default        = "Standard_D2a_v4"
 }
 variable "admin_username" {
   description   = "Username for session host VMs"
