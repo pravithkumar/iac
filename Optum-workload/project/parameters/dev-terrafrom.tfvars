@@ -9,7 +9,7 @@ host_pool_type                = "Pooled"
 load_balancer_type            = "BreadthFirst"
 max_session_hosts             = 3
 application_group_name        = "avd-desktop-application-group-name"
-session_host_vm_name          = "avd-session-host"
+session_host_vm_name          = "avd-sessionhost"
 vm_size                       = "Standard D2as v5"
 admin_username                = "Admin"
 
