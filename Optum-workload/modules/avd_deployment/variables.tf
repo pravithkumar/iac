@@ -63,7 +63,7 @@ variable "application_group_name" {
 variable "session_host_vm_name" {
   description     = "Name of Session Host VM"
   type            = string
-  default         = "avd-session-host"
+  default         = "avd-sessionhost"
 }
 variable "vm_size"{
   description    = "Size of session host VM"
