@@ -21,7 +21,7 @@ output "workspace_name" {
 }
 output "workspace_id" {
   description = "The name of the AVD Workspace."
-  value       = azurerm_virtual_desktop_workspace.avd_workspace.id
+  value       = azurerm_virtual_desktop_workspace_application_group_association.workspace_grp_assc.id
 }
 
 output "subnet_id" {
