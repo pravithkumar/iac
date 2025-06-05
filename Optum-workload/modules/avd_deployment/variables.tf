@@ -73,7 +73,7 @@ variable "vm_size"{
 variable "admin_username" {
   description   = "Username for session host VMs"
   type          = string
-  default       = "Admin"
+  default       = "Avd-optum-admin"
 }
 
 
