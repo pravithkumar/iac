@@ -90,6 +90,25 @@ resource "azurerm_network_interface_security_group_association" "example_nic_nsg
   ]
 }
 
+#--------Conditional Creation of a New Availability Set
+
+
+resource "azurerm_availability_set" "new_avd_availability_set" {
+  # The 'count' meta-argument makes this resource conditional.
+  # It will be created if availability_type is 'AvailabilitySet' AND no existing_availability_set_id is given.
+  count               = (var.availability_type == "AvailabilitySet" && (var.existing_availability_set_id == null || var.existing_availability_set_id == "")) ? 1 : 0
+  name                = "${var.availability_set_name}-avd"
+  location            = data.azurerm_resource_group.existing_avd_rg.location
+  resource_group_name = data.azurerm_resource_group.existing_avd_rg.name
+  platform_fault_domain_count  = 2 # Recommended for Availability Sets
+  platform_update_domain_count = 5 # Recommended for Availability Sets
+  managed = true # Required for managed disks
+  tags = {
+    Environment = "Dev"
+    Project     = "AVD"
+  }
+}
+
 #-----Session Hosts----#
 
 resource "azurerm_windows_virtual_machine" "session_host_vm" {
