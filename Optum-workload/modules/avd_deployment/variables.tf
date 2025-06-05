@@ -64,7 +64,7 @@ variable "session_host_vm_name" {
 
 variable "session_host_count" {
   description     = "Number of Session Host VM's"
-  type            = string
+  type            = number
 }
 variable "vm_size"{
   description    = "Size of session host VM"
