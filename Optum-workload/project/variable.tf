@@ -70,6 +70,29 @@ variable "vm_size"{
   type           = string
   default        = "Standard D2as v5"
 }
+variable "vm_image_publisher" {
+  description = "The publisher of the VM image."
+  type        = string
+  default     = "MicrosoftWindowsDesktop"
+}
+
+variable "vm_image_offer" {
+  description = "The offer of the VM image."
+  type        = string
+  default     = "windows-11"
+}
+
+variable "vm_image_sku" {
+  description = "The SKU of the VM image."
+  type        = string
+  default     = "win11-22h2-avd"
+}
+
+variable "vm_image_version" {
+  description = "The version of the VM image."
+  type        = string
+  default     = "latest"
+}
 variable "admin_username" {
   description   = "Username for session host VMs"
   type          = string
