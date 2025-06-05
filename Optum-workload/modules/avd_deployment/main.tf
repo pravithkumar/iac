@@ -127,8 +127,8 @@ resource "azurerm_windows_virtual_machine" "session_host_vm" {
 
    #-------Availability Type
   #availability_type         = var.availability_type
-  availability_set_id = var.existing_availability_set_id
-  zones                    = var.zones
+  zone = length(var.zones) > 0 && var.availability_set_id == null ? var.zones[count.index % length(var.zones)] : null
+  availability_set_id = var.availability_set_id != null && length(var.zones) == 0 ? var.availability_set_id : null
 }
 
  
