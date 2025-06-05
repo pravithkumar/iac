@@ -103,10 +103,7 @@ resource "azurerm_availability_set" "new_avd_availability_set" {
   platform_fault_domain_count  = 2 # Recommended for Availability Sets
   platform_update_domain_count = 5 # Recommended for Availability Sets
   managed = true # Required for managed disks
-  tags = {
-    Environment = "Dev"
-    Project     = "AVD"
-  }
+  
 }
 
 #-----Session Hosts----#
