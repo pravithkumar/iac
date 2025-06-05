@@ -136,7 +136,8 @@ resource "azurerm_windows_virtual_machine" "session_host_vm" {
 #---------Domain join (Entra Intune) ---#
 
 resource "azurerm_virtual_machine_extension" "aad_join" {
-  name      = "AADLogin"
+  count                = var.max_session_hosts
+  name      = "aadjoin-extension-${count.index + 1}"
   virtual_machine_id = azurerm_windows_virtual_machine.session_host_vm.id
   publisher          = "Microsoft.Azure.ActiveDirectory"
   type               = "AADLoginForWindows"
