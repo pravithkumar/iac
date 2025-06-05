@@ -125,7 +125,7 @@ variable "os_disk_size_gb" {
 variable "existing_availability_set_id" {
   description = "The ID of an existing Availability Set if 'availability_type' is 'AvailabilitySet'."
   type        = string
-  default     = null 
+  default     = "Null" 
 }
 
 variable "zones" {
