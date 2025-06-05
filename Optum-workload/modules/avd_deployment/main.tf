@@ -112,8 +112,9 @@ resource "azurerm_windows_virtual_machine" "session_host_vm" {
   }
 
   os_disk {
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
+    caching              = var.os_disk_caching
+    storage_account_type = var.os_disk_storage_account_type
+    size_gb              = var.os_disk_size_gb
   }
 
   boot_diagnostics {
