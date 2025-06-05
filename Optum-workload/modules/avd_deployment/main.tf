@@ -97,7 +97,7 @@ resource "azurerm_network_interface_security_group_association" "example_nic_nsg
 #-----Session Hosts----#
 
 resource "azurerm_windows_virtual_machine" "session_host_vm" {
-  name                = var.session_host_vm_name
+  name                = $(var.session_host_vm_name)-${count.index + 1}
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = var.location
   size                = var.vm_size
