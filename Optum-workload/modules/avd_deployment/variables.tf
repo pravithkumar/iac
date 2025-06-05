@@ -113,6 +113,12 @@ variable "os_disk_size_gb" {
   default     = 32
   }
 
+  variable "availability_set_name" {
+    description = "Name of the availability set"
+  type        = string
+  default     = "optum-availabiltyset"
+  }
+
 variable "availability_type" {
   description = "Specifies the availability option for the VMs ('None', 'AvailabilitySet', or 'AvailabilityZone')."
   type        = string
