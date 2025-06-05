@@ -138,7 +138,7 @@ resource "azurerm_windows_virtual_machine" "session_host_vm" {
 resource "azurerm_virtual_machine_extension" "aad_join" {
   count                = var.max_session_hosts
   name      = "aadjoin-extension-${count.index + 1}"
-  virtual_machine_id = azurerm_windows_virtual_machine.session_host_vm.id
+  virtual_machine_id = azurerm_windows_virtual_machine.session_host_vm[count.index].id
   publisher          = "Microsoft.Azure.ActiveDirectory"
   type               = "AADLoginForWindows"
   type_handler_version = "1.0"
