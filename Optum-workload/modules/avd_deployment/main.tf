@@ -24,7 +24,7 @@ data "azurerm_network_security_group" "existing_nsg" {
 
 resource "azurerm_virtual_desktop_host_pool" "avd-host-pool" {
   name                      = var.host_pool_name
-  location            = var.location
+  location                  = var.location
   resource_group_name       = data.azurerm_resource_group.rg.name
   type                      = var.host_pool_type
   load_balancer_type        = var.load_balancer_type
