@@ -129,7 +129,7 @@ variable "availability_type" {
   }
 }
 
-variable "existing_availability_set_id" {
+variable "availability_set_id" {
   description = "The ID of an existing Availability Set if 'availability_type' is 'AvailabilitySet'."
   type        = string
   default     = null 
