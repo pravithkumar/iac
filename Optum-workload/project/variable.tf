@@ -93,6 +93,24 @@ variable "vm_image_version" {
   type        = string
   default     = "latest"
 }
+variable "os_disk_caching" {
+  description = "The type of caching for the OS disk (None, ReadOnly, ReadWrite)."
+  type        = string
+  default     = "ReadWrite"
+  }
+
+variable "os_disk_storage_account_type" {
+  description = "The type of storage account for the OS disk (Standard_LRS, Premium_LRS, StandardSSD_LRS, UltraSSD_LRS)."
+  type        = string
+  default     = "StandardSSD_LRS"
+  }
+
+variable "os_disk_size_gb" {
+  description = "The size of the OS disk in GB. If 0, Azure defaults will be used based on image."
+  type        = number
+  default     = 32
+  
+  }
 variable "admin_username" {
   description   = "Username for session host VMs"
   type          = string
