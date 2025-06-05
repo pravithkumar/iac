@@ -11,5 +11,5 @@ max_session_hosts             = 3
 application_group_name        = "avd-desktop-application-group-name"
 session_host_vm_name          = "avd-sessionhost"
 vm_size                       = "Standard_D2a_v4"
-admin_username                = "Admin"
+admin_username                = "Avd-optum-admin"
 
