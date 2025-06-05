@@ -105,10 +105,10 @@ resource "azurerm_windows_virtual_machine" "session_host_vm" {
   #----enable_intergrity_monitoring = true
   network_interface_ids = [azurerm_network_interface.nic.id]
   source_image_reference {
-    publisher = "MicrosoftWindowsDesktop"
-    offer     = "windows-11"
-    sku       = "win11-22h2-avd"
-    version   = "latest"
+    publisher = var.vm_image_publisher
+    offer     = var.vm_image_offer
+    sku       = var.vm_image_sku
+    version   = var.vm_image_version
   }
 
   os_disk {
