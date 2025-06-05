@@ -20,6 +20,6 @@ os_disk_storage_account_type  = "StandardSSD_LRS"
 os_disk_size_gb               = 32
 #availability_type             = "None"
 availability_set_id           = "Null"
-zones                          = []
+zones                          = ["1"]
 admin_username                = "Avd-optum-admin"
 
