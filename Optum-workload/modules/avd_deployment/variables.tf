@@ -95,9 +95,6 @@ variable "vm_image_version" {
   default     = "latest"
 }
 
-
-
-
 variable "os_disk_caching" {
   description = "The type of caching for the OS disk (None, ReadOnly, ReadWrite)."
   type        = string
@@ -114,9 +111,33 @@ variable "os_disk_size_gb" {
   description = "The size of the OS disk in GB. If 0, Azure defaults will be used based on image."
   type        = number
   default     = 32
-  
   }
 
+variable "availability_type" {
+  description = "Specifies the availability option for the VMs ('None', 'AvailabilitySet', or 'AvailabilityZone')."
+  type        = string
+  default     = "None" 
+  validation {
+    condition     = contains(["None", "AvailabilitySet", "AvailabilityZone"], var.availability_type)
+    error_message = "Availability type must be 'None', 'AvailabilitySet', or 'AvailabilityZone'."
+  }
+}
+
+variable "existing_availability_set_id" {
+  description = "The ID of an existing Availability Set if 'availability_type' is 'AvailabilitySet'."
+  type        = string
+  default     = null 
+}
+
+variable "zones" {
+  description = "A list of Availability Zones to deploy VMs into (e.g., ['1', '2']). Required if 'availability_type' is 'AvailabilityZone'."
+  type        = list(string)
+  default     = [] 
+  validation {
+    condition     = var.availability_type != "AvailabilityZone" || length(var.zones) > 0
+    error_message = "If 'availability_type' is 'AvailabilityZone', 'zones' must be provided and not empty."
+  }
+}
 
 variable "admin_username" {
   description   = "Username for session host VMs"
