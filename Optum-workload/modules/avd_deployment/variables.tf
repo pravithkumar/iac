@@ -98,7 +98,7 @@ variable "vm_image_version" {
 
 
 
- variable "os_disk_caching" {
+variable "os_disk_caching" {
   description = "The type of caching for the OS disk (None, ReadOnly, ReadWrite)."
   type        = string
   default     = "ReadWrite"
