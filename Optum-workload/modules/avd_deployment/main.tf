@@ -127,7 +127,7 @@ resource "azurerm_windows_virtual_machine" "session_host_vm" {
 
    #-------Availability Type
   availability_type         = var.availability_type
-  existing_availability_set_id = var.existing_availability_set_id
+  availability_set_id = var.existing_availability_set_id
   zone                     = var.zones
 }
 
