@@ -8,6 +8,10 @@ module "avd_deployment" {
   application_group_name     = var.application_group_name
   workspace_name             = var.workspace_name
   vm_size                    = var.vm_size
+  vm_image_publisher         = var.vm_image_publisher
+  vm_image_offer             = var.vm_image_offer
+  vm_image_sku               = var.vm_image_sku
+  vm_image_version           = var.vm_image_version
   admin_username             = var.admin_username
   
   
