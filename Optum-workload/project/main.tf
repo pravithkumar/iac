@@ -12,8 +12,8 @@ module "avd_deployment" {
   vm_image_offer             = var.vm_image_offer
   vm_image_sku               = var.vm_image_sku
   vm_image_version           = var.vm_image_version
-  availability_type         = var.availability_type
-  existing_availability_set_id = var.existing_availability_set_id
+  #availability_type         = var.availability_type
+  availability_set_id = var.availability_set_id
   zones                     = var.zones
   admin_username             = var.admin_username
   
