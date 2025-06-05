@@ -138,7 +138,7 @@ variable "availability_set_id" {
 variable "zones" {
   description = "A list of Availability Zones to deploy VMs into (e.g., ['1', '2']). Required if 'availability_type' is 'AvailabilityZone'."
   type        = list(string)
-  default     = [] 
+  default     = ["1"] 
   validation {
     condition     = var.availability_type != "AvailabilityZone" || length(var.zones) > 0
     error_message = "If 'availability_type' is 'AvailabilityZone', 'zones' must be provided and not empty."
