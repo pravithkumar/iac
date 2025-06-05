@@ -96,7 +96,7 @@ resource "azurerm_network_interface_security_group_association" "example_nic_nsg
 
 #-----Session Hosts----#
 
-resource "azurerm_windows_virtual_machine" "session_host_vm" {
+resource "azurerm_windows_virtual_machine" "session_host_vm[count.index]" {
   count               = var.max_session_hosts
   name                = var.session_host_vm_name
   resource_group_name = data.azurerm_resource_group.rg.name
