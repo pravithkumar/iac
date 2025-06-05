@@ -114,7 +114,7 @@ resource "azurerm_windows_virtual_machine" "session_host_vm" {
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "StandardSSD_LRS"
-    size_gb              = 32
+    disk_size_gb         = 32
   }
 
   boot_diagnostics {
