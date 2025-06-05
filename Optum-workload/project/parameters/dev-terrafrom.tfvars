@@ -15,8 +15,8 @@ vm_image_publisher            = "MicrosoftWindowsDesktop"
 vm_image_offer                = "windows-11"
 vm_image_sku                  = "win11-22h2-avd"
 vm_image_version              = "latest"
-#os_disk_caching               = "ReadWrite"
-#os_disk_storage_account_type  = "StandardSSD_LRS"
-#os_disk_size_gb               = 32
+os_disk_caching               = "ReadWrite"
+os_disk_storage_account_type  = "StandardSSD_LRS"
+os_disk_size_gb               = 32
 admin_username                = "Avd-optum-admin"
 
