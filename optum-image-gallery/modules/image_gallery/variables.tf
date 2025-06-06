@@ -21,3 +21,14 @@ variable "location" {
   type        = string
   default     = "East US" 
 }
+
+variable "gallery_name" {
+  description = "Name of the image gallery"
+  type        = string
+  default     = "avd-gallery01"
+}
+variable "gallery_description" {
+  description = "Description of the image gallery"
+  type        = string
+  default     = "Its a compute gallery for storing images"
+}
