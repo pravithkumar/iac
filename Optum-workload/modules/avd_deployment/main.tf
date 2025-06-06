@@ -117,6 +117,20 @@ resource "azurerm_key_vault" "avd_key_vault" {
 }
 
 #--------store the values in the key vault----
+resource "azurerm_key_vault_secret" "session_host_admin_username_secret" {
+  name         = "avd-sh-admin-username"
+  value        = var.session_host_admin_username_kv_value
+  key_vault_id = azurerm_key_vault.avd_key_vault.id
+  content_type = "text/plain"
+}
+
+resource "azurerm_key_vault_secret" "session_host_admin_password_secret" {
+  name         = "avd-sh-admin-password"
+  value        = var.session_host_admin_password_kv_value
+  key_vault_id = azurerm_key_vault.avd_key_vault.id
+  content_type = "text/plain" 
+}
+
 
 
 
