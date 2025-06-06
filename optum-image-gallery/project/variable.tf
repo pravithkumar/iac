@@ -1,29 +1,23 @@
-variable "keyvault_name" {
-  description = "The name of the existing Key Vault"
+variable "existing_resource_group_name" {
+  description = "The name of the existing Resource Group."
   type        = string
+  default     = "optum-chinmayee" 
 }
 
-variable "resource_group_name" {
-  description = "The name of the resource group containing the Key Vault"
+variable "existing_virtual_network_name" {
+  description = "The name of the existing Virtual Network."
   type        = string
-}
-variable "app_password_display_name" {
-  type        = string
-  description = "application password display name" 
+  default     = "chinmayeevnet"
 }
 
-variable "app_kv_secret_name" {
+variable "existing_subnet_name" {
+  description = "The name of the existing Subnet."
   type        = string
-  description = "application keyvault secret name" 
+  default     = "chinmayeesubnet"
 }
 
-variable "spn_name" {
+variable "location" {
+  description = "location of your existing resources."
   type        = string
-  description = "SPN name" 
-}
-
-variable "password_validity_days" {
-  description = "Number of days the password is valid for"
-  type        = number
-  default     = 90
+  default     = "East US" 
 }
