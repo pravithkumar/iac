@@ -16,8 +16,8 @@ module "avd_deployment" {
   availability_set_id = var.availability_set_id
   zones                     = var.zones
   key_vault_name            = var.key_vault_name
-  admin_username             = var.session_host_admin_username_kv_value
-  admin_password             = var.session_host_admin_password_kv_value
+  session_host_admin_username_kv_value = var.session_host_admin_username_kv_value
+  session_host_admin_username_kv_value = var.session_host_admin_password_kv_value
   
   
 }
