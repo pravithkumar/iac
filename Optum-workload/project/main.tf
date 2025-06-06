@@ -12,6 +12,8 @@ module "avd_deployment" {
   vm_image_offer             = var.vm_image_offer
   vm_image_sku               = var.vm_image_sku
   vm_image_version           = var.vm_image_version
+  os_disk_storage_account_type = var.os_disk_storage_account_type
+  os_disk_size_gb               = var.os_disk_size_gb
   #availability_type         = var.availability_type
   availability_set_id = var.availability_set_id
   zones                     = var.zones
