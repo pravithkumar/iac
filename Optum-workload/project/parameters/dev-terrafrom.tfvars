@@ -21,5 +21,6 @@ os_disk_size_gb               = 32
 #availability_type             = "None"
 availability_set_id           = "Null"
 zones                          = ["1"]
-admin_username                = "Avd-optum-admin"
+session_host_admin_username_kv_value = "avdlocaladmin" 
+session_host_admin_password_kv_value = "Optum-AVD@123!" 
 
