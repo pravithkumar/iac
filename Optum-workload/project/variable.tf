@@ -137,11 +137,44 @@ variable "zones" {
     error_message = "If 'availability_type' is 'AvailabilityZone', 'zones' must be provided and not empty."
   }
 }
-variable "admin_username" {
-  description   = "Username for session host VMs"
+variable "key_vault_name" {
+  description   = "Key vault name"
   type          = string
-  default       = "Admin"
+  default       = "avd-key-vault"
 }
+
+variable "tenant_id" {
+  description   = "Tenant ID"
+  type          = string
+  default       = "188285f7-8f1e-4c0d-a0bc-797e3e38c5b3"
+}
+variable "object_id" {
+  description   = "Object ID"
+  type          = string
+  default       = "dd6cc140-8996-4c7c-9282-a52dbd15addf"
+}
+
+variable "sku_name" {
+  description   = "Pricing Tier"
+  type          = string
+  default       = "Standard"
+}
+
+variable "session_host_admin_username_kv_value" {
+  description = "The username for the session host VMs, stored in Key Vault."
+  type        = string
+  sensitive   = true # Mark as sensitive
+}
+
+variable "session_host_admin_password_kv_value" {
+  description = "The password for the session host VMs, stored in Key Vault."
+  type        = string
+  sensitive   = true # Mark as sensitive
+}
+
+
+
+
 
 
 
