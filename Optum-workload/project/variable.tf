@@ -140,7 +140,7 @@ variable "zones" {
 variable "key_vault_name" {
   description   = "Key vault name"
   type          = string
-  default       = "avd-key-vault"
+  default       = "avd-key-vault01"
 }
 
 variable "tenant_id" {
