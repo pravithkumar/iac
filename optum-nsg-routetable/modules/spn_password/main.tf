@@ -1,20 +1,21 @@
-data "azuread_application" "example" {
-  display_name = var.spn_name
-}
-
-resource "azuread_application_password" "this" {  
-  application_id = "/applications/${data.azuread_application.example.object_id}"
-  display_name   = var.app_password_display_name
-  end_date       = timeadd(timestamp(), "${var.password_validity_days * 24}h")
-}
-
-data "azurerm_key_vault" "existing" {
-  name                = var.keyvault_name
+resource "azurerm_network_security_group" "this" {
+  name                = var.name
+  location            = var.location
   resource_group_name = var.resource_group_name
-}
+  tags                = var.tags
 
-resource "azurerm_key_vault_secret" "this" {
-  name         = var.app_kv_secret_name
-  value        = azuread_application_password.this.value
-  key_vault_id = data.azurerm_key_vault.existing.id
+  dynamic "security_rule" {
+    for_each = var.security_rules != null ? var.security_rules : []
+    content {
+      name                       = security_rule.value.name
+      priority                   = security_rule.value.priority
+      direction                  = security_rule.value.direction
+      access                     = security_rule.value.access
+      protocol                   = security_rule.value.protocol
+      source_port_range          = security_rule.value.source_port_range
+      destination_port_range     = security_rule.value.destination_port_range
+      source_address_prefix      = security_rule.value.source_address_prefix
+      destination_address_prefix = security_rule.value.destination_address_prefix
+    }
+  }
 }
