@@ -167,11 +167,19 @@ variable "sku_name" {
   type          = string
   default       = "Standard"
 }
-variable "admin_username" {
-  description   = "Username for session host VMs"
-  type          = string
-  default       = "Admin"
+
+variable "session_host_admin_username_kv_value" {
+  description = "The username for the session host VMs, stored in Key Vault."
+  type        = string
+  sensitive   = true # Mark as sensitive
 }
+
+variable "session_host_admin_password_kv_value" {
+  description = "The password for the session host VMs, stored in Key Vault."
+  type        = string
+  sensitive   = true # Mark as sensitive
+}
+
 
 
 
