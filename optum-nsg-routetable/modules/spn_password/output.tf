@@ -1,4 +1,3 @@
-output "key_vault_secret_id" {
-  description = "The ID of the Key Vault secret"
-  value       = azurerm_key_vault_secret.this.id
+output "nsg_id" {
+  value = azurerm_network_security_group.this.id
 }
