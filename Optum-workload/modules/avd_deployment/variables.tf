@@ -162,11 +162,6 @@ variable "object_id" {
   default       = "dd6cc140-8996-4c7c-9282-a52dbd15addf"
 }
 
-variable "sku_name" {
-  description   = "Pricing Tier"
-  type          = string
-  default       = "Standard"
-}
 
 variable "session_host_admin_username_kv_value" {
   description = "The username for the session host VMs, stored in Key Vault."
