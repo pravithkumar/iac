@@ -156,6 +156,11 @@ variable "tenant_id" {
   type          = string
   default       = "188285f7-8f1e-4c0d-a0bc-797e3e38c5b3"
 }
+variable "object_id" {
+  description   = "Object ID"
+  type          = string
+  default       = "dd6cc140-8996-4c7c-9282-a52dbd15addf"
+}
 
 variable "sku_name" {
   description   = "Pricing Tier"
