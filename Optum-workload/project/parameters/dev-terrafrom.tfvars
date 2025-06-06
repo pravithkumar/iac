@@ -18,7 +18,6 @@ vm_image_version              = "latest"
 os_disk_caching               = "ReadWrite"
 os_disk_storage_account_type  = "StandardSSD_LRS"
 os_disk_size_gb               = 32
-#availability_type             = "None"
 availability_set_id           = "Null"
 zones                          = ["1"]
 key_vault_name                  = "avd-key-vault01"
