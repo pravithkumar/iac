@@ -1,33 +1,47 @@
-module "nsg" {
-  source              = "./modules/nsg"
-  name                = "example-nsg"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  security_rules = [
-    {
-      name                       = "AllowSSH"
-      priority                   = 100
-      direction                  = "Inbound"
-      access                     = "Allow"
-      protocol                   = "Tcp"
-      source_port_range          = "*"
-      destination_port_range     = "22"
-      source_address_prefix      = "*"
-      destination_address_prefix = "*"
+locals {
+  nsgs = {
+    "web-nsg" = {
+      name     = "web-nsg"
+      location = var.location
+      rules = [
+        {
+          name                       = "AllowHTTP"
+          priority                   = 100
+          direction                  = "Inbound"
+          access                     = "Allow"
+          protocol                   = "Tcp"
+          source_port_range          = "*"
+          destination_port_range     = "80"
+          source_address_prefix      = "*"
+          destination_address_prefix = "*"
+        }
+      ]
+    },
+    "ssh-nsg" = {
+      name     = "ssh-nsg"
+      location = var.location
+      rules = [
+        {
+          name                       = "AllowSSH"
+          priority                   = 200
+          direction                  = "Inbound"
+          access                     = "Allow"
+          protocol                   = "Tcp"
+          source_port_range          = "*"
+          destination_port_range     = "22"
+          source_address_prefix      = "*"
+          destination_address_prefix = "*"
+        }
+      ]
     }
-  ]
+  }
 }
 
-module "route_table" {
-  source              = "./modules/route_table"
-  name                = "example-rt"
-  location            = var.location
+module "nsgs" {
+  for_each            = local.nsgs
+  source              = "./modules/nsg"
+  name                = each.value.name
+  location            = each.value.location
   resource_group_name = var.resource_group_name
-  routes = [
-    {
-      name           = "default-route"
-      address_prefix = "0.0.0.0/0"
-      next_hop_type  = "Internet"
-    }
-  ]
+  security_rules      = each.value.rules
 }
