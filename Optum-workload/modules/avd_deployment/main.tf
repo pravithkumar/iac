@@ -20,6 +20,8 @@ data "azurerm_network_security_group" "existing_nsg" {
   resource_group_name = data.azurerm_resource_group.rg.name
 }
 
+data "azurerm_client_config" "current" {}
+
 #------AVD Host Pool -----#
 
 resource "azurerm_virtual_desktop_host_pool" "avd-host-pool" {
@@ -91,6 +93,31 @@ resource "azurerm_network_interface_security_group_association" "example_nic_nsg
 }
 
 #--------Conditional Creation of a New Availability Set
+
+#-----------Create a new azure key vault-----------
+
+resource "azurerm_key_vault" "avd_key_vault" {
+  name                     = var.key_vault_name
+  location                 = var.location
+  resource_group_name      = data.azurerm_resource_group.rg.name
+  tenant_id                = var.tenant_id 
+  sku_name                 = var.sku_name   
+  soft_delete_retention_days = 7
+  purge_protection_enabled        = false
+  enabled_for_deployment          = true
+  access_policy {
+    tenant_id = var.tenant_id
+    object_id = var.object_id
+    key_permissions = ["Get"]
+    secret_permissions = ["Get", "List","Set","Delete"]
+    storage_permissions = ["Get"]
+    client_permissions = ["Get"]
+    
+  }
+}
+
+#--------store the values in the key vault----
+
 
 
 
