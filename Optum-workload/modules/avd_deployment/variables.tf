@@ -157,6 +157,11 @@ variable "tenant_id" {
   default       = "188285f7-8f1e-4c0d-a0bc-797e3e38c5b3"
 }
 
+variable "sku_name" {
+  description   = "Pricing Tier"
+  type          = string
+  default       = "Standard"
+}
 variable "admin_username" {
   description   = "Username for session host VMs"
   type          = string
