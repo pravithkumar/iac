@@ -33,3 +33,8 @@ output "nic_id" {
   description = "The ID of the created Network Interface Card."
   value       = azurerm_network_interface.nic.id
 }
+
+output "key_vault_id" {
+  description = "The ID of the created key vault"
+  value       = azurerm_key_vault.avd_key_vault.id
+}
