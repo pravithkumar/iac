@@ -101,7 +101,7 @@ resource "azurerm_key_vault" "avd_key_vault" {
   location                 = var.location
   resource_group_name      = data.azurerm_resource_group.rg.name
   tenant_id                = var.tenant_id 
-  sku_name                 = var.sku_name   
+  sku_name                 = "Standard"   
   soft_delete_retention_days = 7
   purge_protection_enabled        = false
   enabled_for_deployment          = true
