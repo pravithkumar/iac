@@ -1,0 +1,50 @@
+name: Terraform Azure Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      tf_plan:
+        type: boolean
+        default: false
+      tf_apply:
+        type: boolean
+        default: false
+      tf_destroy:
+        type: boolean
+        default: false
+      rootFolder:
+        type: string
+        default: 'iac'
+      tfvars:
+        type: string
+        default: 'terraform.tfvars'
+
+jobs:
+  validate:
+    uses: ./.github/workflows/terraform-validate.yml
+    with:
+      rootFolder: ${{ inputs.rootFolder }}
+      tfvars: ${{ inputs.tfvars }}
+
+  plan:
+    needs: validate
+    if: ${{ inputs.tf_plan }}
+    uses: ./.github/workflows/terraform-plan.yml
+    with:
+      rootFolder: ${{ inputs.rootFolder }}
+      tfvars: ${{ inputs.tfvars }}
+
+  apply:
+    needs: plan
+    if: ${{ inputs.tf_apply }}
+    uses: ./.github/workflows/terraform-apply.yml
+    with:
+      rootFolder: ${{ inputs.rootFolder }}
+      tfvars: ${{ inputs.tfvars }}
+
+  destroy:
+    if: ${{ inputs.tf_destroy }}
+    uses: ./.github/workflows/terraform-destroy.yml
+    with:
+      rootFolder: ${{ inputs.rootFolder }}
+      tfvars: ${{ inputs.tfvars }}
