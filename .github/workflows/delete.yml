@@ -1,4 +1,4 @@
-name: Terraform Azure Deployment delete
+name: Terraform Azure delete
 
 on:
   push:
