@@ -1,6 +1,6 @@
 name: Terraform Azure Deployment
 
-on:
+on:[workflow_dispatch]
   push:
     paths:
       - 'iac/**.tf'
