@@ -7,7 +7,11 @@ terraform {
   }
 
   backend "azurerm" {
-    subscription_id      = "795783af-96d3-4629-9161-58de5577ed1e"  
+    subscription_id      = "795783af-96d3-4629-9161-58de5577ed1e"
+    resource_group_name  = "my-tfstate-rg"
+    storage_account_name = "mytfstatestorage"
+    container_name       = "tfstate"
+    key                  = "terraform.tfstate"
   }
 }
 
