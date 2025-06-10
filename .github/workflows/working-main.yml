@@ -65,11 +65,6 @@ jobs:
         run: terraform apply -auto-approve -var-file=${{ inputs.tfvars }}
         working-directory: ${{ inputs.rootFolder }}
 
-      - name: Terraform Output
-        if: ${{ inputs.action == 'apply' }}
-        run: terraform output
-        working-directory: ${{ inputs.rootFolder }}
-
       - name: Terraform Destroy
         if: ${{ inputs.action == 'destroy' }}
         run: terraform destroy -auto-approve -var-file=${{ inputs.tfvars }}
