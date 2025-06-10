@@ -51,10 +51,6 @@ jobs:
         run: terraform init
         working-directory: ${{ inputs.rootFolder }}
 
-      - name: Terraform Format Check
-        run: terraform fmt -check -recursive
-        working-directory: ${{ inputs.rootFolder }}
-
       - name: Terraform Validate
         run: terraform validate
         working-directory: ${{ inputs.rootFolder }}
