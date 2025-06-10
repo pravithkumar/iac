@@ -14,10 +14,11 @@ on:
       action:
         description: 'Terraform action to perform'
         required: true
-        default: 'apply'
+        default: 'plan'
         type: choice
         options:
           - validate
+          - plan
           - apply
           - destroy
 
@@ -56,7 +57,7 @@ jobs:
         working-directory: ${{ inputs.rootFolder }}
 
       - name: Terraform Plan
-        if: ${{ inputs.action == 'apply' || inputs.action == 'destroy' }}
+        if: ${{ inputs.action == 'plan' || inputs.action == 'apply' || inputs.action == 'destroy' }}
         run: terraform plan -var-file=${{ inputs.tfvars }}
         working-directory: ${{ inputs.rootFolder }}
 
