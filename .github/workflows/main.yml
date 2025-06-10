@@ -10,7 +10,7 @@ on:
       tfvars:
         description: 'Path to .tfvars file'
         required: true
-        default: './optum-network/project/parameters/dev-terrafrom.tfvars'
+        default: 'parameters/dev-terrafrom.tfvars'
 
 jobs:
   terraform:
