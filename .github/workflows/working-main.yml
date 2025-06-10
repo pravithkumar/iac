@@ -51,8 +51,11 @@ jobs:
         run: terraform init
         working-directory: ${{ inputs.rootFolder }}
 
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+        working-directory: ${{ inputs.rootFolder }}
+
       - name: Terraform Validate
-        if: ${{ inputs.action == 'validate' }}
         run: terraform validate
         working-directory: ${{ inputs.rootFolder }}
 
@@ -64,6 +67,11 @@ jobs:
       - name: Terraform Apply
         if: ${{ inputs.action == 'apply' }}
         run: terraform apply -auto-approve -var-file=${{ inputs.tfvars }}
+        working-directory: ${{ inputs.rootFolder }}
+
+      - name: Terraform Output
+        if: ${{ inputs.action == 'apply' }}
+        run: terraform output
         working-directory: ${{ inputs.rootFolder }}
 
       - name: Terraform Destroy
