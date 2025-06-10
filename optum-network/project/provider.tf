@@ -12,6 +12,7 @@ terraform {
     storage_account_name = "mytfstatestorage"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
+    tenant_id            = "188285f7-8f1e-4c0d-a0bc-797e3e38c5b3"
   }
 }
 
