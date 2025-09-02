@@ -35,8 +35,8 @@ resource "azurerm_batch_pool" "pool" {
     wait_for_success = true
     user_identity {
       auto_user {
-        elevation_level = "admin"
-        scope           = "pool"
+        elevation_level = "Admin"
+        scope           = "Pool"
       }
     }
   }
