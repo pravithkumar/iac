@@ -69,7 +69,10 @@ variable "target_low_priority_nodes" {
 variable "start_task_command_line" {
   type = string
 }
+
 variable "subnet_prefix" {
-  type = string
+  type = list(string)
+  default = ["10.0.1.0/24"]
 }
+
 
