@@ -12,6 +12,7 @@ resource "azurerm_batch_pool" "pool" {
   resource_group_name = var.resource_group_name
   account_name        = azurerm_batch_account.batch.name
   vm_size             = var.vm_size
+  node_agent_sku_id   = var.node_agent_sku_id
 
   storage_image_reference {
     publisher = var.image_publisher
@@ -20,13 +21,9 @@ resource "azurerm_batch_pool" "pool" {
     version   = var.image_version
   }
 
-  node_agent_sku_id = var.node_agent_sku_id
-
-  scale_settings {
-    fixed_scale {
-      target_dedicated_nodes    = var.target_dedicated_nodes
-      target_low_priority_nodes = var.target_low_priority_nodes
-    }
+  fixed_scale {
+    target_dedicated_nodes    = var.target_dedicated_nodes
+    target_low_priority_nodes = var.target_low_priority_nodes
   }
 
   network_configuration {
