@@ -1,55 +1,44 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 4.7.0"
-    }
-  }
+resource "azurerm_batch_account" "batch" {
+  name                         = var.batch_account_name
+  location                     = var.location
+  resource_group_name          = var.resource_group_name
+  pool_allocation_mode         = "UserSubscription"
+  public_network_access_enabled = false
 }
 
-
-resource "azurerm_virtual_network" "vnet" {
-  name                = var.vnet_name
-  address_space       = var.vnet_address_space
-  location            = var.location
+resource "azurerm_batch_pool" "pool" {
+  name                = var.pool_name
   resource_group_name = var.resource_group_name
-}
-
-resource "azurerm_subnet" "subnets" {
-  for_each = { for subnet in var.subnets : subnet.name => subnet }
-
-  name                 = each.value.name
-  resource_group_name  = var.resource_group_name
-  virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = each.value.address_prefixes
-  dynamic "delegation" {
-  for_each = each.value.delegations != null ? each.value.delegations : []
-  content {
-    name = delegation.value.name
-    service_delegation {
-      name    = delegation.value.service_name
-      actions = delegation.value.actions
+  account_name        = azurerm_batch_account.batch.name
+  vm_size             = var.vm_size
+  deployment_configuration {
+    virtual_machine_configuration {
+      image_reference {
+        publisher = var.image_publisher
+        offer     = var.image_offer
+        sku       = var.image_sku
+        version   = var.image_version
+      }
+      node_agent_sku_id = var.node_agent_sku_id
     }
   }
- }
-}
-
-resource "azurerm_subnet_network_security_group_association" "nsg_assoc" {
-  for_each = {
-    for subnet in var.subnets : subnet.name => subnet
-    if subnet.nsg_id != null
+  scale_settings {
+    fixed_scale {
+      target_dedicated_nodes    = var.target_dedicated_nodes
+      target_low_priority_nodes = var.target_low_priority_nodes
+    }
   }
-
-  subnet_id                 = azurerm_subnet.subnets[each.key].id
-  network_security_group_id = each.value.nsg_id
-}
-
-resource "azurerm_subnet_route_table_association" "rt_assoc" {
-  for_each = {
-    for subnet in var.subnets : subnet.name => subnet
-    if subnet.route_table_id != null
+  network_configuration {
+    subnet_id = var.subnet_id
   }
-
-  subnet_id      = azurerm_subnet.subnets[each.key].id
-  route_table_id = each.value.route_table_id
+  start_task {
+    command_line     = var.start_task_command_line
+    wait_for_success = true
+    user_identity {
+      auto_user {
+        elevation_level = "admin"
+        scope           = "pool"
+      }
+    }
+  }
 }
