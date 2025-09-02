@@ -1,7 +1,7 @@
-output "vnet_id" {
-  value = azurerm_virtual_network.vnet.id
+output "batch_account_id" {
+  value = azurerm_batch_account.batch.id
 }
 
-output "subnet_ids" {
-  value = { for k, v in azurerm_subnet.subnets : k => v.id }
+output "batch_pool_id" {
+  value = azurerm_batch_pool.pool.id
 }
