@@ -1,13 +1,6 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 4.7.0"
-    }
-  }
-}
 
 module "network" {
+  providers            =  {azurerm = azurerm.integ-nprod-001}
   source              = "../modules/network"
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -18,6 +11,7 @@ module "network" {
 }
 
 module "storage" {
+  providers            =  {azurerm = azurerm.integ-nprod-001}
   source              = "../modules/storage"
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -25,6 +19,7 @@ module "storage" {
 }
 
 module "keyvault" {
+  providers            =  {azurerm = azurerm.integ-nprod-001}
   source              = "../modules/keyvault"
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -32,6 +27,7 @@ module "keyvault" {
 }
 
 module "azurebatch" {
+  providers            =  {azurerm = azurerm.integ-nprod-001}
   source                    = "../modules/azurebatch"
   location                  = var.location
   resource_group_name       = var.resource_group_name
