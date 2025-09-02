@@ -1,19 +1,72 @@
-variable "resource_group_name" {}
-variable "location" {}
-variable "vnet_name" {}
+variable "location" {
+  type = string
+}
+
+variable "resource_group_name" {
+  type = string
+}
+
+variable "vnet_name" {
+  type = string
+}
+
 variable "address_space" {
   type = list(string)
 }
-variable "subnets" {
-  type = list(object({
-    subnet_name      = string
-    subnet_prefix = list(string)
-    nsg_id           = optional(string)
-    route_table_id   = optional(string)
-        delegations = optional(list(object({
-      name          = string
-      service_name  = string
-      actions       = list(string)
-    })))
-  }))
+
+variable "subnet_name" {
+  type = string
 }
+
+variable "storage_account_name" {
+  type = string
+}
+
+variable "key_vault_name" {
+  type = string
+}
+
+variable "batch_account_name" {
+  type = string
+}
+
+variable "pool_name" {
+  type = string
+}
+
+variable "vm_size" {
+  type = string
+}
+
+variable "image_publisher" {
+  type = string
+}
+
+variable "image_offer" {
+  type = string
+}
+
+variable "image_sku" {
+  type = string
+}
+
+variable "image_version" {
+  type = string
+}
+
+variable "node_agent_sku_id" {
+  type = string
+}
+
+variable "target_dedicated_nodes" {
+  type = number
+}
+
+variable "target_low_priority_nodes" {
+  type = number
+}
+
+variable "start_task_command_line" {
+  type = string
+}
+
