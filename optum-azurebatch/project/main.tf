@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 module "network" {
-  source              = "../../modules/network"
+  source              = "../modules/network"
   location            = var.location
   resource_group_name = var.resource_group_name
   vnet_name           = var.vnet_name
@@ -13,21 +13,21 @@ module "network" {
 }
 
 module "storage" {
-  source              = "../../modules/storage"
+  source              = "../modules/storage"
   location            = var.location
   resource_group_name = var.resource_group_name
   storage_account_name = var.storage_account_name
 }
 
 module "keyvault" {
-  source              = "../../modules/keyvault"
+  source              = "../modules/keyvault"
   location            = var.location
   resource_group_name = var.resource_group_name
   key_vault_name      = var.key_vault_name
 }
 
 module "azurebatch" {
-  source                    = "../../modules/azurebatch"
+  source                    = "../modules/azurebatch"
   location                  = var.location
   resource_group_name       = var.resource_group_name
   batch_account_name        = var.batch_account_name
