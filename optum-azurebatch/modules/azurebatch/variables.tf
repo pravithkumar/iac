@@ -12,3 +12,5 @@ variable "target_dedicated_nodes" {}
 variable "target_low_priority_nodes" {}
 variable "subnet_id" {}
 variable "start_task_command_line" {}
+variable "key_vault_id" {}
+variable "key_vault_url" {}
