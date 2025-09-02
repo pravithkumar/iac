@@ -6,8 +6,8 @@ variable "address_space" {
 }
 variable "subnets" {
   type = list(object({
-    name             = string
-    address_prefixes = list(string)
+    subnet_name      = string
+    subnet_prefix = list(string)
     nsg_id           = optional(string)
     route_table_id   = optional(string)
         delegations = optional(list(object({
