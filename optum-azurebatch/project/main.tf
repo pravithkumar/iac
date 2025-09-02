@@ -6,7 +6,7 @@ module "network" {
   resource_group_name = var.resource_group_name
   vnet_name           = var.vnet_name
   address_space       = var.address_space
-  subnets             = var.subnets
+  subnet_name             = var.subnet_name
 }
 
 module "storage" {
