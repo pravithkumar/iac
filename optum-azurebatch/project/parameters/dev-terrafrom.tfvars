@@ -1,9 +1,9 @@
 location                  = "eastus"
 resource_group_name       = "rg-batch"
 vnet_name                 = "vnet-batch"
-address_space             = "10.0.0.0/16"
+address_space             = ["10.0.0.0/16"]
 subnet_name               = "subnet-batch"
-subnet_prefix             = "10.0.1.0/24"
+subnet_prefix             = ["10.0.1.0/24"]
 storage_account_name      = "batchstorageacct"
 key_vault_name            = "batchkv"
 batch_account_name        = "batchacct"
