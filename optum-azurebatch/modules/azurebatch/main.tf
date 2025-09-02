@@ -1,3 +1,4 @@
+
 resource "azurerm_batch_account" "batch" {
   name                         = var.batch_account_name
   location                     = var.location
@@ -11,17 +12,15 @@ resource "azurerm_batch_pool" "pool" {
   resource_group_name = var.resource_group_name
   account_name        = azurerm_batch_account.batch.name
   vm_size             = var.vm_size
-  node_agent_sku_id   = var.node_agent_sku_id
 
-  virtual_machine_configuration {
-    image_reference {
-      publisher = var.image_publisher
-      offer     = var.image_offer
-      sku       = var.image_sku
-      version   = var.image_version
-    }
-    node_agent_sku_id = var.node_agent_sku_id
+  storage_image_reference {
+    publisher = var.image_publisher
+    offer     = var.image_offer
+    sku       = var.image_sku
+    version   = var.image_version
   }
+
+  node_agent_sku_id = var.node_agent_sku_id
 
   scale_settings {
     fixed_scale {
