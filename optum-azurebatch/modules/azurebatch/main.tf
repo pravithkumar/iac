@@ -5,6 +5,11 @@ resource "azurerm_batch_account" "batch" {
   resource_group_name          = var.resource_group_name
   pool_allocation_mode         = "UserSubscription"
   public_network_access_enabled = false
+  key_vault_reference {
+    id = var.key_vault_id
+    url = var.key_vault_url
+  }
+}
 }
 
 resource "azurerm_batch_pool" "pool" {
