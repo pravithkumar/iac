@@ -1,15 +1,14 @@
-
 resource "azurerm_batch_account" "batch" {
-  name                         = var.batch_account_name
-  location                     = var.location
-  resource_group_name          = var.resource_group_name
-  pool_allocation_mode         = "UserSubscription"
+  name                          = var.batch_account_name
+  location                      = var.location
+  resource_group_name           = var.resource_group_name
+  pool_allocation_mode          = "UserSubscription"
   public_network_access_enabled = false
+
   key_vault_reference {
-    id = var.key_vault_id
+    id  = var.key_vault_id
     url = var.key_vault_url
   }
-}
 }
 
 resource "azurerm_batch_pool" "pool" {
@@ -38,6 +37,7 @@ resource "azurerm_batch_pool" "pool" {
   start_task {
     command_line     = var.start_task_command_line
     wait_for_success = true
+
     user_identity {
       auto_user {
         elevation_level = "Admin"
