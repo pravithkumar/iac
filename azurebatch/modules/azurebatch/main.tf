@@ -6,7 +6,7 @@ resource "azurerm_batch_account" "batch" {
   public_network_access_enabled = false
   identity {
     type         = "UserAssigned"
-    identity_ids = [var.user_assigned_identity_id]
+    identity_ids = ["/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.ManagedIdentity/userAssignedIdentities/optum-identity"]
   }
 
   key_vault_reference {
