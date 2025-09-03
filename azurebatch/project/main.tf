@@ -18,13 +18,13 @@ module "storage" {
   storage_account_name = var.storage_account_name
 }
 
-module "keyvault" {
-  providers            =  {azurerm = azurerm.integ-nprod-001}
-  source              = "../modules/keyvault"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  key_vault_name      = var.key_vault_name
-}
+# module "keyvault" {
+#   providers            =  {azurerm = azurerm.integ-nprod-001}
+#   source              = "../modules/keyvault"
+#   location            = var.location
+#   resource_group_name = var.resource_group_name
+#   key_vault_name      = var.key_vault_name
+# }
 
 module "access" {
   source = "../modules/access"
