@@ -17,11 +17,11 @@ resource "azurerm_batch_account" "batch" {
 }
 
 resource "azurerm_batch_pool" "pool" {
-  name                = var.pool_name
+  name                = "testpool"
   resource_group_name = var.resource_group_name
   account_name        = azurerm_batch_account.batch.name
-  vm_size             = "var.vm_size"
-  node_agent_sku_id   = "var.node_agent_sku_id"
+  vm_size             = "Standard_D2_v3"
+  node_agent_sku_id   = "batch.node.windows amd64"
 
   storage_image_reference {    
     publisher = var.image_publisher
