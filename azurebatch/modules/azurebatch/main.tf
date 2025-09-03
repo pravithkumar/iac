@@ -4,6 +4,10 @@ resource "azurerm_batch_account" "batch" {
   resource_group_name           = var.resource_group_name
   pool_allocation_mode          = "UserSubscription"
   public_network_access_enabled = false
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.batch_identity.id]
+  }
 
   key_vault_reference {
     id  = var.key_vault_id
