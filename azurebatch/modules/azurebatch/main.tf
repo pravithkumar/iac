@@ -21,7 +21,7 @@ resource "azurerm_batch_pool" "pool" {
   name                = var.pool_name
   resource_group_name = var.resource_group_name
   account_name        = azurerm_batch_account.batch.name
-  vm_size             = "Standard_D2s_v5"  # ✅ Valid VM size for Batch
+  vm_size             = "Standard_DS1_v2"  # ✅ Valid VM size for Batch
   node_agent_sku_id   = "batch.node.ubuntu 20.04"  # ✅ Compatible with Ubuntu image
 
   storage_image_reference {
