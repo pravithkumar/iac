@@ -1,5 +1,6 @@
 location                  = "eastus"
 resource_group_name       = "optum-delete"
+batch_identity_name       = "optum-identity"
 vnet_name                 = "vnet-batch"
 address_space             = ["10.0.0.0/16"]
 subnet_name               = "subnet-batch"
