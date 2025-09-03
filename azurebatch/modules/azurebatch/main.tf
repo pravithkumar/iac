@@ -7,14 +7,12 @@ resource "azurerm_batch_account" "batch" {
 
   identity {
     type         = "UserAssigned"
-    identity_ids = [
-      "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.ManagedIdentity/userAssignedIdentities/optum-identity"
-    ]
+    identity_ids = [var.user_assigned_identity_id]
   }
 
   key_vault_reference {
-    id  = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.KeyVault/vaults/optum-kv-del-2"
-    url = "https://optum-kv-del-2.vault.azure.net/"
+    id  = var.key_vault_id
+    url = var.key_vault_url
   }
 }
 
