@@ -1,4 +1,3 @@
-
 resource "azurerm_batch_account" "batch" {
   name                          = var.batch_account_name
   location                      = var.location
@@ -8,7 +7,9 @@ resource "azurerm_batch_account" "batch" {
 
   identity {
     type         = "UserAssigned"
-    identity_ids = ["/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.ManagedIdentity/userAssignedIdentities/optum-identity"]
+    identity_ids = [
+      "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.ManagedIdentity/userAssignedIdentities/optum-identity"
+    ]
   }
 
   key_vault_reference {
@@ -22,12 +23,12 @@ resource "azurerm_batch_pool" "pool" {
   resource_group_name = var.resource_group_name
   account_name        = azurerm_batch_account.batch.name
   vm_size             = "Standard_D2_v3"
-  node_agent_sku_id   = "batch.node.ubuntu 20.04"
+  node_agent_sku_id   = "batch.node.windows amd64"
 
   storage_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "20_04-lts"
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2022-datacenter-smalldisk"
     version   = "latest"
   }
 
@@ -37,7 +38,7 @@ resource "azurerm_batch_pool" "pool" {
   }
 
   start_task {
-    command_line     = "/bin/bash -c 'echo Hello'"
+    command_line     = "cmd /c echo Hello from Windows"
     wait_for_success = true
 
     user_identity {
@@ -48,4 +49,3 @@ resource "azurerm_batch_pool" "pool" {
     }
   }
 }
-
