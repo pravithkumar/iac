@@ -44,5 +44,5 @@ module "azurebatch" {
   subnet_id                 = module.network.subnet_id
   start_task_command_line   = var.start_task_command_line
   key_vault_id               = var.key_vault_id
-  key_vault_url              = var.key_vault_uri
+  key_vault_url              = var.key_vault_url
 }
