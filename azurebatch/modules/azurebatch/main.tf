@@ -17,7 +17,7 @@ resource "azurerm_batch_account" "batch" {
 }
 
 resource "azurerm_batch_pool" "pool" {
-  name                = "var.pool_name"
+  name                = var.pool_name
   resource_group_name = var.resource_group_name
   account_name        = azurerm_batch_account.batch.name
   vm_size             = "var.vm_size"
