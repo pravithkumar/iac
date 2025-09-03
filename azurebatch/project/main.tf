@@ -26,6 +26,17 @@ module "keyvault" {
   key_vault_name      = var.key_vault_name
 }
 
+module "access" {
+  source = "../modules/access"
+  providers = { azurerm = azurerm.integ-nprod-001 }
+
+  principal_id        = azurerm_user_assigned_identity.batch_identity.principal_id
+  key_vault_id        = module.keyvault.key_vault_id
+  storage_account_id  = module.storage.storage_account_id
+  resource_group_id   = data.azurerm_resource_group.rg.id
+}
+
+
 module "azurebatch" {
   providers            =  {azurerm = azurerm.integ-nprod-001}
   source                    = "../modules/azurebatch"
