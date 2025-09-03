@@ -19,13 +19,6 @@ module "storage" {
 }
 
 
-module "access" {
-  source = "../modules/access"
-  providers = { azurerm = azurerm.integ-nprod-001 }
-  principal_id        = "a3480609-66ce-4a3d-a25d-ae350e5b1bda"  
-  storage_account_id  = module.storage.storage_account_id
-  resource_group_id   = data.azurerm_resource_group.rg.id
-}
 
 
 module "azurebatch" {
