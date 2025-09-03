@@ -11,7 +11,7 @@ terraform {
     resource_group_name  = "pravith-vm-jump-box"
     storage_account_name = "tfstatemsdn"
     container_name       = "tfstate"
-    key                  = "batch-statefile-optum.tfstate"
+    key                  = "batch-statefile-optum-1.tfstate"
     tenant_id             = "188285f7-8f1e-4c0d-a0bc-797e3e38c5b3"
   }
 }
