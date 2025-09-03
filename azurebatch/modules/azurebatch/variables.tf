@@ -1,0 +1,16 @@
+variable "location" {}
+variable "resource_group_name" {}
+variable "batch_account_name" {}
+variable "pool_name" {}
+variable "vm_size" {}
+variable "image_publisher" {}
+variable "image_offer" {}
+variable "image_sku" {}
+variable "image_version" {}
+variable "node_agent_sku_id" {}
+variable "target_dedicated_nodes" {}
+variable "target_low_priority_nodes" {}
+variable "subnet_id" {}
+variable "start_task_command_line" {}
+variable "key_vault_id" {}
+variable "key_vault_url" {}
