@@ -75,6 +75,10 @@ variable "subnet_prefix" {
   default = ["10.0.1.0/24"]
 }
 
-variable "key_vault_id" {}
-variable "key_vault_url" {}
+variable "key_vault_id" {
+  type = string
+}
+variable "key_vault_url" {
+  type = string
+}
 
