@@ -6,7 +6,7 @@ resource "azurerm_batch_account" "batch" {
   public_network_access_enabled = false
   identity {
     type         = "UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.batch_identity.id]
+    identity_ids = [var.user_assigned_identity_id]
   }
 
   key_vault_reference {
