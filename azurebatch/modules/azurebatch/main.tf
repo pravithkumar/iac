@@ -17,17 +17,17 @@ resource "azurerm_batch_account" "batch" {
 }
 
 resource "azurerm_batch_pool" "pool" {
-  name                = "testpool"
+  name                = "var.pool_name"
   resource_group_name = var.resource_group_name
   account_name        = azurerm_batch_account.batch.name
-  vm_size             = "Standard_D2_v3"
-  node_agent_sku_id   = "batch.node.windows amd64"
+  vm_size             = "var.vm_size"
+  node_agent_sku_id   = "var.node_agent_sku_id"
 
-  storage_image_reference {
-    publisher = "MicrosoftWindowsServer"
-    offer     = "WindowsServer"
-    sku       = "2022-datacenter-smalldisk"
-    version   = "latest"
+  storage_image_reference {    
+    publisher = var.image_publisher
+    offer     = var.image_offer
+    sku       = var.image_sku
+    version   = var.image_version
   }
 
   fixed_scale {
