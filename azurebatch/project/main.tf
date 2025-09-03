@@ -37,6 +37,8 @@ module "azurebatch" {
   target_dedicated_nodes    = var.target_dedicated_nodes
   target_low_priority_nodes = var.target_low_priority_nodes
   subnet_id                 = module.network.subnet_id
-  start_task_command_line   = var.start_task_command_line 
-  user_assigned_identity_id  = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.ManagedIdentity/userAssignedIdentities/optum-identity"
+  start_task_command_line   = var.start_task_command_line
+  key_vault_id              = var.key_vault_id
+  key_vault_url             = var.key_vault_url
+  user_assigned_identity_id  = var.user_assigned_identity_id
 }
