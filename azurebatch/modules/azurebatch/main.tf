@@ -4,7 +4,7 @@ resource "azurerm_batch_account" "batch" {
   location                      = var.location
   resource_group_name           = var.resource_group_name
   pool_allocation_mode          = "UserSubscription"
-  public_network_access_enabled = false
+  public_network_access_enabled = true
 
   identity {
     type         = "UserAssigned"
