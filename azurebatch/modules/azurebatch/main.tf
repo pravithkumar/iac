@@ -1,4 +1,3 @@
-
 resource "azurerm_batch_account" "batch" {
   name                          = var.batch_account_name
   location                      = var.location
@@ -8,40 +7,36 @@ resource "azurerm_batch_account" "batch" {
 
   identity {
     type         = "UserAssigned"
-    identity_ids = ["/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.ManagedIdentity/userAssignedIdentities/optum-identity"]
+    identity_ids = [var.user_assigned_identity_id]
   }
 
   key_vault_reference {
-    id  = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.KeyVault/vaults/optum-kv-del-2"
-    url = "https://optum-kv-del-2.vault.azure.net/"
+    id  = var.key_vault_id
+    url = var.key_vault_url
   }
 }
 
 resource "azurerm_batch_pool" "pool" {
-  name                = var.pool_name
+  name                = "testpool"
   resource_group_name = var.resource_group_name
   account_name        = azurerm_batch_account.batch.name
-  vm_size             = "Standard_DS1_v2"  # ✅ Valid VM size for Batch
-  node_agent_sku_id   = "batch.node.ubuntu 20.04"  # ✅ Compatible with Ubuntu image
+  vm_size             = "Standard_D2_v3"
+  node_agent_sku_id   = "batch.node.windows amd64"
 
-  storage_image_reference {
-    publisher = "Canonical"             # ✅ Correct publisher
-    offer     = "UbuntuServer"          # ✅ Correct offer
-    sku       = "20_04-lts"             # ✅ Correct SKU
-    version   = "latest"                # ✅ Use latest version
+  storage_image_reference {    
+    publisher = var.image_publisher
+    offer     = var.image_offer
+    sku       = var.image_sku
+    version   = var.image_version
   }
 
   fixed_scale {
-    target_dedicated_nodes    = var.target_dedicated_nodes
-    target_low_priority_nodes = var.target_low_priority_nodes
-  }
-
-  network_configuration {
-    subnet_id = var.subnet_id
+    target_dedicated_nodes    = 1
+    target_low_priority_nodes = 0
   }
 
   start_task {
-    command_line     = "/bin/bash -c 'echo Hello from Batch Pool'"  # ✅ Valid shell command
+    command_line     = "cmd /c echo Hello from Windows"
     wait_for_success = true
 
     user_identity {
