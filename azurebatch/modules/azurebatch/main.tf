@@ -18,30 +18,26 @@ resource "azurerm_batch_account" "batch" {
 }
 
 resource "azurerm_batch_pool" "pool" {
-  name                = var.pool_name
+  name                = "testpool"
   resource_group_name = var.resource_group_name
   account_name        = azurerm_batch_account.batch.name
-  vm_size             = "Standard_D2_v3"  
-  node_agent_sku_id   = "batch.node.ubuntu 20.04" 
+  vm_size             = "Standard_D2_v3"
+  node_agent_sku_id   = "batch.node.ubuntu 20.04"
 
   storage_image_reference {
-    publisher = "Canonical"             
-    offer     = "UbuntuServer"       
-    sku       = "20_04-lts"           
-    version   = "latest"           
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "20_04-lts"
+    version   = "latest"
   }
 
   fixed_scale {
-    target_dedicated_nodes    = var.target_dedicated_nodes
-    target_low_priority_nodes = var.target_low_priority_nodes
-  }
-
-  network_configuration {
-    subnet_id = var.subnet_id
+    target_dedicated_nodes    = 1
+    target_low_priority_nodes = 0
   }
 
   start_task {
-    command_line     = "/bin/bash -c 'echo Hello from Batch Pool'" 
+    command_line     = "/bin/bash -c 'echo Hello'"
     wait_for_success = true
 
     user_identity {
@@ -52,3 +48,4 @@ resource "azurerm_batch_pool" "pool" {
     }
   }
 }
+
