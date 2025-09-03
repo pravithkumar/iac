@@ -17,3 +17,5 @@ node_agent_sku_id         = "batch.node.ubuntu 18.04"
 target_dedicated_nodes    = 1
 target_low_priority_nodes = 0
 start_task_command_line   = "/bin/bash -c 'echo Hello Batch'"
+key_vault_id              = ""
+key_vault_url             = ""
