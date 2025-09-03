@@ -81,4 +81,6 @@ variable "key_vault_id" {
 variable "key_vault_url" {
   type = string
 }
-
+variable "batch_identity_name" {
+  type = string
+}
