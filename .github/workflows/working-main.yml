@@ -6,7 +6,7 @@ on:
       rootFolder:
         description: 'Path to Terraform root directory'
         required: true
-        default: 'optum-azurebatch/project'
+        default: 'azurebatch/project'
       tfvars:
         description: 'Path to .tfvars file'
         required: true
