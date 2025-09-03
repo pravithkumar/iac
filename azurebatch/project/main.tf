@@ -56,5 +56,5 @@ module "azurebatch" {
   start_task_command_line   = var.start_task_command_line
   key_vault_id               = var.key_vault_id
   key_vault_url              = var.key_vault_url
-  user_assigned_identity_id  = "a3480609-66ce-4a3d-a25d-ae350e5b1bda"
+  user_assigned_identity_id  = "data.azurerm_user_assigned_identity.batch_identity.id"
 }
