@@ -14,3 +14,4 @@ variable "subnet_id" {}
 variable "start_task_command_line" {}
 variable "key_vault_id" {}
 variable "key_vault_url" {}
+variable "user_assigned_identity_id" {}
