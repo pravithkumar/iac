@@ -56,5 +56,5 @@ module "azurebatch" {
   start_task_command_line   = var.start_task_command_line
   key_vault_id               = var.key_vault_id
   key_vault_url              = var.key_vault_url
-  user_assigned_identity_id  = "data.azurerm_user_assigned_identity.batch_identity.id"
+  user_assigned_identity_id  = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.ManagedIdentity/userAssignedIdentities/optum-identity"
 }
