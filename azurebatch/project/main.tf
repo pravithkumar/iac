@@ -43,6 +43,6 @@ module "azurebatch" {
   target_low_priority_nodes = var.target_low_priority_nodes
   subnet_id                 = module.network.subnet_id
   start_task_command_line   = var.start_task_command_line
-  key_vault_id               = var.keyvault.id
+  key_vault_id               = var.key_vault_id
   key_vault_url              = var.keyvault.vault_uri
 }
