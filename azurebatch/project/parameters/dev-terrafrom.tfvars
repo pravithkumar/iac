@@ -17,6 +17,6 @@ node_agent_sku_id         = "batch.node.ubuntu 18.04"
 target_dedicated_nodes    = 1
 target_low_priority_nodes = 0
 start_task_command_line   = "/bin/bash -c 'echo Hello Batch'"
-key_vault_id  = "/subscriptions/xxxx/resourceGroups/rg-name/providers/Microsoft.KeyVault/vaults/your-keyvault"
-key_vault_url = "https://your-keyvault.vault.azure.net/"
+key_vault_id  = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.KeyVault/vaults/optum-kv-del-2"
+key_vault_url = "https://optum-kv-del-2.vault.azure.net/"
 
