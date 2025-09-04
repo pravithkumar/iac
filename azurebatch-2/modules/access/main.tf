@@ -7,5 +7,5 @@ resource "azurerm_role_assignment" "umi_kv_access" {
 resource "azurerm_role_assignment" "batch_spn_kv_access" {
   scope                = var.key_vault_id
   role_definition_name = "Key Vault Secrets User"
-  principal_id         = "e4c6a7f3-4020-45c5-a7c2-1f7b3f5c1a10"
+  principal_id         = "06d82036-5a43-4d4a-8203-a07095cb42bb"
 }
