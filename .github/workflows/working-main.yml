@@ -6,7 +6,7 @@ on:
       rootFolder:
         description: 'Path to Terraform root directory'
         required: true
-        default: 'azurebatch/project'
+        default: 'azurebatch-2/project'
       tfvars:
         description: 'Path to .tfvars file'
         required: true
