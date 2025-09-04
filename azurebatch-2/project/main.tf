@@ -6,7 +6,6 @@ module "kv_access" {
 
 
 module "azurebatch" {
-  providers            =  {azurerm = azurerm.integ-nprod-001}
   source                    = "../modules/azurebatch"
   location                  = var.location
   resource_group_name       = var.resource_group_name
