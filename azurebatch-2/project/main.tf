@@ -1,8 +1,3 @@
-module "kv_access" {
-  source                             = "../modules/access"
-  key_vault_id                       = var.key_vault_id
-  user_assigned_identity_object_id  = var.user_assigned_identity_object_id
-}
 
 
 module "azurebatch" {
