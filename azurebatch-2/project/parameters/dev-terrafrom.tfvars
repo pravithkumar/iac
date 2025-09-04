@@ -12,8 +12,8 @@ node_agent_sku_id         = "batch.node.windows amd64"
 target_dedicated_nodes    = 1
 target_low_priority_nodes = 0
 start_task_command_line   = "/bin/bash -c 'echo Hello Batch'"
-key_vault_id  = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete-2/providers/Microsoft.KeyVault/vaults/optum-kv-del-3"
-key_vault_url = "https://optum-kv-del-3.vault.azure.net/"
+key_vault_id  = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.KeyVault/vaults/optum-kv-del-2"
+key_vault_url = "https://optum-kv-del-2.vault.azure.net/"
 user_assigned_identity_id = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.ManagedIdentity/userAssignedIdentities/optum-identity"
 
 user_assigned_identity_object_id = "57fb74ea-84f3-42da-a16f-90ba7cfcecc4"
