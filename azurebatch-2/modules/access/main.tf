@@ -7,14 +7,8 @@ resource "azurerm_key_vault_access_policy" "umi_policy" {
 
   key_permissions = [
     "Get",
-    "List",
-    "Set",
-    "Delete",
-    "Recover",
-    "Backup",
-    "Restore",
-    "Purge"
-  ]
+    "List"    
+   ]
 }
 
 resource "azurerm_key_vault_access_policy" "batch_spn_policy" {
@@ -24,13 +18,7 @@ resource "azurerm_key_vault_access_policy" "batch_spn_policy" {
 
   key_permissions = [
     "Get",
-    "List",
-    "Set",
-    "Delete",
-    "Recover",
-    "Backup",
-    "Restore",
-    "Purge"
+    "List"    
   ]
 }
 
