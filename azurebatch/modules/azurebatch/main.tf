@@ -37,7 +37,7 @@ resource "azurerm_batch_pool" "pool" {
   }
 
   start_task {
-    command_line     = "cmd /c echo Hello from Windows"
+    command_line     = "/bin/bash -c \"echo Hello from Batch Pool\""
     wait_for_success = true
 
     user_identity {
