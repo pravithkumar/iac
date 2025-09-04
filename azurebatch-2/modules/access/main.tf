@@ -6,9 +6,9 @@ resource "azurerm_key_vault_access_policy" "umi_policy" {
   object_id    = var.user_assigned_identity_object_id
 
   key_permissions = [
-    "get",
-    "wrapKey",
-    "unwrapKey"
+    "Get",
+    "WrapKey",
+    "UnwrapKey"
   ]
 }
 
@@ -18,9 +18,9 @@ resource "azurerm_key_vault_access_policy" "batch_spn_policy" {
   object_id    = "06d82036-5a43-4d4a-8203-a07095cb42bb"
 
   key_permissions = [
-    "get",
-    "wrapKey",
-    "unwrapKey"
+    "Get",
+    "WrapKey",
+    "UnwrapKey"
   ]
 }
 
