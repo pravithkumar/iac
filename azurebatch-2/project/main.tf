@@ -19,8 +19,7 @@ module "azurebatch" {
   image_version             = var.image_version
   node_agent_sku_id         = var.node_agent_sku_id
   target_dedicated_nodes    = var.target_dedicated_nodes
-  target_low_priority_nodes = var.target_low_priority_nodes
-  subnet_id                 = module.network.subnet_id
+  target_low_priority_nodes = var.target_low_priority_nodes 
   start_task_command_line   = var.start_task_command_line
   key_vault_id              = var.key_vault_id
   key_vault_url             = var.key_vault_url
