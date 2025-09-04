@@ -1,0 +1,24 @@
+location                  = "eastus"
+resource_group_name       = "optum-delete"
+batch_identity_name       = "optum-identity"
+vnet_name                 = "vnet-batch"
+address_space             = ["10.0.0.0/16"]
+subnet_name               = "subnet-batch"
+subnet_prefix             = ["10.0.1.0/24"]
+storage_account_name      = "optumstgdel"
+key_vault_name            = "optum-kv-del-2"
+batch_account_name        = "batchacct1"
+pool_name                 = "testpool"
+vm_size                   = "Standard_D2_v3"
+image_publisher           = "MicrosoftWindowsServer"
+image_offer               = "WindowsServer"
+image_sku                 = "2022-datacenter-smalldisk"
+image_version             = "latest"
+node_agent_sku_id         = "batch.node.windows amd64"
+target_dedicated_nodes    = 1
+target_low_priority_nodes = 0
+start_task_command_line   = "/bin/bash -c 'echo Hello Batch'"
+key_vault_id  = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.KeyVault/vaults/optum-kv-del-2"
+key_vault_url = "https://optum-kv-del-2.vault.azure.net/"
+user_assigned_identity_id = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.ManagedIdentity/userAssignedIdentities/optum-identity"
+
