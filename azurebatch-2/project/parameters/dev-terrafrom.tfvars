@@ -1,7 +1,6 @@
 location                  = "eastus"
 resource_group_name       = "optum-delete-2"
 batch_identity_name       = "optum-identity-3"
-key_vault_name            = "optum-kv-del-3"
 batch_account_name        = "batchacct1"
 pool_name                 = "testpool"
 vm_size                   = "Standard_D2_v3"
