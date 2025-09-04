@@ -22,3 +22,4 @@ key_vault_id  = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGro
 key_vault_url = "https://optum-kv-del-2.vault.azure.net/"
 user_assigned_identity_id = "/subscriptions/795783af-96d3-4629-9161-58de5577ed1e/resourceGroups/optum-delete/providers/Microsoft.ManagedIdentity/userAssignedIdentities/optum-identity"
 
+user_assigned_identity_object_id = "d3f1c2e4-1234-5678-9abc-def012345678"
