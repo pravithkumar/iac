@@ -1,20 +1,11 @@
-
-resource "azurerm_role_assignment" "storage_access" {
-  scope                = var.storage_account_id
-  role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = var.principal_id
+resource "azurerm_role_assignment" "umi_kv_access" {
+  scope                = var.key_vault_id
+  role_definition_name = "Key Vault Secrets User"
+  principal_id         = var.user_assigned_identity_object_id
 }
 
-resource "azurerm_role_assignment" "rg_access" {
-  scope                = var.resource_group_id
-  role_definition_name = "Contributor"
-  principal_id         = var.principal_id
-}
-
-data "azurerm_subscription" "current" {}
-
-resource "azurerm_role_assignment" "subscription_access" {
-  scope                = data.azurerm_subscription.current.id
-  role_definition_name = "Contributor"
-  principal_id         = var.principal_id
+resource "azurerm_role_assignment" "batch_spn_kv_access" {
+  scope                = var.key_vault_id
+  role_definition_name = "Key Vault Secrets User"
+  principal_id         = "e4c6a7f3-4020-45c5-a7c2-1f7b3f5c1a10"
 }
