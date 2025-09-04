@@ -6,26 +6,6 @@ variable "resource_group_name" {
   type = string
 }
 
-variable "vnet_name" {
-  type = string
-}
-
-variable "address_space" {
-  type = list(string)
-}
-
-variable "subnet_name" {
-  type = string
-}
-
-variable "storage_account_name" {
-  type = string
-}
-
-variable "key_vault_name" {
-  type = string
-}
-
 variable "batch_account_name" {
   type = string
 }
@@ -70,10 +50,6 @@ variable "start_task_command_line" {
   type = string
 }
 
-variable "subnet_prefix" {
-  type = list(string)
-  default = ["10.0.1.0/24"]
-}
 
 variable "key_vault_id" {
   type = string

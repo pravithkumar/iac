@@ -1,23 +1,4 @@
 
-module "network" {
-  providers            =  {azurerm = azurerm.integ-nprod-001}
-  source              = "../modules/network"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  vnet_name           = var.vnet_name
-  address_space       = var.address_space
-  subnet_name             = var.subnet_name
-  subnet_prefix           =var.subnet_prefix
-}
-
-module "storage" {
-  providers            =  {azurerm = azurerm.integ-nprod-001}
-  source              = "../modules/storage"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  storage_account_name = var.storage_account_name
-}
-
 
 
 
