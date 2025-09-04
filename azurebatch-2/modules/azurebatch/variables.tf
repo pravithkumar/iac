@@ -10,7 +10,6 @@ variable "image_version" {}
 variable "node_agent_sku_id" {}
 variable "target_dedicated_nodes" {}
 variable "target_low_priority_nodes" {}
-variable "subnet_id" {}
 variable "start_task_command_line" {}
 variable "user_assigned_identity_id" {}
 variable "key_vault_id" {}
