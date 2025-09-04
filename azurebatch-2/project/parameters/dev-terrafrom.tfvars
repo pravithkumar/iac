@@ -1,11 +1,6 @@
 location                  = "eastus"
 resource_group_name       = "optum-delete-2"
 batch_identity_name       = "optum-identity-3"
-vnet_name                 = "vnet-batch"
-address_space             = ["10.0.0.0/16"]
-subnet_name               = "subnet-batch"
-subnet_prefix             = ["10.0.1.0/24"]
-storage_account_name      = "optumstgdel"
 key_vault_name            = "optum-kv-del-3"
 batch_account_name        = "batchacct1"
 pool_name                 = "testpool"
