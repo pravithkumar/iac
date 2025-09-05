@@ -3,6 +3,10 @@ name: Deploy Terraform Infrastructure optum branch
 on:
   workflow_dispatch:
     inputs:
+      branch:
+        description: 'Git branch to deploy from'
+        required: true
+        default: 'feature/optum'
       rootFolder:
         description: 'Path to Terraform root directory'
         required: true
@@ -29,6 +33,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
 
       - name: Azure Login
         uses: azure/login@v2
