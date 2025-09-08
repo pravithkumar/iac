@@ -1,4 +1,4 @@
-name: Deploy Terraform Infrastructure 2
+name: Deploy Terraform Infrastructure main 2
 
 on:
   workflow_dispatch:
